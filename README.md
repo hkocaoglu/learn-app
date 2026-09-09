@@ -196,6 +196,13 @@ Supabase'te email doğrulama açıksa kayıt sonrasında doğrulama bağlantıs�
 gerekir. Migration çalıştırılmadan kayıt trigger'ı ve profil oluşturma akışı
 çalışmayacaktır.
 
+Öğretmen giriş ekranındaki **Parolamı unuttum** bağlantısı Supabase Auth ile
+parola sıfırlama e-postası gönderir. Bağlantıdaki yeni parola ekranında parola
+güncellenir. Bunun çalışması için Supabase **Authentication → URL Configuration**
+ekranındaki **Redirect URLs** listesine uygulamanın adresini ekleyin; örneğin
+`https://learn-app-livid.vercel.app` ve yerel geliştirme için
+`http://localhost:5173`.
+
 Bu aşamada mevcut test ve sonuç ekranlarının eski localStorage akışı tamamen
 cloud repository'ye taşınmamıştır. Cloud atama akışı, seçilen testi assignment
 oluşturulurken Supabase'e aktarır.

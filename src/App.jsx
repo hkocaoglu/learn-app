@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { AuthProvider, useAuth } from './auth/AuthProvider.jsx'
 import { StoreProvider, useStore } from './state/store.jsx'
 import AuthScreen from './ui/screens/AuthScreen.jsx'
+import PasswordResetScreen from './ui/screens/PasswordResetScreen.jsx'
 
 import HomeScreen from './ui/screens/HomeScreen.jsx'
 import StudentsScreen from './ui/screens/StudentsScreen.jsx'
@@ -104,7 +105,7 @@ function AppShell() {
 }
 
 function AuthenticatedApp() {
-  const { isCloudMode, loading, user } = useAuth()
+  const { isCloudMode, loading, user, passwordRecovery } = useAuth()
 
   if (loading) {
     return (
@@ -116,6 +117,7 @@ function AuthenticatedApp() {
     )
   }
 
+  if (isCloudMode && passwordRecovery) return <PasswordResetScreen />
   if (isCloudMode && !user) return <AuthScreen />
   if (user?.user_metadata?.role === 'student') return <StudentPortalScreen />
 

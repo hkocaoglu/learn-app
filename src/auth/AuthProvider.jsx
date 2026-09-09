@@ -7,10 +7,19 @@ const AuthContext = createContext(null)
 const unavailableError = () =>
   new Error('Supabase yapılandırılmamış. VITE_SUPABASE_URL ve VITE_SUPABASE_PUBLISHABLE_KEY tanımlayın.')
 
+const hasPasswordRecoveryCallback = () => {
+  if (typeof window === 'undefined') return false
+
+  const searchParams = new URLSearchParams(window.location.search)
+  const hashParams = new URLSearchParams(window.location.hash.replace(/^#/, ''))
+  return searchParams.get('type') === 'recovery' || hashParams.get('type') === 'recovery'
+}
+
 export function AuthProvider({ children }) {
   const [session, setSession] = useState(null)
   const [loading, setLoading] = useState(isSupabaseConfigured)
   const [sessionError, setSessionError] = useState('')
+  const [passwordRecovery, setPasswordRecovery] = useState(hasPasswordRecoveryCallback)
 
   useEffect(() => {
     if (!supabase) {
@@ -35,11 +44,12 @@ export function AuthProvider({ children }) {
 
     const {
       data: { subscription }
-    } = supabase.auth.onAuthStateChange((_event, nextSession) => {
+    } = supabase.auth.onAuthStateChange((event, nextSession) => {
       if (!mounted) return
       setSession(nextSession)
       setLoading(false)
       setSessionError('')
+      if (event === 'PASSWORD_RECOVERY') setPasswordRecovery(true)
     })
 
     return () => {
@@ -88,6 +98,30 @@ export function AuthProvider({ children }) {
     })
   }, [])
 
+  const resetPasswordForEmail = useCallback(async ({ email }) => {
+    if (!supabase) return { data: {}, error: unavailableError() }
+
+    const options = {}
+    if (typeof window !== 'undefined') {
+      options.redirectTo = window.location.origin
+    }
+
+    return supabase.auth.resetPasswordForEmail(String(email).trim(), options)
+  }, [])
+
+  const updatePassword = useCallback(async (password) => {
+    if (!supabase) return { data: { user: null }, error: unavailableError() }
+    return supabase.auth.updateUser({ password })
+  }, [])
+
+  const completePasswordRecovery = useCallback(() => {
+    setPasswordRecovery(false)
+    if (typeof window === 'undefined') return
+
+    const cleanUrl = `${window.location.pathname}${window.location.search}`
+    window.history.replaceState(null, document.title, cleanUrl)
+  }, [])
+
   const signOut = useCallback(async () => {
     if (!supabase) return { error: unavailableError() }
     return supabase.auth.signOut()
@@ -100,12 +134,28 @@ export function AuthProvider({ children }) {
       session,
       user: session?.user || null,
       sessionError,
+      passwordRecovery,
       signIn,
       signInStudent,
       signUp,
+      resetPasswordForEmail,
+      updatePassword,
+      completePasswordRecovery,
       signOut
     }),
-    [loading, session, sessionError, signIn, signInStudent, signUp, signOut]
+    [
+      loading,
+      session,
+      sessionError,
+      passwordRecovery,
+      signIn,
+      signInStudent,
+      signUp,
+      resetPasswordForEmail,
+      updatePassword,
+      completePasswordRecovery,
+      signOut
+    ]
   )
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
