@@ -143,6 +143,37 @@ Bu ilk backend katmanı yalnızca AI anahtarını korur. Öğrenci, test ve sonu
 verileri mevcut davranış korunarak tarayıcı `localStorage` alanında tutulmaya
 devam eder. Merkezi kullanıcı hesabı/veritabanı gerektiğinde ayrıca eklenebilir.
 
+## ☁️ Supabase cloud veri altyapısı (kurulum hazırlığı)
+
+Öğretmen hesapları, sınıflar, öğrenciler, test atamaları ve sonuçlar için
+Supabase PostgreSQL şeması hazırlanmıştır. Migration dosyası:
+
+```text
+supabase/migrations/20260909140000_initial_schema.sql
+```
+
+Kurulum:
+
+1. Supabase'te yeni bir proje oluşturun.
+2. Supabase **SQL Editor** ekranında migration dosyasının tamamını çalıştırın.
+3. Supabase **Authentication → Providers → Email** bölümünde email/password
+   girişini etkinleştirin.
+4. Vercel'de şu public frontend değişkenlerini tanımlayın:
+   - `VITE_SUPABASE_URL`
+   - `VITE_SUPABASE_ANON_KEY`
+5. Yalnızca serverless function'lar için şu secret değişkenlerini tanımlayın:
+   - `SUPABASE_URL`
+   - `SUPABASE_SERVICE_ROLE_KEY`
+
+`SUPABASE_SERVICE_ROLE_KEY` kesinlikle `VITE_` ile başlamamalı ve frontend
+koduna gönderilmemelidir. Bu anahtar RLS kurallarını aşabildiği için sadece
+Vercel Functions ortamında tutulmalıdır.
+
+Bu aşamada migration ve Supabase client altyapısı hazırdır; mevcut ekranlar
+henüz otomatik olarak cloud veritabanına geçirilmemiştir. Sonraki fazda
+öğretmen kayıt/giriş ekranı, sınıf ve öğrenci yönetimi, öğrenci kodu + PIN
+girişi, test atama ve localStorage aktarım akışı bağlanacaktır.
+
 ## 🚀 Çalıştırma
 
 Gereksinim: [Node.js](https://nodejs.org) 18+
@@ -202,7 +233,9 @@ src/
   domain/report.js            kural tabanlı eksik-konu raporu
   ai/client.js                OpenAI-uyumlu AI istemci (arayüz)
   ai/prompts.js               Türkçe AI prompt şablonu
+  lib/supabase.js             Supabase browser client yapılandırması
 api/ai/report.js               Vercel Serverless Function, OpenRouter proxy
+supabase/migrations/…          PostgreSQL tabloları ve RLS politikaları
   state/store.jsx             React context + storage senkronu
   ui/screens/…                ekranlar
   ui/components/…             ortak bileşenler
