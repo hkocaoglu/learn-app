@@ -85,6 +85,16 @@ body {
   color: var(--primary-dark);
 }
 
+.nav-disabled {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 10px;
+  color: var(--gray-500);
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: not-allowed;
+}
+
 .content {
   flex: 1;
   width: 100%;
@@ -1569,6 +1579,61 @@ tr:hover td {
   flex-wrap: wrap;
 }
 
+.admin-kpis {
+  margin-bottom: 16px;
+}
+
+.admin-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 16px;
+}
+
+.admin-filter {
+  display: flex;
+  align-items: flex-end;
+  gap: 10px;
+}
+
+.admin-filter label {
+  min-width: 48px;
+  margin-bottom: 8px;
+}
+
+.admin-filter input {
+  max-width: 440px;
+}
+
+.admin-table-card {
+  padding: 0;
+  overflow: hidden;
+}
+
+.admin-table-scroll {
+  overflow-x: auto;
+}
+
+.admin-detail-summary {
+  color: var(--primary-dark);
+  cursor: pointer;
+  font-size: 0.82rem;
+}
+
+.admin-json {
+  max-width: 420px;
+  max-height: 260px;
+  margin: 8px 0 0;
+  padding: 10px;
+  overflow: auto;
+  border-radius: 8px;
+  background: var(--gray-900);
+  color: #e2e8f0;
+  font-size: 0.75rem;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
 .muted {
   color: var(--gray-500);
 }
@@ -1678,6 +1743,19 @@ tr:hover td {
   .dashboard-summary-actions .btn {
     flex: 1;
     justify-content: center;
+  }
+
+  .admin-filter {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .admin-filter label {
+    margin-bottom: -4px;
+  }
+
+  .admin-filter input {
+    max-width: none;
   }
 
   .dashboard-kpis {

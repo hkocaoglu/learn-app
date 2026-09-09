@@ -7,7 +7,7 @@ import Modal from '../components/Modal.jsx'
 
 export default function SettingsScreen() {
   const { db, settings, actions, isCloudMode } = useStore()
-  const { user } = useAuth()
+  const { user, isAdmin } = useAuth()
   const { threshold, ai } = settings
   const backupRef = useRef(null)
   const [restoreMsg, setRestoreMsg] = useState(null)
@@ -86,6 +86,18 @@ export default function SettingsScreen() {
   const resetSeed = () => {
     resetToSeed(user?.id || '')
     window.location.reload()
+  }
+
+  if (!isAdmin) {
+    return (
+      <div className="card empty">
+        <h2>Admin yetkisi gerekli</h2>
+        <p>Ayarlar yalnızca admin hesabı üzerinden yönetilebilir.</p>
+        <a className="btn btn-primary" href="#/">
+          Ana sayfaya dön
+        </a>
+      </div>
+    )
   }
 
   return (

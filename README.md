@@ -153,6 +153,7 @@ supabase/migrations/20260909140000_initial_schema.sql
 supabase/migrations/20260909153500_relax_student_login_code_check.sql
 supabase/migrations/20260909160000_shared_question_bank.sql
 supabase/migrations/20260909164000_require_nonempty_assignment_tests.sql
+supabase/migrations/20260909173000_admin_console.sql
 ```
 
 Kurulum:
@@ -162,8 +163,8 @@ Kurulum:
    çalıştırın. İlk migration daha önce çalıştırıldıysa
    `20260909153500_relax_student_login_code_check.sql` ve
    `20260909160000_shared_question_bank.sql` ile
-   `20260909164000_require_nonempty_assignment_tests.sql` dosyalarını
-   çalıştırmanız yeterlidir.
+   `20260909164000_require_nonempty_assignment_tests.sql` ile
+   `20260909173000_admin_console.sql` dosyalarını çalıştırmanız yeterlidir.
 3. Supabase Authentication ayarlarında email/password girişi varsayılan olarak
    etkindir. Email doğrulama davranışını **Authentication → Providers** (bazı
    dashboard sürümlerinde **Auth Providers**) ekranından kontrol edin.
@@ -206,6 +207,40 @@ güncellenir. Bunun çalışması için Supabase **Authentication → URL Config
 ekranındaki **Redirect URLs** listesine uygulamanın adresini ekleyin; örneğin
 `https://learn-app-livid.vercel.app` ve yerel geliştirme için
 `http://localhost:5173`.
+
+### Admin hesabı ve admin paneli
+
+Öğretmen hesapları için **Ayarlar** menüsü pasif tutulur. Admin hesabı
+`#/admin` menüsünden öğretmenleri, sınıfları, öğrencileri, soru bankasını,
+testleri, atamaları ve sonuçları salt okunur olarak görebilir; admin ayarlarına
+da yalnızca bu menüdeki **Admin Ayarları** bağlantısından ulaşabilir.
+
+Admin rolü public kayıt formundan verilemez. Güvenli kurulum sırası:
+
+1. Normal kayıt formundan admin olarak kullanılacak e-posta hesabını oluşturun.
+2. Supabase **SQL Editor** ekranında aşağıdaki sorguda e-posta adresini değiştirip
+   çalıştırın:
+
+   ```sql
+   update public.profiles
+   set role = 'admin'
+   where id = (
+     select id
+     from auth.users
+     where lower(email) = lower('admin@okulunuz.com')
+   );
+   ```
+
+   `email` alanı eski profiller için admin migration'ı tarafından
+   `auth.users` tablosundan doldurulur. Sorgu `0 rows` döndürürse önce hesabın
+   oluşturulduğunu ve `20260909173000_admin_console.sql` migration'ının
+   çalıştırıldığını kontrol edin.
+3. Admin hesabıyla yeniden giriş yapın. Üst menüde **Admin** bağlantısı
+   görünecektir.
+
+Admin görünürlüğü yalnızca frontend kontrolüne dayanmaz. Admin migration'ı
+`profiles.role` değerini genişletir, öğretmenlerin kendi rollerini yükseltmesini
+engeller ve tüm admin okuma yetkilerini Supabase RLS politikalarıyla sınırlar.
 
 Cloud öğretmen oturumunda sınıflar, öğrenciler, soru bankası, testler ve sonuçlar
 giriş yapan öğretmenin `auth.uid()` değeriyle sınırlandırılır. Soru bankasındaki

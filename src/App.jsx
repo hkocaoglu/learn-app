@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { AuthProvider, useAuth } from './auth/AuthProvider.jsx'
-import { StoreProvider, useStore } from './state/store.jsx'
+import { StoreProvider, useStore, go } from './state/store.jsx'
 import AuthScreen from './ui/screens/AuthScreen.jsx'
 import PasswordResetScreen from './ui/screens/PasswordResetScreen.jsx'
 
@@ -14,14 +14,18 @@ import ExamScreen from './ui/screens/ExamScreen.jsx'
 import ResultsScreen from './ui/screens/ResultsScreen.jsx'
 import ReportsScreen from './ui/screens/ReportsScreen.jsx'
 import SettingsScreen from './ui/screens/SettingsScreen.jsx'
+import AdminScreen from './ui/screens/AdminScreen.jsx'
 import ClassesScreen from './ui/screens/ClassesScreen.jsx'
 import AssignmentsScreen from './ui/screens/AssignmentsScreen.jsx'
 import StudentPortalScreen from './ui/screens/StudentPortalScreen.jsx'
 
 function Router() {
   const { route } = useStore()
+  const { isAdmin } = useAuth()
   const [page, param1, param2] = route
   const action = param2 ? `${param1}/${param2}` : param1
+
+  if (isAdmin && !page) return <AdminScreen />
 
   switch (page) {
     case 'ogrenciler':
@@ -47,14 +51,28 @@ function Router() {
     case 'rapor':
       return <ReportsScreen studentId={param1} />
     case 'ayarlar':
-      return <SettingsScreen />
+      return isAdmin ? <SettingsScreen /> : <AdminOnlyNotice />
+    case 'admin':
+      return isAdmin ? <AdminScreen /> : <AdminOnlyNotice />
     default:
       return <HomeScreen />
   }
 }
 
+function AdminOnlyNotice() {
+  return (
+    <div className="card empty">
+      <h2>Admin yetkisi gerekli</h2>
+      <p>Ayarlar ve admin menüsü yalnızca admin hesabı tarafından kullanılabilir.</p>
+      <button className="btn btn-primary" onClick={() => go('/')}>
+        Ana sayfaya dön
+      </button>
+    </div>
+  )
+}
+
 function AppShell() {
-  const { isCloudMode, user, signOut } = useAuth()
+  const { isCloudMode, user, isAdmin, signOut } = useAuth()
   const [signOutError, setSignOutError] = useState('')
 
   const handleSignOut = async () => {
@@ -66,24 +84,33 @@ function AppShell() {
   return (
     <div className="app-shell">
       <nav className="topnav">
-        <span className="brand" onClick={() => (window.location.hash = '#/')}>
+        <span className="brand" onClick={() => (window.location.hash = isAdmin ? '#/admin' : '#/')}>
           🎓 Sınıf Test
         </span>
         <div className="nav-links">
-          <a href="#/">Ana Sayfa</a>
-          <a href="#/testler">Testler</a>
-          <a href="#/banka">Soru Bankası</a>
-          <a href="#/siniflar">Sınıflar</a>
-          <a href="#/atamalar">Test Atama</a>
-          <a href="#/ogrenciler">Öğrenciler</a>
-          <a href="#/sonuclar">Sonuçlar</a>
-          <a href="#/raporlar">Raporlar</a>
-          <a href="#/ayarlar">Ayarlar</a>
+          {isAdmin ? (
+            <a href="#/admin">⚙ Admin</a>
+          ) : (
+            <>
+              <a href="#/">Ana Sayfa</a>
+              <a href="#/testler">Testler</a>
+              <a href="#/banka">Soru Bankası</a>
+              <a href="#/siniflar">Sınıflar</a>
+              <a href="#/atamalar">Test Atama</a>
+              <a href="#/ogrenciler">Öğrenciler</a>
+              <a href="#/sonuclar">Sonuçlar</a>
+              <a href="#/raporlar">Raporlar</a>
+              <span className="nav-disabled" title="Ayarlar yalnızca admin hesabına açıktır">
+                ⚙ Ayarlar 🔒
+              </span>
+            </>
+          )}
           {isCloudMode && user && (
             <span className="account-area">
               <span className="account-email" title={user.email}>
                 {user.email}
               </span>
+              {isAdmin && <span className="badge badge-primary">Admin</span>}
               <button className="btn btn-sm" type="button" onClick={handleSignOut}>
                 Çıkış
               </button>
@@ -98,7 +125,7 @@ function AppShell() {
       <footer className="app-footer">
         {isCloudMode
           ? 'Hesabınız Supabase ile korunuyor. Sınıf, öğrenci, soru, test ve sonuç verileri cloud store üzerinde tutulur.'
-          : 'Veriler bu cihazda (tarayıcıda) saklanır. Yedek almak için Ayarlar > Veri Yedekleme.'}
+          : 'Veriler bu cihazda (tarayıcıda) saklanır. Ayar ve yönetim ekranları yalnızca admin hesabına açıktır.'}
       </footer>
     </div>
   )

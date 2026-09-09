@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from 'react'
+import { useAuth } from '../../auth/AuthProvider.jsx'
 import { useStore, go } from '../../state/store.jsx'
 import { subjectLabel, topicLabel, gradeLabel, formatDate, formatSeconds, SUBJECTS } from '../../domain/model.js'
 import { aggregateStudentTopics, aggregateStudentAll, aggregateBySubject, attemptDurationStats } from '../../domain/scoring.js'
@@ -8,6 +9,7 @@ import { ScoreBar } from '../components/ScoreBar.jsx'
 
 export default function ReportsScreen({ studentId: routeStudentId }) {
   const { db, settings, actions } = useStore()
+  const { isAdmin } = useAuth()
   const [studentId, setStudentId] = useState(routeStudentId || '')
   const [reportFor, setReportFor] = useState(null) // { rule, ai, aiLoading, aiError, date }
   const [subjectFilter, setSubjectFilter] = useState('')
@@ -271,8 +273,14 @@ export default function ReportsScreen({ studentId: routeStudentId }) {
               <div className="alert alert-warning">
                 <strong>AI raporu oluşturulamadı:</strong> {reportFor.aiError}
                 <div className="small mt-8">
-                  Kural tabanlı rapor geçerlidir. AI kullanmak için <a href="#/ayarlar">Ayarlar &gt; AI</a> bölümünden
-                  geçerli bir API anahtarı tanımlayın.
+                  {isAdmin ? (
+                    <>
+                      Kural tabanlı rapor geçerlidir. AI kullanmak için{' '}
+                      <a href="#/ayarlar">Admin Ayarları &gt; AI</a> bölümünden geçerli bir API anahtarı tanımlayın.
+                    </>
+                  ) : (
+                    'Kural tabanlı rapor geçerlidir. AI yapılandırması admin hesabı tarafından yönetilir.'
+                  )}
                 </div>
               </div>
             </div>

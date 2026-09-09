@@ -18,6 +18,8 @@ const hasPasswordRecoveryCallback = () => {
 export function AuthProvider({ children }) {
   const [session, setSession] = useState(null)
   const [loading, setLoading] = useState(isSupabaseConfigured)
+  const [profileLoading, setProfileLoading] = useState(false)
+  const [profile, setProfile] = useState(null)
   const [sessionError, setSessionError] = useState('')
   const [passwordRecovery, setPasswordRecovery] = useState(hasPasswordRecoveryCallback)
 
@@ -36,6 +38,7 @@ export function AuthProvider({ children }) {
       if (error) {
         setSessionError(error.message)
       }
+      setProfileLoading(Boolean(data?.session?.user?.id))
       setSession(data?.session || null)
       setLoading(false)
     }
@@ -46,6 +49,7 @@ export function AuthProvider({ children }) {
       data: { subscription }
     } = supabase.auth.onAuthStateChange((event, nextSession) => {
       if (!mounted) return
+      setProfileLoading(Boolean(nextSession?.user?.id))
       setSession(nextSession)
       setLoading(false)
       setSessionError('')
@@ -57,6 +61,37 @@ export function AuthProvider({ children }) {
       subscription.unsubscribe()
     }
   }, [])
+
+  useEffect(() => {
+    if (!supabase || !session?.user?.id) {
+      setProfile(null)
+      setProfileLoading(false)
+      return undefined
+    }
+
+    let active = true
+    const loadProfile = async () => {
+      const { data, error } = await supabase
+        .from('profiles')
+        .select('id, role, email, full_name, school_name, created_at, updated_at')
+        .eq('id', session.user.id)
+        .maybeSingle()
+
+      if (!active) return
+      if (error) {
+        setSessionError(`Profil yüklenemedi: ${error.message}`)
+        setProfile(null)
+      } else {
+        setProfile(data || null)
+      }
+      setProfileLoading(false)
+    }
+
+    loadProfile()
+    return () => {
+      active = false
+    }
+  }, [session?.user?.id])
 
   const signIn = useCallback(async ({ email, password }) => {
     if (!supabase) return { data: { user: null, session: null }, error: unavailableError() }
@@ -127,12 +162,19 @@ export function AuthProvider({ children }) {
     return supabase.auth.signOut()
   }, [])
 
+  const user = session?.user || null
+  const role = profile?.role || (user?.user_metadata?.role === 'student' ? 'student' : user ? 'teacher' : null)
+  const isAdmin = role === 'admin'
+
   const value = useMemo(
     () => ({
       isCloudMode: isSupabaseConfigured,
-      loading,
+      loading: loading || profileLoading,
       session,
-      user: session?.user || null,
+      user,
+      profile,
+      role,
+      isAdmin,
       sessionError,
       passwordRecovery,
       signIn,
@@ -145,7 +187,12 @@ export function AuthProvider({ children }) {
     }),
     [
       loading,
+      profileLoading,
       session,
+      user,
+      profile,
+      role,
+      isAdmin,
       sessionError,
       passwordRecovery,
       signIn,
