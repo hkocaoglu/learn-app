@@ -187,10 +187,30 @@ Variables** bölümüne aynı değerleri ekleyin. Bu bölüm görünmüyorsa Ver
 hesabında projeye erişim yetkisini veya açılan dashboard'un gerçekten Vercel
 olduğunu kontrol edin.
 
-Bu aşamada migration ve Supabase client altyapısı hazırdır; mevcut ekranlar
-henüz otomatik olarak cloud veritabanına geçirilmemiştir. Sonraki fazda
-öğretmen kayıt/giriş ekranı, sınıf ve öğrenci yönetimi, öğrenci kodu + PIN
-girişi, test atama ve localStorage aktarım akışı bağlanacaktır.
+Öğretmen e-posta/parola kayıt ve giriş ekranı Supabase Auth'a bağlanmıştır.
+Supabase'te email doğrulama açıksa kayıt sonrasında doğrulama bağlantısı
+gerekir. Migration çalıştırılmadan kayıt trigger'ı ve profil oluşturma akışı
+çalışmayacaktır.
+
+Bu aşamada mevcut test ve sonuç ekranlarının eski localStorage akışı tamamen
+cloud repository'ye taşınmamıştır. Cloud atama akışı, seçilen testi assignment
+oluşturulurken Supabase'e aktarır.
+
+Sınıf yönetimi ve öğretmen tarafında öğrenci oluşturma akışı da Supabase'e
+bağlanmıştır. `Sınıflar` ekranından sınıf oluşturabilir, `Öğrenciler`
+ekranından okul numarası + ad + soyad ile öğrenci hesabı oluşturabilirsiniz.
+Öğrenci hesabı için üretilen giriş kodu ve dört haneli PIN yalnızca oluşturma
+ve PIN yenileme yanıtında gösterilir.
+
+Öğrenci hesabı oluşturma endpoint'inin çalışması için Vercel'de
+`SUPABASE_URL` ve `SUPABASE_SECRET_KEY` tanımlı olmalıdır. Secret key yalnızca
+`api/students/provision.js` gibi serverless function'larda kullanılır; PIN
+plaintext olarak veritabanına yazılmaz.
+
+`Test Atama` ekranında sınıf ve test seçerek başlangıç/bitiş zamanı belirlenebilir.
+İlk sürümde her öğrenci bir atama için yalnızca bir deneme yapabilir. Öğrenciler
+giriş yaptıktan sonra `Öğrenci` sekmesinden yayınlanmış testlerini görür; cevaplar
+ve sonuçlar `attempts` tablosuna RLS üzerinden kaydedilir.
 
 ## 🚀 Çalıştırma
 

@@ -60,6 +60,11 @@ body {
   white-space: nowrap;
 }
 
+.badge-primary {
+  background: var(--primary-light);
+  color: var(--primary-dark);
+}
+
 .nav-links {
   display: flex;
   gap: 4px;
@@ -95,6 +100,277 @@ body {
   padding: 16px;
   border-top: 1px solid var(--gray-200);
   background: #fff;
+}
+
+/* ---------- Kimlik doğrulama ---------- */
+.auth-page {
+  display: grid;
+  place-items: center;
+  min-height: 100vh;
+  padding: 24px 16px;
+  background:
+    radial-gradient(circle at top left, rgba(219, 234, 254, 0.8), transparent 42%),
+    var(--gray-100);
+}
+
+.auth-card {
+  width: 100%;
+  max-width: 460px;
+  padding: 28px;
+  border: 1px solid var(--gray-200);
+  border-radius: 16px;
+  background: #fff;
+  box-shadow: 0 16px 40px rgba(15, 23, 42, 0.12);
+}
+
+.auth-brand {
+  margin-bottom: 16px;
+  color: var(--primary-dark);
+  font-size: 1.1rem;
+  font-weight: 800;
+}
+
+.auth-role-switch {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 18px;
+}
+
+.auth-role-switch .btn {
+  flex: 1;
+  justify-content: center;
+}
+
+.auth-card h1 {
+  margin-bottom: 6px;
+}
+
+.auth-card .subtitle {
+  margin-bottom: 22px;
+}
+
+.auth-submit {
+  width: 100%;
+  justify-content: center;
+  margin-top: 4px;
+}
+
+.auth-switch {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  margin-top: 20px;
+  color: var(--gray-500);
+  font-size: 0.88rem;
+  text-align: center;
+}
+
+.auth-loading {
+  color: var(--gray-700);
+  text-align: center;
+}
+
+.account-area {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-left: 4px;
+  padding-left: 8px;
+  border-left: 1px solid var(--gray-200);
+}
+
+.account-email {
+  max-width: 190px;
+  overflow: hidden;
+  color: var(--gray-500);
+  font-size: 0.78rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.class-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 14px;
+}
+
+.class-card {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 16px;
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius);
+  background: #fff;
+  box-shadow: var(--shadow);
+}
+
+.class-card-heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.class-card-heading h3 {
+  margin: 0 0 7px;
+  font-size: 1.1rem;
+}
+
+.class-card-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  background: var(--primary-light);
+  font-size: 1.1rem;
+}
+
+.class-card-meta {
+  min-height: 2.5em;
+  color: var(--gray-500);
+  font-size: 0.84rem;
+}
+
+.credential-card {
+  border-color: #86efac;
+  background: linear-gradient(135deg, #f0fdf4, #fff);
+}
+
+.credential-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin: 14px 0;
+}
+
+.credential-grid > div {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  padding: 12px;
+  border: 1px solid #bbf7d0;
+  border-radius: 8px;
+  background: #fff;
+}
+
+.credential-grid strong {
+  font-size: 1.15rem;
+  letter-spacing: 0.08em;
+}
+
+.credential-label {
+  color: var(--gray-500);
+  font-size: 0.78rem;
+  font-weight: 600;
+}
+
+.student-shell {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background: var(--gray-100);
+}
+
+.student-topnav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 12px 20px;
+  border-bottom: 1px solid var(--gray-200);
+  background: #fff;
+}
+
+.student-account {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.student-content {
+  flex: 1;
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 28px 20px 60px;
+}
+
+.student-portal-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.student-assignment-list {
+  display: grid;
+  gap: 12px;
+}
+
+.student-assignment-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 18px;
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius);
+  background: #fff;
+  box-shadow: var(--shadow);
+}
+
+.student-assignment-main {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  min-width: 0;
+}
+
+.student-assignment-main h2 {
+  margin-bottom: 8px;
+}
+
+.student-assignment-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  flex-shrink: 0;
+  border-radius: 10px;
+  background: var(--primary-light);
+  font-size: 1.2rem;
+}
+
+.student-assignment-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.student-assignment-action {
+  display: flex;
+  align-items: flex-end;
+  flex-direction: column;
+  gap: 8px;
+  flex-shrink: 0;
+  text-align: right;
+}
+
+.student-result-card {
+  text-align: center;
+}
+
+.student-result-score {
+  margin: 8px 0;
+  color: var(--primary-dark);
+  font-size: 3rem;
+  font-weight: 800;
 }
 
 /* ---------- Genel bileşenler ---------- */
@@ -195,6 +471,8 @@ h2 {
 input[type='text'],
 input[type='number'],
 input[type='password'],
+input[type='email'],
+input[type='datetime-local'],
 input[type='url'],
 select,
 textarea {
@@ -897,6 +1175,7 @@ tr:hover td {
   display: flex;
   align-items: center;
   gap: 12px;
+  width: 100%;
   padding: 10px 14px;
   border: 2px solid var(--gray-200);
   border-radius: 8px;
@@ -904,6 +1183,9 @@ tr:hover td {
   cursor: pointer;
   transition: border-color 0.15s, background 0.15s;
   background: #fff;
+  color: var(--gray-900);
+  font: inherit;
+  text-align: left;
 }
 
 .answer-option:hover {
@@ -1343,8 +1625,38 @@ tr:hover td {
     align-items: flex-start;
   }
 
+  .student-topnav {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
   .content {
     padding: 16px 12px 40px;
+  }
+
+  .student-content {
+    padding: 20px 12px 40px;
+  }
+
+  .student-portal-head,
+  .student-assignment-card {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .student-assignment-action {
+    align-items: flex-start;
+    width: 100%;
+    text-align: left;
+  }
+
+  .student-assignment-action .btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .credential-grid {
+    grid-template-columns: 1fr;
   }
 
   .dashboard-hero,

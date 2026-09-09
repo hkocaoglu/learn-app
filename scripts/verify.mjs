@@ -5,6 +5,7 @@ import { scoreAttempt, aggregateStudentTopics, aggregateStudentAll, attemptDurat
 import { computeDeficiencies, buildRuleReport } from '../src/domain/report.js'
 import { normalizeTest, validateTest, validateQuestion } from '../src/domain/model.js'
 import { createAIClient, OPENROUTER_DEFAULTS, PROVIDERS } from '../src/ai/client.js'
+import { normalizeStudentPart, studentCodeBase, studentAuthEmail } from '../src/domain/studentAuth.js'
 import vercelReportHandler from '../api/ai/report.js'
 
 // --- localStorage stub ---
@@ -118,6 +119,11 @@ console.log('\n5) Backup import/export')
 const backup = exportBackup({ ...seed, students: [{ id: 's1', name: 'Ayşe', grade: 1 }], attempts: [], aiReports: {} })
 const restored = importBackup(backup)
 check('Backup geri yükleniyor', restored.students.length === 1 && restored.tests.length === 12)
+
+console.log('\n5b) Öğrenci giriş kimliği')
+check('Türkçe karakterler öğrenci kodunda normalize ediliyor', normalizeStudentPart('İpek Şahin') === 'ipeksahin')
+check('Öğrenci kodu okul no ve baş harflerden oluşuyor', studentCodeBase('12', 'Ayşe', 'Çelik') === '12ac')
+check('Öğrenci Auth e-postası deterministik', studentAuthEmail('12ac') === '12ac@students.sinif-test.local')
 
 console.log('\n6) AI sağlayıcıları')
 const openRouter = PROVIDERS.find((provider) => provider.id === 'openrouter')

@@ -1,11 +1,19 @@
 import { useMemo, useState } from 'react'
+import { useAuth } from '../../auth/AuthProvider.jsx'
 import { useStore, go } from '../../state/store.jsx'
 import { GRADES, gradeLabel } from '../../domain/model.js'
 import { aggregateStudentAll } from '../../domain/scoring.js'
 import { ScoreBar } from '../components/ScoreBar.jsx'
 import Modal from '../components/Modal.jsx'
+import CloudStudentsScreen from './CloudStudentsScreen.jsx'
 
 export default function StudentsScreen() {
+  const { isCloudMode } = useAuth()
+  if (isCloudMode) return <CloudStudentsScreen />
+  return <LocalStudentsScreen />
+}
+
+function LocalStudentsScreen() {
   const { db, actions } = useStore()
   const [showAdd, setShowAdd] = useState(false)
   const [name, setName] = useState('')
