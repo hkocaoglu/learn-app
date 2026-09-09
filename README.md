@@ -156,18 +156,36 @@ Kurulum:
 
 1. Supabase'te yeni bir proje oluşturun.
 2. Supabase **SQL Editor** ekranında migration dosyasının tamamını çalıştırın.
-3. Supabase **Authentication → Providers → Email** bölümünde email/password
-   girişini etkinleştirin.
+3. Supabase Authentication ayarlarında email/password girişi varsayılan olarak
+   etkindir. Email doğrulama davranışını **Authentication → Providers** (bazı
+   dashboard sürümlerinde **Auth Providers**) ekranından kontrol edin.
 4. Vercel'de şu public frontend değişkenlerini tanımlayın:
    - `VITE_SUPABASE_URL`
-   - `VITE_SUPABASE_ANON_KEY`
+   - `VITE_SUPABASE_PUBLISHABLE_KEY` (`sb_publishable_...`)
 5. Yalnızca serverless function'lar için şu secret değişkenlerini tanımlayın:
    - `SUPABASE_URL`
-   - `SUPABASE_SERVICE_ROLE_KEY`
+   - `SUPABASE_SECRET_KEY` (`sb_secret_...`)
 
-`SUPABASE_SERVICE_ROLE_KEY` kesinlikle `VITE_` ile başlamamalı ve frontend
+`SUPABASE_SECRET_KEY` kesinlikle `VITE_` ile başlamamalı ve frontend
 koduna gönderilmemelidir. Bu anahtar RLS kurallarını aşabildiği için sadece
 Vercel Functions ortamında tutulmalıdır.
+
+Supabase'in yeni dashboard'ında **Settings → API Keys** altında:
+
+- `Publishable key` frontend için güvenlidir ve `VITE_SUPABASE_PUBLISHABLE_KEY`
+  olarak kullanılır.
+- `Secret key` yalnızca backend içindir ve `SUPABASE_SECRET_KEY` olarak
+  kullanılır.
+- Proje URL'sini Supabase **Connect** dialog'undan alabilirsiniz.
+
+Eski projelerde görülen `anon` ve `service_role` anahtarları legacy isimlerdir;
+yeni projelerde publishable/secret key adlarını kullanın.
+
+Not: **API Keys / JWT Keys** ekranı Supabase ekranıdır; Vercel environment
+variable ekranı değildir. Vercel'de ilgili projeyi açıp **Settings → Environment
+Variables** bölümüne aynı değerleri ekleyin. Bu bölüm görünmüyorsa Vercel
+hesabında projeye erişim yetkisini veya açılan dashboard'un gerçekten Vercel
+olduğunu kontrol edin.
 
 Bu aşamada migration ve Supabase client altyapısı hazırdır; mevcut ekranlar
 henüz otomatik olarak cloud veritabanına geçirilmemiştir. Sonraki fazda
