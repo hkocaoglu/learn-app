@@ -2,6 +2,15 @@ import { buildPrompt } from '../../src/ai/prompts.js'
 
 const OPENROUTER_URL = 'https://openrouter.ai/api/v1/chat/completions'
 const DEFAULT_MODEL = 'openai/gpt-4o-mini'
+const DEFAULT_SITE_NAME = 'Sinif Test'
+
+const toHeaderValue = (value, fallback) => {
+  const sanitized = String(value || '')
+    .normalize('NFKD')
+    .replace(/[^\x00-\x7F]/g, '')
+    .trim()
+  return sanitized || fallback
+}
 
 const sendJson = (res, status, body) => {
   res.status(status).json(body)
@@ -74,9 +83,10 @@ export default async function handler(req, res) {
   const headers = {
     'Content-Type': 'application/json',
     Authorization: `Bearer ${apiKey}`,
-    'X-OpenRouter-Title': process.env.OPENROUTER_SITE_NAME || 'Sınıf Test'
+    'X-OpenRouter-Title': toHeaderValue(process.env.OPENROUTER_SITE_NAME, DEFAULT_SITE_NAME)
   }
-  if (process.env.OPENROUTER_SITE_URL) headers['HTTP-Referer'] = process.env.OPENROUTER_SITE_URL
+  const siteUrl = toHeaderValue(process.env.OPENROUTER_SITE_URL, '')
+  if (siteUrl) headers['HTTP-Referer'] = siteUrl
 
   let upstream
   try {

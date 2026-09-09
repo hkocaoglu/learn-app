@@ -188,6 +188,10 @@ if (previousModel === undefined) delete process.env.OPENROUTER_MODEL
 else process.env.OPENROUTER_MODEL = previousModel
 check('Vercel function OpenRouter endpointine bağlanıyor', serverRequest?.url === 'https://openrouter.ai/api/v1/chat/completions')
 check('Vercel function anahtarı sunucu tarafında kullanıyor', serverRequest?.options?.headers?.Authorization === 'Bearer test-key')
+check(
+  'Vercel function header değerlerini ASCII gönderiyor',
+  /^[\x00-\x7F]*$/.test(serverRequest?.options?.headers?.['X-OpenRouter-Title'] || '')
+)
 check('Vercel function yanıtı dönüyor', response.statusCode === 200 && serverResponse?.text === 'Backend test yanıtı')
 
 console.log(failures === 0 ? '\nTÜM TESTLER GEÇTİ' : `\n${failures} TEST BAŞARISIZ`)
