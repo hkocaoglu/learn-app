@@ -157,9 +157,11 @@ export default function TestEditorScreen({ id }) {
           <button className="btn" onClick={() => downloadTestJson(active)}>
             ⬇ JSON İndir
           </button>
-          <button className="btn btn-primary" onClick={() => go(`/sinav/${active.id}`)}>
-            ▶ Testi Uygula
-          </button>
+          {active.questions.length > 0 && (
+            <button className="btn btn-primary" onClick={() => go(`/sinav/${active.id}`)}>
+              ▶ Testi Uygula
+            </button>
+          )}
         </div>
       </div>
 

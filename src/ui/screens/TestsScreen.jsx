@@ -261,9 +261,13 @@ export default function TestsScreen() {
                   </td>
                   <td>
                     <div className="row-actions" style={{ justifyContent: 'flex-end' }}>
-                      <button className="btn btn-sm btn-primary" onClick={() => go(`/sinav/${t.id}`)}>
-                        ▶ Uygula
-                      </button>
+                      {t.questions.length > 0 ? (
+                        <button className="btn btn-sm btn-primary" onClick={() => go(`/sinav/${t.id}`)}>
+                          ▶ Uygula
+                        </button>
+                      ) : (
+                        <span className="muted small">Önce soru ekleyin</span>
+                      )}
                       <button className="btn btn-sm" onClick={() => go(`/test/${t.id}`)}>
                         ✎ Düzenle
                       </button>

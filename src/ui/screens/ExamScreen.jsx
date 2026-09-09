@@ -127,7 +127,7 @@ export default function ExamScreen({ id }) {
 
   // Sınav zamanlayıcısı: öğrenci seçildiğinde başlar, bitince durur
   useEffect(() => {
-    if (!studentId || finishedRef.current) return
+    if (!studentId || finishedRef.current || !test?.questions?.length) return
     if (!startRef.current) {
       startRef.current = Date.now()
       segmentStartRef.current = Date.now()
@@ -140,7 +140,7 @@ export default function ExamScreen({ id }) {
         // süre doldu → otomatik teslim
         clearInterval(iv)
         setTimeUp(true)
-        submitRef.current(true)
+        submitRef.current?.(true)
       }
     }, 1000)
     return () => clearInterval(iv)
@@ -178,6 +178,22 @@ export default function ExamScreen({ id }) {
     return (
       <div className="card empty">
         Test bulunamadı. <a href="#/testler">Testlere dön</a>
+      </div>
+    )
+  }
+
+  if (test.questions.length === 0) {
+    return (
+      <div className="card empty">
+        <p>Bu testte henüz soru yok; öğrenciye uygulanamaz.</p>
+        <div className="row-actions" style={{ justifyContent: 'center' }}>
+          <button className="btn" onClick={() => go('/testler')}>
+            Testlere dön
+          </button>
+          <button className="btn btn-primary" onClick={() => go(`/test/${test.id}`)}>
+            Soru ekle
+          </button>
+        </div>
       </div>
     )
   }

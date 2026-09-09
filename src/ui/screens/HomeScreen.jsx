@@ -73,7 +73,9 @@ export default function HomeScreen() {
   }, [db, threshold])
 
   const tests = db.tests
-  const filtered = tests.filter((test) => test.grade === Number(grade) && test.subject === subject)
+  const filtered = tests.filter(
+    (test) => test.grade === Number(grade) && test.subject === subject && test.questions.length > 0
+  )
   const bankCount = db.bank.filter((question) => question.grade === Number(grade) && question.subject === subject).length
 
   const startTest = (id) => go(`/sinav/${id}`)
@@ -170,8 +172,8 @@ export default function HomeScreen() {
 
           {filtered.length === 0 ? (
             <div className="empty dashboard-empty">
-              <strong>Bu sınıf ve ders için test yok.</strong>
-              <span className="small">Yeni bir test oluşturarak hemen başlayabilirsiniz.</span>
+              <strong>Bu sınıf ve ders için sorulu test yok.</strong>
+              <span className="small">Yeni bir test oluşturup en az bir soru ekleyerek başlayabilirsiniz.</span>
               <button className="btn btn-primary" onClick={() => go(`/testler?grade=${grade}&subject=${subject}`)}>
                 + Test Oluştur
               </button>
