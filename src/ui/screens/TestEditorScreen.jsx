@@ -40,6 +40,7 @@ export default function TestEditorScreen({ id }) {
   const [bankSelected, setBankSelected] = useState({})
   const [errors, setErrors] = useState([])
   const [savedNotice, setSavedNotice] = useState(false)
+  const [saving, setSaving] = useState(false)
 
   // Test (veya dışarıdan değişen id) değiştiğinde taslağı senkronize et
   useEffect(() => {
@@ -75,17 +76,24 @@ export default function TestEditorScreen({ id }) {
 
   const update = (patch) => setDraft({ ...active, ...patch })
 
-  const persist = () => {
+  const persist = async () => {
     const errs = validateTest({ ...active })
     setErrors(errs)
     if (errs.length) return
-    actions.updateTest(active.id, {
-      title: active.title,
-      durationMinutes: active.durationMinutes,
-      questions: active.questions
-    })
-    setSavedNotice(true)
-    setTimeout(() => setSavedNotice(false), 3500)
+    setSaving(true)
+    try {
+      await actions.updateTest(active.id, {
+        title: active.title,
+        durationMinutes: active.durationMinutes,
+        questions: active.questions
+      })
+      setSavedNotice(true)
+      setTimeout(() => setSavedNotice(false), 3500)
+    } catch (caughtError) {
+      setErrors([caughtError.message])
+    } finally {
+      setSaving(false)
+    }
   }
 
   const saveQuestion = (q) => {
@@ -192,8 +200,8 @@ export default function TestEditorScreen({ id }) {
           </div>
         </div>
         <div className="row-actions">
-          <button className="btn btn-primary" onClick={persist}>
-            💾 Kaydet
+          <button className="btn btn-primary" onClick={persist} disabled={saving}>
+            {saving ? 'Kaydediliyor…' : '💾 Kaydet'}
           </button>
           <button className="btn" onClick={() => setAddingNew((v) => !v)}>
             + Soru Ekle (Elle)

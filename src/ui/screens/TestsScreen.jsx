@@ -36,6 +36,8 @@ export default function TestsScreen() {
   const [newTitle, setNewTitle] = useState('')
   const [showNew, setShowNew] = useState(false)
   const [notice, setNotice] = useState('')
+  const [actionError, setActionError] = useState('')
+  const [saving, setSaving] = useState(false)
 
   useEffect(() => {
     if (!notice) return
@@ -51,7 +53,7 @@ export default function TestsScreen() {
     [db.tests, grade, subject]
   )
 
-  const createNewTest = () => {
+  const createNewTest = async () => {
     const g = grade || 1
     const s = subject || 'matematik'
     const test = {
@@ -62,11 +64,20 @@ export default function TestsScreen() {
       createdAt: nowIso(),
       questions: []
     }
-    actions.addTest(test)
-    go(`/test/${test.id}`)
+    setSaving(true)
+    setActionError('')
+    try {
+      const savedId = await actions.addTest(test)
+      go(`/test/${savedId}`)
+    } catch (caughtError) {
+      setActionError(caughtError.message)
+    } finally {
+      setSaving(false)
+    }
   }
 
-  const generateReadyTest = () => {
+  const generateReadyTest = async () => {
+    setActionError('')
     const g = grade || 1
     const s = subject || 'matematik'
     const pool = db.bank.filter((q) => q.grade === g && q.subject === s)
@@ -96,8 +107,29 @@ export default function TestsScreen() {
       createdAt: nowIso(),
       questions: picked.map((q) => ({ ...q }))
     }
-    actions.addTest(test)
-    setNotice(`"${test.title}" oluşturuldu.`)
+    setSaving(true)
+    try {
+      await actions.addTest(test)
+      setNotice(`"${test.title}" oluşturuldu.`)
+    } catch (caughtError) {
+      setActionError(caughtError.message)
+    } finally {
+      setSaving(false)
+    }
+  }
+
+  const removeTest = async (test) => {
+    if (!confirm(`"${test.title}" testi ve sonuçları silinsin mi?`)) return
+    setActionError('')
+    setSaving(true)
+    try {
+      await actions.deleteTest(test.id)
+      setNotice(`"${test.title}" silindi.`)
+    } catch (caughtError) {
+      setActionError(caughtError.message)
+    } finally {
+      setSaving(false)
+    }
   }
 
   return (
@@ -124,6 +156,7 @@ export default function TestsScreen() {
       </div>
 
       {notice && <div className="alert alert-info">{notice}</div>}
+      {actionError && <div className="alert alert-error">{actionError}</div>}
 
       <div className="filter-bar card" style={{ marginBottom: 18 }}>
         <div>
@@ -148,7 +181,7 @@ export default function TestsScreen() {
             ))}
           </select>
         </div>
-        <button className="btn btn-success" onClick={generateReadyTest}>
+        <button className="btn btn-success" onClick={generateReadyTest} disabled={saving}>
           ⚡ Hazır Test Üret (Bankadan)
         </button>
       </div>
@@ -181,8 +214,8 @@ export default function TestsScreen() {
               <label>Başlık (opsiyonel)</label>
               <input type="text" value={newTitle} onChange={(e) => setNewTitle(e.target.value)} placeholder="Otomatik başlık kullanılır" />
             </div>
-            <button className="btn btn-primary" onClick={createNewTest} style={{ marginBottom: 2 }}>
-              Oluştur ve Düzenle
+            <button className="btn btn-primary" onClick={createNewTest} style={{ marginBottom: 2 }} disabled={saving}>
+              {saving ? 'Kaydediliyor…' : 'Oluştur ve Düzenle'}
             </button>
           </div>
         </div>
@@ -239,9 +272,8 @@ export default function TestsScreen() {
                       </button>
                       <button
                         className="btn btn-sm btn-danger"
-                        onClick={() => {
-                          if (confirm(`"${t.title}" testi ve sonuçları silinsin mi?`)) actions.deleteTest(t.id)
-                        }}
+                        onClick={() => removeTest(t)}
+                        disabled={saving}
                       >
                         Sil
                       </button>

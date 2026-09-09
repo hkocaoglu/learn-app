@@ -1,9 +1,14 @@
-// localStorage tabanlı veri katmanı: tüm uygulama verisini tek anahtarda tutar.
+// localStorage tabanlı veri katmanı: yerel modda ortak, cloud modda kullanıcı kapsamlı anahtar kullanır.
 import { SEED_QUESTIONS } from '../data/seedQuestions.js'
 import { normalizeTest, normalizeQuestion, nowIso, uid, GRADES, SUBJECTS } from '../domain/model.js'
 
 const DB_KEY = 'learn_app_db_v1'
 const META_KEY = 'learn_app_meta_v1'
+
+const scopedKey = (key, scope = '') => {
+  const normalizedScope = String(scope || '').trim().replace(/[^a-zA-Z0-9_-]/g, '_')
+  return normalizedScope ? `${key}_${normalizedScope}` : key
+}
 
 const emptyDB = () => ({
   version: 1,
@@ -15,9 +20,9 @@ const emptyDB = () => ({
 })
 
 // ---------- okuma/yazma ----------
-export function loadDB() {
+export function loadDB(scope = '') {
   try {
-    const raw = localStorage.getItem(DB_KEY)
+    const raw = localStorage.getItem(scopedKey(DB_KEY, scope))
     if (!raw) return null
     const db = JSON.parse(raw)
     return { ...emptyDB(), ...db }
@@ -27,10 +32,10 @@ export function loadDB() {
   }
 }
 
-export function saveDB(db) {
+export function saveDB(db, scope = '') {
   try {
-    localStorage.setItem(DB_KEY, JSON.stringify(db))
-    localStorage.setItem(META_KEY, JSON.stringify({ savedAt: nowIso() }))
+    localStorage.setItem(scopedKey(DB_KEY, scope), JSON.stringify(db))
+    localStorage.setItem(scopedKey(META_KEY, scope), JSON.stringify({ savedAt: nowIso() }))
   } catch (e) {
     console.error('Veri kaydedilemedi:', e)
     throw new Error('Tarayıcı deposu dolu veya erişilemiyor. Veri kaydedilemedi.')
@@ -70,19 +75,19 @@ export function buildSeed() {
   return db
 }
 
-export function seedIfEmpty() {
-  const existing = loadDB()
+export function seedIfEmpty(scope = '') {
+  const existing = loadDB(scope)
   if (existing && existing.version) {
     return existing // veri zaten var
   }
   const seeded = buildSeed()
-  saveDB(seeded)
+  saveDB(seeded, scope)
   return seeded
 }
 
-export function resetToSeed() {
+export function resetToSeed(scope = '') {
   const seeded = buildSeed()
-  saveDB(seeded)
+  saveDB(seeded, scope)
   return seeded
 }
 
@@ -106,7 +111,7 @@ export function exportBackup(db) {
   )
 }
 
-export function importBackup(json) {
+export function importBackup(json, scope = '') {
   const parsed = JSON.parse(json)
   if (!parsed || parsed.kind !== 'backup' || !parsed.data)
     throw new Error('Geçersiz yedek dosyası: kind "backup" olmalı.')
@@ -118,12 +123,12 @@ export function importBackup(json) {
     next.bank = data.bank.map((q) => normalizeQuestion(q, q.grade, q.subject))
   if (Array.isArray(data.attempts)) next.attempts = data.attempts
   if (data.aiReports && typeof data.aiReports === 'object') next.aiReports = data.aiReports
-  saveDB(next)
+  saveDB(next, scope)
   return next
 }
 
 // ---------- yardımcılar ----------
-export const storageKey = () => DB_KEY
+export const storageKey = (scope = '') => scopedKey(DB_KEY, scope)
 export const downloadJSON = (filename, json) => {
   const blob = new Blob([json], { type: 'application/json' })
   const url = URL.createObjectURL(blob)

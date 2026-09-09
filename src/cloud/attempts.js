@@ -34,6 +34,7 @@ export const submitStudentAttempt = async ({
     questionText: detail.question.text,
     options: detail.question.options,
     image: detail.question.image || '',
+    subject: test.subject,
     topic: detail.topic,
     selected: detail.selected,
     correctIndex: detail.question.correctIndex,

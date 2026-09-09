@@ -51,6 +51,7 @@ create table if not exists public.question_bank (
   correct_index integer not null check (correct_index >= 0),
   explanation text not null default '',
   image text not null default '',
+  is_shared boolean not null default false,
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now(),
   check (jsonb_typeof(options) = 'array')
@@ -315,6 +316,10 @@ create policy question_bank_teacher_all on public.question_bank
 for all using (teacher_id = auth.uid() and public.is_teacher())
 with check (teacher_id = auth.uid() and public.is_teacher());
 
+drop policy if exists question_bank_shared_read on public.question_bank;
+create policy question_bank_shared_read on public.question_bank
+for select using (is_shared = true and public.is_teacher());
+
 drop policy if exists tests_teacher_all on public.tests;
 create policy tests_teacher_all on public.tests
 for all using (teacher_id = auth.uid() and public.is_teacher())
@@ -351,6 +356,17 @@ for select using (
 drop policy if exists attempts_teacher_read on public.attempts;
 create policy attempts_teacher_read on public.attempts
 for select using (teacher_id = auth.uid() and public.is_teacher());
+
+drop policy if exists attempts_teacher_insert on public.attempts;
+create policy attempts_teacher_insert on public.attempts
+for insert with check (
+  teacher_id = auth.uid()
+  and public.is_teacher()
+);
+
+drop policy if exists attempts_teacher_delete on public.attempts;
+create policy attempts_teacher_delete on public.attempts
+for delete using (teacher_id = auth.uid() and public.is_teacher());
 
 drop policy if exists attempts_student_own on public.attempts;
 create policy attempts_student_own on public.attempts

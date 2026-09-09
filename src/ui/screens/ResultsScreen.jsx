@@ -8,9 +8,21 @@ import ReviewSummary from '../components/ReviewSummary.jsx'
 export default function ResultsScreen({ attemptId: routeAttemptId }) {
   const { db, actions } = useStore()
   const [subjectFilter, setSubjectFilter] = useState('')
+  const [actionError, setActionError] = useState('')
   const attemptId = routeAttemptId || null
 
   const studentName = (id) => db.students.find((s) => s.id === id)?.name || '(silinmiş öğrenci)'
+
+  const deleteResult = async (id) => {
+    setActionError('')
+    try {
+      await actions.deleteAttempt(id)
+      return true
+    } catch (caughtError) {
+      setActionError(caughtError.message)
+      return false
+    }
+  }
 
   const rows = useMemo(() => {
     return db.attempts
@@ -31,10 +43,10 @@ export default function ResultsScreen({ attemptId: routeAttemptId }) {
       <AttemptDetail
         attempt={attempt}
         studentName={studentName(attempt.studentId)}
+        actionError={actionError}
         onBack={() => go('/sonuclar')}
-        onDelete={() => {
-          actions.deleteAttempt(attempt.id)
-          go('/sonuclar')
+        onDelete={async () => {
+          if (await deleteResult(attempt.id)) go('/sonuclar')
         }}
       />
     )
@@ -47,6 +59,7 @@ export default function ResultsScreen({ attemptId: routeAttemptId }) {
           <h1>Sonuçlar</h1>
           <div className="subtitle">Çözülen tüm testlerin öğrenci bazlı kayıtları.</div>
         </div>
+        {actionError && <div className="alert alert-error">{actionError}</div>}
       </div>
 
       <div className="filter-bar card">
@@ -123,7 +136,7 @@ export default function ResultsScreen({ attemptId: routeAttemptId }) {
                         className="btn btn-sm btn-danger"
                         onClick={(e) => {
                           e.stopPropagation()
-                          if (confirm('Bu sonuç kaydı silinsin mi?')) actions.deleteAttempt(a.id)
+                          if (confirm('Bu sonuç kaydı silinsin mi?')) deleteResult(a.id)
                         }}
                       >
                         Sil
@@ -141,7 +154,7 @@ export default function ResultsScreen({ attemptId: routeAttemptId }) {
 }
 
 // ---- Detay: tek sonuç incelemesi ----
-function AttemptDetail({ attempt, studentName, onBack, onDelete }) {
+function AttemptDetail({ attempt, studentName, actionError, onBack, onDelete }) {
   const questions = attempt.answers || []
   return (
     <div>
@@ -165,6 +178,7 @@ function AttemptDetail({ attempt, studentName, onBack, onDelete }) {
           </button>
         </div>
       </div>
+      {actionError && <div className="alert alert-error">{actionError}</div>}
 
       <ReviewSummary attempt={attempt} />
 

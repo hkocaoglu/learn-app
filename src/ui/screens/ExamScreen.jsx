@@ -78,6 +78,8 @@ export default function ExamScreen({ id }) {
   const [showSubmitConfirm, setShowSubmitConfirm] = useState(false)
   const [answers, setAnswers] = useState(() => restoredAnswers)
   const [restoredDraft, setRestoredDraft] = useState(() => Boolean(draftToRestore))
+  const [submitting, setSubmitting] = useState(false)
+  const [submitError, setSubmitError] = useState('')
 
   // ---- süre ölçümü ----
   const [elapsedSec, setElapsedSec] = useState(() =>
@@ -90,6 +92,7 @@ export default function ExamScreen({ id }) {
   const timeByQidRef = useRef(draftToRestore?.timeByQid || {}) // submit'te stale state okumamak için ref kopyası
   const stepRef = useRef(restoredStep)
   const finishedRef = useRef(false)
+  const submitRef = useRef(null)
 
   const durationMin = test?.durationMinutes || null
   const deadlineAt = useMemo(() => {
@@ -188,29 +191,38 @@ export default function ExamScreen({ id }) {
   const unansweredCount = Math.max(0, total - answeredCount)
   const remainingSec = deadlineAt ? Math.max(0, Math.floor((deadlineAt - Date.now()) / 1000)) : null
 
-  const submit = (wasTimeUp = false, confirmed = false) => {
-    if (finishedRef.current) return
+  const submit = async (wasTimeUp = false, confirmed = false) => {
+    if (finishedRef.current || submitting) return
     if (!wasTimeUp && !confirmed && unansweredCount > 0) {
       setShowSubmitConfirm(true)
       return
     }
     finishedRef.current = true
     setShowSubmitConfirm(false)
+    setSubmitError('')
+    setSubmitting(true)
     recordSegment()
     const totalMs = Date.now() - startRef.current
-    const attempt = actions.addAttempt(test, answers, studentId, {
-      timeByQid: Object.fromEntries(
-        Object.entries(timeByQidRef.current).map(([k, v]) => [k, Math.round(v / 1000)])
-      ),
-      totalSeconds: Math.round(totalMs / 1000),
-      timeUp: wasTimeUp
-    })
-    clearExamDraft(testId)
-    setLastAttempt(attempt)
-    setFinished(true)
-    setTimeUp(wasTimeUp)
+    try {
+      const attempt = await actions.addAttempt(test, answers, studentId, {
+        timeByQid: Object.fromEntries(
+          Object.entries(timeByQidRef.current).map(([k, v]) => [k, Math.round(v / 1000)])
+        ),
+        totalSeconds: Math.round(totalMs / 1000),
+        timeUp: wasTimeUp
+      })
+      clearExamDraft(testId)
+      setLastAttempt(attempt)
+      setFinished(true)
+      setTimeUp(wasTimeUp)
+    } catch (caughtError) {
+      finishedRef.current = false
+      if (wasTimeUp) setTimeUp(false)
+      setSubmitError(caughtError.message)
+    } finally {
+      setSubmitting(false)
+    }
   }
-  const submitRef = useRef(submit)
   submitRef.current = submit
 
   const restart = () => {
@@ -441,6 +453,7 @@ export default function ExamScreen({ id }) {
           </div>
         </div>
 
+        {submitError && <div className="alert alert-error">{submitError}</div>}
         <div className="exam-nav">
           <button className="btn" disabled={step === 0} onClick={() => changeStep(step - 1)}>
             ← Önceki
@@ -453,9 +466,10 @@ export default function ExamScreen({ id }) {
             <button
               className="btn btn-success"
               onClick={() => submit(false)}
+              disabled={submitting}
               title={unansweredCount > 0 ? `${unansweredCount} soru boş; bitirmek için onay istenecek` : 'Testi bitir'}
             >
-              ✅ Testi Bitir
+              {submitting ? 'Kaydediliyor…' : '✅ Testi Bitir'}
             </button>
           )}
         </div>
@@ -473,7 +487,7 @@ export default function ExamScreen({ id }) {
               <button className="btn" onClick={() => setShowSubmitConfirm(false)}>
                 Sorulara dön
               </button>
-              <button className="btn btn-success" onClick={() => submit(false, true)}>
+              <button className="btn btn-success" onClick={() => submit(false, true)} disabled={submitting}>
                 Evet, testi bitir
               </button>
             </div>

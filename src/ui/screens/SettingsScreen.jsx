@@ -1,11 +1,13 @@
 import { useRef, useState } from 'react'
+import { useAuth } from '../../auth/AuthProvider.jsx'
 import { useStore } from '../../state/store.jsx'
 import { exportBackup, importBackup, downloadJSON, resetToSeed } from '../../db/storage.js'
 import { PROVIDERS, VERCEL_BACKEND_DEFAULTS } from '../../ai/client.js'
 import Modal from '../components/Modal.jsx'
 
 export default function SettingsScreen() {
-  const { db, settings, actions } = useStore()
+  const { db, settings, actions, isCloudMode } = useStore()
+  const { user } = useAuth()
   const { threshold, ai } = settings
   const backupRef = useRef(null)
   const [restoreMsg, setRestoreMsg] = useState(null)
@@ -43,7 +45,7 @@ export default function SettingsScreen() {
   const doRestore = async (file) => {
     try {
       const text = await file.text()
-      const next = importBackup(text)
+      const next = importBackup(text, user?.id || '')
       setRestoreMsg({ ok: `Yedek geri yüklendi: ${next.students.length} öğrenci, ${next.tests.length} test, ${next.attempts.length} sonuç.` })
       setTimeout(() => window.location.reload(), 1200)
     } catch (e) {
@@ -82,7 +84,7 @@ export default function SettingsScreen() {
   }
 
   const resetSeed = () => {
-    resetToSeed()
+    resetToSeed(user?.id || '')
     window.location.reload()
   }
 
@@ -207,28 +209,34 @@ export default function SettingsScreen() {
       <div className="card">
         <h2>Veri Yönetimi</h2>
         <p className="small muted">
-          Tüm veriler bu tarayıcının localStorage alanında saklanır. Tarayıcı verisi temizlenirse veriler kaybolur —
-          düzenli yedek alın. Yedek dosyası başka cihaza da taşınabilir.
+          {isCloudMode
+            ? 'Cloud verilerinin JSON yedeğini indirebilirsiniz. Bu dosya şu an yalnızca arşiv amaçlıdır; geri yükleme ve örnek veri sıfırlama cloud kayıtlarını değiştirmez.'
+            : 'Tüm veriler bu tarayıcının localStorage alanında saklanır. Tarayıcı verisi temizlenirse veriler kaybolur — düzenli yedek alın. Yedek dosyası başka cihaza da taşınabilir.'}
         </p>
         <div className="row-actions">
           <button className="btn btn-primary" onClick={doBackup}>
             ⬇ Yedeği İndir (JSON)
           </button>
-          <input
-            ref={backupRef}
-            type="file"
-            accept=".json,application/json"
-            style={{ display: 'none' }}
-            onChange={async (e) => {
-              const f = e.target.files?.[0]
-              if (f) await doRestore(f)
-              e.target.value = ''
-            }}
-          />
-          <button className="btn" onClick={() => backupRef.current?.click()}>
-            ⬆ Yedekten Geri Yükle
-          </button>
+          {!isCloudMode && (
+            <>
+              <input
+                ref={backupRef}
+                type="file"
+                accept=".json,application/json"
+                style={{ display: 'none' }}
+                onChange={async (e) => {
+                  const f = e.target.files?.[0]
+                  if (f) await doRestore(f)
+                  e.target.value = ''
+                }}
+              />
+              <button className="btn" onClick={() => backupRef.current?.click()}>
+                ⬆ Yedekten Geri Yükle
+              </button>
+            </>
+          )}
         </div>
+        {isCloudMode && <div className="alert alert-info small">Cloud yedek geri yükleme için henüz yönetim aracı eklenmedi.</div>}
         {restoreMsg && (
           <div className={`alert ${restoreMsg.ok ? 'alert-success' : 'alert-error'}`}>{restoreMsg.ok || restoreMsg.error}</div>
         )}
@@ -237,12 +245,15 @@ export default function SettingsScreen() {
       <div className="card">
         <h2>Örnek Veri</h2>
         <p className="small muted">
-          İlk açılışta 1-4. sınıf × 3 ders için örnek soru bankası (~80 soru) ve 12 hazır test yüklenir. Bu buton
-          mevcut tüm verileri siler ve örnek veriyi geri yükler.
+          {isCloudMode
+            ? 'Cloud modunda örnek veri sıfırlama devre dışıdır; sunucudaki sınıf, öğrenci, test ve sonuçlarınızı korumak için bu işlem yalnızca yerel modda kullanılabilir.'
+            : 'İlk açılışta 1-4. sınıf × 3 ders için örnek soru bankası (~80 soru) ve 12 hazır test yüklenir. Bu buton mevcut tüm verileri siler ve örnek veriyi geri yükler.'}
         </p>
-        <button className="btn btn-danger" onClick={() => setConfirmReset(true)}>
-          Örnek Veriyi Geri Yükle
-        </button>
+        {!isCloudMode && (
+          <button className="btn btn-danger" onClick={() => setConfirmReset(true)}>
+            Örnek Veriyi Geri Yükle
+          </button>
+        )}
       </div>
 
       {confirmReset && (

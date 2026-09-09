@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from 'react'
+import { useAuth } from '../../auth/AuthProvider.jsx'
 import { useStore, go } from '../../state/store.jsx'
 import { GRADES, SUBJECTS, gradeLabel, subjectLabel, topicLabel, uid, topicsForSubject } from '../../domain/model.js'
 import { GradeBadge, SubjectBadge } from '../components/Badges.jsx'
@@ -15,7 +16,8 @@ const fileToText = (file) =>
   })
 
 export default function BankScreen() {
-  const { db, actions } = useStore()
+  const { db, actions, isCloudMode } = useStore()
+  const { user } = useAuth()
   const initial = new URLSearchParams(window.location.hash.split('?')[1] || '')
   const [grade, setGrade] = useState(Number(initial.get('grade')) || 0)
   const [subject, setSubject] = useState(initial.get('subject') || '')
@@ -53,26 +55,34 @@ export default function BankScreen() {
     return topicsForSubject(s, availableTopics)
   }, [subject, availableTopics, db.bank])
 
-  const addQuestion = (q) => {
-    actions.addBankQuestions([
-      {
-        id: uid('q'),
-        grade: q.grade ?? grade,
-        subject: q.subject ?? subject,
-        topic: q.topic,
-        text: q.text,
-        options: q.options,
-        correctIndex: q.correctIndex,
-        explanation: q.explanation || '',
-        image: q.image || ''
-      }
-    ])
-    setAdding(false)
+  const addQuestion = async (q) => {
+    try {
+      await actions.addBankQuestions([
+        {
+          id: uid('q'),
+          grade: q.grade ?? grade,
+          subject: q.subject ?? subject,
+          topic: q.topic,
+          text: q.text,
+          options: q.options,
+          correctIndex: q.correctIndex,
+          explanation: q.explanation || '',
+          image: q.image || ''
+        }
+      ])
+      setAdding(false)
+    } catch (caughtError) {
+      setImportResult({ error: caughtError.message })
+    }
   }
 
-  const saveEdit = (q) => {
-    actions.updateBankQuestion(editingId, q)
-    setEditingId(null)
+  const saveEdit = async (q) => {
+    try {
+      await actions.updateBankQuestion(editingId, q)
+      setEditingId(null)
+    } catch (caughtError) {
+      setImportResult({ error: caughtError.message })
+    }
   }
 
   const editingQuestion = db.bank.find((q) => q.id === editingId)
@@ -120,7 +130,7 @@ export default function BankScreen() {
         setImportResult({ error: 'Geçerli soru bulunamadı.' })
         return
       }
-      actions.addBankQuestions(questions)
+      await actions.addBankQuestions(questions)
       setImportText('')
       setImportOpen(false)
       setImportResult({ ok: `${ok} soru "${source}" kaynağından bankaya eklendi.` })
@@ -232,6 +242,7 @@ export default function BankScreen() {
                   <span>
                     <GradeBadge grade={q.grade} /> <SubjectBadge subject={q.subject} />{' '}
                     <span className="badge badge-topic">{topicLabel(q.topic)}</span>
+                    {isCloudMode && q.isShared && <span className="badge badge-topic">Paylaşılan</span>}
                   </span>
                 </div>
                 <div>
@@ -245,17 +256,41 @@ export default function BankScreen() {
                 </div>
                 {q.explanation && <div className="muted small mt-8">💡 {q.explanation}</div>}
                 <div className="row-actions mt-8">
-                  <button className="btn btn-sm" onClick={() => setEditingId(q.id)}>
-                    ✎ Düzenle
-                  </button>
-                  <button
-                    className="btn btn-sm btn-danger"
-                    onClick={() => {
-                      if (confirm('Bu soru bankadan silinsin mi?')) actions.deleteBankQuestion(q.id)
-                    }}
-                  >
-                    Sil
-                  </button>
+                  {(!isCloudMode || q.teacherId === user?.id) && (
+                    <>
+                      <button className="btn btn-sm" onClick={() => setEditingId(q.id)}>
+                        ✎ Düzenle
+                      </button>
+                      {isCloudMode && (
+                        <button
+                          className="btn btn-sm"
+                          onClick={async () => {
+                            try {
+                              await actions.updateBankQuestion(q.id, { isShared: !q.isShared })
+                            } catch (caughtError) {
+                              setImportResult({ error: caughtError.message })
+                            }
+                          }}
+                        >
+                          {q.isShared ? 'Paylaşımı kaldır' : 'Öğretmenlerle paylaş'}
+                        </button>
+                      )}
+                      <button
+                        className="btn btn-sm btn-danger"
+                        onClick={async () => {
+                          if (!confirm('Bu soru bankadan silinsin mi?')) return
+                          try {
+                            await actions.deleteBankQuestion(q.id)
+                          } catch (caughtError) {
+                            setImportResult({ error: caughtError.message })
+                          }
+                        }}
+                      >
+                        Sil
+                      </button>
+                    </>
+                  )}
+                  {isCloudMode && q.teacherId !== user?.id && <span className="muted small">Salt okunur</span>}
                 </div>
               </>
             )}

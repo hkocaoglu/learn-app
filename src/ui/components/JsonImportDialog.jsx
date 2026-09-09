@@ -68,7 +68,7 @@ export default function JsonImportDialog({ onClose }) {
     reader.readAsText(file)
   }
 
-  const doImport = () => {
+  const doImport = async () => {
     if (!preview || preview.validCount === 0) return
     const test = {
       id: uid('t'),
@@ -79,13 +79,15 @@ export default function JsonImportDialog({ onClose }) {
       createdAt: new Date().toISOString(),
       questions: preview.questions
     }
-    actions.addTest(test)
-    if (addToBank) {
-      actions.addBankQuestions(
-        preview.questions.map((q) => ({ ...q, id: uid('q') }))
-      )
+    try {
+      const savedId = await actions.addTest(test)
+      if (addToBank) {
+        await actions.addBankQuestions(preview.questions.map((q) => ({ ...q, id: uid('q') })))
+      }
+      onClose(true, savedId)
+    } catch (error) {
+      setErrors([error.message])
     }
-    onClose(true, test.id)
   }
 
   return (

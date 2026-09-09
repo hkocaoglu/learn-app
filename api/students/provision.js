@@ -3,7 +3,9 @@ import { randomInt } from 'node:crypto'
 import { studentAuthEmail, studentCodeBase } from '../../src/domain/studentAuth.js'
 
 const sendJson = (res, status, body) => {
-  res.status(status).json(body)
+  res.status(status)
+  res.setHeader('Content-Type', 'application/json; charset=utf-8')
+  return res.json(body)
 }
 
 const readBody = (body) => {
@@ -173,47 +175,54 @@ const resetStudentPin = async (admin, teacher, body) => {
 }
 
 export default async function handler(req, res) {
-  if (req.method === 'OPTIONS') {
-    res.setHeader('Allow', 'POST, OPTIONS')
-    return sendJson(res, 204, {})
+  try {
+    if (req.method === 'OPTIONS') {
+      res.setHeader('Allow', 'POST, OPTIONS')
+      return sendJson(res, 204, {})
+    }
+
+    if (req.method !== 'POST') {
+      res.setHeader('Allow', 'POST, OPTIONS')
+      return sendJson(res, 405, { error: 'Yalnızca POST istekleri desteklenir.' })
+    }
+
+    const supabaseUrl = String(process.env.SUPABASE_URL || '').trim()
+    const secretKey = String(process.env.SUPABASE_SECRET_KEY || '').trim()
+    if (!supabaseUrl || !secretKey) {
+      return sendJson(res, 503, { error: 'SUPABASE_URL ve SUPABASE_SECRET_KEY ortam değişkenleri tanımlanmalıdır.' })
+    }
+
+    const token = getBearerToken(req)
+    if (!token) return sendJson(res, 401, { error: 'Öğretmen oturumu gerekli.' })
+
+    const body = readBody(req.body)
+    if (!body || typeof body !== 'object') return sendJson(res, 400, { error: 'Geçerli bir JSON gövdesi gönderin.' })
+
+    const admin = createClient(supabaseUrl, secretKey, {
+      auth: { autoRefreshToken: false, persistSession: false }
+    })
+
+    const { data: authData, error: authError } = await admin.auth.getUser(token)
+    if (authError || !authData?.user) return sendJson(res, 401, { error: 'Öğretmen oturumu geçersiz veya süresi dolmuş.' })
+
+    const { data: profile, error: profileError } = await admin
+      .from('profiles')
+      .select('id, role')
+      .eq('id', authData.user.id)
+      .maybeSingle()
+
+    if (profileError) return sendJson(res, 500, { error: `Öğretmen profili doğrulanamadı: ${profileError.message}` })
+    if (!profile || profile.role !== 'teacher') return sendJson(res, 403, { error: 'Bu işlem yalnızca öğretmen hesapları içindir.' })
+
+    const result = body.action === 'reset_pin'
+      ? await resetStudentPin(admin, authData.user, body)
+      : await createStudent(admin, authData.user, body)
+
+    return sendJson(res, result.status, result.body)
+  } catch (error) {
+    console.error('[api/students/provision]', error)
+    return sendJson(res, 500, {
+      error: 'Öğrenci servisi beklenmeyen bir hata aldı.'
+    })
   }
-
-  if (req.method !== 'POST') {
-    res.setHeader('Allow', 'POST, OPTIONS')
-    return sendJson(res, 405, { error: 'Yalnızca POST istekleri desteklenir.' })
-  }
-
-  const supabaseUrl = String(process.env.SUPABASE_URL || '').trim()
-  const secretKey = String(process.env.SUPABASE_SECRET_KEY || '').trim()
-  if (!supabaseUrl || !secretKey) {
-    return sendJson(res, 503, { error: 'SUPABASE_URL ve SUPABASE_SECRET_KEY ortam değişkenleri tanımlanmalıdır.' })
-  }
-
-  const token = getBearerToken(req)
-  if (!token) return sendJson(res, 401, { error: 'Öğretmen oturumu gerekli.' })
-
-  const body = readBody(req.body)
-  if (!body || typeof body !== 'object') return sendJson(res, 400, { error: 'Geçerli bir JSON gövdesi gönderin.' })
-
-  const admin = createClient(supabaseUrl, secretKey, {
-    auth: { autoRefreshToken: false, persistSession: false }
-  })
-
-  const { data: authData, error: authError } = await admin.auth.getUser(token)
-  if (authError || !authData?.user) return sendJson(res, 401, { error: 'Öğretmen oturumu geçersiz veya süresi dolmuş.' })
-
-  const { data: profile, error: profileError } = await admin
-    .from('profiles')
-    .select('id, role')
-    .eq('id', authData.user.id)
-    .maybeSingle()
-
-  if (profileError) return sendJson(res, 500, { error: `Öğretmen profili doğrulanamadı: ${profileError.message}` })
-  if (!profile || profile.role !== 'teacher') return sendJson(res, 403, { error: 'Bu işlem yalnızca öğretmen hesapları içindir.' })
-
-  const result = body.action === 'reset_pin'
-    ? await resetStudentPin(admin, authData.user, body)
-    : await createStudent(admin, authData.user, body)
-
-  return sendJson(res, result.status, result.body)
 }

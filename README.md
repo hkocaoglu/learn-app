@@ -139,27 +139,28 @@ Vercel Functions için yerel geliştirme sırasında `vercel dev` kullanılabili
 Normal `npm run dev` yalnızca Vite frontend'ini başlatır; backend endpoint'i
 deploy edilmiş Vercel adresinde veya Vercel CLI üzerinden çalışır.
 
-Bu ilk backend katmanı yalnızca AI anahtarını korur. Öğrenci, test ve sonuç
-verileri mevcut davranış korunarak tarayıcı `localStorage` alanında tutulmaya
-devam eder. Merkezi kullanıcı hesabı/veritabanı gerektiğinde ayrıca eklenebilir.
+Bu ilk backend katmanı AI anahtarını korur. Supabase cloud kurulumu
+kullanılmıyorsa öğrenci, test ve sonuç verileri geriye dönük uyumluluk için
+tarayıcı `localStorage` alanında tutulmaya devam eder.
 
-## ☁️ Supabase cloud veri altyapısı (kurulum hazırlığı)
+## ☁️ Supabase cloud veri altyapısı
 
-Öğretmen hesapları, sınıflar, öğrenciler, test atamaları ve sonuçlar için
-Supabase PostgreSQL şeması hazırlanmıştır. Migration dosyaları:
+Öğretmen hesapları, sınıflar, öğrenciler, soru bankası, testler, test atamaları
+ve sonuçlar Supabase PostgreSQL üzerinde tutulabilir. Migration dosyaları:
 
 ```text
 supabase/migrations/20260909140000_initial_schema.sql
 supabase/migrations/20260909153500_relax_student_login_code_check.sql
+supabase/migrations/20260909160000_shared_question_bank.sql
 ```
 
 Kurulum:
 
 1. Supabase'te yeni bir proje oluşturun.
 2. Supabase **SQL Editor** ekranında migration dosyalarını tarih sırasıyla
-   çalıştırın. İlk migration daha önce çalıştırıldıysa yalnızca
-   `20260909153500_relax_student_login_code_check.sql` dosyasını çalıştırmanız
-   yeterlidir.
+   çalıştırın. İlk migration daha önce çalıştırıldıysa
+   `20260909153500_relax_student_login_code_check.sql` ve
+   `20260909160000_shared_question_bank.sql` dosyalarını çalıştırmanız yeterlidir.
 3. Supabase Authentication ayarlarında email/password girişi varsayılan olarak
    etkindir. Email doğrulama davranışını **Authentication → Providers** (bazı
    dashboard sürümlerinde **Auth Providers**) ekranından kontrol edin.
@@ -203,9 +204,17 @@ ekranındaki **Redirect URLs** listesine uygulamanın adresini ekleyin; örneği
 `https://learn-app-livid.vercel.app` ve yerel geliştirme için
 `http://localhost:5173`.
 
-Bu aşamada mevcut test ve sonuç ekranlarının eski localStorage akışı tamamen
-cloud repository'ye taşınmamıştır. Cloud atama akışı, seçilen testi assignment
-oluşturulurken Supabase'e aktarır.
+Cloud öğretmen oturumunda sınıflar, öğrenciler, soru bankası, testler ve sonuçlar
+giriş yapan öğretmenin `auth.uid()` değeriyle sınırlandırılır. Soru bankasındaki
+bir soru **Öğretmenlerle paylaş** seçeneğiyle diğer öğretmenlere salt okunur
+olarak açılabilir; paylaşan öğretmen soru üzerinde düzenleme ve silme yetkisini
+korur. Migration çalıştırılmamış bir projede soru bankası yüklenirken migration
+dosyasının çalıştırılması gerektiği belirtilen bir hata gösterilir.
+
+Öğretmen portalındaki **Uygula** akışı da cloud ile uyumludur. Test doğrudan
+uygulanıyorsa seçilen öğrenci ve test için görünmez bir assignment kaydı
+oluşturulur; böylece `attempts.assignment_id` zorunluluğu korunurken test
+öğrenci portalında kendiliğinden yayınlanmaz.
 
 Sınıf yönetimi ve öğretmen tarafında öğrenci oluşturma akışı da Supabase'e
 bağlanmıştır. `Sınıflar` ekranından sınıf oluşturabilir, `Öğrenciler`
@@ -264,7 +273,13 @@ Tek dosya yaklaşımı sayesinde harici kaynak bağımlılığı yoktur.
 
 ## 🗄️ Veri ve Yedekleme
 
-- Tüm veriler tarayıcının **localStorage** alanındadır (`learn_app_db_v1` anahtarı).
+- Supabase cloud oturumunda sınıflar, öğrenciler, soru bankası, testler,
+  atamalar ve sonuçlar sunucuda tutulur. Aynı öğretmenin tarayıcı önbelleği
+  ayrıca öğretmen kullanıcı kimliğiyle ayrı bir anahtar altında tutulur.
+  Ayarlar ve AI rapor geçmişi şu an öğretmen kapsamlı tarayıcı depolamasında
+  tutulur; API anahtarları server'a gönderilmez.
+- Supabase yapılandırılmamış yerel modda veriler tarayıcının **localStorage**
+  alanındadır (`learn_app_db_v1` anahtarı).
 - **Yedek:** `Ayarlar → Veri Yönetimi → Yedeği İndir` (tüm veri tek JSON)
 - **Geri yükle:** `Ayarlar → Yedekten Geri Yükle` (aynı cihazda veya başka cihazda)
 - **Aktif sınav koruması:** Devam eden sınavın cevapları ve süre bilgileri geçici olarak

@@ -97,7 +97,7 @@ function AppShell() {
       </main>
       <footer className="app-footer">
         {isCloudMode
-          ? 'Hesabınız Supabase ile korunuyor. Uygulama verileri cloud store tamamlanana kadar bu cihazda saklanır.'
+          ? 'Hesabınız Supabase ile korunuyor. Sınıf, öğrenci, soru, test ve sonuç verileri cloud store üzerinde tutulur.'
           : 'Veriler bu cihazda (tarayıcıda) saklanır. Yedek almak için Ayarlar > Veri Yedekleme.'}
       </footer>
     </div>
@@ -122,7 +122,7 @@ function AuthenticatedApp() {
   if (user?.user_metadata?.role === 'student') return <StudentPortalScreen />
 
   return (
-    <StoreProvider>
+    <StoreProvider key={user?.id || 'local'} storageScope={user?.id || ''} cloudUser={user}>
       <AppShell />
     </StoreProvider>
   )
