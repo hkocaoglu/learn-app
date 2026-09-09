@@ -5,6 +5,7 @@ import { scoreAttempt, aggregateStudentTopics, aggregateStudentAll, attemptDurat
 import { computeDeficiencies, buildRuleReport } from '../src/domain/report.js'
 import { normalizeTest, validateTest, validateQuestion } from '../src/domain/model.js'
 import { createAIClient, OPENROUTER_DEFAULTS, PROVIDERS } from '../src/ai/client.js'
+import vercelReportHandler from '../api/ai/report.js'
 
 // --- localStorage stub ---
 const mem = {}
@@ -148,6 +149,46 @@ const aiResult = await createAIClient({
 globalThis.fetch = originalFetch
 check('OpenRouter chat completions çağrısı', aiRequest?.url === `${OPENROUTER_DEFAULTS.baseUrl}/chat/completions`)
 check('OpenRouter yanıtı işleniyor', aiResult.ok && aiResult.text === 'OpenRouter test yanıtı')
+
+console.log('\n7) Vercel backend function')
+const previousApiKey = process.env.OPENROUTER_API_KEY
+const previousModel = process.env.OPENROUTER_MODEL
+const previousFetch = globalThis.fetch
+process.env.OPENROUTER_API_KEY = 'test-key'
+process.env.OPENROUTER_MODEL = 'openai/gpt-4o-mini'
+let serverRequest = null
+let serverResponse = null
+globalThis.fetch = async (url, options) => {
+  serverRequest = { url, options }
+  return {
+    ok: true,
+    status: 200,
+    json: async () => ({ choices: [{ message: { content: 'Backend test yanıtı' } }] })
+  }
+}
+const response = {
+  status(code) {
+    this.statusCode = code
+    return this
+  },
+  json(body) {
+    serverResponse = body
+    return this
+  },
+  setHeader() {}
+}
+await vercelReportHandler(
+  { method: 'POST', body: { studentName: 'Test Öğrenci', grade: 2, threshold: 60, subjectStats: [] } },
+  response
+)
+globalThis.fetch = previousFetch
+if (previousApiKey === undefined) delete process.env.OPENROUTER_API_KEY
+else process.env.OPENROUTER_API_KEY = previousApiKey
+if (previousModel === undefined) delete process.env.OPENROUTER_MODEL
+else process.env.OPENROUTER_MODEL = previousModel
+check('Vercel function OpenRouter endpointine bağlanıyor', serverRequest?.url === 'https://openrouter.ai/api/v1/chat/completions')
+check('Vercel function anahtarı sunucu tarafında kullanıyor', serverRequest?.options?.headers?.Authorization === 'Bearer test-key')
+check('Vercel function yanıtı dönüyor', response.statusCode === 200 && serverResponse?.text === 'Backend test yanıtı')
 
 console.log(failures === 0 ? '\nTÜM TESTLER GEÇTİ' : `\n${failures} TEST BAŞARISIZ`)
 process.exit(failures === 0 ? 0 : 1)

@@ -107,7 +107,7 @@ bir yapay zekâ modeline gönderir ve Türkçe eksik-konu analizi + öneri üret
 - **OpenAI-uyumlu** tek arayüz: OpenAI, DeepSeek, OpenRouter, Ollama (proxy), LM Studio vb.
   `{baseUrl}/chat/completions` uç noktasını kullanan her sağlayıcı çalışır.
 - Yapılandırma: `Ayarlar → AI Raporlama`
-  - Sağlayıcı: OpenAI, DeepSeek, OpenRouter veya Özel
+  - Sağlayıcı: OpenAI, DeepSeek, OpenRouter, Vercel Backend (OpenRouter) veya Özel
   - Base URL (örn. `https://api.openai.com/v1`, `https://api.deepseek.com/v1`,
     `https://openrouter.ai/api/v1`)
   - API anahtarı (tarayıcıda saklanır; **yalnızca bu cihazda**)
@@ -118,6 +118,30 @@ bir yapay zekâ modeline gönderir ve Türkçe eksik-konu analizi + öneri üret
 - **Anahtar yoksa veya AI çağrısı başarısızsa** kural tabanlı rapor gösterilir — uygulama tam çalışır.
 - Not: Tarayıcıdan doğrudan API çağrısı bazı ağlarda CORS nedeniyle engellenebilir;
   böyle durumda CORS açık bir sağlayıcı/proxy kullanın.
+
+### Vercel Backend ile güvenli AI çağrısı (önerilen)
+
+Projede Next.js kullanmak zorunlu değildir. Mevcut Vite + React uygulamasına
+`api/ai/report.js` adlı bir Vercel Serverless Function eklenmiştir. Bu endpoint
+OpenRouter çağrısını sunucu tarafında yapar; API anahtarı tarayıcıya gönderilmez.
+
+1. Projeyi Vercel'e bağlayın veya GitHub repository'sini Vercel'de içe aktarın.
+2. Vercel proje ayarlarında şu ortam değişkenlerini tanımlayın:
+   - `OPENROUTER_API_KEY`: OpenRouter API anahtarınız.
+   - `OPENROUTER_MODEL`: örn. `openai/gpt-4o-mini` (opsiyonel).
+   - `OPENROUTER_SITE_URL`: Vercel proje adresiniz (opsiyonel).
+   - `OPENROUTER_SITE_NAME`: `Sınıf Test` (opsiyonel).
+3. Deploy sonrası uygulamada `Ayarlar → AI Raporlama` bölümünden
+   **Vercel Backend (OpenRouter)** sağlayıcısını seçin.
+4. **Bağlantıyı Test Et** ile `/api/ai/report` endpoint'ini kontrol edin.
+
+Vercel Functions için yerel geliştirme sırasında `vercel dev` kullanılabilir.
+Normal `npm run dev` yalnızca Vite frontend'ini başlatır; backend endpoint'i
+deploy edilmiş Vercel adresinde veya Vercel CLI üzerinden çalışır.
+
+Bu ilk backend katmanı yalnızca AI anahtarını korur. Öğrenci, test ve sonuç
+verileri mevcut davranış korunarak tarayıcı `localStorage` alanında tutulmaya
+devam eder. Merkezi kullanıcı hesabı/veritabanı gerektiğinde ayrıca eklenebilir.
 
 ## 🚀 Çalıştırma
 
@@ -139,6 +163,11 @@ npm run build      # dist/ klasörü üretilir
 `dist/` klasörünü sürükleyip [Netlify Drop](https://app.netlify.com/drop)'a bırakın
 veya GitHub Pages'e yükleyin. Sunucu kodu olmadığı için ek yapılandırma gerekmez
 (router hash tabanlıdır).
+
+Vercel'de GitHub repository'sini içe aktardığınızda frontend build'i otomatik
+algılanır ve `api/` altındaki Serverless Function ayrıca yayınlanır. AI backend
+kullanacaksanız ortam değişkenlerini Vercel dashboard'undan ekleyin; `.env`
+dosyasını repository'ye commit etmeyin.
 
 ### Blogger (tek sayfa)
 
@@ -173,6 +202,7 @@ src/
   domain/report.js            kural tabanlı eksik-konu raporu
   ai/client.js                OpenAI-uyumlu AI istemci (arayüz)
   ai/prompts.js               Türkçe AI prompt şablonu
+api/ai/report.js               Vercel Serverless Function, OpenRouter proxy
   state/store.jsx             React context + storage senkronu
   ui/screens/…                ekranlar
   ui/components/…             ortak bileşenler

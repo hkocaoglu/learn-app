@@ -1,7 +1,7 @@
 import { useRef, useState } from 'react'
 import { useStore } from '../../state/store.jsx'
 import { exportBackup, importBackup, downloadJSON, resetToSeed } from '../../db/storage.js'
-import { PROVIDERS } from '../../ai/client.js'
+import { PROVIDERS, VERCEL_BACKEND_DEFAULTS } from '../../ai/client.js'
 import Modal from '../components/Modal.jsx'
 
 export default function SettingsScreen() {
@@ -15,6 +15,7 @@ export default function SettingsScreen() {
 
   // ilk seferde baseUrl değişince modeli varsayılanla doldur (kullanıcıya yardım)
   const [providerId, setProviderId] = useState(() => {
+    if (ai.baseUrl === VERCEL_BACKEND_DEFAULTS.baseUrl || ai.provider === 'vercel') return 'vercel'
     if (!ai.baseUrl) return 'custom'
     if (ai.baseUrl.includes('openrouter.ai')) return 'openrouter'
     if (ai.baseUrl.includes('deepseek')) return 'deepseek'
@@ -25,7 +26,14 @@ export default function SettingsScreen() {
   const pickProvider = (id) => {
     setProviderId(id)
     const p = PROVIDERS.find((x) => x.id === id)
-    if (p) actions.setAiConfig({ baseUrl: p.baseUrl, model: p.model })
+    if (p) {
+      actions.setAiConfig({
+        provider: p.id,
+        baseUrl: p.baseUrl,
+        model: p.model,
+        ...(p.id === 'vercel' ? { apiKey: '' } : {})
+      })
+    }
   }
 
   const doBackup = () => {
@@ -47,11 +55,25 @@ export default function SettingsScreen() {
     setTesting(true)
     setTestMsg(null)
     try {
-      const res = await fetch(`${ai.baseUrl.replace(/\/+$/, '')}/models`, {
-        headers: { Authorization: `Bearer ${ai.apiKey}` }
+      const isVercelBackend = providerId === 'vercel'
+      const endpoint = isVercelBackend
+        ? ai.baseUrl || VERCEL_BACKEND_DEFAULTS.baseUrl
+        : `${String(ai.baseUrl || '').replace(/\/+$/, '')}/models`
+      const res = await fetch(endpoint, {
+        headers: isVercelBackend ? {} : { Authorization: `Bearer ${ai.apiKey}` }
       })
-      if (res.ok) setTestMsg({ ok: 'Bağlantı başarılı. Model listesi alınabildi.' })
-      else setTestMsg({ error: `Bağlantı hatası (${res.status}). Anahtar veya adresi kontrol edin.` })
+      if (res.ok) {
+        setTestMsg({ ok: 'Bağlantı başarılı. Model listesi alınabildi.' })
+      } else {
+        let detail = ''
+        try {
+          const body = await res.json()
+          detail = body?.error ? ` ${body.error}` : ''
+        } catch {
+          /* yoksay */
+        }
+        setTestMsg({ error: `Bağlantı hatası (${res.status}).${detail}` })
+      }
     } catch (e) {
       setTestMsg({ error: 'Bağlantı kurulamadı: ' + e.message })
     } finally {
@@ -99,8 +121,8 @@ export default function SettingsScreen() {
       <div className="card">
         <h2>AI Raporlama (OpenAI-uyumlu)</h2>
         <p className="small muted">
-          Raporlar ekranındaki &quot;AI ile Derin Analiz&quot; için kullanılır. OpenAI, DeepSeek, OpenRouter veya herhangi
-          bir OpenAI-uyumlu uç (Ollama, LM Studio proxy…) çalışır. Anahtar tarayıcınızda saklanır — yalnız bu cihazda.
+          Raporlar ekranındaki &quot;AI ile Derin Analiz&quot; için kullanılır. OpenAI, DeepSeek, OpenRouter veya Vercel
+          backend üzerinden OpenRouter kullanılabilir. Anahtar tarayıcıda saklanmadan sunucuda tutulabilir.
         </p>
 
         <div className="form-row">
@@ -116,33 +138,49 @@ export default function SettingsScreen() {
 
         <div className="form-grid">
           <div className="form-row" style={{ gridColumn: 'span 2' }}>
-            <label>Base URL</label>
+            <label>{providerId === 'vercel' ? 'Backend Endpointi' : 'Base URL'}</label>
             <input
               type="url"
               value={ai.baseUrl}
               onChange={(e) => actions.setAiConfig({ baseUrl: e.target.value })}
-              placeholder="https://api.openai.com/v1"
+              readOnly={providerId === 'vercel'}
+              placeholder={providerId === 'vercel' ? '/api/ai/report' : 'https://api.openai.com/v1'}
             />
           </div>
-          <div className="form-row">
-            <label>API Anahtarı</label>
-            <input
-              type="password"
-              value={ai.apiKey}
-              onChange={(e) => actions.setAiConfig({ apiKey: e.target.value })}
-              placeholder={providerId === 'openrouter' ? 'sk-or-v1-...' : 'sk-...'}
-            />
-          </div>
+          {providerId !== 'vercel' && (
+            <div className="form-row">
+              <label>API Anahtarı</label>
+              <input
+                type="password"
+                value={ai.apiKey}
+                onChange={(e) => actions.setAiConfig({ apiKey: e.target.value })}
+                placeholder={providerId === 'openrouter' ? 'sk-or-v1-...' : 'sk-...'}
+              />
+            </div>
+          )}
           <div className="form-row">
             <label>Model</label>
             <input
               type="text"
               value={ai.model}
               onChange={(e) => actions.setAiConfig({ model: e.target.value })}
-              placeholder={providerId === 'openrouter' ? 'openai/gpt-4o-mini' : 'gpt-4o-mini / deepseek-chat'}
+              placeholder={
+                providerId === 'vercel'
+                  ? 'Sunucudaki OPENROUTER_MODEL (opsiyonel)'
+                  : providerId === 'openrouter'
+                    ? 'openai/gpt-4o-mini'
+                    : 'gpt-4o-mini / deepseek-chat'
+              }
             />
           </div>
         </div>
+
+        {providerId === 'vercel' && (
+          <div className="alert alert-success small">
+            API anahtarı frontend’e gönderilmez. Vercel projesinde <code>OPENROUTER_API_KEY</code> ortam değişkenini
+            tanımlayın; model alanı boş bırakılırsa sunucudaki <code>OPENROUTER_MODEL</code> kullanılır.
+          </div>
+        )}
 
         {providerId === 'openrouter' && (
           <div className="alert alert-info small">
@@ -153,7 +191,7 @@ export default function SettingsScreen() {
         )}
 
         <div className="row-actions">
-          <button className="btn" onClick={testConnection} disabled={testing || !ai.apiKey}>
+          <button className="btn" onClick={testConnection} disabled={testing || (providerId !== 'vercel' && !ai.apiKey)}>
             {testing ? 'Test ediliyor…' : '🔌 Bağlantıyı Test Et'}
           </button>
         </div>

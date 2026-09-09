@@ -9,7 +9,7 @@ const StoreContext = createContext(null)
 
 const defaultSettings = {
   threshold: 60,
-  ai: { baseUrl: 'https://api.openai.com/v1', apiKey: '', model: 'gpt-4o-mini' }
+  ai: { provider: 'openai', baseUrl: 'https://api.openai.com/v1', apiKey: '', model: 'gpt-4o-mini' }
 }
 
 const SETTINGS_KEY = 'learn_app_settings_v1'
