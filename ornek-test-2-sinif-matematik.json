@@ -1,0 +1,40 @@
+{
+  "version": 1,
+  "kind": "test",
+  "test": {
+    "title": "2. Sınıf Matematik — Toplama ve Çıkarma",
+    "grade": 2,
+    "subject": "matematik",
+    "durationMinutes": 20,
+    "questions": [
+      {
+        "topic": "toplama",
+        "text": "27 + 15 işleminin sonucu kaçtır?",
+        "options": ["32", "42", "43", "41"],
+        "correctIndex": 1,
+        "explanation": "27 + 15 = 42"
+      },
+      {
+        "topic": "çıkarma",
+        "text": "54 - 28 işleminin sonucu kaçtır?",
+        "options": ["26", "24", "36", "25"],
+        "correctIndex": 0,
+        "explanation": "54 - 28 = 26"
+      },
+      {
+        "topic": "toplama",
+        "text": "Bir sınıfta 19 kız, 16 erkek öğrenci vardır. Sınıf mevcudu kaçtır?",
+        "options": ["33", "34", "35", "36"],
+        "correctIndex": 2,
+        "explanation": "19 + 16 = 35 öğrenci"
+      },
+      {
+        "topic": "çıkarma",
+        "text": "Kumbaramda 50 TL vardı. 35 TL harcadım. Geriye kaç TL kaldı?",
+        "options": ["10", "15", "20", "25"],
+        "correctIndex": 1,
+        "explanation": "50 - 35 = 15 TL"
+      }
+    ]
+  }
+}

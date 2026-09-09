@@ -1,0 +1,60 @@
+{
+  "version": 1,
+  "kind": "test",
+  "test": {
+    "title": "2. Sınıf Geometri — Şekilleri Tanıyalım (Resimli)",
+    "grade": 2,
+    "subject": "geometri",
+    "durationMinutes": 15,
+    "questions": [
+      {
+        "topic": "şekiller",
+        "text": "Görseldeki geometrik şeklin adı nedir?",
+        "options": ["Kare", "Üçgen", "Daire", "Dikdörtgen"],
+        "correctIndex": 1,
+        "explanation": "Üçgenin üç kenarı ve üç köşesi vardır.",
+        "image": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='320' viewBox='0 0 600 320'%3E%3Crect width='600' height='320' fill='aliceblue'/%3E%3Cpolygon points='300,40 120,270 480,270' fill='lightskyblue' stroke='navy' stroke-width='8'/%3E%3C/svg%3E"
+      },
+      {
+        "topic": "şekiller",
+        "text": "Görseldeki şeklin kaç eşit kenarı vardır?",
+        "options": ["2", "3", "4", "5"],
+        "correctIndex": 2,
+        "explanation": "Karenin dört kenarı vardır ve bu kenarların tamamı eşittir.",
+        "image": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='320' viewBox='0 0 600 320'%3E%3Crect width='600' height='320' fill='honeydew'/%3E%3Crect x='180' y='40' width='240' height='240' fill='lightgreen' stroke='darkgreen' stroke-width='8'/%3E%3C/svg%3E"
+      },
+      {
+        "topic": "şekiller",
+        "text": "Görseldeki şeklin köşesi var mıdır?",
+        "options": ["Evet, 1 köşesi vardır", "Evet, 2 köşesi vardır", "Evet, 4 köşesi vardır", "Hayır, köşesi yoktur"],
+        "correctIndex": 3,
+        "explanation": "Dairenin köşesi ve düz kenarı yoktur.",
+        "image": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='320' viewBox='0 0 600 320'%3E%3Crect width='600' height='320' fill='lavender'/%3E%3Ccircle cx='300' cy='160' r='115' fill='plum' stroke='purple' stroke-width='8'/%3E%3C/svg%3E"
+      },
+      {
+        "topic": "simetri",
+        "text": "Görseldeki şeklin ortasındaki çizgi neyi gösterir?",
+        "options": ["Ölçme çizgisi", "Simetri çizgisi", "Çevre çizgisi", "Sayı doğrusu"],
+        "correctIndex": 1,
+        "explanation": "Bir şekli iki eş parçaya ayıran çizgiye simetri çizgisi denir.",
+        "image": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='320' viewBox='0 0 600 320'%3E%3Crect width='600' height='320' fill='mistyrose'/%3E%3Cpath d='M290 65 C205 60 145 115 185 175 C205 205 230 235 290 265 Z M310 65 C395 60 455 115 415 175 C395 205 370 235 310 265 Z' fill='coral' stroke='firebrick' stroke-width='6'/%3E%3Cline x1='300' y1='35' x2='300' y2='285' stroke='navy' stroke-width='5' stroke-dasharray='12 8'/%3E%3C/svg%3E"
+      },
+      {
+        "topic": "açılar",
+        "text": "Görseldeki açı aşağıdakilerden hangisidir?",
+        "options": ["Dar açı", "Dik açı", "Geniş açı", "Doğru açı"],
+        "correctIndex": 1,
+        "explanation": "Birbirine dik iki doğru parçasının oluşturduğu açı dik açıdır.",
+        "image": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='320' viewBox='0 0 600 320'%3E%3Crect width='600' height='320' fill='lightyellow'/%3E%3Cpath d='M150 260 L150 70 M150 260 L440 260' stroke='darkorange' stroke-width='10' fill='none' stroke-linecap='round'/%3E%3Crect x='150' y='220' width='40' height='40' fill='none' stroke='navy' stroke-width='5'/%3E%3C/svg%3E"
+      },
+      {
+        "topic": "uzunluk",
+        "text": "Görseldeki dikdörtgenin uzun kenarı 8 cm, kısa kenarı 4 cm'dir. Çevresi kaç santimetredir?",
+        "options": ["12 cm", "16 cm", "24 cm", "32 cm"],
+        "correctIndex": 2,
+        "explanation": "Dikdörtgenin çevresi 8 + 4 + 8 + 4 = 24 cm'dir.",
+        "image": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='320' viewBox='0 0 600 320'%3E%3Crect width='600' height='320' fill='azure'/%3E%3Crect x='130' y='90' width='340' height='140' fill='lightcyan' stroke='teal' stroke-width='8'/%3E%3Ctext x='300' y='72' text-anchor='middle' font-size='28' fill='navy'%3E8 cm%3C/text%3E%3Ctext x='505' y='170' text-anchor='middle' font-size='28' fill='navy' transform='rotate(90 505 170)'%3E4 cm%3C/text%3E%3C/svg%3E"
+      }
+    ]
+  }
+}
