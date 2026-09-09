@@ -152,6 +152,7 @@ ve sonuçlar Supabase PostgreSQL üzerinde tutulabilir. Migration dosyaları:
 supabase/migrations/20260909140000_initial_schema.sql
 supabase/migrations/20260909153500_relax_student_login_code_check.sql
 supabase/migrations/20260909160000_shared_question_bank.sql
+supabase/migrations/20260909164000_require_nonempty_assignment_tests.sql
 ```
 
 Kurulum:
@@ -160,7 +161,9 @@ Kurulum:
 2. Supabase **SQL Editor** ekranında migration dosyalarını tarih sırasıyla
    çalıştırın. İlk migration daha önce çalıştırıldıysa
    `20260909153500_relax_student_login_code_check.sql` ve
-   `20260909160000_shared_question_bank.sql` dosyalarını çalıştırmanız yeterlidir.
+   `20260909160000_shared_question_bank.sql` ile
+   `20260909164000_require_nonempty_assignment_tests.sql` dosyalarını
+   çalıştırmanız yeterlidir.
 3. Supabase Authentication ayarlarında email/password girişi varsayılan olarak
    etkindir. Email doğrulama davranışını **Authentication → Providers** (bazı
    dashboard sürümlerinde **Auth Providers**) ekranından kontrol edin.
@@ -219,8 +222,8 @@ oluşturulur; böylece `attempts.assignment_id` zorunluluğu korunurken test
 Sınıf yönetimi ve öğretmen tarafında öğrenci oluşturma akışı da Supabase'e
 bağlanmıştır. `Sınıflar` ekranından sınıf oluşturabilir, `Öğrenciler`
 ekranından okul numarası + ad + soyad ile öğrenci hesabı oluşturabilirsiniz.
-Öğrenci hesabı için üretilen giriş kodu ve dört haneli PIN yalnızca oluşturma
-ve PIN yenileme yanıtında gösterilir.
+Öğrenci hesabı için üretilen giriş kodu ve Supabase Auth ile uyumlu altı haneli
+PIN yalnızca oluşturma ve PIN yenileme yanıtında gösterilir.
 
 Öğrenci giriş kodu okul numarası ile ad ve soyadın ilk harflerinden oluşur
 (`12ac` gibi). Bu nedenle kod uzunluğu en az üç karakter olacak şekilde
@@ -235,6 +238,8 @@ plaintext olarak veritabanına yazılmaz.
 İlk sürümde her öğrenci bir atama için yalnızca bir deneme yapabilir. Öğrenciler
 giriş yaptıktan sonra `Öğrenci` sekmesinden yayınlanmış testlerini görür; cevaplar
 ve sonuçlar `attempts` tablosuna RLS üzerinden kaydedilir.
+Soru içermeyen testler atama listesinde gösterilmez; ayrıca istemci ve Supabase
+trigger katmanında da engellenir.
 
 ## 🚀 Çalıştırma
 

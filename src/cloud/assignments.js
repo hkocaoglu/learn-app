@@ -59,6 +59,9 @@ const readRows = async () => {
 export const fetchTeacherAssignments = async () => readRows()
 
 export const createAssignment = async ({ teacherId, classId, test, startsAt, endsAt, maxAttempts = 1, published = true }) => {
+  if (!Array.isArray(test?.questions) || test.questions.length === 0) {
+    throw new Error('Soru içermeyen testler öğrencilere atanamaz.')
+  }
   const cloudTest = await ensureCloudTest({ teacherId, test })
   const { data, error } = await requireSupabase()
     .from('assignments')
@@ -76,6 +79,9 @@ export const createAssignment = async ({ teacherId, classId, test, startsAt, end
 
   if (error) {
     if (error.code === '23505') throw new Error('Bu test bu sınıfa zaten atanmış.')
+    if (/Assignment test must contain at least one question/i.test(error.message || '')) {
+      throw new Error('Soru içermeyen testler öğrencilere atanamaz.')
+    }
     throw new Error(`Test atanamadı: ${error.message}`)
   }
 
@@ -156,7 +162,7 @@ export const fetchStudentAssignments = async (studentId) => {
       attempt: attemptsByAssignment.get(row.id) || null,
       available: Boolean(testRow && isStarted && isNotExpired)
     }
-  })
+  }).filter((assignment) => assignment.test?.questions?.length > 0)
 }
 
 export const fetchCurrentStudent = async () => {

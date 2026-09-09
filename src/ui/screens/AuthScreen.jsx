@@ -56,8 +56,8 @@ export default function AuthScreen() {
         setError('Öğrenci giriş kodu gereklidir.')
         return
       }
-      if (!/^\d{4}$/.test(form.password)) {
-        setError('PIN dört haneli olmalıdır.')
+      if (!/^\d{6}$/.test(form.password)) {
+        setError('PIN altı haneli olmalıdır.')
         return
       }
     } else {
@@ -219,7 +219,7 @@ export default function AuthScreen() {
 
           {!isForgotPassword && (
             <div className="form-row">
-              <label htmlFor="auth-password">{isStudent ? '4 haneli PIN' : 'Parola'}</label>
+              <label htmlFor="auth-password">{isStudent ? '6 haneli PIN' : 'Parola'}</label>
               <input
                 id="auth-password"
                 name="password"
@@ -228,8 +228,8 @@ export default function AuthScreen() {
                 onChange={updateField}
                 autoComplete={isStudent ? 'one-time-code' : isRegister ? 'new-password' : 'current-password'}
                 inputMode={isStudent ? 'numeric' : undefined}
-                maxLength={isStudent ? 4 : undefined}
-                pattern={isStudent ? '\\d{4}' : undefined}
+                maxLength={isStudent ? 6 : undefined}
+                pattern={isStudent ? '\\d{6}' : undefined}
                 required
               />
             </div>

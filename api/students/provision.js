@@ -26,7 +26,7 @@ const getBearerToken = (req) => {
   return match ? match[1].trim() : ''
 }
 
-const newPin = () => String(randomInt(1000, 10000))
+const newPin = () => String(randomInt(100000, 1000000))
 
 const serializeStudent = (student) => ({
   id: student.id,

@@ -29,12 +29,14 @@ export default function AssignmentsScreen() {
       setClasses(result.classes)
       const localTests = db.tests || []
       const localTitles = new Set(localTests.map((test) => test.title))
-      setTests([...localTests, ...result.tests.filter((test) => !localTitles.has(test.title))])
+      const allTests = [...localTests, ...result.tests.filter((test) => !localTitles.has(test.title))]
+      const assignableTests = allTests.filter((test) => Array.isArray(test.questions) && test.questions.length > 0)
+      setTests(assignableTests)
       setAssignments(result.assignments)
       setForm((current) => ({
         ...current,
         classId: current.classId || result.classes[0]?.id || '',
-        testId: current.testId || result.tests[0]?.id || ''
+        testId: assignableTests.some((test) => test.id === current.testId) ? current.testId : assignableTests[0]?.id || ''
       }))
     } catch (caughtError) {
       setError(caughtError.message)
@@ -133,7 +135,7 @@ export default function AssignmentsScreen() {
             </>
           ) : (
             <>
-              <p>Atama yapmak için önce en az bir test oluşturun.</p>
+              <p>Atama yapmak için önce en az bir soru içeren test oluşturun.</p>
               <a className="btn btn-primary" href="#/testler">
                 Testlere git
               </a>

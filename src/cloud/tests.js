@@ -41,6 +41,7 @@ const mapTest = (row) => ({
 export const ensureCloudTest = async ({ teacherId, test }) => {
   if (!teacherId) throw new Error('Öğretmen oturumu bulunamadı.')
   if (!test?.title || !Array.isArray(test.questions)) throw new Error('Test verisi geçersiz.')
+  if (test.questions.length === 0) throw new Error('Soru içermeyen testler öğrencilere atanamaz.')
 
   const idMap = readIdMap()
   const teacherMap = idMap[teacherId] || {}

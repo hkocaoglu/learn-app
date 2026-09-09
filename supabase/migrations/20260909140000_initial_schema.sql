@@ -212,6 +212,16 @@ begin
     raise exception 'Assignment test must belong to the same teacher';
   end if;
 
+  if not exists (
+    select 1
+    from public.tests
+    where id = new.test_id
+      and jsonb_typeof(questions) = 'array'
+      and jsonb_array_length(questions) > 0
+  ) then
+    raise exception 'Assignment test must contain at least one question';
+  end if;
+
   return new;
 end;
 $$;
