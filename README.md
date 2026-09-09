@@ -146,16 +146,20 @@ devam eder. Merkezi kullanıcı hesabı/veritabanı gerektiğinde ayrıca eklene
 ## ☁️ Supabase cloud veri altyapısı (kurulum hazırlığı)
 
 Öğretmen hesapları, sınıflar, öğrenciler, test atamaları ve sonuçlar için
-Supabase PostgreSQL şeması hazırlanmıştır. Migration dosyası:
+Supabase PostgreSQL şeması hazırlanmıştır. Migration dosyaları:
 
 ```text
 supabase/migrations/20260909140000_initial_schema.sql
+supabase/migrations/20260909153500_relax_student_login_code_check.sql
 ```
 
 Kurulum:
 
 1. Supabase'te yeni bir proje oluşturun.
-2. Supabase **SQL Editor** ekranında migration dosyasının tamamını çalıştırın.
+2. Supabase **SQL Editor** ekranında migration dosyalarını tarih sırasıyla
+   çalıştırın. İlk migration daha önce çalıştırıldıysa yalnızca
+   `20260909153500_relax_student_login_code_check.sql` dosyasını çalıştırmanız
+   yeterlidir.
 3. Supabase Authentication ayarlarında email/password girişi varsayılan olarak
    etkindir. Email doğrulama davranışını **Authentication → Providers** (bazı
    dashboard sürümlerinde **Auth Providers**) ekranından kontrol edin.
@@ -201,6 +205,10 @@ bağlanmıştır. `Sınıflar` ekranından sınıf oluşturabilir, `Öğrenciler
 ekranından okul numarası + ad + soyad ile öğrenci hesabı oluşturabilirsiniz.
 Öğrenci hesabı için üretilen giriş kodu ve dört haneli PIN yalnızca oluşturma
 ve PIN yenileme yanıtında gösterilir.
+
+Öğrenci giriş kodu okul numarası ile ad ve soyadın ilk harflerinden oluşur
+(`12ac` gibi). Bu nedenle kod uzunluğu en az üç karakter olacak şekilde
+doğrulanır.
 
 Öğrenci hesabı oluşturma endpoint'inin çalışması için Vercel'de
 `SUPABASE_URL` ve `SUPABASE_SECRET_KEY` tanımlı olmalıdır. Secret key yalnızca

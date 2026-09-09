@@ -30,7 +30,7 @@ create table if not exists public.students (
   school_number text not null check (char_length(trim(school_number)) between 1 and 40),
   first_name text not null check (char_length(trim(first_name)) between 1 and 80),
   last_name text not null check (char_length(trim(last_name)) between 1 and 80),
-  login_code text not null check (char_length(trim(login_code)) between 6 and 80),
+  login_code text not null check (char_length(trim(login_code)) between 3 and 80),
   status text not null default 'active' check (status in ('active', 'archived')),
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now(),

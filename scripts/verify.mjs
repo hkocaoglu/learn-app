@@ -123,6 +123,7 @@ check('Backup geri yükleniyor', restored.students.length === 1 && restored.test
 console.log('\n5b) Öğrenci giriş kimliği')
 check('Türkçe karakterler öğrenci kodunda normalize ediliyor', normalizeStudentPart('İpek Şahin') === 'ipeksahin')
 check('Öğrenci kodu okul no ve baş harflerden oluşuyor', studentCodeBase('12', 'Ayşe', 'Çelik') === '12ac')
+check('Kısa öğrenci kodu destekleniyor', studentCodeBase('1', 'A', 'B') === '1ab')
 check('Öğrenci Auth e-postası deterministik', studentAuthEmail('12ac') === '12ac@students.sinif-test.local')
 
 console.log('\n6) AI sağlayıcıları')

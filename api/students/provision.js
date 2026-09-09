@@ -70,7 +70,12 @@ const createStudent = async (admin, teacher, body) => {
   if (existingStudent) return { status: 409, body: { error: 'Bu okul numarasıyla kayıtlı bir öğrenci zaten var.' } }
 
   const baseCode = studentCodeBase(schoolNumber, firstName, lastName)
-  if (!baseCode) return { status: 400, body: { error: 'Öğrenci kodu oluşturulamadı.' } }
+  if (baseCode.length < 3) {
+    return {
+      status: 400,
+      body: { error: 'Öğrenci kodu oluşturulamadı. Okul numarası ve ad-soyad baş harfleri en az üç karakter üretmelidir.' }
+    }
+  }
 
   const { data: matchingCodes, error: codeError } = await admin
     .from('students')
