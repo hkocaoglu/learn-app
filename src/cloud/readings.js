@@ -1,8 +1,15 @@
 import { requireSupabase } from '../lib/supabase.js'
 import { normalizeReading, requiredDwellSeconds } from '../domain/model.js'
 import { scoreAttempt } from '../domain/scoring.js'
+const legacyReadingFields =
+  'id, teacher_id, class_id, title, source_label, body, grade, subject, topic, min_dwell_seconds, quiz_threshold, questions, starts_at, ends_at, published, created_at'
 const readingFields =
   'id, teacher_id, class_id, title, source_label, body, grade, subject, topic, min_dwell_seconds, quiz_threshold, show_passage_during_quiz, questions, starts_at, ends_at, published, created_at'
+
+// Yeni kolon (show_passage_during_quiz) migration'ı henüz uygulanmamış projelerde
+// PostgREST 42703 döner; bu durumda eski alan listesiyle tek seferlik geri çekil.
+const isMissingVisibilityColumn = (error) =>
+  !!error && (error.code === '42703' || /show_passage_during_quiz/i.test(error.message || ''))
 
 export const toReading = (row, classesById) => {
   const classRow = classesById?.get(row.class_id)
@@ -27,13 +34,16 @@ export const toReading = (row, classesById) => {
   }
 }
 
-const readRows = async () => {
+const readRows = async (fields = readingFields, retried = false) => {
   const client = requireSupabase()
   const [readingResult, classResult] = await Promise.all([
-    client.from('reading_assignments').select(readingFields).order('created_at', { ascending: false }),
+    client.from('reading_assignments').select(fields).order('created_at', { ascending: false }),
     client.from('classes').select('id, name, grade').order('name')
   ])
 
+  if (readingResult.error && !retried && isMissingVisibilityColumn(readingResult.error)) {
+    return readRows(legacyReadingFields, true)
+  }
   if (readingResult.error) throw new Error(`Okuma ödevleri yüklenemedi: ${readingResult.error.message}`)
   if (classResult.error) throw new Error(`Okuma sınıfları yüklenemedi: ${classResult.error.message}`)
 
@@ -52,48 +62,66 @@ export const createReading = async ({ teacherId, classId, reading, startsAt, end
     throw new Error('Bitiş tarihi başlangıçtan sonra olmalı.')
   }
   const normalized = normalizeReading(reading)
-  const { data, error } = await requireSupabase()
-    .from('reading_assignments')
-    .insert({
-      teacher_id: teacherId,
-      class_id: classId,
-      title: normalized.title,
-      source_label: normalized.sourceLabel || '',
-      body: normalized.body,
-      grade: normalized.grade,
-      subject: normalized.subject,
-      topic: normalized.topic,
-      min_dwell_seconds: normalized.minDwellSeconds,
-      quiz_threshold: normalized.quizThreshold,
-      show_passage_during_quiz: normalized.showPassageDuringQuiz !== false,
-      questions: normalized.questions,
-      starts_at: startsAt || null,
-      ends_at: endsAt || null,
-      published: Boolean(published)
-    })
-    .select(readingFields)
-    .single()
+  const baseRow = {
+    teacher_id: teacherId,
+    class_id: classId,
+    title: normalized.title,
+    source_label: normalized.sourceLabel || '',
+    body: normalized.body,
+    grade: normalized.grade,
+    subject: normalized.subject,
+    topic: normalized.topic,
+    min_dwell_seconds: normalized.minDwellSeconds,
+    quiz_threshold: normalized.quizThreshold,
+    questions: normalized.questions,
+    starts_at: startsAt || null,
+    ends_at: endsAt || null,
+    published: Boolean(published)
+  }
+  const attempts = [
+    { row: { ...baseRow, show_passage_during_quiz: normalized.showPassageDuringQuiz !== false }, fields: readingFields },
+    { row: baseRow, fields: legacyReadingFields }
+  ]
+  let data = null
+  let error = null
+  for (const attempt of attempts) {
+    const result = await requireSupabase()
+      .from('reading_assignments')
+      .insert(attempt.row)
+      .select(attempt.fields)
+      .single()
+    data = result.data
+    error = result.error
+    if (!error || !isMissingVisibilityColumn(error)) break
+  }
 
   if (error) {
     if (error.code === '23505') throw new Error('Bu okuma bu sınıfa zaten atanmış.')
     throw new Error(`Okuma atanamadı: ${error.message}`)
   }
-
   return data
 }
 
 export const updateReading = async ({ id, published, startsAt, endsAt }) => {
-  const { data, error } = await requireSupabase()
-    .from('reading_assignments')
-    .update({
-      published: Boolean(published),
-      starts_at: startsAt || null,
-      ends_at: endsAt || null
-    })
-    .eq('id', id)
-    .select(readingFields)
-    .single()
-
+  const payload = {
+    published: Boolean(published),
+    starts_at: startsAt || null,
+    ends_at: endsAt || null
+  }
+  const fieldsAttempts = [readingFields, legacyReadingFields]
+  let data = null
+  let error = null
+  for (const fields of fieldsAttempts) {
+    const result = await requireSupabase()
+      .from('reading_assignments')
+      .update(payload)
+      .eq('id', id)
+      .select(fields)
+      .single()
+    data = result.data
+    error = result.error
+    if (!error || !isMissingVisibilityColumn(error)) break
+  }
   if (error) throw new Error(`Okuma güncellenemedi: ${error.message}`)
   return data
 }
@@ -106,11 +134,18 @@ export const deleteReading = async (id) => {
 export const fetchStudentReadings = async (studentId) => {
   if (!studentId) throw new Error('Öğrenci kimliği bulunamadı.')
   const client = requireSupabase()
-  const { data: readings, error: readingError } = await client
-    .from('reading_assignments')
-    .select(readingFields)
-    .eq('published', true)
-    .order('created_at', { ascending: false })
+  let readings = null
+  let readingError = null
+  for (const fields of [readingFields, legacyReadingFields]) {
+    const result = await client
+      .from('reading_assignments')
+      .select(fields)
+      .eq('published', true)
+      .order('created_at', { ascending: false })
+    readings = result.data
+    readingError = result.error
+    if (!readingError || !isMissingVisibilityColumn(readingError)) break
+  }
 
   if (readingError) throw new Error(`Atanan okumalar yüklenemedi: ${readingError.message}`)
 
