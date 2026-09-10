@@ -27,6 +27,7 @@ export const toReading = (row, classesById) => {
     minDwellSeconds: row.min_dwell_seconds ?? null,
     quizThreshold: Number(row.quiz_threshold ?? 60),
     showPassageDuringQuiz: row.show_passage_during_quiz !== false,
+    questions: Array.isArray(row.questions) ? row.questions : [],
     startsAt: row.starts_at,
     endsAt: row.ends_at,
     published: Boolean(row.published),

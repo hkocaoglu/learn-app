@@ -1,5 +1,6 @@
 import { Fragment, useCallback, useEffect, useState } from 'react'
 import { useAuth } from '../../auth/AuthProvider.jsx'
+import { fetchClasses } from '../../cloud/classes.js'
 import {
   createReading,
   deleteReading,
@@ -45,20 +46,26 @@ export default function ReadingsScreen() {
   const load = useCallback(async () => {
     setLoading(true)
     setError('')
-    try {
-      const result = await fetchTeacherReadings()
-      setClasses(result.classes)
-      setReadings(result.readings)
+    const [classOutcome, readingOutcome] = await Promise.allSettled([fetchClasses(), fetchTeacherReadings()])
+    if (classOutcome.status === 'fulfilled') {
+      setClasses(classOutcome.value || [])
       setForm((current) => ({
         ...current,
-        classId: current.classId || result.classes[0]?.id || '',
-        grade: current.grade || result.classes[0]?.grade || 2
+        classId: current.classId || classOutcome.value[0]?.id || '',
+        grade: current.grade || classOutcome.value[0]?.grade || 2
       }))
-    } catch (caughtError) {
-      setError(caughtError.message)
-    } finally {
-      setLoading(false)
     }
+    if (readingOutcome.status === 'fulfilled') {
+      setReadings(readingOutcome.value.readings)
+    }
+    const firstError =
+      classOutcome.status === 'rejected'
+        ? classOutcome.reason
+        : readingOutcome.status === 'rejected'
+          ? readingOutcome.reason
+          : null
+    if (firstError) setError(firstError.message || String(firstError))
+    setLoading(false)
   }, [])
 
   useEffect(() => {
@@ -398,7 +405,7 @@ export default function ReadingsScreen() {
                       <strong>{reading.title}</strong>
                       <div className="small muted">
                         {gradeLabel(reading.grade)} • {subjectLabel(reading.subject)} •{' '}
-                        {reading.questions.length} soru •{' '}
+                        {(reading.questions || []).length} soru •{' '}
                         {reading.showPassageDuringQuiz !== false ? 'Metin quizde görünür' : 'Metin quizde gizli'}
                       </div>
                     </td>
