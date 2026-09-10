@@ -135,7 +135,9 @@ const readingFixture = normalizeReading({
 check('Okuma doğrulama temiz', validateReading(readingFixture).length === 0)
 check('Kelime sayısı 120', readingWordCount(readingFixture.body) === 120)
 check('Gerekli dwell 48 sn', requiredDwellSeconds(readingFixture) === 48, `(${requiredDwellSeconds(readingFixture)})`)
-// evaluateReadingGates src/cloud/readings.js içindedir; vite-only supabase importu
+check('Metin görünürlüğü varsayılan açık', normalizeReading({ title: 'T', body: 'kelime '.repeat(60), grade: 2, subject: 'turkce' }).showPassageDuringQuiz === true)
+check('Metin gizleme seçimi korunuyor', normalizeReading({ title: 'T', body: 'kelime '.repeat(60), grade: 2, subject: 'turkce', showPassageDuringQuiz: false }).showPassageDuringQuiz === false)
+check('Metin görünürlüğü doğrulama temiz', validateReading({ ...readingFixture, showPassageDuringQuiz: false }).length === 0)
 const evalGates = ({ reading, answers, dwellSeconds, scrolledBottom }) => {
   const dwellOk = Number(dwellSeconds) >= requiredDwellSeconds(reading)
   const scrollOk = scrolledBottom === true

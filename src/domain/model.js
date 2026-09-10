@@ -150,6 +150,8 @@ export const validateReading = (r) => {
     const q = Number(r.quizThreshold)
     if (!Number.isFinite(q) || q < 0 || q > 100) errors.push('Quiz eşiği 0-100 arasında olmalı')
   }
+  if (r.showPassageDuringQuiz !== undefined && r.showPassageDuringQuiz !== null && typeof r.showPassageDuringQuiz !== 'boolean')
+    errors.push('Metin görünürlüğü seçimi geçersiz')
   if (r.questions !== undefined && r.questions !== null) {
     if (!Array.isArray(r.questions)) errors.push('Sorular listesi eksik')
     else if (r.questions.length > 6) errors.push('Okuma sorusu en fazla 6 olabilir')
@@ -180,6 +182,10 @@ export const normalizeReading = (r) => ({
     r.quizThreshold === undefined || r.quizThreshold === null || r.quizThreshold === ''
       ? 60
       : Number(r.quizThreshold),
+  showPassageDuringQuiz:
+    r.showPassageDuringQuiz === undefined || r.showPassageDuringQuiz === null
+      ? true
+      : Boolean(r.showPassageDuringQuiz),
   questions: (r.questions || []).map((q) => normalizeQuestion(q, r.grade, r.subject)),
   createdAt: r.createdAt || nowIso()
 })

@@ -19,6 +19,7 @@ const initialForm = {
   subject: 'turkce',
   minDwellSeconds: '',
   quizThreshold: 60,
+  showPassageDuringQuiz: true,
   startsAt: '',
   endsAt: ''
 }
@@ -78,6 +79,7 @@ export default function ReadingsScreen() {
       subject: form.subject,
       minDwellSeconds: form.minDwellSeconds === '' ? null : Number(form.minDwellSeconds),
       quizThreshold: Number(form.quizThreshold),
+      showPassageDuringQuiz: form.showPassageDuringQuiz !== false,
       questions
     }
     const errors = validateReading(candidate)
@@ -273,6 +275,17 @@ export default function ReadingsScreen() {
                 }
               />
             </div>
+            <div className="form-row">
+              <label htmlFor="reading-visible">Soruları yanıtlarken metin görünsün</label>
+              <input
+                id="reading-visible"
+                type="checkbox"
+                checked={form.showPassageDuringQuiz !== false}
+                onChange={(event) =>
+                  setForm((current) => ({ ...current, showPassageDuringQuiz: event.target.checked }))
+                }
+              />
+            </div>
             <div className="form-row" style={{ gridColumn: '1 / -1' }}>
               <label htmlFor="reading-body">Metin (en az 50 karakter)</label>
               <textarea
@@ -385,7 +398,8 @@ export default function ReadingsScreen() {
                       <strong>{reading.title}</strong>
                       <div className="small muted">
                         {gradeLabel(reading.grade)} • {subjectLabel(reading.subject)} •{' '}
-                        {reading.questions.length} soru
+                        {reading.questions.length} soru •{' '}
+                        {reading.showPassageDuringQuiz !== false ? 'Metin quizde görünür' : 'Metin quizde gizli'}
                       </div>
                     </td>
                     <td>{reading.className}</td>

@@ -4,8 +4,7 @@ import { formatSeconds, gradeLabel, requiredDwellSeconds, subjectLabel, topicLab
 import Modal from '../components/Modal.jsx'
 import QuestionImage from '../components/QuestionImage.jsx'
 
-const DRAFT_VERSION = 1
-const draftKey = (studentId, assignmentId) => `learn_app_student_reading_v1_${studentId}_${assignmentId}`
+const DRAFT_VERSION = 2
 
 const readDraft = (studentId, assignmentId) => {
   if (typeof sessionStorage === 'undefined') return null
@@ -49,6 +48,7 @@ export default function StudentReadingScreen({ student, readingAssignment, onBac
   const [answers, setAnswers] = useState(() => draft?.answers || {})
   const [dwellSeconds, setDwellSeconds] = useState(() => Number(draft?.dwellSeconds) || 0)
   const [scrolledBottom, setScrolledBottom] = useState(() => draft?.scrolledBottom === true)
+  const [quizStarted, setQuizStarted] = useState(() => draft?.quizStarted === true)
   const [showSubmitConfirm, setShowSubmitConfirm] = useState(false)
   const [finished, setFinished] = useState(false)
   const [result, setResult] = useState(null)
@@ -99,9 +99,10 @@ export default function StudentReadingScreen({ student, readingAssignment, onBac
       answers,
       dwellSeconds: accumulatedRef.current,
       scrolledBottom: scrolledRef.current,
+      quizStarted,
       startedAt: startedAtRef.current
     })
-  }, [answers, dwellSeconds, reading, readingAssignment.id, scrolledBottom, step, student.id])
+  }, [answers, dwellSeconds, quizStarted, reading, readingAssignment.id, scrolledBottom, step, student.id])
 
   useEffect(() => {
     if (finishedRef.current || !reading) return undefined
@@ -241,12 +242,13 @@ export default function StudentReadingScreen({ student, readingAssignment, onBac
 
       {error && <div className="alert alert-error">{error}</div>}
 
-      <div className="card">
+      {(!quizStarted || total === 0 || reading.showPassageDuringQuiz !== false) && (
+        <div className="card">
         <div
           className="reading-body no-copy"
           onScroll={handleScroll}
           onCopy={(event) => event.preventDefault()}
-          style={{ maxHeight: 320, overflowY: 'auto', whiteSpace: 'pre-wrap' }}
+          style={{ minHeight: 420, maxHeight: '62vh', overflowY: 'auto', whiteSpace: 'pre-wrap', fontSize: '1.05rem' }}
         >
           {reading.body}
         </div>
@@ -255,7 +257,8 @@ export default function StudentReadingScreen({ student, readingAssignment, onBac
           Metni sonuna kadar kaydırın ve {required} sn okuma süresini doldurun. Kopyalama kapalıdır; bu istemci
           sinyalleri göz-temasını kanıtlamaz.
         </p>
-      </div>
+        </div>
+      )}
 
       {total === 0 ? (
         <div className="card mt-16">
@@ -278,6 +281,36 @@ export default function StudentReadingScreen({ student, readingAssignment, onBac
               Önce metni sonuna kadar kaydırın ve {required} sn okuma süresini doldurun.
             </p>
           )}
+        </div>
+      ) : !gates.dwellOk ? (
+        <div className="card mt-16">
+          <div className="submit-confirmation">
+            <div className="submit-confirmation-icon">🔒</div>
+            <p>
+              <strong>Quiz henüz kilitli.</strong> Sorular, okuma süresi dolunca açılacak.
+            </p>
+            <p className="muted">
+              ⏱ {dwellSeconds}/{required} sn — kalan {Math.max(0, required - dwellSeconds)} sn. Önce metni
+              sonuna kadar kaydırarak okumaya devam edin.
+            </p>
+          </div>
+        </div>
+      ) : !quizStarted ? (
+        <div className="card mt-16">
+          <div className="submit-confirmation">
+            <div className="submit-confirmation-icon">📖</div>
+            <p>
+              <strong>Okuma tamamlandı.</strong> Sorulara geçmeye hazır olduğunuzda başlayın.
+              {reading.showPassageDuringQuiz === false
+                ? ' Metin, test sırasında gizlenecek.'
+                : ' Metin, test sırasında görünür kalacak.'}
+            </p>
+            <div className="row-actions submit-confirmation-actions">
+              <button className="btn btn-success" type="button" onClick={() => setQuizStarted(true)}>
+                ✅ Teste hazırım
+              </button>
+            </div>
+          </div>
         </div>
       ) : (
         <div className="card mt-16">

@@ -1,9 +1,8 @@
 import { requireSupabase } from '../lib/supabase.js'
 import { normalizeReading, requiredDwellSeconds } from '../domain/model.js'
 import { scoreAttempt } from '../domain/scoring.js'
-
 const readingFields =
-  'id, teacher_id, class_id, title, source_label, body, grade, subject, topic, min_dwell_seconds, quiz_threshold, questions, starts_at, ends_at, published, created_at'
+  'id, teacher_id, class_id, title, source_label, body, grade, subject, topic, min_dwell_seconds, quiz_threshold, show_passage_during_quiz, questions, starts_at, ends_at, published, created_at'
 
 export const toReading = (row, classesById) => {
   const classRow = classesById?.get(row.class_id)
@@ -20,7 +19,7 @@ export const toReading = (row, classesById) => {
     topic: row.topic || 'okuma-anlama',
     minDwellSeconds: row.min_dwell_seconds ?? null,
     quizThreshold: Number(row.quiz_threshold ?? 60),
-    questions: Array.isArray(row.questions) ? row.questions : [],
+    showPassageDuringQuiz: row.show_passage_during_quiz !== false,
     startsAt: row.starts_at,
     endsAt: row.ends_at,
     published: Boolean(row.published),
@@ -66,6 +65,7 @@ export const createReading = async ({ teacherId, classId, reading, startsAt, end
       topic: normalized.topic,
       min_dwell_seconds: normalized.minDwellSeconds,
       quiz_threshold: normalized.quizThreshold,
+      show_passage_during_quiz: normalized.showPassageDuringQuiz !== false,
       questions: normalized.questions,
       starts_at: startsAt || null,
       ends_at: endsAt || null,
@@ -140,6 +140,7 @@ export const fetchStudentReadings = async (studentId) => {
         topic: row.topic || 'okuma-anlama',
         minDwellSeconds: row.min_dwell_seconds ?? null,
         quizThreshold: Number(row.quiz_threshold ?? 60),
+        showPassageDuringQuiz: row.show_passage_during_quiz !== false,
         questions: Array.isArray(row.questions) ? row.questions : []
       },
       attempt: attemptsByReading.get(row.id) || null,
