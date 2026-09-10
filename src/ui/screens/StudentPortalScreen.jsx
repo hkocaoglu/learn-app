@@ -1,19 +1,23 @@
 import { useCallback, useEffect, useState } from 'react'
 import { useAuth } from '../../auth/AuthProvider.jsx'
 import { fetchCurrentStudent, fetchStudentAssignments } from '../../cloud/assignments.js'
+import { fetchStudentReadings } from '../../cloud/readings.js'
 import { gradeLabel, subjectLabel, formatDate, formatMinutesShort } from '../../domain/model.js'
 import StudentExamScreen from './StudentExamScreen.jsx'
+import StudentReadingScreen from './StudentReadingScreen.jsx'
 
 const readAssignmentRoute = () => {
   const parts = window.location.hash.replace(/^#\/?/, '').split('/').filter(Boolean)
-  return parts[0] === 'ogrenci-sinav' ? parts[1] || '' : ''
+  if (parts[0] === 'ogrenci-okuma') return { kind: 'reading', id: parts[1] || '' }
+  if (parts[0] === 'ogrenci-sinav') return { kind: 'exam', id: parts[1] || '' }
+  return { kind: '', id: '' }
 }
 
 export default function StudentPortalScreen() {
-  const { signOut, user } = useAuth()
   const [student, setStudent] = useState(null)
   const [assignments, setAssignments] = useState([])
-  const [assignmentId, setAssignmentId] = useState(readAssignmentRoute)
+  const [readings, setReadings] = useState([])
+  const [route, setRoute] = useState(readAssignmentRoute)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
   const [signOutError, setSignOutError] = useState('')
@@ -23,9 +27,13 @@ export default function StudentPortalScreen() {
     setError('')
     try {
       const currentStudent = await fetchCurrentStudent()
-      const nextAssignments = await fetchStudentAssignments(currentStudent.id)
+      const [nextAssignments, nextReadings] = await Promise.all([
+        fetchStudentAssignments(currentStudent.id),
+        fetchStudentReadings(currentStudent.id).catch(() => [])
+      ])
       setStudent(currentStudent)
       setAssignments(nextAssignments)
+      setReadings(nextReadings)
     } catch (caughtError) {
       setError(caughtError.message)
     } finally {
@@ -35,7 +43,7 @@ export default function StudentPortalScreen() {
 
   useEffect(() => {
     load()
-    const onHashChange = () => setAssignmentId(readAssignmentRoute())
+    const onHashChange = () => setRoute(readAssignmentRoute())
     window.addEventListener('hashchange', onHashChange)
     return () => window.removeEventListener('hashchange', onHashChange)
   }, [load])
@@ -51,8 +59,33 @@ export default function StudentPortalScreen() {
     await load()
   }
 
-  if (assignmentId && student) {
-    const assignment = assignments.find((item) => item.id === assignmentId)
+  if (route.id && student) {
+    if (route.kind === 'reading') {
+      const readingAssignment = readings.find((item) => item.id === route.id)
+      if (!readingAssignment) {
+        return (
+          <StudentShell user={user} onSignOut={handleSignOut} signOutError={signOutError}>
+            <div className="card empty">
+              <p>Bu okuma ödevi bulunamadı veya erişim süresi doldu.</p>
+              <button className="btn btn-primary" type="button" onClick={goToPortal}>
+                Atanan içeriklere dön
+              </button>
+            </div>
+          </StudentShell>
+        )
+      }
+      return (
+        <StudentShell user={user} onSignOut={handleSignOut} signOutError={signOutError}>
+          <StudentReadingScreen
+            key={readingAssignment.id}
+            student={student}
+            readingAssignment={readingAssignment}
+            onBack={goToPortal}
+          />
+        </StudentShell>
+      )
+    }
+    const assignment = assignments.find((item) => item.id === route.id)
     if (!assignment) {
       return (
         <StudentShell user={user} onSignOut={handleSignOut} signOutError={signOutError}>
@@ -97,16 +130,32 @@ export default function StudentPortalScreen() {
         <div className="card empty">Öğrenci bilgileri ve testler yükleniyor…</div>
       ) : error ? (
         <div className="alert alert-error">{error}</div>
-      ) : assignments.length === 0 ? (
-        <div className="card empty">
-          Henüz size atanmış bir test yok. Öğretmeniniz testi yayınladığında burada görünecek.
-        </div>
       ) : (
-        <div className="student-assignment-list">
-          {assignments.map((assignment) => (
-            <AssignmentCard key={assignment.id} assignment={assignment} />
-          ))}
-        </div>
+        <>
+          {assignments.length === 0 ? (
+            <div className="card empty">
+              Henüz size atanmış bir test yok. Öğretmeniniz testi yayınladığında burada görünecek.
+            </div>
+          ) : (
+            <div className="student-assignment-list">
+              {assignments.map((assignment) => (
+                <AssignmentCard key={assignment.id} assignment={assignment} />
+              ))}
+            </div>
+          )}
+          <div className="section-heading mt-16">
+            <h2>Okuma Ödevleri</h2>
+          </div>
+          {readings.length === 0 ? (
+            <div className="card empty">Henüz size atanmış bir okuma yok.</div>
+          ) : (
+            <div className="student-assignment-list">
+              {readings.map((item) => (
+                <ReadingCard key={item.id} readingAssignment={item} />
+              ))}
+            </div>
+          )}
+        </>
       )}
     </StudentShell>
   )
@@ -155,6 +204,59 @@ function AssignmentCard({ assignment }) {
         ) : attempt ? (
           <span className="small muted">
             {attempt.correct_count}/{attempt.total_count} doğru
+          </span>
+        ) : (
+          <span className="small muted">Öğretmeninizden bilgi alın</span>
+        )}
+      </div>
+    </article>
+  )
+}
+
+function ReadingCard({ readingAssignment }) {
+  const reading = readingAssignment.reading
+  const attempt = readingAssignment.attempt
+  const canStart = Boolean(readingAssignment.available && reading && !attempt)
+  const status = attempt
+    ? attempt.read
+      ? `Tamamlandı • %${attempt.score_percent}`
+      : `Tamamlanmadı • %${attempt.score_percent}`
+    : readingAssignment.available
+      ? 'Okumaya hazır'
+      : readingAssignment.endsAt && new Date(readingAssignment.endsAt).getTime() < Date.now()
+        ? 'Süre doldu'
+        : 'Henüz başlamadı'
+
+  return (
+    <article className="student-assignment-card">
+      <div className="student-assignment-main">
+        <div className="student-assignment-icon" aria-hidden="true">
+          📖
+        </div>
+        <div>
+          <h2>{reading?.title || 'Okuma'}</h2>
+          <div className="student-assignment-meta">
+            <span className="badge badge-grade">{reading ? gradeLabel(reading.grade) : '—'}</span>
+            <span className="badge badge-subject">{reading ? subjectLabel(reading.subject) : '—'}</span>
+            <span className="badge badge-topic">{reading?.questions?.length || 0} soru</span>
+          </div>
+          <p className="small muted">
+            Başlangıç: {readingAssignment.startsAt ? formatDate(readingAssignment.startsAt) : 'Hemen'} • Bitiş:{' '}
+            {readingAssignment.endsAt ? formatDate(readingAssignment.endsAt) : 'Süresiz'}
+          </p>
+        </div>
+      </div>
+      <div className="student-assignment-action">
+        <span className={`badge ${attempt?.read ? 'badge-success' : readingAssignment.available ? 'badge-primary' : 'badge-warning'}`}>
+          {status}
+        </span>
+        {canStart ? (
+          <a className="btn btn-primary" href={`#/ogrenci-okuma/${readingAssignment.id}`}>
+            Başla • {reading?.title}
+          </a>
+        ) : attempt ? (
+          <span className="small muted">
+            {attempt.read ? 'Okundu ✓' : 'Okunmadı'}
           </span>
         ) : (
           <span className="small muted">Öğretmeninizden bilgi alın</span>

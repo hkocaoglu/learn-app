@@ -1228,6 +1228,19 @@ tr:hover td {
   border-color: var(--primary);
 }
 
+.reading-body {
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius);
+  padding: 16px 18px;
+  line-height: 1.8;
+  background: #fff;
+}
+
+.reading-body.no-copy {
+  user-select: none;
+  -webkit-user-select: none;
+}
+
 .submit-confirmation {
   text-align: center;
 }

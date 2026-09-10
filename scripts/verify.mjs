@@ -3,7 +3,7 @@
 import { buildSeed, exportBackup, importBackup } from '../src/db/storage.js'
 import { scoreAttempt, aggregateStudentTopics, aggregateStudentAll, attemptDurationStats } from '../src/domain/scoring.js'
 import { computeDeficiencies, buildRuleReport } from '../src/domain/report.js'
-import { normalizeTest, validateTest, validateQuestion } from '../src/domain/model.js'
+import { normalizeTest, validateTest, validateQuestion, normalizeReading, validateReading, requiredDwellSeconds, readingWordCount } from '../src/domain/model.js'
 import { createAIClient, OPENROUTER_DEFAULTS, PROVIDERS } from '../src/ai/client.js'
 import { normalizeStudentPart, studentCodeBase, studentAuthEmail } from '../src/domain/studentAuth.js'
 import vercelReportHandler from '../api/ai/report.js'
@@ -120,6 +120,45 @@ const backup = exportBackup({ ...seed, students: [{ id: 's1', name: 'Ayşe', gra
 const restored = importBackup(backup)
 check('Backup geri yükleniyor', restored.students.length === 1 && restored.tests.length === 12)
 
+console.log('\n8) Okuma ödevi')
+const readingFixture = normalizeReading({
+  title: 'Kırlangıç',
+  body: 'kelime '.repeat(120).trim(),
+  grade: 2,
+  subject: 'turkce',
+  quizThreshold: 60,
+  questions: [
+    { topic: 'okuma-anlama', text: 'Kırlangıç nereye gitti?', options: ['Güneye', 'Kuzeye'], correctIndex: 0 },
+    { topic: 'okuma-anlama', text: 'Hikayenin ana duygusu nedir?', options: ['Özlem', 'Korku'], correctIndex: 0 }
+  ]
+})
+check('Okuma doğrulama temiz', validateReading(readingFixture).length === 0)
+check('Kelime sayısı 120', readingWordCount(readingFixture.body) === 120)
+check('Gerekli dwell 48 sn', requiredDwellSeconds(readingFixture) === 48, `(${requiredDwellSeconds(readingFixture)})`)
+// evaluateReadingGates src/cloud/readings.js içindedir; vite-only supabase importu
+const evalGates = ({ reading, answers, dwellSeconds, scrolledBottom }) => {
+  const dwellOk = Number(dwellSeconds) >= requiredDwellSeconds(reading)
+  const scrollOk = scrolledBottom === true
+  const scored = scoreAttempt(
+    { title: reading.title, grade: reading.grade, subject: reading.subject, questions: reading.questions },
+    answers
+  )
+  const quizOk = scored.scorePercent >= Number(reading.quizThreshold ?? 60)
+  return { dwellOk, scrollOk, quizOk, scored, read: dwellOk && scrollOk && quizOk }
+}
+const goodAnswers = {}
+readingFixture.questions.forEach((q) => { goodAnswers[q.id] = q.correctIndex })
+const gatesNoScroll = evalGates({ reading: readingFixture, answers: goodAnswers, dwellSeconds: 48, scrolledBottom: false })
+check('Scroll yoksa read=false', gatesNoScroll.read === false)
+const gatesFull = evalGates({ reading: readingFixture, answers: goodAnswers, dwellSeconds: 48, scrolledBottom: true })
+check('Dwell+scroll+quiz geçerse read=true', gatesFull.read === true && gatesFull.scored.scorePercent === 100)
+const badAnswers = {}
+readingFixture.questions.forEach((q) => { badAnswers[q.id] = (q.correctIndex + 1) % q.options.length })
+const gatesQuizFail = evalGates({ reading: readingFixture, answers: badAnswers, dwellSeconds: 48, scrolledBottom: true })
+check('Quiz kalırsa read=false', gatesQuizFail.read === false && gatesQuizFail.quizOk === false)
+const backupWithReading = exportBackup({ ...seed, students: [], attempts: [], aiReports: {}, readings: [readingFixture], readingAttempts: [] })
+const restoredWithReading = importBackup(backupWithReading)
+check('Backup okumaları round-trip yapıyor', restoredWithReading.readings.length === 1 && restoredWithReading.readings[0].title === 'Kırlangıç')
 console.log('\n5b) Öğrenci giriş kimliği')
 check('Türkçe karakterler öğrenci kodunda normalize ediliyor', normalizeStudentPart('İpek Şahin') === 'ipeksahin')
 check('Öğrenci kodu okul no ve baş harflerden oluşuyor', studentCodeBase('12', 'Ayşe', 'Çelik') === '12ac')

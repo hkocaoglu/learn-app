@@ -128,6 +128,77 @@ export const normalizeTest = (t) => ({
   questions: (t.questions || []).map((q) => normalizeQuestion(q, t.grade, t.subject))
 })
 
+// ---------- Okuma ödevi ----------
+// minDwellSeconds boşsa requiredDwellSeconds kelime sayısından türetir (150 wpm, 30-600 sn).
+export const validateReading = (r) => {
+  const errors = []
+  if (!r) return ['Okuma verisi eksik']
+  if (!r.title || String(r.title).trim().length < 1 || String(r.title).trim().length > 200)
+    errors.push('Okuma başlığı 1-200 karakter olmalı')
+  const body = String(r.body || '')
+  if (body.trim().length < 50 || body.length > 20000)
+    errors.push('Okuma metni 50-20000 karakter olmalı')
+  if (!isValidGrade(r.grade)) errors.push('Okuma sınıfı geçersiz')
+  if (!isValidSubject(r.subject)) errors.push('Okuma dersi geçersiz')
+  if (r.sourceLabel !== undefined && r.sourceLabel !== null && String(r.sourceLabel).length > 200)
+    errors.push('Kaynak bilgisi 200 karakteri geçmemeli')
+  if (r.minDwellSeconds !== undefined && r.minDwellSeconds !== null && r.minDwellSeconds !== '') {
+    const d = Number(r.minDwellSeconds)
+    if (!Number.isFinite(d) || d < 15 || d > 1800) errors.push('En az okuma süresi 15-1800 sn arasında olmalı')
+  }
+  if (r.quizThreshold !== undefined && r.quizThreshold !== null && r.quizThreshold !== '') {
+    const q = Number(r.quizThreshold)
+    if (!Number.isFinite(q) || q < 0 || q > 100) errors.push('Quiz eşiği 0-100 arasında olmalı')
+  }
+  if (r.questions !== undefined && r.questions !== null) {
+    if (!Array.isArray(r.questions)) errors.push('Sorular listesi eksik')
+    else if (r.questions.length > 6) errors.push('Okuma sorusu en fazla 6 olabilir')
+    else {
+      r.questions.forEach((q, i) => {
+        validateQuestion({ ...q, grade: r.grade, subject: r.subject }).forEach((e) =>
+          errors.push(`Soru ${i + 1}: ${e}`)
+        )
+      })
+    }
+  }
+  return errors
+}
+
+export const normalizeReading = (r) => ({
+  id: r.id || uid('r_'),
+  title: String(r.title || '').trim(),
+  sourceLabel: r.sourceLabel ? String(r.sourceLabel).trim() : '',
+  body: String(r.body || '').trim(),
+  grade: Number(r.grade),
+  subject: r.subject,
+  topic: String(r.topic || '').trim().toLowerCase() || 'okuma-anlama',
+  minDwellSeconds:
+    r.minDwellSeconds === undefined || r.minDwellSeconds === null || r.minDwellSeconds === ''
+      ? null
+      : Number(r.minDwellSeconds),
+  quizThreshold:
+    r.quizThreshold === undefined || r.quizThreshold === null || r.quizThreshold === ''
+      ? 60
+      : Number(r.quizThreshold),
+  questions: (r.questions || []).map((q) => normalizeQuestion(q, r.grade, r.subject)),
+  createdAt: r.createdAt || nowIso()
+})
+
+export const readingWordCount = (body) => {
+  const text = String(body || '').trim()
+  if (!text) return 0
+  return text.split(/\s+/).length
+}
+
+export const requiredDwellSeconds = (reading) => {
+  const explicit = Number(reading?.minDwellSeconds)
+  if (Number.isFinite(explicit) && explicit > 0) return Math.round(explicit)
+  const words = readingWordCount(reading?.body)
+  const derived = Math.ceil((words / 150) * 60)
+  const clamp = (v, lo, hi) => Math.min(hi, Math.max(lo, v))
+  return clamp(derived, 30, 600)
+}
+
 export const formatDate = (iso) => {
   try {
     return new Date(iso).toLocaleString('tr-TR', {

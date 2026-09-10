@@ -1,6 +1,6 @@
 // localStorage tabanlı veri katmanı: yerel modda ortak, cloud modda kullanıcı kapsamlı anahtar kullanır.
 import { SEED_QUESTIONS } from '../data/seedQuestions.js'
-import { normalizeTest, normalizeQuestion, nowIso, uid, GRADES, SUBJECTS } from '../domain/model.js'
+import { normalizeTest, normalizeQuestion, normalizeReading, nowIso, uid, GRADES, SUBJECTS } from '../domain/model.js'
 
 const DB_KEY = 'learn_app_db_v1'
 const META_KEY = 'learn_app_meta_v1'
@@ -16,6 +16,8 @@ const emptyDB = () => ({
   tests: [],
   bank: [], // soru bankası (sınıf + ders + konu etiketli)
   attempts: [],
+  readings: [],
+  readingAttempts: [],
   aiReports: {} // studentId -> AI rapor metinleri listesi
 })
 
@@ -103,6 +105,8 @@ export function exportBackup(db) {
         tests: db.tests,
         bank: db.bank,
         attempts: db.attempts,
+        readings: db.readings || [],
+        readingAttempts: db.readingAttempts || [],
         aiReports: db.aiReports
       }
     },
@@ -122,6 +126,8 @@ export function importBackup(json, scope = '') {
   if (Array.isArray(data.bank))
     next.bank = data.bank.map((q) => normalizeQuestion(q, q.grade, q.subject))
   if (Array.isArray(data.attempts)) next.attempts = data.attempts
+  if (Array.isArray(data.readings)) next.readings = data.readings.map((r) => normalizeReading(r))
+  if (Array.isArray(data.readingAttempts)) next.readingAttempts = data.readingAttempts
   if (data.aiReports && typeof data.aiReports === 'object') next.aiReports = data.aiReports
   saveDB(next, scope)
   return next
