@@ -17,6 +17,7 @@ import SettingsScreen from './ui/screens/SettingsScreen.jsx'
 import AdminScreen from './ui/screens/AdminScreen.jsx'
 import ClassesScreen from './ui/screens/ClassesScreen.jsx'
 import AssignmentsScreen from './ui/screens/AssignmentsScreen.jsx'
+import StudentPortalScreen from './ui/screens/StudentPortalScreen.jsx'
 import ReadingsScreen from './ui/screens/ReadingsScreen.jsx'
 
 function Router() {

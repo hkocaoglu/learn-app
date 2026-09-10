@@ -14,6 +14,7 @@ const readAssignmentRoute = () => {
 }
 
 export default function StudentPortalScreen() {
+  const { signOut, user } = useAuth()
   const [student, setStudent] = useState(null)
   const [assignments, setAssignments] = useState([])
   const [readings, setReadings] = useState([])
