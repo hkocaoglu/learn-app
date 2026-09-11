@@ -116,12 +116,13 @@ export default function ReadingsScreen() {
         startsAt: localDateToIso(form.startsAt),
         endsAt: localDateToIso(form.endsAt)
       })
+      const imageNote = candidate.image ? 'görsel dâhil' : 'görselsiz'
       setNotice(
         result.updated
-          ? 'Bu okuma bu sınıfa zaten atanmıştı; içerik (görsel dâhil) güncellendi. Öğrencinin kanıtları korundu.'
+          ? `Bu okuma bu sınıfa zaten atanmıştı; içerik (${imageNote}) güncellendi. Öğrencinin kanıtları korundu.`
           : questions.length === 0
-            ? 'Okuma atandı. Soru eklenmediği için kanıt daha zayıf olacak.'
-            : 'Okuma sınıfa atandı.'
+            ? `Okuma sınıfa atandı (${imageNote}). Soru eklenmediği için kanıt daha zayıf olacak.`
+            : `Okuma sınıfa atandı (${imageNote}).`
       )
       setForm((current) => ({ ...initialForm, classId: current.classId, grade: current.grade, subject: current.subject }))
       setQuestions([])
@@ -210,12 +211,14 @@ export default function ReadingsScreen() {
   }
 
   const selectPassage = (passage) => {
+    const incomingImage = passage.image || ''
     setForm((current) => ({
       ...current,
       title: passage.title,
       sourceLabel: passage.sourceLabel || '',
       body: passage.body,
-      image: passage.image || '',
+      // Kayıtlı metinde görsel yoksa forma eklenmiş görseli koru (sessizce silme).
+      image: incomingImage || current.image,
       grade: passage.grade,
       subject: passage.subject,
       quizThreshold: passage.quizThreshold ?? 60,
@@ -223,7 +226,11 @@ export default function ReadingsScreen() {
     }))
     setQuestions(passage.questions || [])
     setFormErrors([])
-    setNotice(`"${passage.title}" forma yüklendi. Sınıf seçip gönderebilirsiniz.`)
+    setNotice(
+      incomingImage || form.image
+        ? `"${passage.title}" forma yüklendi. Görsel hazır — öğrencilere ulaşması için "Okumayı sınıfa ata" ile gönderin.`
+        : `"${passage.title}" forma yüklendi (kayıtlı görseli yok). Görsel eklemek isterseniz yükleyip gönderin.`
+    )
   }
 
   const savePassage = async () => {
@@ -239,7 +246,11 @@ export default function ReadingsScreen() {
     try {
       const { passage: saved, updated } = await createPassage({ teacherId: user.id, passage: candidate })
       setPassages((current) => [saved, ...current.filter((item) => item.id !== saved.id)])
-      setNotice(updated ? `"${saved.title}" güncellendi.` : `"${saved.title}" kütüphaneye kaydedildi.`)
+      setNotice(
+        updated
+          ? `"${saved.title}" kütüphanede güncellendi. Öğrencilere ulaşması için "Okumayı sınıfa ata" ile gönderin.`
+          : `"${saved.title}" kütüphaneye kaydedildi. Öğrencilere ulaşması için "Okumayı sınıfa ata" ile gönderin.`
+      )
     } catch (caughtError) {
       setError(caughtError.message)
     } finally {
@@ -274,7 +285,11 @@ export default function ReadingsScreen() {
       setPassages((current) => [saved, ...current.filter((item) => item.id !== saved.id)])
       setImportText('')
       setShowImport(false)
-      setNotice(updated ? `"${saved.title}" güncellendi.` : `"${saved.title}" içe aktarıldı.`)
+      setNotice(
+        updated
+          ? `"${saved.title}" kütüphanede güncellendi. Öğrencilere ulaşması için "Okumayı sınıfa ata" ile gönderin.`
+          : `"${saved.title}" içe aktarıldı. Öğrencilere ulaşması için "Okumayı sınıfa ata" ile gönderin.`
+      )
     } catch (caughtError) {
       setError(caughtError.message)
     }
