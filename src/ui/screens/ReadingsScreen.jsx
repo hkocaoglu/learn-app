@@ -109,14 +109,20 @@ export default function ReadingsScreen() {
     setError('')
     setNotice('')
     try {
-      await createReading({
+      const result = await createReading({
         teacherId: user.id,
         classId: form.classId,
         reading: candidate,
         startsAt: localDateToIso(form.startsAt),
         endsAt: localDateToIso(form.endsAt)
       })
-      setNotice(questions.length === 0 ? 'Okuma atandı. Soru eklenmediği için kanıt daha zayıf olacak.' : 'Okuma sınıfa atandı.')
+      setNotice(
+        result.updated
+          ? 'Bu okuma bu sınıfa zaten atanmıştı; içerik (görsel dâhil) güncellendi. Öğrencinin kanıtları korundu.'
+          : questions.length === 0
+            ? 'Okuma atandı. Soru eklenmediği için kanıt daha zayıf olacak.'
+            : 'Okuma sınıfa atandı.'
+      )
       setForm((current) => ({ ...initialForm, classId: current.classId, grade: current.grade, subject: current.subject }))
       setQuestions([])
       setFormErrors([])
@@ -231,9 +237,9 @@ export default function ReadingsScreen() {
     setSaving(true)
     setError('')
     try {
-      const saved = await createPassage({ teacherId: user.id, passage: candidate })
-      setPassages((current) => [saved, ...current])
-      setNotice(`"${saved.title}" kütüphaneye kaydedildi.`)
+      const { passage: saved, updated } = await createPassage({ teacherId: user.id, passage: candidate })
+      setPassages((current) => [saved, ...current.filter((item) => item.id !== saved.id)])
+      setNotice(updated ? `"${saved.title}" güncellendi.` : `"${saved.title}" kütüphaneye kaydedildi.`)
     } catch (caughtError) {
       setError(caughtError.message)
     } finally {
@@ -264,11 +270,11 @@ export default function ReadingsScreen() {
     setNotice('')
     try {
       const imported = importPassage(importText)
-      const saved = await createPassage({ teacherId: user.id, passage: imported })
-      setPassages((current) => [saved, ...current])
+      const { passage: saved, updated } = await createPassage({ teacherId: user.id, passage: imported })
+      setPassages((current) => [saved, ...current.filter((item) => item.id !== saved.id)])
       setImportText('')
       setShowImport(false)
-      setNotice(`"${saved.title}" içe aktarıldı.`)
+      setNotice(updated ? `"${saved.title}" güncellendi.` : `"${saved.title}" içe aktarıldı.`)
     } catch (caughtError) {
       setError(caughtError.message)
     }
@@ -641,6 +647,7 @@ export default function ReadingsScreen() {
               <tr>
                 <th>Okuma</th>
                 <th>Sınıf</th>
+                <th>Görsel</th>
                 <th>Zaman</th>
                 <th>Durum</th>
                 <th style={{ textAlign: 'right' }}>İşlem</th>
@@ -660,6 +667,15 @@ export default function ReadingsScreen() {
                       </div>
                     </td>
                     <td>{reading.className}</td>
+                    <td className="small">
+                      {reading.image ? (
+                        <span className="badge badge-success">🖼 var</span>
+                      ) : (
+                        <span className="small muted" title="Bu atama görselsiz kaydedilmiş. Metni forma yükleyip görsel ekleyerek yeniden gönderin.">
+                          — yok
+                        </span>
+                      )}
+                    </td>
                     <td className="small">
                       {reading.startsAt ? formatDate(reading.startsAt) : 'Hemen'}
                       {' – '}
@@ -686,7 +702,7 @@ export default function ReadingsScreen() {
                   </tr>
                   {openDetailId === reading.id && (
                     <tr>
-                      <td colSpan={5}>
+                      <td colSpan={6}>
                         <ReadingAttemptTable rows={attemptsById[reading.id] || []} />
                       </td>
                     </tr>

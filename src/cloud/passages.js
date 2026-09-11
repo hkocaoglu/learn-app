@@ -88,16 +88,29 @@ export const createPassage = async ({ teacherId, passage }) => {
     throw new Error(imageMigrationHint)
   }
 
-  const { data, error } = await runTolerant((fields, dropped) =>
+  const inserted = await runTolerant((fields, dropped) =>
     requireSupabase().from('reading_passages').insert(dropKeys(row, dropped)).select(fields).single()
   )
 
-  if (error) {
-    if (error.code === '23505') throw new Error('Bu başlıkla bir metin zaten kayıtlı.')
-    throw new Error(`Metin kaydedilemedi: ${error.message}`)
+  if (!inserted.error) return { passage: toPassage(inserted.data), updated: false }
+
+  if (inserted.error.code !== '23505') {
+    throw new Error(`Metin kaydedilemedi: ${inserted.error.message}`)
   }
 
-  return toPassage(data)
+  // Aynı başlıkla kayıtlı metin varsa içeriği tazele (görsel eklemek için yeniden kaydetmek yeterli).
+  const refreshed = await runTolerant((fields, dropped) =>
+    requireSupabase()
+      .from('reading_passages')
+      .update(dropKeys(row, dropped))
+      .eq('teacher_id', teacherId)
+      .eq('title', normalized.title)
+      .select(fields)
+      .single()
+  )
+
+  if (refreshed.error) throw new Error(`Metin güncellenemedi: ${refreshed.error.message}`)
+  return { passage: toPassage(refreshed.data), updated: true }
 }
 
 export const deletePassage = async (id) => {

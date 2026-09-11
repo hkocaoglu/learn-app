@@ -130,7 +130,7 @@ export const createReading = async ({ teacherId, classId, reading, startsAt, end
     throw new Error(imageMigrationHint)
   }
 
-  const { data, error } = await runTolerant((fields, dropped) =>
+  const inserted = await runTolerant((fields, dropped) =>
     requireSupabase()
       .from('reading_assignments')
       .insert(dropKeys(baseRow, dropped))
@@ -138,11 +138,26 @@ export const createReading = async ({ teacherId, classId, reading, startsAt, end
       .single()
   )
 
-  if (error) {
-    if (error.code === '23505') throw new Error('Bu okuma bu sınıfa zaten atanmış.')
-    throw new Error(`Okuma atanamadı: ${error.message}`)
+  if (!inserted.error) return { reading: inserted.data, updated: false }
+
+  if (inserted.error.code !== '23505') {
+    throw new Error(`Okuma atanamadı: ${inserted.error.message}`)
   }
-  return data
+
+  // Aynı sınıfa aynı başlıkla atama zaten var: içeriği (görsel/quiz dâhil) tazele.
+  // Silip yeniden göndermek öğrenci kanıtlarını cascade ile silerdi.
+  const refreshed = await runTolerant((fields, dropped) =>
+    requireSupabase()
+      .from('reading_assignments')
+      .update(dropKeys(baseRow, dropped))
+      .eq('class_id', classId)
+      .eq('title', normalized.title)
+      .select(fields)
+      .single()
+  )
+
+  if (refreshed.error) throw new Error(`Okuma güncellenemedi: ${refreshed.error.message}`)
+  return { reading: refreshed.data, updated: true }
 }
 
 export const updateReading = async ({ id, published, startsAt, endsAt }) => {
