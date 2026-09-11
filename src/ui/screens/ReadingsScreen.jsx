@@ -50,6 +50,8 @@ export default function ReadingsScreen() {
   const [attemptsById, setAttemptsById] = useState({})
   const [openDetailId, setOpenDetailId] = useState('')
   const [imageError, setImageError] = useState('')
+  const [missingReadingColumns, setMissingReadingColumns] = useState([])
+  const [missingPassageColumns, setMissingPassageColumns] = useState([])
 
   const load = useCallback(async () => {
     setLoading(true)
@@ -69,9 +71,11 @@ export default function ReadingsScreen() {
     }
     if (readingOutcome.status === 'fulfilled') {
       setReadings(readingOutcome.value.readings)
+      setMissingReadingColumns(readingOutcome.value.missingColumns || [])
     }
     if (passageOutcome.status === 'fulfilled') {
-      setPassages(passageOutcome.value || [])
+      setPassages(passageOutcome.value.passages || [])
+      setMissingPassageColumns(passageOutcome.value.missingColumns || [])
     }
     const firstError =
       classOutcome.status === 'rejected'
@@ -93,17 +97,7 @@ export default function ReadingsScreen() {
       setError('Sınıf, başlık ve en az 50 karakterlik metin gereklidir.')
       return
     }
-    const candidate = {
-      title: form.title.trim(),
-      sourceLabel: form.sourceLabel.trim(),
-      body: form.body,
-      grade: Number(form.grade),
-      subject: form.subject,
-      minDwellSeconds: form.minDwellSeconds === '' ? null : Number(form.minDwellSeconds),
-      quizThreshold: Number(form.quizThreshold),
-      showPassageDuringQuiz: form.showPassageDuringQuiz !== false,
-      questions
-    }
+    const candidate = formCandidate()
     const errors = validateReading(candidate)
     setFormErrors(errors)
     if (errors.length > 0) {
@@ -184,6 +178,7 @@ export default function ReadingsScreen() {
     setAddingQuestion(false)
   }
 
+  // Tek kaynak: gönderme, kütüphaneye kaydetme ve dışa aktarma aynı nesneyi kullanır.
   const formCandidate = () => ({
     title: form.title.trim(),
     sourceLabel: form.sourceLabel.trim(),
@@ -191,6 +186,7 @@ export default function ReadingsScreen() {
     image: form.image,
     grade: Number(form.grade),
     subject: form.subject,
+    minDwellSeconds: form.minDwellSeconds === '' ? null : Number(form.minDwellSeconds),
     quizThreshold: Number(form.quizThreshold),
     showPassageDuringQuiz: form.showPassageDuringQuiz !== false,
     questions
@@ -299,6 +295,9 @@ export default function ReadingsScreen() {
     }
   }
 
+  const supportsImages =
+    !missingReadingColumns.includes('image') && !missingPassageColumns.includes('image')
+
   return (
     <div>
       <div className="page-head">
@@ -313,6 +312,13 @@ export default function ReadingsScreen() {
 
       {error && <div className="alert alert-error">{error}</div>}
       {notice && <div className="alert alert-success">{notice}</div>}
+      {!supportsImages && (
+        <div className="alert alert-warning">
+          <strong>Veritabanı güncellenmemiş:</strong> okuma görselleri için gereken <code>image</code> kolonu yok, bu
+          yüzden görseller kaydedilemez ve öğrenciler görselleri göremez. Supabase SQL Editor üzerinde{' '}
+          <code>supabase/migrations/20260911090000_reading_images.sql</code> dosyasını çalıştırın.
+        </div>
+      )}
 
       <div className="card">
         <div className="section-heading" style={{ marginTop: 0 }}>

@@ -18,3 +18,17 @@ export const dropKeys = (row, omitted = []) => {
   omitted.forEach((key) => delete next[key])
   return next
 }
+
+// İsteğe bağlı kolonların veritabanında var olup olmadığını tek satırlık okumayla yoklar.
+// Dönen liste: BULUNMAYAN opsiyonel kolonlar. Yazma öncesi çağrılır ki veri sessizce
+// düşmesin (ör. görsel kolonu yoksa görsel kaydedilemez).
+export const probeMissingColumns = async ({ fields, optional, run }) => {
+  const omitted = []
+  for (;;) {
+    const { error } = await run(selectList(fields, omitted))
+    if (!error) return omitted
+    const missing = detectMissingColumn(error, optional)
+    if (!missing || omitted.includes(missing)) return omitted
+    omitted.push(missing)
+  }
+}

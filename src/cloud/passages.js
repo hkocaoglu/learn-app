@@ -1,6 +1,6 @@
 import { requireSupabase } from '../lib/supabase.js'
 import { normalizeReading } from '../domain/model.js'
-import { detectMissingColumn, dropKeys, selectList } from './schemaFallback.js'
+import { detectMissingColumn, dropKeys, probeMissingColumns, selectList } from './schemaFallback.js'
 
 const passageFields = [
   'id',
@@ -51,13 +51,20 @@ export const toPassage = (row) => ({
   createdAt: row.created_at
 })
 
+const missingPassageColumns = () =>
+  probeMissingColumns({
+    fields: passageFields,
+    optional: optionalPassageFields,
+    run: (fields) => requireSupabase().from('reading_passages').select(fields).limit(1)
+  })
+
 export const fetchTeacherPassages = async () => {
-  const { data, error } = await runTolerant((fields) =>
+  const { data, error, omitted } = await runTolerant((fields) =>
     requireSupabase().from('reading_passages').select(fields).order('created_at', { ascending: false })
   )
 
   if (error) throw new Error(`Okuma kütüphanesi yüklenemedi: ${error.message}`)
-  return (data || []).map(toPassage)
+  return { passages: (data || []).map(toPassage), missingColumns: omitted || [] }
 }
 
 export const createPassage = async ({ teacherId, passage }) => {
@@ -76,12 +83,16 @@ export const createPassage = async ({ teacherId, passage }) => {
     questions: normalized.questions
   }
 
-  const { data, error, omitted } = await runTolerant((fields, dropped) =>
+  // Görsel kaydedilecekse kolonu ÖNCE doğrula, veri sessizce düşmesin.
+  if (normalized.image && (await missingPassageColumns()).includes('image')) {
+    throw new Error(imageMigrationHint)
+  }
+
+  const { data, error } = await runTolerant((fields, dropped) =>
     requireSupabase().from('reading_passages').insert(dropKeys(row, dropped)).select(fields).single()
   )
 
   if (error) {
-    if (omitted.includes('image') && normalized.image) throw new Error(imageMigrationHint)
     if (error.code === '23505') throw new Error('Bu başlıkla bir metin zaten kayıtlı.')
     throw new Error(`Metin kaydedilemedi: ${error.message}`)
   }

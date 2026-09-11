@@ -1,7 +1,7 @@
 import { requireSupabase } from '../lib/supabase.js'
 import { normalizeReading, requiredDwellSeconds } from '../domain/model.js'
 import { scoreAttempt } from '../domain/scoring.js'
-import { detectMissingColumn, dropKeys, selectList } from './schemaFallback.js'
+import { detectMissingColumn, dropKeys, probeMissingColumns, selectList } from './schemaFallback.js'
 
 const readingFields = [
   'id',
@@ -42,6 +42,14 @@ const runTolerant = async (run) => {
     omitted.push(missing)
   }
 }
+
+// Yazma öncesi: hangi opsiyonel kolonlar yok? (Veri sessizce düşmesin.)
+const missingReadingColumns = () =>
+  probeMissingColumns({
+    fields: readingFields,
+    optional: optionalReadingFields,
+    run: (fields) => requireSupabase().from('reading_assignments').select(fields).limit(1)
+  })
 
 export const toReading = (row, classesById) => {
   const classRow = classesById?.get(row.class_id)
@@ -84,7 +92,8 @@ const readRows = async () => {
 
   return {
     readings: (readingResult.data || []).map((row) => toReading(row, classesById)),
-    classes: classResult.data || []
+    classes: classResult.data || [],
+    missingColumns: readingResult.omitted || []
   }
 }
 
@@ -115,7 +124,13 @@ export const createReading = async ({ teacherId, classId, reading, startsAt, end
     published: Boolean(published)
   }
 
-  const { data, error, omitted } = await runTolerant((fields, dropped) =>
+  // Görsel gönderilecekse kolonun varlığını ÖNCE doğrula: aksi halde görsel sessizce
+  // düşer ve öğrenci görseli hiç görmez.
+  if (normalized.image && (await missingReadingColumns()).includes('image')) {
+    throw new Error(imageMigrationHint)
+  }
+
+  const { data, error } = await runTolerant((fields, dropped) =>
     requireSupabase()
       .from('reading_assignments')
       .insert(dropKeys(baseRow, dropped))
@@ -124,8 +139,6 @@ export const createReading = async ({ teacherId, classId, reading, startsAt, end
   )
 
   if (error) {
-    // Görsel gerçekten gönderilmişse sessizce düşürmek yerine migration'ı hatırlat.
-    if (omitted.includes('image') && normalized.image) throw new Error(imageMigrationHint)
     if (error.code === '23505') throw new Error('Bu okuma bu sınıfa zaten atanmış.')
     throw new Error(`Okuma atanamadı: ${error.message}`)
   }
