@@ -1,7 +1,19 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { evaluateReadingGates, submitReadingAttempt } from '../../cloud/readings.js'
 import { formatSeconds, gradeLabel, requiredDwellSeconds, subjectLabel, topicLabel } from '../../domain/model.js'
-import { buildSpeechSegments, pickTurkishVoice, speechSupported, stopSpeech, SPEECH_RATE } from '../../lib/speech.js'
+import {
+  buildSpeechSegments,
+  clampRate,
+  formatRate,
+  loadSpeechRate,
+  pickTurkishVoice,
+  saveSpeechRate,
+  speechSupported,
+  stopSpeech,
+  SPEECH_RATE_MAX,
+  SPEECH_RATE_MIN,
+  SPEECH_RATE_STEP
+} from '../../lib/speech.js'
 import Modal from '../components/Modal.jsx'
 import QuestionImage from '../components/QuestionImage.jsx'
 
@@ -58,6 +70,7 @@ export default function StudentReadingScreen({ student, readingAssignment, onBac
   const [speechActive, setSpeechActive] = useState(false)
   const [speechIndex, setSpeechIndex] = useState(-1)
   const [speechNotice, setSpeechNotice] = useState('')
+  const [speechRate, setSpeechRate] = useState(loadSpeechRate)
 
   const startedAtRef = useRef(draft?.startedAt || Date.now())
   const accumulatedRef = useRef(Number(draft?.dwellSeconds) || 0)
@@ -68,6 +81,7 @@ export default function StudentReadingScreen({ student, readingAssignment, onBac
   const bodyRef = useRef(null)
   const voiceRef = useRef(null)
   const speechTokenRef = useRef(0)
+  const speechRateRef = useRef(speechRate)
 
   const speechSegments = useMemo(() => buildSpeechSegments(reading?.body), [reading?.body])
 
@@ -192,7 +206,7 @@ export default function StudentReadingScreen({ student, readingAssignment, onBac
       try {
         const utterance = new SpeechSynthesisUtterance(speechSegments[index])
         utterance.lang = 'tr-TR'
-        utterance.rate = SPEECH_RATE
+        utterance.rate = speechRateRef.current
         if (voiceRef.current) utterance.voice = voiceRef.current
         utterance.onend = () => speakAt(index + 1)
         utterance.onerror = fail
@@ -223,6 +237,20 @@ export default function StudentReadingScreen({ student, readingAssignment, onBac
     speechTokenRef.current += 1
     setSpeechActive(true)
     speakFrom(speechIndex >= 0 ? speechIndex : 0)
+  }
+
+  // Hız değişince çalan parça yeni hızla baştan okunur (anında duyulsun).
+  const changeRate = (delta) => {
+    const next = clampRate(Number((speechRateRef.current + delta).toFixed(2)))
+    if (next === speechRateRef.current) return
+    speechRateRef.current = next
+    setSpeechRate(next)
+    saveSpeechRate(next)
+    if (!speechActive) return
+    speechTokenRef.current += 1
+    stopSpeech()
+    setSpeechActive(true)
+    speakFrom(Math.max(0, speechIndex))
   }
 
   // Metin gizlenirse (quiz sırasında gizli) sesi kes.
@@ -383,6 +411,31 @@ export default function StudentReadingScreen({ student, readingAssignment, onBac
                 <button className="btn btn-sm" type="button" onClick={stopSpeaking}>
                   ■ Durdur
                 </button>
+              )}
+              {speechSupported() && (
+                <span className="reading-rate-control">
+                  <button
+                    className="btn btn-sm"
+                    type="button"
+                    aria-label="Okuma hızını azalt"
+                    disabled={speechRate <= SPEECH_RATE_MIN}
+                    onClick={() => changeRate(-SPEECH_RATE_STEP)}
+                  >
+                    A−
+                  </button>
+                  <span className="small muted" aria-live="polite">
+                    Hız {formatRate(speechRate)}
+                  </span>
+                  <button
+                    className="btn btn-sm"
+                    type="button"
+                    aria-label="Okuma hızını artır"
+                    disabled={speechRate >= SPEECH_RATE_MAX}
+                    onClick={() => changeRate(SPEECH_RATE_STEP)}
+                  >
+                    A+
+                  </button>
+                </span>
               )}
               <span className="small muted">
                 {speechNotice ||

@@ -52,8 +52,10 @@ sonuçları saklar ve **eksik konu raporu** çıkarır.
      dedikten sonra açılır. Öğretmen, metnin quiz sırasında **görünür kalmasını** seçebilir
      (görünürse geniş ekranda metin ve sorular yan yana gösterilir).
    - **Sesli dinleme:** öğrenci metni tarayıcının yerleşik Türkçe sesiyle dinleyebilir (`speechSynthesis`,
-     ek anahtar/ücret yok). Metin parçalara bölünüp sırayla okunur ve okunan parça vurgulanır;
-     **kanıt kapıları değişmez** (süre + kaydırma + quiz aynen gereklidir). Ses yoksa veya tarayıcı
+     ek anahtar/ücret yok). Metin parçalara bölünüp sırayla okunur ve okunan parça vurgulanır.
+     Yanındaki **A− / A+** düğmeleriyle okuma hızı 0.5×–1.6× arasında ayarlanır; seçim cihazda
+     saklanır, çalma sırasında değiştirilirse aktif parça yeni hızla baştan okunur.
+     **Kanıt kapıları değişmez** (süre + kaydırma + quiz aynen gereklidir). Ses yoksa veya tarayıcı
      engellerse düğme bilgilendirir, okuma akışı bozulmaz.
    - **Raporlama:** her atama için öğrenci bazında Okundu ✓ / — , quiz yüzdesi, süre ve kaydırma
      durumu; okuma listesinde satırın görsel taşıyıp taşımadığı (**🖼 var / — yok**) görünür.

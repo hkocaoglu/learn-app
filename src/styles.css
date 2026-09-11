@@ -1301,6 +1301,16 @@ tr:hover td {
   box-shadow: 0 0 0 2px var(--warning-light);
 }
 
+.reading-rate-control {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 2px 8px;
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius);
+  background: var(--gray-50);
+}
+
 @media (max-width: 1100px) {
   .reading-layout-split {
     grid-template-columns: minmax(0, 1fr);

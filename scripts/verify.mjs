@@ -6,7 +6,7 @@ import { computeDeficiencies, buildRuleReport } from '../src/domain/report.js'
 import { normalizeTest, validateTest, validateQuestion, normalizeReading, validateReading, requiredDwellSeconds, readingWordCount, exportPassage, importPassage, GRADES } from '../src/domain/model.js'
 import { createAIClient, OPENROUTER_DEFAULTS, PROVIDERS } from '../src/ai/client.js'
 import { normalizeStudentPart, studentCodeBase, studentAuthEmail } from '../src/domain/studentAuth.js'
-import { buildSpeechSegments } from '../src/lib/speech.js'
+import { buildSpeechSegments, clampRate, formatRate, SPEECH_RATE, SPEECH_RATE_MAX, SPEECH_RATE_MIN } from '../src/lib/speech.js'
 import vercelReportHandler from '../api/ai/report.js'
 
 // --- localStorage stub ---
@@ -184,6 +184,11 @@ check('Her parça 240 karakteri geçmiyor', speechSegments.every((s) => s.length
 check('Satır sonları parça sonunda kalıyor', speechSegments.filter((s) => s.endsWith('\n')).length === 2)
 check('Boş metin parça üretmiyor', buildSpeechSegments('   ').length === 0)
 check('Tek cümlelik kısa metin tek parça', buildSpeechSegments('Merhaba dünya.').length === 1)
+check('Hız alt sınırda kırpılıyor', clampRate(0.1) === SPEECH_RATE_MIN && clampRate(-3) === SPEECH_RATE_MIN)
+check('Hız üst sınırda kırpılıyor', clampRate(9) === SPEECH_RATE_MAX)
+check('Geçersiz hız varsayılana düşüyor', clampRate('abc') === SPEECH_RATE && clampRate(NaN) === SPEECH_RATE)
+check('Hız etiketi okunur biçimde', formatRate(1) === '1×' && formatRate(0.95) === '0.95×')
+
 
 const backupWithReading = exportBackup({ ...seed, students: [], attempts: [], aiReports: {}, readings: [readingFixture], readingAttempts: [] })
 const restoredWithReading = importBackup(backupWithReading)

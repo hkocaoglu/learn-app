@@ -4,6 +4,41 @@
 
 const MAX_SEGMENT_LENGTH = 240
 export const SPEECH_RATE = 0.95
+export const SPEECH_RATE_MIN = 0.5
+export const SPEECH_RATE_MAX = 1.6
+export const SPEECH_RATE_STEP = 0.1
+
+const RATE_KEY = 'learn_app_speech_rate_v1'
+
+export const clampRate = (rate) => {
+  const value = Number(rate)
+  if (!Number.isFinite(value)) return SPEECH_RATE
+  const bounded = Math.min(SPEECH_RATE_MAX, Math.max(SPEECH_RATE_MIN, value))
+  return Math.round(bounded * 100) / 100
+}
+
+// Cihaz tercihi: aynı tablette her seferinde yeniden ayarlanmasın.
+export const loadSpeechRate = () => {
+  if (typeof localStorage === 'undefined') return SPEECH_RATE
+  try {
+    const stored = localStorage.getItem(RATE_KEY)
+    return stored === null ? SPEECH_RATE : clampRate(stored)
+  } catch (error) {
+    console.error('Okuma hızı okunamadı:', error)
+    return SPEECH_RATE
+  }
+}
+
+export const saveSpeechRate = (rate) => {
+  if (typeof localStorage === 'undefined') return
+  try {
+    localStorage.setItem(RATE_KEY, String(clampRate(rate)))
+  } catch (error) {
+    console.error('Okuma hızı kaydedilemedi:', error)
+  }
+}
+
+export const formatRate = (rate) => `${String(Number(clampRate(rate).toFixed(2)))}×`
 
 // Saf: tarayıcı API'sine dokunmaz (Node'da da test edilebilir).
 // Ayırıcı karakter (cümle sonu / satır sonu) kendisinden önceki parçada kalır,
