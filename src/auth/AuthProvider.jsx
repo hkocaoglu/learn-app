@@ -31,16 +31,32 @@ export function AuthProvider({ children }) {
 
     let mounted = true
 
+    // getSession sekmeler arası kilit çekişmesinde veya engelli depolamada
+    // asılı kalabilir ya da fırlatabilir; başlatma ekranı asla takılı kalmamalı.
+    const SESSION_TIMEOUT_MS = 10000
     const loadSession = async () => {
-      const { data, error } = await supabase.auth.getSession()
-      if (!mounted) return
+      try {
+        const { data, error } = await Promise.race([
+          supabase.auth.getSession(),
+          new Promise((_, reject) =>
+            setTimeout(() => reject(new Error('Oturum kontrolü zaman aşımına uğradı.')), SESSION_TIMEOUT_MS)
+          )
+        ])
+        if (!mounted) return
 
-      if (error) {
-        setSessionError(error.message)
+        if (error) {
+          setSessionError(error.message)
+        }
+        setProfileLoading(Boolean(data?.session?.user?.id))
+        setSession(data?.session || null)
+      } catch (caughtError) {
+        if (!mounted) return
+        setSessionError(caughtError?.message || 'Oturum kontrol edilemedi.')
+        setSession(null)
+        setProfileLoading(false)
+      } finally {
+        if (mounted) setLoading(false)
       }
-      setProfileLoading(Boolean(data?.session?.user?.id))
-      setSession(data?.session || null)
-      setLoading(false)
     }
 
     loadSession()
