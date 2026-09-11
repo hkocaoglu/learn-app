@@ -5,6 +5,7 @@ create table if not exists public.reading_assignments (
   class_id uuid not null references public.classes(id) on delete cascade,
   title text not null check (char_length(trim(title)) between 1 and 200),
   source_label text not null default '',
+  image text not null default '',
   body text not null check (char_length(trim(body)) between 50 and 20000),
   grade smallint not null check (grade between 1 and 6),
   subject text not null check (subject in ('matematik', 'geometri', 'turkce')),

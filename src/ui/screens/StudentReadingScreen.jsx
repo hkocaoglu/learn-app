@@ -61,6 +61,7 @@ export default function StudentReadingScreen({ student, readingAssignment, onBac
   const scrolledRef = useRef(draft?.scrolledBottom === true)
   const finishedRef = useRef(false)
   const submitRef = useRef(null)
+  const bodyRef = useRef(null)
 
   const answeredCount = Object.values(answers).filter((value) => Number.isInteger(value) && value >= 0).length
   const unansweredCount = Math.max(0, total - answeredCount)
@@ -127,13 +128,28 @@ export default function StudentReadingScreen({ student, readingAssignment, onBac
     )
   }
 
+  const markScrolled = () => {
+    scrolledRef.current = true
+    setScrolledBottom(true)
+  }
+
   const handleScroll = (event) => {
     const el = event.currentTarget
-    if (el.scrollHeight - el.scrollTop - el.clientHeight < 48) {
-      scrolledRef.current = true
-      setScrolledBottom(true)
-    }
+    if (el.scrollHeight - el.scrollTop - el.clientHeight < 48) markScrolled()
   }
+
+  // Metin kaydırma gerektirmiyorsa (kısa metin) kaydırma kapısı hemen sağlanmış sayılır;
+  // aksi halde öğrenci hiçbir şey yapamadan kilitli kalırdı.
+  useEffect(() => {
+    const el = bodyRef.current
+    if (!el) return undefined
+    const check = () => {
+      if (el.scrollHeight - el.scrollTop - el.clientHeight < 48) markScrolled()
+    }
+    check()
+    window.addEventListener('resize', check)
+    return () => window.removeEventListener('resize', check)
+  }, [reading, quizStarted])
 
   const submit = async (confirmed = false) => {
     if (finishedRef.current || submitting) return
@@ -211,6 +227,8 @@ export default function StudentReadingScreen({ student, readingAssignment, onBac
 
   const question = total > 0 ? questions[Math.min(step, total - 1)] : null
   const selected = question ? answers[question.id] : undefined
+  // Quiz sırasında metin görünürse yan yana (geniş ekranda) yerleşim kullanılır.
+  const splitLayout = quizStarted && total > 0 && reading.showPassageDuringQuiz !== false
 
   return (
     <div>
@@ -242,24 +260,27 @@ export default function StudentReadingScreen({ student, readingAssignment, onBac
 
       {error && <div className="alert alert-error">{error}</div>}
 
-      {(!quizStarted || total === 0 || reading.showPassageDuringQuiz !== false) && (
-        <div className="card">
-        <div
-          className="reading-body no-copy"
-          onScroll={handleScroll}
-          onCopy={(event) => event.preventDefault()}
-          style={{ minHeight: 420, maxHeight: '62vh', overflowY: 'auto', whiteSpace: 'pre-wrap', fontSize: '1.05rem' }}
-        >
-          {reading.body}
-        </div>
-        <p className="small muted mt-8">
-          {/* eslint-disable-next-line no-undef */}
-          Metni sonuna kadar kaydırın ve {required} sn okuma süresini doldurun. Kopyalama kapalıdır; bu istemci
-          sinyalleri göz-temasını kanıtlamaz.
-        </p>
-        </div>
-      )}
+      <div className={`reading-layout ${splitLayout ? 'reading-layout-split' : ''}`}>
+        {(!quizStarted || total === 0 || reading.showPassageDuringQuiz !== false) && (
+          <div className="card reading-pane">
+            <div
+              ref={bodyRef}
+              className={`reading-body no-copy ${splitLayout ? 'reading-body-split' : 'reading-body-solo'}`}
+              onScroll={handleScroll}
+              onCopy={(event) => event.preventDefault()}
+            >
+              {reading.image ? (
+                <img className="reading-image" src={reading.image} alt={`${reading.title} görseli`} />
+              ) : null}{reading.body}
+            </div>
+            <p className="small muted mt-8">
+              Metni sonuna kadar kaydırın ve {required} sn okuma süresini doldurun. Kopyalama kapalıdır; bu istemci
+              sinyalleri göz-temasını kanıtlamaz.
+            </p>
+          </div>
+        )}
 
+        <div className="reading-quiz-column">
       {total === 0 ? (
         <div className="card mt-16">
           <p>Bu okumada quiz sorusu yok. Süre + kaydırma koşulunu doldurunca bitirebilirsiniz.</p>
@@ -396,6 +417,8 @@ export default function StudentReadingScreen({ student, readingAssignment, onBac
           )}
         </div>
       )}
+        </div>
+      </div>
 
       {showSubmitConfirm && (
         <Modal title="Okumayı bitirmek istiyor musunuz?" onClose={() => setShowSubmitConfirm(false)}>

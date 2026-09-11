@@ -186,6 +186,7 @@ export const normalizeReading = (r) => ({
     r.showPassageDuringQuiz === undefined || r.showPassageDuringQuiz === null
       ? true
       : Boolean(r.showPassageDuringQuiz),
+  image: r.image ? String(r.image) : '',
   questions: (r.questions || []).map((q) => normalizeQuestion(q, r.grade, r.subject)),
   createdAt: r.createdAt || nowIso()
 })
@@ -207,6 +208,7 @@ export const exportPassage = (passage) => {
         topic: normalized.topic,
         quizThreshold: normalized.quizThreshold,
         showPassageDuringQuiz: normalized.showPassageDuringQuiz,
+        image: normalized.image,
         questions: normalized.questions
       }
     },

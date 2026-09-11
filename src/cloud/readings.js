@@ -1,15 +1,47 @@
 import { requireSupabase } from '../lib/supabase.js'
 import { normalizeReading, requiredDwellSeconds } from '../domain/model.js'
 import { scoreAttempt } from '../domain/scoring.js'
-const legacyReadingFields =
-  'id, teacher_id, class_id, title, source_label, body, grade, subject, topic, min_dwell_seconds, quiz_threshold, questions, starts_at, ends_at, published, created_at'
-const readingFields =
-  'id, teacher_id, class_id, title, source_label, body, grade, subject, topic, min_dwell_seconds, quiz_threshold, show_passage_during_quiz, questions, starts_at, ends_at, published, created_at'
+import { detectMissingColumn, dropKeys, selectList } from './schemaFallback.js'
 
-// Yeni kolon (show_passage_during_quiz) migration'ı henüz uygulanmamış projelerde
-// PostgREST 42703 döner; bu durumda eski alan listesiyle tek seferlik geri çekil.
-const isMissingVisibilityColumn = (error) =>
-  !!error && (error.code === '42703' || /show_passage_during_quiz/i.test(error.message || ''))
+const readingFields = [
+  'id',
+  'teacher_id',
+  'class_id',
+  'title',
+  'source_label',
+  'body',
+  'grade',
+  'subject',
+  'topic',
+  'min_dwell_seconds',
+  'quiz_threshold',
+  'show_passage_during_quiz',
+  'image',
+  'questions',
+  'starts_at',
+  'ends_at',
+  'published',
+  'created_at'
+]
+
+// Henüz uygulanmamış migration'lara ait kolonlar: sorgu bunlarsız tekrarlanır.
+const optionalReadingFields = ['show_passage_during_quiz', 'image']
+
+const imageMigrationHint =
+  'Metin görseli kaydedilemedi: veritabanında "image" kolonu yok. Supabase SQL Editor üzerinde ' +
+  'supabase/migrations/20260911090000_reading_images.sql dosyasını çalıştırın.'
+
+// Opsiyonel kolonlar eksikse isteği onlarsız tekrarlar.
+const runTolerant = async (run) => {
+  const omitted = []
+  for (;;) {
+    const result = await run(selectList(readingFields, omitted), omitted)
+    if (!result.error) return { ...result, omitted }
+    const missing = detectMissingColumn(result.error, optionalReadingFields)
+    if (!missing || omitted.includes(missing)) return { ...result, omitted }
+    omitted.push(missing)
+  }
+}
 
 export const toReading = (row, classesById) => {
   const classRow = classesById?.get(row.class_id)
@@ -21,6 +53,7 @@ export const toReading = (row, classesById) => {
     title: row.title,
     sourceLabel: row.source_label || '',
     body: row.body,
+    image: row.image || '',
     grade: Number(row.grade),
     subject: row.subject,
     topic: row.topic || 'okuma-anlama',
@@ -35,16 +68,15 @@ export const toReading = (row, classesById) => {
   }
 }
 
-const readRows = async (fields = readingFields, retried = false) => {
+const readRows = async () => {
   const client = requireSupabase()
   const [readingResult, classResult] = await Promise.all([
-    client.from('reading_assignments').select(fields).order('created_at', { ascending: false }),
+    runTolerant((fields) =>
+      client.from('reading_assignments').select(fields).order('created_at', { ascending: false })
+    ),
     client.from('classes').select('id, name, grade').order('name')
   ])
 
-  if (readingResult.error && !retried && isMissingVisibilityColumn(readingResult.error)) {
-    return readRows(legacyReadingFields, true)
-  }
   if (readingResult.error) throw new Error(`Okuma ödevleri yüklenemedi: ${readingResult.error.message}`)
   if (classResult.error) throw new Error(`Okuma sınıfları yüklenemedi: ${classResult.error.message}`)
 
@@ -55,6 +87,7 @@ const readRows = async (fields = readingFields, retried = false) => {
     classes: classResult.data || []
   }
 }
+
 
 export const fetchTeacherReadings = async () => readRows()
 
@@ -69,34 +102,30 @@ export const createReading = async ({ teacherId, classId, reading, startsAt, end
     title: normalized.title,
     source_label: normalized.sourceLabel || '',
     body: normalized.body,
+    image: normalized.image,
     grade: normalized.grade,
     subject: normalized.subject,
     topic: normalized.topic,
     min_dwell_seconds: normalized.minDwellSeconds,
     quiz_threshold: normalized.quizThreshold,
+    show_passage_during_quiz: normalized.showPassageDuringQuiz !== false,
     questions: normalized.questions,
     starts_at: startsAt || null,
     ends_at: endsAt || null,
     published: Boolean(published)
   }
-  const attempts = [
-    { row: { ...baseRow, show_passage_during_quiz: normalized.showPassageDuringQuiz !== false }, fields: readingFields },
-    { row: baseRow, fields: legacyReadingFields }
-  ]
-  let data = null
-  let error = null
-  for (const attempt of attempts) {
-    const result = await requireSupabase()
+
+  const { data, error, omitted } = await runTolerant((fields, dropped) =>
+    requireSupabase()
       .from('reading_assignments')
-      .insert(attempt.row)
-      .select(attempt.fields)
+      .insert(dropKeys(baseRow, dropped))
+      .select(fields)
       .single()
-    data = result.data
-    error = result.error
-    if (!error || !isMissingVisibilityColumn(error)) break
-  }
+  )
 
   if (error) {
+    // Görsel gerçekten gönderilmişse sessizce düşürmek yerine migration'ı hatırlat.
+    if (omitted.includes('image') && normalized.image) throw new Error(imageMigrationHint)
     if (error.code === '23505') throw new Error('Bu okuma bu sınıfa zaten atanmış.')
     throw new Error(`Okuma atanamadı: ${error.message}`)
   }
@@ -109,20 +138,9 @@ export const updateReading = async ({ id, published, startsAt, endsAt }) => {
     starts_at: startsAt || null,
     ends_at: endsAt || null
   }
-  const fieldsAttempts = [readingFields, legacyReadingFields]
-  let data = null
-  let error = null
-  for (const fields of fieldsAttempts) {
-    const result = await requireSupabase()
-      .from('reading_assignments')
-      .update(payload)
-      .eq('id', id)
-      .select(fields)
-      .single()
-    data = result.data
-    error = result.error
-    if (!error || !isMissingVisibilityColumn(error)) break
-  }
+  const { data, error } = await runTolerant((fields) =>
+    requireSupabase().from('reading_assignments').update(payload).eq('id', id).select(fields).single()
+  )
   if (error) throw new Error(`Okuma güncellenemedi: ${error.message}`)
   return data
 }
@@ -135,18 +153,13 @@ export const deleteReading = async (id) => {
 export const fetchStudentReadings = async (studentId) => {
   if (!studentId) throw new Error('Öğrenci kimliği bulunamadı.')
   const client = requireSupabase()
-  let readings = null
-  let readingError = null
-  for (const fields of [readingFields, legacyReadingFields]) {
-    const result = await client
+  const { data: readings, error: readingError } = await runTolerant((fields) =>
+    client
       .from('reading_assignments')
       .select(fields)
       .eq('published', true)
       .order('created_at', { ascending: false })
-    readings = result.data
-    readingError = result.error
-    if (!readingError || !isMissingVisibilityColumn(readingError)) break
-  }
+  )
 
   if (readingError) throw new Error(`Atanan okumalar yüklenemedi: ${readingError.message}`)
 
@@ -171,6 +184,7 @@ export const fetchStudentReadings = async (studentId) => {
         title: row.title,
         sourceLabel: row.source_label || '',
         body: row.body,
+        image: row.image || '',
         grade: Number(row.grade),
         subject: row.subject,
         topic: row.topic || 'okuma-anlama',

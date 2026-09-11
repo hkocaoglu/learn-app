@@ -8,7 +8,7 @@ import {
   fetchTeacherReadings,
   updateReading
 } from '../../cloud/readings.js'
-import { GRADES, SUBJECTS, gradeLabel, subjectLabel, formatDate, formatSeconds, validateReading, exportPassage, importPassage } from '../../domain/model.js'
+import { GRADES, SUBJECTS, gradeLabel, subjectLabel, formatDate, formatSeconds, validateReading, exportPassage, importPassage, fileToImageData } from '../../domain/model.js'
 import { downloadJSON } from '../../db/storage.js'
 import { createPassage, deletePassage, fetchTeacherPassages } from '../../cloud/passages.js'
 import Modal from '../components/Modal.jsx'
@@ -19,6 +19,7 @@ const initialForm = {
   title: '',
   sourceLabel: '',
   body: '',
+  image: '',
   grade: 2,
   subject: 'turkce',
   minDwellSeconds: '',
@@ -48,6 +49,7 @@ export default function ReadingsScreen() {
   const [formErrors, setFormErrors] = useState([])
   const [attemptsById, setAttemptsById] = useState({})
   const [openDetailId, setOpenDetailId] = useState('')
+  const [imageError, setImageError] = useState('')
 
   const load = useCallback(async () => {
     setLoading(true)
@@ -186,6 +188,7 @@ export default function ReadingsScreen() {
     title: form.title.trim(),
     sourceLabel: form.sourceLabel.trim(),
     body: form.body,
+    image: form.image,
     grade: Number(form.grade),
     subject: form.subject,
     quizThreshold: Number(form.quizThreshold),
@@ -193,12 +196,24 @@ export default function ReadingsScreen() {
     questions
   })
 
+  const onPickImage = async (file) => {
+    setImageError('')
+    if (!file) return
+    const result = await fileToImageData(file)
+    if (result.error) {
+      setImageError(result.error)
+      return
+    }
+    setForm((current) => ({ ...current, image: result.data }))
+  }
+
   const selectPassage = (passage) => {
     setForm((current) => ({
       ...current,
       title: passage.title,
       sourceLabel: passage.sourceLabel || '',
       body: passage.body,
+      image: passage.image || '',
       grade: passage.grade,
       subject: passage.subject,
       quizThreshold: passage.quizThreshold ?? 60,
@@ -329,6 +344,7 @@ export default function ReadingsScreen() {
                       <div className="small muted">
                         {gradeLabel(passage.grade)} • {subjectLabel(passage.subject)} •{' '}
                         {(passage.questions || []).length} soru
+                        {passage.image ? ' • 🖼 görsel' : ''}
                       </div>
                     </td>
                     <td className="small">{passage.showPassageDuringQuiz !== false ? 'Metin görünür' : 'Metin gizli'}</td>
@@ -397,6 +413,58 @@ export default function ReadingsScreen() {
                 onChange={(event) => setForm((current) => ({ ...current, sourceLabel: event.target.value }))}
                 maxLength={200}
               />
+            </div>
+            <div className="form-row" style={{ gridColumn: '1 / -1' }}>
+              <label htmlFor="reading-image">Metin görseli (opsiyonel — dosya yükleyin veya bağlantı yapıştırın)</label>
+              <div style={{ display: 'flex', gap: 12, alignItems: 'flex-start', flexWrap: 'wrap' }}>
+                {form.image && (
+                  <img
+                    src={form.image}
+                    alt="Metin görseli"
+                    style={{ maxWidth: 240, maxHeight: 160, borderRadius: 8, border: '1px solid var(--gray-300)', display: 'block' }}
+                  />
+                )}
+                <div style={{ flex: 1, minWidth: 240 }}>
+                  <div className="row-actions">
+                    <label className="btn btn-sm" style={{ cursor: 'pointer', margin: 0 }}>
+                      {form.image ? '🖼 Görseli Değiştir' : '🖼 Görsel Yükle'}
+                      <input
+                        type="file"
+                        accept="image/jpeg,image/png,image/gif,image/webp"
+                        style={{ display: 'none' }}
+                        onChange={(event) => {
+                          onPickImage(event.target.files?.[0])
+                          event.target.value = ''
+                        }}
+                      />
+                    </label>
+                    {form.image && (
+                      <button
+                        className="btn btn-sm btn-danger"
+                        type="button"
+                        onClick={() => {
+                          setForm((current) => ({ ...current, image: '' }))
+                          setImageError('')
+                        }}
+                      >
+                        Görseli Kaldır
+                      </button>
+                    )}
+                  </div>
+                  <input
+                    id="reading-image"
+                    className="mt-8"
+                    value={form.image.startsWith('data:') ? '' : form.image}
+                    placeholder="https://... görsel bağlantısı"
+                    onChange={(event) => setForm((current) => ({ ...current, image: event.target.value.trim() }))}
+                  />
+                  <div className="small muted mt-8">
+                    Görsel metnin üstünde gösterilir. Dosyadan yüklenen görsel veriyle birlikte saklanır ve JSON dışa
+                    aktarımına gömülür; bağlantı (https) olarak da verilebilir.
+                  </div>
+                </div>
+              </div>
+              {imageError && <div className="alert alert-error mt-8">{imageError}</div>}
             </div>
             <div className="form-row">
               <label htmlFor="reading-grade">Sınıf düzeyi</label>
@@ -582,6 +650,7 @@ export default function ReadingsScreen() {
                         {gradeLabel(reading.grade)} • {subjectLabel(reading.subject)} •{' '}
                         {(reading.questions || []).length} soru •{' '}
                         {reading.showPassageDuringQuiz !== false ? 'Metin quizde görünür' : 'Metin quizde gizli'}
+                        {reading.image ? ' • 🖼' : ''}
                       </div>
                     </td>
                     <td>{reading.className}</td>

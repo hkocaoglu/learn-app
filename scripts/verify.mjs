@@ -142,6 +142,13 @@ check('5-6. sınıflar geçerli', GRADES.includes(5) && GRADES.includes(6) && va
 const passageJson = exportPassage({ ...readingFixture, showPassageDuringQuiz: false })
 const passageBack = importPassage(passageJson)
 check('Metin JSON round-trip', passageBack.title === 'Kırlangıç' && passageBack.questions.length === 2 && passageBack.showPassageDuringQuiz === false && passageBack.grade === 2)
+const dataUri = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUg=='
+const linkImage = 'https://ornek.test/kirlangic.png'
+check('Görsel veri URI olarak taşınıyor', importPassage(exportPassage({ ...readingFixture, image: dataUri })).image === dataUri)
+check('Görsel bağlantı olarak taşınıyor', importPassage(exportPassage({ ...readingFixture, image: linkImage })).image === linkImage)
+check('Görselsiz metin boş görsel alanı', normalizeReading({ title: 'T', body: 'kelime '.repeat(60), grade: 2, subject: 'turkce' }).image === '')
+check('Görsel doğrulamayı bozmuyor', validateReading({ ...readingFixture, image: linkImage }).length === 0 &&
+  JSON.parse(exportPassage({ ...readingFixture, image: linkImage })).passage.image === linkImage)
 // evaluateReadingGates src/cloud/readings.js içindedir; vite-only supabase importu
 // Node'da yüklenemediği için eşdeğer kapı mantığı burada model+scoring ile doğrulanır:
 const evalGates = ({ reading, answers, dwellSeconds, scrolledBottom }) => {
