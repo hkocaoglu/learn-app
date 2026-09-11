@@ -1,10 +1,10 @@
-# 🎓 Sınıf Test — 1-4. Sınıf Ölçme ve Değerlendirme Platformu
+# 🎓 Sınıf Test — 1-6. Sınıf Ölçme ve Değerlendirme Platformu
 
 Tamamı **statik** (sunucusuz) çalışan, öğretmen odaklı bir web uygulaması.
-1-4. sınıf öğrencileri için **konu bazlı çoktan seçmeli testler** hazırlar, uygular,
+1-6. sınıf öğrencileri için **konu bazlı çoktan seçmeli testler** hazırlar, uygular,
 sonuçları saklar ve **eksik konu raporu** çıkarır.
 
-- **Sınıflar:** 1, 2, 3, 4
+- **Sınıflar:** 1, 2, 3, 4, 5, 6
 - **Dersler:** Matematik, Geometri, Türkçe (her ders kendi testlerine sahiptir)
 - **Konular:** her soru bir konu etiketine sahiptir (örn. toplama, çarpma, şekiller, simetri, okuma-anlama…)
 - **Veri:** tamamı tarayıcıda (localStorage) saklanır — sunucu/veritabanı **gerekmez**

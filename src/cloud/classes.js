@@ -1,4 +1,5 @@
 import { requireSupabase } from '../lib/supabase.js'
+import { GRADES } from '../domain/model.js'
 
 const classFields = 'id, name, grade, school_year, created_at'
 
@@ -33,7 +34,7 @@ export const createClass = async ({ teacherId, name, grade, schoolYear }) => {
 
   if (!teacherId) throw new Error('Öğretmen oturumu bulunamadı.')
   if (!normalizedName) throw new Error('Sınıf adı gereklidir.')
-  if (![1, 2, 3, 4].includes(normalizedGrade)) throw new Error('Sınıf seviyesi 1-4 arasında olmalıdır.')
+  if (!GRADES.includes(normalizedGrade)) throw new Error('Sınıf seviyesi 1-6 arasında olmalıdır.')
 
   const { data, error } = await requireSupabase()
     .from('classes')
@@ -59,7 +60,7 @@ export const updateClass = async ({ id, name, grade, schoolYear }) => {
 
   if (!id) throw new Error('Sınıf kimliği bulunamadı.')
   if (!normalizedName) throw new Error('Sınıf adı gereklidir.')
-  if (![1, 2, 3, 4].includes(normalizedGrade)) throw new Error('Sınıf seviyesi 1-4 arasında olmalıdır.')
+  if (!GRADES.includes(normalizedGrade)) throw new Error('Sınıf seviyesi 1-6 arasında olmalıdır.')
 
   const { data, error } = await requireSupabase()
     .from('classes')

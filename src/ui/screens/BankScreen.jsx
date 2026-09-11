@@ -111,7 +111,7 @@ export default function BankScreen() {
       const questions = []
       arr.forEach((q, i) => {
         if (!q || !q.text || !Array.isArray(q.options) || q.options.length < 2) return
-        const gi = [1, 2, 3, 4].includes(Number(q.grade)) ? Number(q.grade) : fixedGrade
+        const gi = GRADES.includes(Number(q.grade)) ? Number(q.grade) : fixedGrade
         const si = ['matematik', 'geometri', 'turkce'].includes(q.subject) ? q.subject : fixedSubject
         questions.push({
           id: uid('q'),

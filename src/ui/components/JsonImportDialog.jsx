@@ -1,7 +1,7 @@
 import { useRef, useState } from 'react'
 import { useStore } from '../../state/store.jsx'
 import Modal from './Modal.jsx'
-import { validateQuestion, normalizeQuestion, uid } from '../../domain/model.js'
+import { validateQuestion, normalizeQuestion, uid, isValidGrade } from '../../domain/model.js'
 import { gradeLabel, subjectLabel } from '../../domain/model.js'
 
 // JSON test içe aktarma penceresi.
@@ -25,7 +25,7 @@ export default function JsonImportDialog({ onClose }) {
       const t = parsed.test
       const errs = []
       if (!t.title || !String(t.title).trim()) errs.push('Test başlığı eksik.')
-      if (![1, 2, 3, 4].includes(Number(t.grade))) errs.push('Geçersiz sınıf (1-4 olmalı).')
+      if (!isValidGrade(t.grade)) errs.push('Geçersiz sınıf (1-6 olmalı).')
       if (!['matematik', 'geometri', 'turkce'].includes(t.subject)) errs.push('Geçersiz ders.')
       if (!Array.isArray(t.questions)) errs.push('Soru listesi eksik.')
       else {

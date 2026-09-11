@@ -1,8 +1,8 @@
 // Alan modeli sabitleri, doğrulama ve yardımcılar (Türkçe UI desteği)
 
-export const GRADES = [1, 2, 3, 4]
+export const GRADES = [1, 2, 3, 4, 5, 6]
 
-export const gradeLabel = (g) => `${g}. Sınıf`
+export const gradeLabel = (g) => (GRADES.includes(Number(g)) ? `${Number(g)}. Sınıf` : '—')
 
 export const SUBJECTS = ['matematik', 'geometri', 'turkce']
 
@@ -189,6 +189,40 @@ export const normalizeReading = (r) => ({
   questions: (r.questions || []).map((q) => normalizeQuestion(q, r.grade, r.subject)),
   createdAt: r.createdAt || nowIso()
 })
+
+// ---------- Okuma metni aktarımı (JSON dosya paylaşımı) ----------
+export const exportPassage = (passage) => {
+  const normalized = normalizeReading(passage)
+  return JSON.stringify(
+    {
+      version: 1,
+      kind: 'reading-passage',
+      exportedAt: nowIso(),
+      passage: {
+        title: normalized.title,
+        sourceLabel: normalized.sourceLabel,
+        body: normalized.body,
+        grade: normalized.grade,
+        subject: normalized.subject,
+        topic: normalized.topic,
+        quizThreshold: normalized.quizThreshold,
+        showPassageDuringQuiz: normalized.showPassageDuringQuiz,
+        questions: normalized.questions
+      }
+    },
+    null,
+    2
+  )
+}
+
+export const importPassage = (json) => {
+  const parsed = typeof json === 'string' ? JSON.parse(json) : json
+  if (!parsed || parsed.kind !== 'reading-passage' || !parsed.passage)
+    throw new Error('Geçersiz metin dosyası: kind "reading-passage" olmalı.')
+  const errors = validateReading(parsed.passage)
+  if (errors.length > 0) throw new Error(`Geçersiz metin: ${errors[0]}`)
+  return normalizeReading(parsed.passage)
+}
 
 export const readingWordCount = (body) => {
   const text = String(body || '').trim()

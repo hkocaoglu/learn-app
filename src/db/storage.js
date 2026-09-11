@@ -18,7 +18,7 @@ const emptyDB = () => ({
   attempts: [],
   readings: [],
   readingAttempts: [],
-  aiReports: {} // studentId -> AI rapor metinleri listesi
+  passages: [],
 })
 
 // ---------- okuma/yazma ----------
@@ -107,6 +107,7 @@ export function exportBackup(db) {
         attempts: db.attempts,
         readings: db.readings || [],
         readingAttempts: db.readingAttempts || [],
+        passages: db.passages || [],
         aiReports: db.aiReports
       }
     },
@@ -128,6 +129,7 @@ export function importBackup(json, scope = '') {
   if (Array.isArray(data.attempts)) next.attempts = data.attempts
   if (Array.isArray(data.readings)) next.readings = data.readings.map((r) => normalizeReading(r))
   if (Array.isArray(data.readingAttempts)) next.readingAttempts = data.readingAttempts
+  if (Array.isArray(data.passages)) next.passages = data.passages.map((r) => normalizeReading(r))
   if (data.aiReports && typeof data.aiReports === 'object') next.aiReports = data.aiReports
   saveDB(next, scope)
   return next

@@ -16,7 +16,7 @@ create table if not exists public.classes (
   id uuid primary key default gen_random_uuid(),
   teacher_id uuid not null references public.profiles(id) on delete cascade,
   name text not null check (char_length(trim(name)) between 1 and 120),
-  grade smallint not null check (grade between 1 and 4),
+  grade smallint not null check (grade between 1 and 6),
   school_year text,
   created_at timestamptz not null default now(),
   unique (teacher_id, name)
@@ -43,7 +43,7 @@ create unique index if not exists students_login_code_lower_idx
 create table if not exists public.question_bank (
   id uuid primary key default gen_random_uuid(),
   teacher_id uuid not null references public.profiles(id) on delete cascade,
-  grade smallint not null check (grade between 1 and 4),
+  grade smallint not null check (grade between 1 and 6),
   subject text not null check (subject in ('matematik', 'geometri', 'turkce')),
   topic text not null check (char_length(trim(topic)) > 0),
   text text not null check (char_length(trim(text)) > 0),
@@ -61,7 +61,7 @@ create table if not exists public.tests (
   id uuid primary key default gen_random_uuid(),
   teacher_id uuid not null references public.profiles(id) on delete cascade,
   title text not null check (char_length(trim(title)) between 1 and 200),
-  grade smallint not null check (grade between 1 and 4),
+  grade smallint not null check (grade between 1 and 6),
   subject text not null check (subject in ('matematik', 'geometri', 'turkce')),
   duration_minutes integer check (duration_minutes is null or duration_minutes between 1 and 240),
   questions jsonb not null default '[]'::jsonb,

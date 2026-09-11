@@ -8,7 +8,10 @@ import {
   fetchTeacherReadings,
   updateReading
 } from '../../cloud/readings.js'
-import { GRADES, SUBJECTS, gradeLabel, subjectLabel, formatDate, formatSeconds, validateReading } from '../../domain/model.js'
+import { GRADES, SUBJECTS, gradeLabel, subjectLabel, formatDate, formatSeconds, validateReading, exportPassage, importPassage } from '../../domain/model.js'
+import { downloadJSON } from '../../db/storage.js'
+import { createPassage, deletePassage, fetchTeacherPassages } from '../../cloud/passages.js'
+import Modal from '../components/Modal.jsx'
 import QuestionForm from '../components/QuestionForm.jsx'
 
 const initialForm = {
@@ -33,6 +36,9 @@ export default function ReadingsScreen() {
   const [classes, setClasses] = useState([])
   const [readings, setReadings] = useState([])
   const [form, setForm] = useState(initialForm)
+  const [passages, setPassages] = useState([])
+  const [showImport, setShowImport] = useState(false)
+  const [importText, setImportText] = useState('')
   const [questions, setQuestions] = useState([])
   const [addingQuestion, setAddingQuestion] = useState(false)
   const [loading, setLoading] = useState(true)
@@ -46,7 +52,11 @@ export default function ReadingsScreen() {
   const load = useCallback(async () => {
     setLoading(true)
     setError('')
-    const [classOutcome, readingOutcome] = await Promise.allSettled([fetchClasses(), fetchTeacherReadings()])
+    const [classOutcome, readingOutcome, passageOutcome] = await Promise.allSettled([
+      fetchClasses(),
+      fetchTeacherReadings(),
+      fetchTeacherPassages().catch(() => [])
+    ])
     if (classOutcome.status === 'fulfilled') {
       setClasses(classOutcome.value || [])
       setForm((current) => ({
@@ -57,6 +67,9 @@ export default function ReadingsScreen() {
     }
     if (readingOutcome.status === 'fulfilled') {
       setReadings(readingOutcome.value.readings)
+    }
+    if (passageOutcome.status === 'fulfilled') {
+      setPassages(passageOutcome.value || [])
     }
     const firstError =
       classOutcome.status === 'rejected'
@@ -169,6 +182,108 @@ export default function ReadingsScreen() {
     setAddingQuestion(false)
   }
 
+  const formCandidate = () => ({
+    title: form.title.trim(),
+    sourceLabel: form.sourceLabel.trim(),
+    body: form.body,
+    grade: Number(form.grade),
+    subject: form.subject,
+    quizThreshold: Number(form.quizThreshold),
+    showPassageDuringQuiz: form.showPassageDuringQuiz !== false,
+    questions
+  })
+
+  const selectPassage = (passage) => {
+    setForm((current) => ({
+      ...current,
+      title: passage.title,
+      sourceLabel: passage.sourceLabel || '',
+      body: passage.body,
+      grade: passage.grade,
+      subject: passage.subject,
+      quizThreshold: passage.quizThreshold ?? 60,
+      showPassageDuringQuiz: passage.showPassageDuringQuiz !== false
+    }))
+    setQuestions(passage.questions || [])
+    setFormErrors([])
+    setNotice(`"${passage.title}" forma yüklendi. Sınıf seçip gönderebilirsiniz.`)
+  }
+
+  const savePassage = async () => {
+    const candidate = formCandidate()
+    const errors = validateReading(candidate)
+    if (errors.length > 0) {
+      setFormErrors(errors)
+      setError(errors[0])
+      return
+    }
+    setSaving(true)
+    setError('')
+    try {
+      const saved = await createPassage({ teacherId: user.id, passage: candidate })
+      setPassages((current) => [saved, ...current])
+      setNotice(`"${saved.title}" kütüphaneye kaydedildi.`)
+    } catch (caughtError) {
+      setError(caughtError.message)
+    } finally {
+      setSaving(false)
+    }
+  }
+
+  const exportPassageFile = (passage) => {
+    downloadJSON(`okuma-${passage.title.slice(0, 30).replace(/\s+/g, '-')}.json`, exportPassage(passage))
+  }
+
+  const exportFormFile = () => {
+    try {
+      const candidate = formCandidate()
+      const errors = validateReading(candidate)
+      if (errors.length > 0) {
+        setError(errors[0])
+        return
+      }
+      downloadJSON(`okuma-${candidate.title.slice(0, 30).replace(/\s+/g, '-')}.json`, exportPassage(candidate))
+    } catch (caughtError) {
+      setError(caughtError.message)
+    }
+  }
+
+  const doImportText = async () => {
+    setError('')
+    setNotice('')
+    try {
+      const imported = importPassage(importText)
+      const saved = await createPassage({ teacherId: user.id, passage: imported })
+      setPassages((current) => [saved, ...current])
+      setImportText('')
+      setShowImport(false)
+      setNotice(`"${saved.title}" içe aktarıldı.`)
+    } catch (caughtError) {
+      setError(caughtError.message)
+    }
+  }
+
+  const onImportFile = (file) => {
+    if (!file) return
+    const reader = new FileReader()
+    reader.onload = () => {
+      setImportText(String(reader.result || ''))
+    }
+    reader.readAsText(file)
+  }
+
+  const removePassage = async (passage) => {
+    if (!window.confirm(`"${passage.title}" kütüphaneden silinsin mi?`)) return
+    setError('')
+    try {
+      await deletePassage(passage.id)
+      setPassages((current) => current.filter((item) => item.id !== passage.id))
+      setNotice('Metin silindi.')
+    } catch (caughtError) {
+      setError(caughtError.message)
+    }
+  }
+
   return (
     <div>
       <div className="page-head">
@@ -183,6 +298,60 @@ export default function ReadingsScreen() {
 
       {error && <div className="alert alert-error">{error}</div>}
       {notice && <div className="alert alert-success">{notice}</div>}
+
+      <div className="card">
+        <div className="section-heading" style={{ marginTop: 0 }}>
+          <div>
+            <h2>Okuma kütüphanesi</h2>
+            <p className="small muted">{passages.length} metin • seçip forma yükleyin ya da dosyadan içe aktarın</p>
+          </div>
+          <button className="btn btn-sm" type="button" onClick={() => setShowImport(true)}>
+            ⬆ İçe aktar
+          </button>
+        </div>
+        {passages.length === 0 ? (
+          <p className="small muted">Henüz kayıtlı metin yok. Aşağıdaki formu doldurup kütüphaneye kaydedin veya JSON dosyası içe aktarın.</p>
+        ) : (
+          <div style={{ padding: 0, overflowX: 'auto' }}>
+            <table>
+              <thead>
+                <tr>
+                  <th>Metin</th>
+                  <th>Düzey</th>
+                  <th style={{ textAlign: 'right' }}>İşlem</th>
+                </tr>
+              </thead>
+              <tbody>
+                {passages.map((passage) => (
+                  <tr key={passage.id}>
+                    <td>
+                      <strong>{passage.title}</strong>
+                      <div className="small muted">
+                        {gradeLabel(passage.grade)} • {subjectLabel(passage.subject)} •{' '}
+                        {(passage.questions || []).length} soru
+                      </div>
+                    </td>
+                    <td className="small">{passage.showPassageDuringQuiz !== false ? 'Metin görünür' : 'Metin gizli'}</td>
+                    <td>
+                      <div className="row-actions" style={{ justifyContent: 'flex-end' }}>
+                        <button className="btn btn-sm btn-primary" type="button" onClick={() => selectPassage(passage)}>
+                          Forma yükle
+                        </button>
+                        <button className="btn btn-sm" type="button" onClick={() => exportPassageFile(passage)}>
+                          Dışa aktar
+                        </button>
+                        <button className="btn btn-sm btn-danger" type="button" onClick={() => removePassage(passage)}>
+                          Sil
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
+      </div>
 
       {classes.length === 0 ? (
         <div className="card empty">
@@ -325,6 +494,12 @@ export default function ReadingsScreen() {
               <button className="btn btn-primary" type="submit" disabled={saving || classes.length === 0}>
                 {saving ? 'Atanıyor…' : 'Okumayı sınıfa ata'}
               </button>
+              <button className="btn" type="button" disabled={saving} onClick={savePassage}>
+                Kütüphaneye kaydet
+              </button>
+              <button className="btn" type="button" onClick={exportFormFile}>
+                Dosyaya aktar
+              </button>
             </div>
           </form>
           {formErrors.length > 0 && (
@@ -446,6 +621,41 @@ export default function ReadingsScreen() {
             </tbody>
           </table>
         </div>
+      )}
+
+      {showImport && (
+        <Modal title="Metin İçe Aktar (JSON)" onClose={() => setShowImport(false)}>
+          <p className="small muted">
+            Dışa aktarılmış okuma dosyasını yapıştırın veya seçin. Şema: kind "reading-passage".
+          </p>
+          <div className="form-row">
+            <label htmlFor="reading-import-file">Dosya seç</label>
+            <input
+              id="reading-import-file"
+              type="file"
+              accept="application/json,.json"
+              onChange={(event) => onImportFile(event.target.files?.[0])}
+            />
+          </div>
+          <div className="form-row mt-8">
+            <label htmlFor="reading-import-text">JSON metni</label>
+            <textarea
+              id="reading-import-text"
+              rows={8}
+              value={importText}
+              onChange={(event) => setImportText(event.target.value)}
+              placeholder='{"version":1,"kind":"reading-passage",...}'
+            />
+          </div>
+          <div className="row-actions mt-16" style={{ justifyContent: 'flex-end' }}>
+            <button className="btn" type="button" onClick={() => setShowImport(false)}>
+              Vazgeç
+            </button>
+            <button className="btn btn-primary" type="button" disabled={!importText.trim()} onClick={doImportText}>
+              İçe aktar
+            </button>
+          </div>
+        </Modal>
       )}
     </div>
   )

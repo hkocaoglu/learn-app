@@ -87,20 +87,32 @@ export function AuthProvider({ children }) {
 
     let active = true
     const loadProfile = async () => {
-      const { data, error } = await supabase
-        .from('profiles')
-        .select('id, role, email, full_name, school_name, created_at, updated_at')
-        .eq('id', session.user.id)
-        .maybeSingle()
+      try {
+        const { data, error } = await Promise.race([
+          supabase
+            .from('profiles')
+            .select('id, role, email, full_name, school_name, created_at, updated_at')
+            .eq('id', session.user.id)
+            .maybeSingle(),
+          new Promise((_, reject) =>
+            setTimeout(() => reject(new Error('Profil yükleme zaman aşımına uğradı.')), 8000)
+          )
+        ])
 
-      if (!active) return
-      if (error) {
-        setSessionError(`Profil yüklenemedi: ${error.message}`)
+        if (!active) return
+        if (error) {
+          setSessionError(`Profil yüklenemedi: ${error.message}`)
+          setProfile(null)
+        } else {
+          setProfile(data || null)
+        }
+      } catch {
+        if (!active) return
+        // Zaman aşımı/sorunda sessizce rolesiz devam et (rol user_metadata'dan çözülür).
         setProfile(null)
-      } else {
-        setProfile(data || null)
+      } finally {
+        if (active) setProfileLoading(false)
       }
-      setProfileLoading(false)
     }
 
     loadProfile()

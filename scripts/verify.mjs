@@ -3,7 +3,7 @@
 import { buildSeed, exportBackup, importBackup } from '../src/db/storage.js'
 import { scoreAttempt, aggregateStudentTopics, aggregateStudentAll, attemptDurationStats } from '../src/domain/scoring.js'
 import { computeDeficiencies, buildRuleReport } from '../src/domain/report.js'
-import { normalizeTest, validateTest, validateQuestion, normalizeReading, validateReading, requiredDwellSeconds, readingWordCount } from '../src/domain/model.js'
+import { normalizeTest, validateTest, validateQuestion, normalizeReading, validateReading, requiredDwellSeconds, readingWordCount, exportPassage, importPassage, GRADES } from '../src/domain/model.js'
 import { createAIClient, OPENROUTER_DEFAULTS, PROVIDERS } from '../src/ai/client.js'
 import { normalizeStudentPart, studentCodeBase, studentAuthEmail } from '../src/domain/studentAuth.js'
 import vercelReportHandler from '../api/ai/report.js'
@@ -138,6 +138,12 @@ check('Gerekli dwell 48 sn', requiredDwellSeconds(readingFixture) === 48, `(${re
 check('Metin görünürlüğü varsayılan açık', normalizeReading({ title: 'T', body: 'kelime '.repeat(60), grade: 2, subject: 'turkce' }).showPassageDuringQuiz === true)
 check('Metin gizleme seçimi korunuyor', normalizeReading({ title: 'T', body: 'kelime '.repeat(60), grade: 2, subject: 'turkce', showPassageDuringQuiz: false }).showPassageDuringQuiz === false)
 check('Metin görünürlüğü doğrulama temiz', validateReading({ ...readingFixture, showPassageDuringQuiz: false }).length === 0)
+check('5-6. sınıflar geçerli', GRADES.includes(5) && GRADES.includes(6) && validateReading({ ...readingFixture, grade: 6 }).length === 0)
+const passageJson = exportPassage({ ...readingFixture, showPassageDuringQuiz: false })
+const passageBack = importPassage(passageJson)
+check('Metin JSON round-trip', passageBack.title === 'Kırlangıç' && passageBack.questions.length === 2 && passageBack.showPassageDuringQuiz === false && passageBack.grade === 2)
+// evaluateReadingGates src/cloud/readings.js içindedir; vite-only supabase importu
+// Node'da yüklenemediği için eşdeğer kapı mantığı burada model+scoring ile doğrulanır:
 const evalGates = ({ reading, answers, dwellSeconds, scrolledBottom }) => {
   const dwellOk = Number(dwellSeconds) >= requiredDwellSeconds(reading)
   const scrollOk = scrolledBottom === true

@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { AuthProvider, useAuth } from './auth/AuthProvider.jsx'
 import { StoreProvider, useStore, go } from './state/store.jsx'
 import AuthScreen from './ui/screens/AuthScreen.jsx'
@@ -135,17 +135,39 @@ function AppShell() {
   )
 }
 
+// Başlatma takılırsa kullanıcıyı karanlıkta bırakma: süre göster + elle yeniden dene.
+function LoadingScreen() {
+  const { sessionError } = useAuth()
+  const [elapsed, setElapsed] = useState(0)
+
+  useEffect(() => {
+    const startedAt = Date.now()
+    const interval = setInterval(() => setElapsed(Math.floor((Date.now() - startedAt) / 1000)), 1000)
+    return () => clearInterval(interval)
+  }, [])
+
+  return (
+    <main className="auth-page">
+      <section className="auth-card auth-loading" aria-live="polite">
+        Supabase oturumu kontrol ediliyor…{elapsed > 2 ? ` (${elapsed} sn)` : ''}
+        {sessionError && <div className="alert alert-error mt-8">{sessionError}</div>}
+        {elapsed >= 12 && (
+          <div className="mt-8">
+            <p className="small muted">Oturum kontrolü beklenenden uzun sürdü. Ağ bağlantınızı kontrol edin.</p>
+            <button className="btn btn-primary" type="button" onClick={() => window.location.reload()}>
+              Tekrar dene
+            </button>
+          </div>
+        )}
+      </section>
+    </main>
+  )
+}
+
 function AuthenticatedApp() {
   const { isCloudMode, loading, user, passwordRecovery } = useAuth()
-
   if (loading) {
-    return (
-      <main className="auth-page">
-        <section className="auth-card auth-loading" aria-live="polite">
-          Supabase oturumu kontrol ediliyor…
-        </section>
-      </main>
-    )
+    return <LoadingScreen />
   }
 
   if (isCloudMode && passwordRecovery) return <PasswordResetScreen />
