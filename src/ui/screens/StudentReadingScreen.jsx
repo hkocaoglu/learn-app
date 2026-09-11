@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { evaluateReadingGates, submitReadingAttempt } from '../../cloud/readings.js'
+import { synthesizeSpeech } from '../../ai/tts.js'
 import { formatSeconds, gradeLabel, requiredDwellSeconds, subjectLabel, topicLabel } from '../../domain/model.js'
 import {
   buildSpeechSegments,
@@ -82,6 +83,11 @@ export default function StudentReadingScreen({ student, readingAssignment, onBac
   const voiceRef = useRef(null)
   const speechTokenRef = useRef(0)
   const speechRateRef = useRef(speechRate)
+  const engineRef = useRef('unknown') // 'cloud' | 'browser' (ilk denemede belirlenir)
+  const audioRef = useRef(null)
+  const audioUrlRef = useRef('')
+  const pendingIndexRef = useRef(-1)
+  const segmentBlobsRef = useRef(new Map())
 
   const speechSegments = useMemo(() => buildSpeechSegments(reading?.body), [reading?.body])
 
@@ -158,9 +164,6 @@ export default function StudentReadingScreen({ student, readingAssignment, onBac
     const synth = window.speechSynthesis
     const loadVoice = () => {
       voiceRef.current = pickTurkishVoice()
-      setSpeechNotice(
-        voiceRef.current ? '' : 'Cihazda Türkçe ses bulunamadı; varsayılan ses kullanılacak.'
-      )
     }
     loadVoice()
     // Ses listesi bazı tarayıcılarda gecikmeli gelir.
@@ -171,23 +174,139 @@ export default function StudentReadingScreen({ student, readingAssignment, onBac
   // Ekrandan çıkışta veya metin gizlendiğinde sesi kes.
   useEffect(
     () => () => {
-      speechTokenRef.current += 1
-      stopSpeech()
+      stopSpeaking()
+      segmentBlobsRef.current.clear()
     },
     []
   )
+
+  // ---- Bulut seslendirme (anahtar sunucuda tanımlıysa) ----
+  // Yapılandırılmamışsa bir kez denenir, sonra tarayıcı sesine düşülür.
+  const loadSegmentBlob = async (index) => {
+    const cache = segmentBlobsRef.current
+    if (cache.has(index)) return cache.get(index)
+    const result = await synthesizeSpeech({ text: speechSegments[index], speed: speechRateRef.current })
+    if (!result.ok) {
+      const error = new Error(result.error || 'Ses üretilemedi.')
+      error.unavailable = result.unavailable === true
+      throw error
+    }
+    cache.set(index, result.blob)
+    return result.blob
+  }
+
+  const cloudAudio = () => {
+    if (!audioRef.current) audioRef.current = new Audio()
+    return audioRef.current
+  }
+
+  const playCloudFrom = (startIndex) => {
+    const token = speechTokenRef.current
+
+    const fail = (message) => {
+      if (speechTokenRef.current !== token) return
+      setSpeechActive(false)
+      setSpeechIndex(-1)
+      if (message) setSpeechNotice(message)
+    }
+
+    const playAt = async (index) => {
+      if (speechTokenRef.current !== token) return
+      if (index >= speechSegments.length) {
+        setSpeechActive(false)
+        setSpeechIndex(-1)
+        return
+      }
+      setSpeechIndex(index)
+      let blob
+      try {
+        blob = await loadSegmentBlob(index)
+      } catch (error) {
+        // Bulut yoksa sessizce tarayıcı sesine geç (mevcut deneyim korunur).
+        if (error.unavailable && engineRef.current === 'unknown' && speechSupported()) {
+          engineRef.current = 'browser'
+          speakFrom(index)
+          return
+        }
+        fail(
+          error.unavailable
+            ? 'Seslendirme kullanılamıyor: sunucuda ses sağlayıcısı tanımlı değil ve bu tarayıcı sesli okumayı desteklemiyor.'
+            : error.message
+        )
+        return
+      }
+      if (speechTokenRef.current !== token) return
+
+      const audio = cloudAudio()
+      const url = URL.createObjectURL(blob)
+      audioUrlRef.current = url
+      audio.src = url
+      audio.playbackRate = speechRateRef.current
+      audio.onended = () => {
+        URL.revokeObjectURL(url)
+        if (audioUrlRef.current === url) audioUrlRef.current = ''
+        if (speechTokenRef.current !== token) return
+        playAt(index + 1)
+      }
+      audio.onerror = () => {
+        URL.revokeObjectURL(url)
+        if (audioUrlRef.current === url) audioUrlRef.current = ''
+        fail('Ses oynatılamadı.')
+      }
+      try {
+        await audio.play()
+        // Sıradaki parçayı önden indir: parçalar arası boşluk olmasın.
+        if (index + 1 < speechSegments.length) loadSegmentBlob(index + 1).catch(() => {})
+      } catch {
+        URL.revokeObjectURL(url)
+        if (audioUrlRef.current === url) audioUrlRef.current = ''
+        fail('Ses başlatılamadı. Tarayıcı otomatik oynatmayı engelliyor olabilir.')
+      }
+    }
+
+    void playAt(startIndex)
+  }
+
+  const startSpeaking = (fromIndex) => {
+    if (engineRef.current === 'browser') {
+      speakFrom(fromIndex)
+      return
+    }
+    if (engineRef.current === 'cloud') {
+      playCloudFrom(fromIndex)
+      return
+    }
+    // İlk kullanım: bulut var mı? Yoksa tarayıcı sesi.
+    setSpeechActive(true)
+    speechTokenRef.current += 1
+    playCloudFrom(fromIndex)
+  }
 
   const stopSpeaking = () => {
     speechTokenRef.current += 1
     setSpeechActive(false)
     setSpeechIndex(-1)
     stopSpeech()
+    const audio = audioRef.current
+    if (audio) {
+      audio.onended = null
+      audio.onerror = null
+      audio.pause()
+      audio.removeAttribute('src')
+    }
+    if (audioUrlRef.current) {
+      URL.revokeObjectURL(audioUrlRef.current)
+      audioUrlRef.current = ''
+    }
   }
 
   const speakFrom = (startIndex) => {
     if (!speechSupported() || speechSegments.length === 0) return
     const synth = window.speechSynthesis
     const token = speechTokenRef.current
+    if (!voiceRef.current) {
+      setSpeechNotice('Cihazda Türkçe ses bulunamadı; varsayılan ses kullanılacak.')
+    }
 
     const fail = () => {
       if (speechTokenRef.current !== token) return
@@ -223,23 +342,49 @@ export default function StudentReadingScreen({ student, readingAssignment, onBac
   }
 
   const toggleSpeaking = () => {
-    if (!speechSupported()) {
+    if (!speechSupported() && engineRef.current !== 'cloud') {
+      // Bulut desteği olmadan tarayıcı sesi yoksa yapılacak bir şey yok.
       setSpeechNotice('Bu tarayıcı sesli okumayı desteklemiyor.')
       return
     }
     if (speechActive) {
-      // Duraklat: parça başından devam edilir (tarayıcılar ortadan devamı desteklemiyor).
       speechTokenRef.current += 1
       setSpeechActive(false)
       stopSpeech()
+      const audio = audioRef.current
+      if (audio) {
+        pendingIndexRef.current = speechIndex
+        audio.pause()
+      }
+      return
+    }
+    const resumeAt = speechIndex >= 0 ? speechIndex : 0
+    const audio = audioRef.current
+    // Bulut parçası ortadan duraklatıldıysa kaldığı yerden devam et.
+    if (engineRef.current === 'cloud' && audio && audio.src && pendingIndexRef.current === resumeAt) {
+      pendingIndexRef.current = -1
+      speechTokenRef.current += 1
+      const token = speechTokenRef.current
+      const restart = () => {
+        if (speechTokenRef.current === token) setSpeechActive(false)
+      }
+      audio.playbackRate = speechRateRef.current
+      audio.onended = () => {
+        if (speechTokenRef.current !== token) return
+        playCloudFrom(resumeAt + 1)
+      }
+      audio.onerror = restart
+      setSpeechActive(true)
+      setSpeechIndex(resumeAt)
+      audio.play().catch(restart)
       return
     }
     speechTokenRef.current += 1
     setSpeechActive(true)
-    speakFrom(speechIndex >= 0 ? speechIndex : 0)
+    startSpeaking(resumeAt)
   }
 
-  // Hız değişince çalan parça yeni hızla baştan okunur (anında duyulsun).
+  // Hız değişince: bulut sesi anında uygulanır (playbackRate), tarayıcı sesi parçayı baştan okur.
   const changeRate = (delta) => {
     const next = clampRate(Number((speechRateRef.current + delta).toFixed(2)))
     if (next === speechRateRef.current) return
@@ -247,6 +392,10 @@ export default function StudentReadingScreen({ student, readingAssignment, onBac
     setSpeechRate(next)
     saveSpeechRate(next)
     if (!speechActive) return
+    if (engineRef.current === 'cloud') {
+      if (audioRef.current) audioRef.current.playbackRate = next
+      return
+    }
     speechTokenRef.current += 1
     stopSpeech()
     setSpeechActive(true)
