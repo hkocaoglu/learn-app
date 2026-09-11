@@ -1286,6 +1286,21 @@ tr:hover td {
   object-fit: contain;
 }
 
+.reading-audio-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+}
+
+/* Sesli okuma sırasında aktif parça vurgusu */
+.reading-segment-active {
+  background: var(--warning-light);
+  border-radius: 4px;
+  box-shadow: 0 0 0 2px var(--warning-light);
+}
+
 @media (max-width: 1100px) {
   .reading-layout-split {
     grid-template-columns: minmax(0, 1fr);

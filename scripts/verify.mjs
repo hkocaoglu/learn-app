@@ -6,6 +6,7 @@ import { computeDeficiencies, buildRuleReport } from '../src/domain/report.js'
 import { normalizeTest, validateTest, validateQuestion, normalizeReading, validateReading, requiredDwellSeconds, readingWordCount, exportPassage, importPassage, GRADES } from '../src/domain/model.js'
 import { createAIClient, OPENROUTER_DEFAULTS, PROVIDERS } from '../src/ai/client.js'
 import { normalizeStudentPart, studentCodeBase, studentAuthEmail } from '../src/domain/studentAuth.js'
+import { buildSpeechSegments } from '../src/lib/speech.js'
 import vercelReportHandler from '../api/ai/report.js'
 
 // --- localStorage stub ---
@@ -171,6 +172,19 @@ const badAnswers = {}
 readingFixture.questions.forEach((q) => { badAnswers[q.id] = (q.correctIndex + 1) % q.options.length })
 const gatesQuizFail = evalGates({ reading: readingFixture, answers: badAnswers, dwellSeconds: 48, scrolledBottom: true })
 check('Quiz kalırsa read=false', gatesQuizFail.read === false && gatesQuizFail.quizOk === false)
+const speechBody = normalizeReading({
+  title: 'Ses',
+  grade: 2,
+  subject: 'turkce',
+  body: 'Kısa bir cümle. ' + 'çok uzun bir cümle parçası '.repeat(20) + '\n\nİkinci paragraf burada!'
+}).body
+const speechSegments = buildSpeechSegments(speechBody)
+check('Seslendirme parçaları metni birebir koruyor', speechSegments.join('') === speechBody)
+check('Her parça 240 karakteri geçmiyor', speechSegments.every((s) => s.length <= 240), `(en uzun ${Math.max(...speechSegments.map((s) => s.length))})`)
+check('Satır sonları parça sonunda kalıyor', speechSegments.filter((s) => s.endsWith('\n')).length === 2)
+check('Boş metin parça üretmiyor', buildSpeechSegments('   ').length === 0)
+check('Tek cümlelik kısa metin tek parça', buildSpeechSegments('Merhaba dünya.').length === 1)
+
 const backupWithReading = exportBackup({ ...seed, students: [], attempts: [], aiReports: {}, readings: [readingFixture], readingAttempts: [] })
 const restoredWithReading = importBackup(backupWithReading)
 check('Backup okumaları round-trip yapıyor', restoredWithReading.readings.length === 1 && restoredWithReading.readings[0].title === 'Kırlangıç')

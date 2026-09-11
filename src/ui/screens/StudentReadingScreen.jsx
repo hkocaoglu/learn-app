@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { evaluateReadingGates, submitReadingAttempt } from '../../cloud/readings.js'
 import { formatSeconds, gradeLabel, requiredDwellSeconds, subjectLabel, topicLabel } from '../../domain/model.js'
+import { buildSpeechSegments, pickTurkishVoice, speechSupported, stopSpeech, SPEECH_RATE } from '../../lib/speech.js'
 import Modal from '../components/Modal.jsx'
 import QuestionImage from '../components/QuestionImage.jsx'
 
@@ -54,6 +55,9 @@ export default function StudentReadingScreen({ student, readingAssignment, onBac
   const [result, setResult] = useState(null)
   const [error, setError] = useState('')
   const [submitting, setSubmitting] = useState(false)
+  const [speechActive, setSpeechActive] = useState(false)
+  const [speechIndex, setSpeechIndex] = useState(-1)
+  const [speechNotice, setSpeechNotice] = useState('')
 
   const startedAtRef = useRef(draft?.startedAt || Date.now())
   const accumulatedRef = useRef(Number(draft?.dwellSeconds) || 0)
@@ -62,11 +66,16 @@ export default function StudentReadingScreen({ student, readingAssignment, onBac
   const finishedRef = useRef(false)
   const submitRef = useRef(null)
   const bodyRef = useRef(null)
+  const voiceRef = useRef(null)
+  const speechTokenRef = useRef(0)
+
+  const speechSegments = useMemo(() => buildSpeechSegments(reading?.body), [reading?.body])
 
   const answeredCount = Object.values(answers).filter((value) => Number.isInteger(value) && value >= 0).length
   const unansweredCount = Math.max(0, total - answeredCount)
   const gates = evaluateReadingGates({ reading, answers, dwellSeconds, scrolledBottom })
   const canFinish = gates.dwellOk && gates.scrollOk
+  const passageVisible = !quizStarted || total === 0 || reading?.showPassageDuringQuiz !== false
 
   useEffect(() => {
     lastTickRef.current = Date.now()
@@ -115,19 +124,6 @@ export default function StudentReadingScreen({ student, readingAssignment, onBac
     return () => window.removeEventListener('beforeunload', onBeforeUnload)
   }, [reading])
 
-  if (!reading) {
-    return (
-      <div className="card empty">
-        Bu okuma ataması bulunamadı.
-        <div className="mt-8">
-          <button className="btn btn-primary" type="button" onClick={onBack}>
-            Okumalara dön
-          </button>
-        </div>
-      </div>
-    )
-  }
-
   const markScrolled = () => {
     scrolledRef.current = true
     setScrolledBottom(true)
@@ -137,6 +133,103 @@ export default function StudentReadingScreen({ student, readingAssignment, onBac
     const el = event.currentTarget
     if (el.scrollHeight - el.scrollTop - el.clientHeight < 48) markScrolled()
   }
+
+  // ---- Sesli okuma (erişilebilirlik) ----
+  // Kanıt kapılarını değiştirmez: süre, kaydırma ve quiz koşulları aynen geçerlidir.
+  useEffect(() => {
+    if (!speechSupported()) {
+      setSpeechNotice('Bu tarayıcı sesli okumayı desteklemiyor.')
+      return undefined
+    }
+    const synth = window.speechSynthesis
+    const loadVoice = () => {
+      voiceRef.current = pickTurkishVoice()
+      setSpeechNotice(
+        voiceRef.current ? '' : 'Cihazda Türkçe ses bulunamadı; varsayılan ses kullanılacak.'
+      )
+    }
+    loadVoice()
+    // Ses listesi bazı tarayıcılarda gecikmeli gelir.
+    synth.addEventListener?.('voiceschanged', loadVoice)
+    return () => synth.removeEventListener?.('voiceschanged', loadVoice)
+  }, [])
+
+  // Ekrandan çıkışta veya metin gizlendiğinde sesi kes.
+  useEffect(
+    () => () => {
+      speechTokenRef.current += 1
+      stopSpeech()
+    },
+    []
+  )
+
+  const stopSpeaking = () => {
+    speechTokenRef.current += 1
+    setSpeechActive(false)
+    setSpeechIndex(-1)
+    stopSpeech()
+  }
+
+  const speakFrom = (startIndex) => {
+    if (!speechSupported() || speechSegments.length === 0) return
+    const synth = window.speechSynthesis
+    const token = speechTokenRef.current
+
+    const fail = () => {
+      if (speechTokenRef.current !== token) return
+      setSpeechActive(false)
+      setSpeechIndex(-1)
+    }
+
+    const speakAt = (index) => {
+      if (speechTokenRef.current !== token) return
+      if (index >= speechSegments.length) {
+        setSpeechActive(false)
+        setSpeechIndex(-1)
+        return
+      }
+      setSpeechIndex(index)
+      try {
+        const utterance = new SpeechSynthesisUtterance(speechSegments[index])
+        utterance.lang = 'tr-TR'
+        utterance.rate = SPEECH_RATE
+        if (voiceRef.current) utterance.voice = voiceRef.current
+        utterance.onend = () => speakAt(index + 1)
+        utterance.onerror = fail
+        synth.speak(utterance)
+      } catch (caughtError) {
+        // Bazı tarayıcılar/ayarlar ses başlatmayı reddeder; ekran "çalıyor" durumunda kilitli kalmamalı.
+        console.error('Seslendirme başlatılamadı:', caughtError)
+        fail()
+        setSpeechNotice('Ses başlatılamadı. Tarayıcı sesli okumayı engelliyor olabilir (ses izni/otomatik oynatma ayarı).')
+      }
+    }
+
+    speakAt(startIndex)
+  }
+
+  const toggleSpeaking = () => {
+    if (!speechSupported()) {
+      setSpeechNotice('Bu tarayıcı sesli okumayı desteklemiyor.')
+      return
+    }
+    if (speechActive) {
+      // Duraklat: parça başından devam edilir (tarayıcılar ortadan devamı desteklemiyor).
+      speechTokenRef.current += 1
+      setSpeechActive(false)
+      stopSpeech()
+      return
+    }
+    speechTokenRef.current += 1
+    setSpeechActive(true)
+    speakFrom(speechIndex >= 0 ? speechIndex : 0)
+  }
+
+  // Metin gizlenirse (quiz sırasında gizli) sesi kes.
+  useEffect(() => {
+    if (passageVisible) return
+    stopSpeaking()
+  }, [passageVisible])
 
   // Metin kaydırma gerektirmiyorsa (kısa metin) kaydırma kapısı hemen sağlanmış sayılır;
   // aksi halde öğrenci hiçbir şey yapamadan kilitli kalırdı.
@@ -162,6 +255,7 @@ export default function StudentReadingScreen({ student, readingAssignment, onBac
     setShowSubmitConfirm(false)
     setSubmitting(true)
     setError('')
+    stopSpeaking()
 
     const totalSeconds = Math.round((Date.now() - startedAtRef.current) / 1000)
 
@@ -228,7 +322,20 @@ export default function StudentReadingScreen({ student, readingAssignment, onBac
   const question = total > 0 ? questions[Math.min(step, total - 1)] : null
   const selected = question ? answers[question.id] : undefined
   // Quiz sırasında metin görünürse yan yana (geniş ekranda) yerleşim kullanılır.
-  const splitLayout = quizStarted && total > 0 && reading.showPassageDuringQuiz !== false
+  const splitLayout = quizStarted && total > 0 && reading?.showPassageDuringQuiz !== false
+
+  if (!reading) {
+    return (
+      <div className="card empty">
+        Bu okuma ataması bulunamadı.
+        <div className="mt-8">
+          <button className="btn btn-primary" type="button" onClick={onBack}>
+            Okumalara dön
+          </button>
+        </div>
+      </div>
+    )
+  }
 
   return (
     <div>
@@ -261,8 +368,29 @@ export default function StudentReadingScreen({ student, readingAssignment, onBac
       {error && <div className="alert alert-error">{error}</div>}
 
       <div className={`reading-layout ${splitLayout ? 'reading-layout-split' : ''}`}>
-        {(!quizStarted || total === 0 || reading.showPassageDuringQuiz !== false) && (
+        {passageVisible && (
           <div className="card reading-pane">
+            <div className="reading-audio-bar">
+              <button
+                className="btn btn-sm"
+                type="button"
+                onClick={toggleSpeaking}
+                disabled={submitting || speechSegments.length === 0}
+              >
+                {speechActive ? '⏸ Duraklat' : speechIndex >= 0 ? '▶ Devam et' : '🔊 Sesli dinle'}
+              </button>
+              {(speechActive || speechIndex >= 0) && (
+                <button className="btn btn-sm" type="button" onClick={stopSpeaking}>
+                  ■ Durdur
+                </button>
+              )}
+              <span className="small muted">
+                {speechNotice ||
+                  (speechIndex >= 0
+                    ? `${speechIndex + 1}/${speechSegments.length} parça okunuyor — dinlemek okuma kanıtını değiştirmez.`
+                    : 'Metni Türkçe sesli dinleyebilirsiniz; süre, kaydırma ve quiz koşulları aynı kalır.')}
+              </span>
+            </div>
             <div
               ref={bodyRef}
               className={`reading-body no-copy ${splitLayout ? 'reading-body-split' : 'reading-body-solo'}`}
@@ -271,7 +399,16 @@ export default function StudentReadingScreen({ student, readingAssignment, onBac
             >
               {reading.image ? (
                 <img className="reading-image" src={reading.image} alt={`${reading.title} görseli`} />
-              ) : null}{reading.body}
+              ) : null}
+              {/* Parçalar orijinal metnin birebir birleşimidir (satır sonları korunur). */}
+              {speechSegments.map((segment, index) => (
+                <span
+                  key={index}
+                  className={index === speechIndex && speechActive ? 'reading-segment-active' : undefined}
+                >
+                  {segment}
+                </span>
+              ))}
             </div>
             <p className="small muted mt-8">
               Metni sonuna kadar kaydırın ve {required} sn okuma süresini doldurun. Kopyalama kapalıdır; bu istemci

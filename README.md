@@ -35,7 +35,30 @@ sonuçları saklar ve **eksik konu raporu** çıkarır.
      konu başına ortalama süre; 90 sn üzeri konular "yavaş" rozeti alır.
    - **Kural tabanlı rapor** (AI'sız) varsayılandır ve süre verisini de içerir.
    - **AI ile derin analiz** (OpenAI-uyumlu) isteğe bağlıdır; süre verisini yorumlar.
-6. **Örnek veri** — ilk açılışta ~80 soruluk banka + 12 hazır test (her sınıf × ders) yüklenir.
+6. **Okuma Ödevleri (`Okuma Ata`)** — sınıfa okuma metni + anlama quizi gönderilir; öğrenci okuduğunu
+   **kanıtlar**.
+   - **Okuma kütüphanesi:** metin bir kez kaydedilir (başlık, kaynak, metin, sınıf düzeyi, ders,
+     0-6 anlama sorusu). Kütüphaneden seçip forma yükleyerek gönderilir; aynı başlıkla yeniden
+     kaydetmek kaydı **günceller**.
+   - **İçe/dışa aktarma:** metinler ve soruları `kind: "reading-passage"` JSON dosyası olarak
+     dışa aktarılır / içe aktarılır.
+   - **Görsel (opsiyonel):** metne görsel eklenebilir — dosyadan yükleme (JPEG/PNG/GIF/WebP ≤ 800 KB)
+     veya `https://` bağlantısı. Görsel metnin üstünde gösterilir, JSON dışa aktarımına gömülür ve
+     öğrenci ekranında kaydırılabilir metin alanının içinde yer alır.
+   - **Kanıt kapıları (üçü birlikte):** metni **sonuna kadar kaydırma** + **en az okuma süresi**
+     (öğretmen belirler; boşsa kelime sayısından 150 wpm, 30-600 sn) + **quiz eşiği** (varsayılan %60).
+     Süre ölçümü sekme arka plandayken durur.
+   - **Sınav davranışı:** quiz, okuma süresi dolana kadar kilitlidir; öğrenci **"Teste hazırım"**
+     dedikten sonra açılır. Öğretmen, metnin quiz sırasında **görünür kalmasını** seçebilir
+     (görünürse geniş ekranda metin ve sorular yan yana gösterilir).
+   - **Sesli dinleme:** öğrenci metni tarayıcının yerleşik Türkçe sesiyle dinleyebilir (`speechSynthesis`,
+     ek anahtar/ücret yok). Metin parçalara bölünüp sırayla okunur ve okunan parça vurgulanır;
+     **kanıt kapıları değişmez** (süre + kaydırma + quiz aynen gereklidir). Ses yoksa veya tarayıcı
+     engellerse düğme bilgilendirir, okuma akışı bozulmaz.
+   - **Raporlama:** her atama için öğrenci bazında Okundu ✓ / — , quiz yüzdesi, süre ve kaydırma
+     durumu; okuma listesinde satırın görsel taşıyıp taşımadığı (**🖼 var / — yok**) görünür.
+   - Aynı başlıkla yeniden gönderim atamayı **yerinde günceller** (öğrencinin okuma kanıtı silinmez).
+7. **Örnek veri** — ilk açılışta ~80 soruluk banka + 12 hazır test (her sınıf × ders) yüklenir.
 
 ## 📋 Örnek Veri
 
@@ -73,7 +96,7 @@ sonuçları saklar ve **eksik konu raporu** çıkarır.
 }
 ```
 
-- `grade`: `1`-`4` • `subject`: `matematik` | `geometri` | `turkce`
+- `grade`: `1`-`6` • `subject`: `matematik` | `geometri` | `turkce`
 - `durationMinutes` (opsiyonel): testin süre sınırı (dakika); yoksa/`null` ise süresizdir
 - Her soruda: `text`, en az 2 seçenekli `options`, geçerli `correctIndex`, `topic`
 - `image` (opsiyonel): soru görseli. `data:image/png;base64,...` (uygulama içinde dosya
@@ -98,6 +121,47 @@ sonuçları saklar ve **eksik konu raporu** çıkarır.
   ]
 }
 ```
+
+### Okuma metni içe/dışa aktarma (`kind: "reading-passage"`)
+
+`Okuma Ata` ekranındaki **İçe aktar** / **Dışa aktar** bu şemayı kullanır. İçe aktarılan metin
+kütüphaneye kaydedilir (aynı başlık varsa güncellenir); öğrencilere ulaşması için ayrıca
+**Okumayı sınıfa ata** ile gönderilmelidir.
+
+```json
+{
+  "version": 1,
+  "kind": "reading-passage",
+  "passage": {
+    "title": "Kırlangıç",
+    "sourceLabel": "Okuma Kitabı — 2. Sınıf",
+    "body": "Metnin tamamı (50-20000 karakter)...",
+    "grade": 2,
+    "subject": "turkce",
+    "topic": "okuma-anlama",
+    "quizThreshold": 60,
+    "showPassageDuringQuiz": true,
+    "image": "",
+    "questions": [
+      {
+        "topic": "okuma-anlama",
+        "text": "Kırlangıçlar ne zaman göç eder?",
+        "options": ["İlkbaharda", "Kışın"],
+        "correctIndex": 0
+      }
+    ]
+  }
+}
+```
+
+- `grade`: `1`-`6` • `subject`: `matematik` | `geometri` | `turkce` • `body`: 50-20000 karakter
+- `questions` (0-6): boş bırakılabilir; quiz yoksa kanıt yalnızca süre + kaydırmaya dayanır
+- `quizThreshold`: quiz geçme eşiği (%) — varsayılan `60`
+- `showPassageDuringQuiz`: quiz çözülürken metin görünür kalsın mı (varsayılan `true`)
+- `image` (opsiyonel): metin görseli. `data:image/...;base64,...` (dosyadan yüklenir) veya
+  `https://...` bağlantısı; boş ise görsel yoktur. JPEG/PNG/GIF/WebP, 800 KB.
+- Metnin en az okuma süresi atama sırasında belirlenir (`minDwellSeconds`); boşsa kelime
+  sayısından 150 kelime/dk ile 30-600 sn arasında hesaplanır.
 
 ## 🤖 AI Raporlama (opsiyonel)
 
@@ -154,6 +218,10 @@ supabase/migrations/20260909153500_relax_student_login_code_check.sql
 supabase/migrations/20260909160000_shared_question_bank.sql
 supabase/migrations/20260909164000_require_nonempty_assignment_tests.sql
 supabase/migrations/20260909173000_admin_console.sql
+supabase/migrations/20260910090000_reading_assignments.sql
+supabase/migrations/20260910120000_reading_passage_visibility.sql
+supabase/migrations/20260911080000_grades_and_passages.sql
+supabase/migrations/20260911090000_reading_images.sql
 ```
 
 Kurulum:
@@ -165,6 +233,12 @@ Kurulum:
    `20260909160000_shared_question_bank.sql` ile
    `20260909164000_require_nonempty_assignment_tests.sql` ile
    `20260909173000_admin_console.sql` dosyalarını çalıştırmanız yeterlidir.
+   Okuma ödevleri için ayrıca `20260910090000_reading_assignments.sql`,
+   `20260910120000_reading_passage_visibility.sql`,
+   `20260911080000_grades_and_passages.sql` ve
+   `20260911090000_reading_images.sql` dosyalarını çalıştırın.
+   Görsel kolonu eklenmemişse `#/okumalar` ekranı uyarı gösterir ve görselli
+   gönderim, hangi dosyanın çalıştırılacağını söyleyen bir hata verir.
 3. Supabase Authentication ayarlarında email/password girişi varsayılan olarak
    etkindir. Email doğrulama davranışını **Authentication → Providers** (bazı
    dashboard sürümlerinde **Auth Providers**) ekranından kontrol edin.
