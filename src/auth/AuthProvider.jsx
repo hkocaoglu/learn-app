@@ -1,8 +1,10 @@
-import { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react'
+import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react'
 import { isSupabaseConfigured, supabase } from '../lib/supabase.js'
 import { studentAuthEmail } from '../domain/studentAuth.js'
 
 const AuthContext = createContext(null)
+
+const PROFILE_TIMEOUT_MS = 8000
 
 const unavailableError = () =>
   new Error('Supabase yapılandırılmamış. VITE_SUPABASE_URL ve VITE_SUPABASE_PUBLISHABLE_KEY tanımlayın.')
@@ -22,6 +24,10 @@ export function AuthProvider({ children }) {
   const [profile, setProfile] = useState(null)
   const [sessionError, setSessionError] = useState('')
   const [passwordRecovery, setPasswordRecovery] = useState(hasPasswordRecoveryCallback)
+  // Profil sorgusunu üstlenen kullanıcı kimliği. Sekme değişiminde aynı kullanıcı için
+  // yeniden gelen oturum olayı profili tekrar yüklememeli; aksi halde profileLoading
+  // kalıcı true kalıp uygulama başlatma ekranında takılıyordu.
+  const profileUserIdRef = useRef(null)
 
   useEffect(() => {
     if (!supabase) {
@@ -47,7 +53,9 @@ export function AuthProvider({ children }) {
         if (error) {
           setSessionError(error.message)
         }
-        setProfileLoading(Boolean(data?.session?.user?.id))
+        // Abonelik aynı kullanıcıyı zaten işlediyse profili tekrar yüklemeye kalkma.
+        const resolvedUserId = data?.session?.user?.id || null
+        if (resolvedUserId !== profileUserIdRef.current) setProfileLoading(Boolean(resolvedUserId))
         setSession(data?.session || null)
       } catch (caughtError) {
         if (!mounted) return
@@ -65,7 +73,10 @@ export function AuthProvider({ children }) {
       data: { subscription }
     } = supabase.auth.onAuthStateChange((event, nextSession) => {
       if (!mounted) return
-      setProfileLoading(Boolean(nextSession?.user?.id))
+      // Aynı kullanıcı için tekrar gelen oturum (TOKEN_REFRESHED / INITIAL_SESSION gibi
+      // sekme değişiminde tetiklenen olaylar) profili yeniden yüklememeli.
+      const nextUserId = nextSession?.user?.id || null
+      if (nextUserId !== profileUserIdRef.current) setProfileLoading(Boolean(nextUserId))
       setSession(nextSession)
       setLoading(false)
       setSessionError('')
@@ -80,11 +91,13 @@ export function AuthProvider({ children }) {
 
   useEffect(() => {
     if (!supabase || !session?.user?.id) {
+      profileUserIdRef.current = null
       setProfile(null)
       setProfileLoading(false)
       return undefined
     }
 
+    profileUserIdRef.current = session.user.id
     let active = true
     const loadProfile = async () => {
       try {
@@ -95,7 +108,7 @@ export function AuthProvider({ children }) {
             .eq('id', session.user.id)
             .maybeSingle(),
           new Promise((_, reject) =>
-            setTimeout(() => reject(new Error('Profil yükleme zaman aşımına uğradı.')), 8000)
+            setTimeout(() => reject(new Error('Profil yükleme zaman aşımına uğradı.')), PROFILE_TIMEOUT_MS)
           )
         ])
 
@@ -120,6 +133,14 @@ export function AuthProvider({ children }) {
       active = false
     }
   }, [session?.user?.id])
+
+  // Emniyet kemeri: profil sorgusu hangi nedenle olursa olsun takılırsa, uygulama
+  // başlatma ekranında kilitlenmesin (rol user_metadata'dan çözülür).
+  useEffect(() => {
+    if (!profileLoading) return undefined
+    const timer = setTimeout(() => setProfileLoading(false), PROFILE_TIMEOUT_MS)
+    return () => clearTimeout(timer)
+  }, [profileLoading])
 
   const signIn = useCallback(async ({ email, password }) => {
     if (!supabase) return { data: { user: null, session: null }, error: unavailableError() }
