@@ -2,14 +2,17 @@ import { useCallback, useEffect, useState } from 'react'
 import { useAuth } from '../../auth/AuthProvider.jsx'
 import { fetchCurrentStudent, fetchStudentAssignments } from '../../cloud/assignments.js'
 import { fetchStudentReadings } from '../../cloud/readings.js'
+import { fetchStudentBalance } from '../../cloud/rewards.js'
 import { gradeLabel, subjectLabel, formatDate, formatMinutesShort } from '../../domain/model.js'
 import StudentExamScreen from './StudentExamScreen.jsx'
 import StudentReadingScreen from './StudentReadingScreen.jsx'
+import StudentShopScreen from './StudentShopScreen.jsx'
 
 const readAssignmentRoute = () => {
   const parts = window.location.hash.replace(/^#\/?/, '').split('/').filter(Boolean)
   if (parts[0] === 'ogrenci-okuma') return { kind: 'reading', id: parts[1] || '' }
   if (parts[0] === 'ogrenci-sinav') return { kind: 'exam', id: parts[1] || '' }
+  if (parts[0] === 'odul-magazasi') return { kind: 'shop', id: '' }
   return { kind: '', id: '' }
 }
 
@@ -18,6 +21,7 @@ export default function StudentPortalScreen() {
   const [student, setStudent] = useState(null)
   const [assignments, setAssignments] = useState([])
   const [readings, setReadings] = useState([])
+  const [balance, setBalance] = useState(null)
   const [route, setRoute] = useState(readAssignmentRoute)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
@@ -28,13 +32,15 @@ export default function StudentPortalScreen() {
     setError('')
     try {
       const currentStudent = await fetchCurrentStudent()
-      const [nextAssignments, nextReadings] = await Promise.all([
+      const [nextAssignments, nextReadings, nextBalance] = await Promise.all([
         fetchStudentAssignments(currentStudent.id),
-        fetchStudentReadings(currentStudent.id).catch(() => [])
+        fetchStudentReadings(currentStudent.id).catch(() => []),
+        fetchStudentBalance(currentStudent.id).catch(() => null) // bakiye hatası portalı kilitlemesin
       ])
       setStudent(currentStudent)
       setAssignments(nextAssignments)
       setReadings(nextReadings)
+      setBalance(nextBalance)
     } catch (caughtError) {
       setError(caughtError.message)
     } finally {
@@ -60,6 +66,14 @@ export default function StudentPortalScreen() {
     await load()
   }
 
+  if (route.kind === 'shop' && student) {
+    return (
+      <StudentShell user={user} onSignOut={handleSignOut} signOutError={signOutError} balance={balance}>
+        <StudentShopScreen student={student} onBack={goToPortal} />
+      </StudentShell>
+    )
+  }
+
   if (route.id && student) {
     if (route.kind === 'reading') {
       const readingAssignment = readings.find((item) => item.id === route.id)
@@ -76,7 +90,7 @@ export default function StudentPortalScreen() {
         )
       }
       return (
-        <StudentShell user={user} onSignOut={handleSignOut} signOutError={signOutError}>
+        <StudentShell user={user} onSignOut={handleSignOut} signOutError={signOutError} balance={balance}>
           <StudentReadingScreen
             key={readingAssignment.id}
             student={student}
@@ -101,7 +115,7 @@ export default function StudentPortalScreen() {
     }
 
     return (
-      <StudentShell user={user} onSignOut={handleSignOut} signOutError={signOutError}>
+      <StudentShell user={user} onSignOut={handleSignOut} signOutError={signOutError} balance={balance}>
         <StudentExamScreen
           key={assignment.id}
           student={student}
@@ -113,7 +127,7 @@ export default function StudentPortalScreen() {
   }
 
   return (
-    <StudentShell user={user} onSignOut={handleSignOut} signOutError={signOutError}>
+    <StudentShell user={user} onSignOut={handleSignOut} signOutError={signOutError} balance={balance}>
       <div className="student-portal-head">
         <div>
           <div className="eyebrow">ÖĞRENCİ PORTALI</div>
@@ -144,6 +158,14 @@ export default function StudentPortalScreen() {
               ))}
             </div>
           )}
+          <a className="shop-promo" href="#/odul-magazasi">
+            <span className="shop-promo-icon" aria-hidden="true">🏆</span>
+            <span className="shop-promo-text">
+              <strong>Ödül Mağazası</strong>
+              <span className="small muted">Puanlarınızı biriktirin veya hemen harcayın</span>
+            </span>
+            <span className="shop-promo-balance">⭐ {balance ?? '—'} puan →</span>
+          </a>
           <div className="section-heading mt-16">
             <h2>Okuma Ödevleri</h2>
           </div>
@@ -267,12 +289,17 @@ function ReadingCard({ readingAssignment }) {
   )
 }
 
-function StudentShell({ user, onSignOut, signOutError, children }) {
+function StudentShell({ user, onSignOut, signOutError, balance, children }) {
   return (
     <div className="student-shell">
       <header className="student-topnav">
         <span className="brand">🎓 Sınıf Test</span>
         <div className="student-account">
+          {balance !== null && balance !== undefined && (
+            <a className="points-chip" href="#/odul-magazasi" title="Ödül Mağazası">
+              ⭐ {balance} puan
+            </a>
+          )}
           <span className="account-email" title={user?.email}>
             Öğrenci
           </span>

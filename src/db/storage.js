@@ -1,5 +1,6 @@
 // localStorage tabanlı veri katmanı: yerel modda ortak, cloud modda kullanıcı kapsamlı anahtar kullanır.
 import { SEED_QUESTIONS } from '../data/seedQuestions.js'
+import { buildSeedRewards } from '../data/seedRewards.js'
 import { normalizeTest, normalizeQuestion, normalizeReading, nowIso, uid, GRADES, SUBJECTS } from '../domain/model.js'
 
 const DB_KEY = 'learn_app_db_v1'
@@ -19,6 +20,11 @@ const emptyDB = () => ({
   readings: [],
   readingAttempts: [],
   passages: [],
+  // puan sistemi (docs/points-system.md)
+  pointTransactions: [], // kazanım/harcama ledger'ı — bakiye bundan türetilir
+  rewards: [], // sınıf bazlı ödül havuzu (classKey = "grade:N")
+  redemptions: [], // gerçekleşmiş harcamalar
+  saveGoals: [] // "bunun için biriktir" hedefleri
 })
 
 // ---------- okuma/yazma ----------
@@ -27,6 +33,8 @@ export function loadDB(scope = '') {
     const raw = localStorage.getItem(scopedKey(DB_KEY, scope))
     if (!raw) return null
     const db = JSON.parse(raw)
+    // Eski yerel veritabanlarında ödül havuzu alanı yoksa üret (boş diziye dokunma).
+    if (!Array.isArray(db.rewards)) db.rewards = buildSeedRewards()
     return { ...emptyDB(), ...db }
   } catch (e) {
     console.error('Veri yüklenemedi:', e)
@@ -45,6 +53,16 @@ export function saveDB(db, scope = '') {
 }
 
 // ---------- seed ----------
+export function seedIfEmpty(scope = '') {
+  const existing = loadDB(scope)
+  if (existing && existing.version) {
+    return existing // veri zaten var
+  }
+  const seeded = buildSeed()
+  saveDB(seeded, scope)
+  return seeded
+}
+
 export function buildSeed() {
   const db = emptyDB()
   const bank = SEED_QUESTIONS.map((q) => ({
@@ -58,6 +76,7 @@ export function buildSeed() {
     explanation: q.explanation || ''
   }))
   db.bank = bank
+  db.rewards = buildSeedRewards() // sınıf bazlı ödül havuzları
 
   // Her (sınıf, ders) çifti için hazır bir test (ilk 6 soru seçilerek)
   for (const grade of GRADES) {
@@ -75,16 +94,6 @@ export function buildSeed() {
     }
   }
   return db
-}
-
-export function seedIfEmpty(scope = '') {
-  const existing = loadDB(scope)
-  if (existing && existing.version) {
-    return existing // veri zaten var
-  }
-  const seeded = buildSeed()
-  saveDB(seeded, scope)
-  return seeded
 }
 
 export function resetToSeed(scope = '') {
@@ -108,6 +117,10 @@ export function exportBackup(db) {
         readings: db.readings || [],
         readingAttempts: db.readingAttempts || [],
         passages: db.passages || [],
+        pointTransactions: db.pointTransactions || [],
+        rewards: db.rewards || [],
+        redemptions: db.redemptions || [],
+        saveGoals: db.saveGoals || [],
         aiReports: db.aiReports
       }
     },
@@ -130,6 +143,11 @@ export function importBackup(json, scope = '') {
   if (Array.isArray(data.readings)) next.readings = data.readings.map((r) => normalizeReading(r))
   if (Array.isArray(data.readingAttempts)) next.readingAttempts = data.readingAttempts
   if (Array.isArray(data.passages)) next.passages = data.passages.map((r) => normalizeReading(r))
+  if (Array.isArray(data.pointTransactions)) next.pointTransactions = data.pointTransactions
+  if (Array.isArray(data.rewards)) next.rewards = data.rewards // yoksa (eski yedek) havuz üretilir
+  if (Array.isArray(data.redemptions)) next.redemptions = data.redemptions
+  if (Array.isArray(data.saveGoals)) next.saveGoals = data.saveGoals
+  if (!Array.isArray(data.rewards)) next.rewards = buildSeedRewards()
   if (data.aiReports && typeof data.aiReports === 'object') next.aiReports = data.aiReports
   saveDB(next, scope)
   return next

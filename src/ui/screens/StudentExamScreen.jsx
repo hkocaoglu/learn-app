@@ -5,6 +5,7 @@ import Modal from '../components/Modal.jsx'
 import QuestionImage from '../components/QuestionImage.jsx'
 import ReviewQuestion from '../components/ReviewQuestion.jsx'
 import ReviewSummary from '../components/ReviewSummary.jsx'
+import PointsEarned from '../components/PointsEarned.jsx'
 
 const DRAFT_VERSION = 1
 const draftKey = (studentId, assignmentId) => `learn_app_student_exam_v${DRAFT_VERSION}_${studentId}_${assignmentId}`
@@ -194,6 +195,7 @@ export default function StudentExamScreen({ student, assignment, onBack }) {
           </p>
           {timeUp && <div className="alert alert-warning">Süre dolduğu için test otomatik teslim edildi.</div>}
           <div className="student-result-score">%{result.scorePercent}</div>
+          <PointsEarned studentId={student.id} refType="exam" refId={test.id} />
           <div className="status-summary">
             <span className="badge badge-success">✓ {result.correctCount} Doğru</span>
             <span className="badge badge-danger">✗ {result.totalCount - result.correctCount - unansweredAfterSubmit} Yanlış</span>
