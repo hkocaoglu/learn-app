@@ -20,6 +20,7 @@ import AssignmentsScreen from './ui/screens/AssignmentsScreen.jsx'
 import StudentPortalScreen from './ui/screens/StudentPortalScreen.jsx'
 import ReadingsScreen from './ui/screens/ReadingsScreen.jsx'
 import RewardsScreen from './ui/screens/RewardsScreen.jsx'
+import ErrorBoundary from './ui/components/ErrorBoundary.jsx'
 
 function Router() {
   const { route } = useStore()
@@ -79,6 +80,7 @@ function AdminOnlyNotice() {
 
 function AppShell() {
   const { isCloudMode, user, isAdmin, signOut } = useAuth()
+  const { route } = useStore()
   const [signOutError, setSignOutError] = useState('')
 
   const handleSignOut = async () => {
@@ -128,7 +130,10 @@ function AppShell() {
       </nav>
       <main className="content">
         {signOutError && <div className="alert alert-error">{signOutError}</div>}
-        <Router />
+        {/* Rota değişince hata durumu sıfırlansın diye key — asla boş ekran kalmasın. */}
+        <ErrorBoundary key={(route || []).join('/') || 'home'}>
+          <Router />
+        </ErrorBoundary>
       </main>
       <footer className="app-footer">
         {isCloudMode
