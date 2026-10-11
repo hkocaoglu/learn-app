@@ -226,6 +226,24 @@ export const importPassage = (json) => {
   return normalizeReading(parsed.passage)
 }
 
+// Toplu içe aktarım: tek metin ya da koleksiyon dosyası → passage[].
+// Koleksiyon formatı: { version, kind: 'reading-passage-collection', passages: [passage, ...] }
+export const importPassages = (json) => {
+  const parsed = typeof json === 'string' ? JSON.parse(json) : json
+  if (!parsed) throw new Error('Geçersiz dosya: JSON okunamadı.')
+  if (parsed.kind === 'reading-passage' && parsed.passage) return [importPassage(parsed)]
+  if (parsed.kind === 'reading-passage-collection' && Array.isArray(parsed.passages)) {
+    if (parsed.passages.length === 0) throw new Error('Geçersiz dosya: koleksiyonda metin yok.')
+    return parsed.passages.map((passage, index) => {
+      const errors = validateReading(passage)
+      if (errors.length > 0)
+        throw new Error(`Metin ${index + 1} ("${passage?.title || 'başlıksız'}"): ${errors[0]}`)
+      return normalizeReading(passage)
+    })
+  }
+  throw new Error('Geçersiz dosya: kind "reading-passage" veya "reading-passage-collection" olmalı.')
+}
+
 export const readingWordCount = (body) => {
   const text = String(body || '').trim()
   if (!text) return 0

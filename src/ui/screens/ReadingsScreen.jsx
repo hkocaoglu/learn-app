@@ -8,7 +8,7 @@ import {
   fetchTeacherReadings,
   updateReading
 } from '../../cloud/readings.js'
-import { GRADES, SUBJECTS, gradeLabel, subjectLabel, formatDate, formatSeconds, validateReading, exportPassage, importPassage, fileToImageData } from '../../domain/model.js'
+import { GRADES, SUBJECTS, gradeLabel, subjectLabel, formatDate, formatSeconds, validateReading, exportPassage, importPassages, fileToImageData } from '../../domain/model.js'
 import { downloadJSON } from '../../db/storage.js'
 import { createPassage, deletePassage, fetchTeacherPassages } from '../../cloud/passages.js'
 import Modal from '../components/Modal.jsx'
@@ -280,16 +280,29 @@ export default function ReadingsScreen() {
     setError('')
     setNotice('')
     try {
-      const imported = importPassage(importText)
-      const { passage: saved, updated } = await createPassage({ teacherId: user.id, passage: imported })
-      setPassages((current) => [saved, ...current.filter((item) => item.id !== saved.id)])
+      // Tek metin ya da koleksiyon dosyası (kind: reading-passage-collection) — hepsi döngüyle eklenir.
+      const importedList = importPassages(importText)
+      const results = []
+      for (const imported of importedList) {
+        results.push(await createPassage({ teacherId: user.id, passage: imported }))
+      }
+      const savedList = results.map((result) => result.passage)
+      setPassages((current) => {
+        const savedIds = new Set(savedList.map((item) => item.id))
+        return [...savedList, ...current.filter((item) => !savedIds.has(item.id))]
+      })
       setImportText('')
       setShowImport(false)
-      setNotice(
-        updated
-          ? `"${saved.title}" kütüphanede güncellendi. Öğrencilere ulaşması için "Okumayı sınıfa ata" ile gönderin.`
-          : `"${saved.title}" içe aktarıldı. Öğrencilere ulaşması için "Okumayı sınıfa ata" ile gönderin.`
-      )
+      const suffix = 'Öğrencilere ulaşması için "Okumayı sınıfa ata" ile gönderin.'
+      if (savedList.length > 1) {
+        setNotice(`${savedList.length} metin kütüphaneye aktarıldı. ${suffix}`)
+      } else {
+        setNotice(
+          results[0].updated
+            ? `"${savedList[0].title}" kütüphanede güncellendi. ${suffix}`
+            : `"${savedList[0].title}" içe aktarıldı. ${suffix}`
+        )
+      }
     } catch (caughtError) {
       setError(caughtError.message)
     }
