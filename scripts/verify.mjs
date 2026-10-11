@@ -3,7 +3,7 @@
 import { buildSeed, exportBackup, importBackup } from '../src/db/storage.js'
 import { scoreAttempt, aggregateStudentTopics, aggregateStudentAll, attemptDurationStats } from '../src/domain/scoring.js'
 import { computeDeficiencies, buildRuleReport } from '../src/domain/report.js'
-import { normalizeTest, validateTest, validateQuestion, normalizeReading, validateReading, requiredDwellSeconds, readingWordCount, exportPassage, importPassage, GRADES } from '../src/domain/model.js'
+import { normalizeTest, validateTest, validateQuestion, normalizeReading, validateReading, requiredDwellSeconds, readingWordCount, exportPassage, importPassage, importPassages, GRADES } from '../src/domain/model.js'
 import { createAIClient, OPENROUTER_DEFAULTS, PROVIDERS } from '../src/ai/client.js'
 import { normalizeStudentPart, studentCodeBase, studentAuthEmail } from '../src/domain/studentAuth.js'
 import { buildSpeechSegments, clampRate, formatRate, SPEECH_RATE, SPEECH_RATE_MAX, SPEECH_RATE_MIN } from '../src/lib/speech.js'
@@ -168,6 +168,36 @@ check('Görsel bağlantı olarak taşınıyor', importPassage(exportPassage({ ..
 check('Görselsiz metin boş görsel alanı', normalizeReading({ title: 'T', body: 'kelime '.repeat(60), grade: 2, subject: 'turkce' }).image === '')
 check('Görsel doğrulamayı bozmuyor', validateReading({ ...readingFixture, image: linkImage }).length === 0 &&
   JSON.parse(exportPassage({ ...readingFixture, image: linkImage })).passage.image === linkImage)
+// Koleksiyon (toplu) içe aktarım — tek dosyada çoklu metin
+const passageA = JSON.parse(exportPassage(readingFixture)).passage
+const passageB = JSON.parse(exportPassage({ ...readingFixture, title: 'İkinci Metin' })).passage
+const collectionJson = JSON.stringify({ version: 1, kind: 'reading-passage-collection', passages: [passageA, passageB] })
+const importedAll = importPassages(collectionJson)
+check('Koleksiyon içe aktarımı iki metin döner', importedAll.length === 2 && importedAll[0].title === 'Kırlangıç' && importedAll[1].title === 'İkinci Metin')
+check('Tekli dosya importPassages ile de çalışır', importPassages(exportPassage(readingFixture)).length === 1 && importPassages(exportPassage(readingFixture))[0].title === 'Kırlangıç')
+let collectionError = ''
+try {
+  importPassages(JSON.stringify({ kind: 'reading-passage-collection', passages: [passageA, { title: 'Bozuk', body: 'kısa', grade: 2, subject: 'turkce' }] }))
+} catch (e) {
+  collectionError = e.message
+}
+check('Koleksiyonda hatalı metin numaralı hata verir', collectionError.startsWith('Metin 2 ("Bozuk")'), collectionError)
+check('Boş koleksiyon reddedilir', (() => {
+  try {
+    importPassages(JSON.stringify({ kind: 'reading-passage-collection', passages: [] }))
+    return false
+  } catch (e) {
+    return e.message.includes('metin yok')
+  }
+})())
+check('Yanlış kind reddedilir', (() => {
+  try {
+    importPassages('{"kind":"belirsiz"}')
+    return false
+  } catch (e) {
+    return e.message.includes('kind')
+  }
+})())
 // evaluateReadingGates src/cloud/readings.js içindedir; vite-only supabase importu
 // Node'da yüklenemediği için eşdeğer kapı mantığı burada model+scoring ile doğrulanır:
 const evalGates = ({ reading, answers, dwellSeconds, scrolledBottom }) => {
