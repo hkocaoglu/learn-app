@@ -7,6 +7,7 @@ import { gradeLabel, subjectLabel, formatDate, formatMinutesShort } from '../../
 import StudentExamScreen from './StudentExamScreen.jsx'
 import StudentReadingScreen from './StudentReadingScreen.jsx'
 import StudentShopScreen from './StudentShopScreen.jsx'
+import ErrorBoundary from '../components/ErrorBoundary.jsx'
 
 const readAssignmentRoute = () => {
   const parts = window.location.hash.replace(/^#\/?/, '').split('/').filter(Boolean)
@@ -310,7 +311,8 @@ function StudentShell({ user, onSignOut, signOutError, balance, children }) {
       </header>
       <main className="student-content">
         {signOutError && <div className="alert alert-error">{signOutError}</div>}
-        {children}
+        {/* Hash değişince hata kartı temizlensin; render hatası asla boş ekran bırakmasın. */}
+        <ErrorBoundary key={window.location.hash}>{children}</ErrorBoundary>
       </main>
       <footer className="app-footer">Cevaplarınız ve sonuçlarınız güvenli şekilde kaydedilir.</footer>
     </div>

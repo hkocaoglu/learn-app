@@ -20,6 +20,8 @@ import QuestionImage from '../components/QuestionImage.jsx'
 import PointsEarned from '../components/PointsEarned.jsx'
 
 const DRAFT_VERSION = 2
+// b436647 bu tanımı silmişti — taslaklar sessizce kaydedilemiyordu (draftKey ReferenceError).
+const draftKey = (studentId, assignmentId) => `learn_app_student_reading_v${DRAFT_VERSION}_${studentId}_${assignmentId}`
 
 const readDraft = (studentId, assignmentId) => {
   if (typeof sessionStorage === 'undefined') return null
@@ -500,6 +502,19 @@ export default function StudentReadingScreen({ student, readingAssignment, onBac
 
   const question = total > 0 ? questions[Math.min(step, total - 1)] : null
   const selected = question ? answers[question.id] : undefined
+  // Bozuk soru verisi (options yoksa) render'ı çökertmesin — kart olarak göster.
+  const questionInvalid =
+    total > 0 &&
+    (!question ||
+      typeof question !== 'object' ||
+      typeof question.text !== 'string' ||
+      (question.image != null && typeof question.image !== 'string') ||
+      !Array.isArray(question.options) ||
+      question.options.length < 2 ||
+      !question.options.every((o) => typeof o === 'string' && o.trim()) ||
+      !Number.isInteger(Number(question.correctIndex)) ||
+      Number(question.correctIndex) < 0 ||
+      Number(question.correctIndex) >= question.options.length)
   // Quiz sırasında metin görünürse yan yana (geniş ekranda) yerleşim kullanılır.
   const splitLayout = quizStarted && total > 0 && reading?.showPassageDuringQuiz !== false
 
@@ -672,6 +687,26 @@ export default function StudentReadingScreen({ student, readingAssignment, onBac
                 ✅ Teste hazırım
               </button>
             </div>
+          </div>
+        </div>
+      ) : questionInvalid ? (
+        <div className="card mt-16">
+          <div className="alert alert-error">
+            <strong>Bu okumanın {step + 1}. sorusunda veri hatası var.</strong>
+            <div className="small mt-8">
+              Soru metni veya seçenekler okunamadı (metin/seçenekler yazı yerine nesne olarak kaydılmış). Bu soruyu
+              çözmek mümkün değil — öğretmeninizin soruyu düzenlemesi gerekir.
+            </div>
+          </div>
+          <div className="row-actions mt-8">
+            {step > 0 && (
+              <button className="btn" type="button" onClick={() => setStep(step - 1)}>
+                ← Önceki soru
+              </button>
+            )}
+            <button className="btn btn-primary" type="button" onClick={onBack}>
+              Okumalara dön
+            </button>
           </div>
         </div>
       ) : (
