@@ -1,6 +1,7 @@
 import { requireSupabase } from '../lib/supabase.js'
-import { normalizeReading, requiredDwellSeconds } from '../domain/model.js'
-import { scoreAttempt } from '../domain/scoring.js'
+import { normalizeReading, normalizeSecondsPerWord } from '../domain/model.js'
+// Kapı mantığı saf domain modülünde yaşar (src/domain/readingGates.js) — testler aynı kodu çalıştırır.
+import { evaluateReadingGates } from '../domain/readingGates.js'
 import { detectMissingColumn, dropKeys, probeMissingColumns, selectList } from './schemaFallback.js'
 
 const readingFields = [
@@ -13,6 +14,8 @@ const readingFields = [
   'grade',
   'subject',
   'topic',
+  'display_mode',
+  'rsvp_seconds_per_word',
   'min_dwell_seconds',
   'quiz_threshold',
   'show_passage_during_quiz',
@@ -25,19 +28,50 @@ const readingFields = [
 ]
 
 // Henüz uygulanmamış migration'lara ait kolonlar: sorgu bunlarsız tekrarlanır.
-const optionalReadingFields = ['show_passage_during_quiz', 'image']
+const optionalReadingFields = [
+  'show_passage_during_quiz',
+  'image',
+  'display_mode',
+  'rsvp_seconds_per_word'
+]
+
+const rsvpMigrationHint =
+  'Hızlı kelime akışı kaydedilemedi: veritabanında "display_mode" kolonu yok. Supabase SQL Editor ' +
+  'üzerinde supabase/migrations/20261013120000_rsvp_reading_mode.sql dosyasını çalıştırın.'
 
 const imageMigrationHint =
   'Metin görseli kaydedilemedi: veritabanında "image" kolonu yok. Supabase SQL Editor üzerinde ' +
   'supabase/migrations/20260911090000_reading_images.sql dosyasını çalıştırın.'
 
+// Okuma denemesi kolonları: rsvp_plays yalnızca akış modu migration'ı ile gelir.
+const attemptFields = [
+  'id',
+  'reading_assignment_id',
+  'student_id',
+  'dwell_seconds',
+  'scrolled_bottom',
+  'correct_count',
+  'total_count',
+  'score_percent',
+  'read',
+  'total_seconds',
+  'rsvp_plays',
+  'submitted_at',
+  'created_at'
+]
+
+const optionalAttemptFields = ['rsvp_plays']
+
 // Opsiyonel kolonlar eksikse isteği onlarsız tekrarlar.
-const runTolerant = async (run) => {
+const runTolerant = async (
+  run,
+  { fields = readingFields, optional = optionalReadingFields } = {}
+) => {
   const omitted = []
   for (;;) {
-    const result = await run(selectList(readingFields, omitted), omitted)
+    const result = await run(selectList(fields, omitted), omitted)
     if (!result.error) return { ...result, omitted }
-    const missing = detectMissingColumn(result.error, optionalReadingFields)
+    const missing = detectMissingColumn(result.error, optional)
     if (!missing || omitted.includes(missing)) return { ...result, omitted }
     omitted.push(missing)
   }
@@ -53,6 +87,7 @@ const missingReadingColumns = () =>
 
 export const toReading = (row, classesById) => {
   const classRow = classesById?.get(row.class_id)
+  const displayMode = row.display_mode === 'rsvp' ? 'rsvp' : 'static'
   return {
     id: row.id,
     teacherId: row.teacher_id,
@@ -65,9 +100,12 @@ export const toReading = (row, classesById) => {
     grade: Number(row.grade),
     subject: row.subject,
     topic: row.topic || 'okuma-anlama',
+    displayMode,
+    rsvpSecondsPerWord: normalizeSecondsPerWord(row.rsvp_seconds_per_word),
     minDwellSeconds: row.min_dwell_seconds ?? null,
     quizThreshold: Number(row.quiz_threshold ?? 60),
-    showPassageDuringQuiz: row.show_passage_during_quiz !== false,
+    // Akış modunda metin quiz sırasında ASLA görünmez (ölçümü bozar).
+    showPassageDuringQuiz: displayMode === 'rsvp' ? false : row.show_passage_during_quiz !== false,
     questions: Array.isArray(row.questions) ? row.questions : [],
     startsAt: row.starts_at,
     endsAt: row.ends_at,
@@ -115,6 +153,8 @@ export const createReading = async ({ teacherId, classId, reading, startsAt, end
     grade: normalized.grade,
     subject: normalized.subject,
     topic: normalized.topic,
+    display_mode: normalized.displayMode,
+    rsvp_seconds_per_word: normalized.rsvpSecondsPerWord,
     min_dwell_seconds: normalized.minDwellSeconds,
     quiz_threshold: normalized.quizThreshold,
     show_passage_during_quiz: normalized.showPassageDuringQuiz !== false,
@@ -124,10 +164,13 @@ export const createReading = async ({ teacherId, classId, reading, startsAt, end
     published: Boolean(published)
   }
 
-  // Görsel gönderilecekse kolonun varlığını ÖNCE doğrula: aksi halde görsel sessizce
-  // düşer ve öğrenci görseli hiç görmez.
-  if (normalized.image && (await missingReadingColumns()).includes('image')) {
-    throw new Error(imageMigrationHint)
+  // Görsel ya da akış modu gönderilecekse kolonların varlığını ÖNCE doğrula: aksi halde
+  // veri sessizce düşer (görsel kaybolur, akış modu 'static' olarak kaydedilir).
+  if (normalized.image || normalized.displayMode === 'rsvp') {
+    const missing = await missingReadingColumns()
+    if (normalized.image && missing.includes('image')) throw new Error(imageMigrationHint)
+    if (normalized.displayMode === 'rsvp' && missing.includes('display_mode'))
+      throw new Error(rsvpMigrationHint)
   }
 
   const inserted = await runTolerant((fields, dropped) =>
@@ -191,10 +234,10 @@ export const fetchStudentReadings = async (studentId) => {
 
   if (readingError) throw new Error(`Atanan okumalar yüklenemedi: ${readingError.message}`)
 
-  const { data: attempts, error: attemptError } = await client
-    .from('reading_attempts')
-    .select('id, reading_assignment_id, score_percent, dwell_seconds, scrolled_bottom, read, total_seconds, submitted_at, created_at')
-    .eq('student_id', studentId)
+  const { data: attempts, error: attemptError } = await runTolerant(
+    (fields) => client.from('reading_attempts').select(fields).eq('student_id', studentId),
+    { fields: attemptFields, optional: optionalAttemptFields }
+  )
   if (attemptError) throw new Error(`Okuma sonuçları yüklenemedi: ${attemptError.message}`)
 
   const attemptsByReading = new Map((attempts || []).map((item) => [item.reading_assignment_id, item]))
@@ -216,9 +259,12 @@ export const fetchStudentReadings = async (studentId) => {
         grade: Number(row.grade),
         subject: row.subject,
         topic: row.topic || 'okuma-anlama',
+        displayMode: row.display_mode === 'rsvp' ? 'rsvp' : 'static',
+        rsvpSecondsPerWord: normalizeSecondsPerWord(row.rsvp_seconds_per_word),
         minDwellSeconds: row.min_dwell_seconds ?? null,
         quizThreshold: Number(row.quiz_threshold ?? 60),
-        showPassageDuringQuiz: row.show_passage_during_quiz !== false,
+        showPassageDuringQuiz:
+          row.display_mode === 'rsvp' ? false : row.show_passage_during_quiz !== false,
         questions: Array.isArray(row.questions) ? row.questions : []
       },
       attempt: attemptsByReading.get(row.id) || null,
@@ -229,31 +275,18 @@ export const fetchStudentReadings = async (studentId) => {
 
 export const fetchReadingAttempts = async (readingAssignmentId) => {
   if (!readingAssignmentId) throw new Error('Okuma kimliği bulunamadı.')
-  const { data, error } = await requireSupabase()
-    .from('reading_attempts')
-    .select('id, student_id, dwell_seconds, scrolled_bottom, correct_count, total_count, score_percent, read, total_seconds, submitted_at')
-    .eq('reading_assignment_id', readingAssignmentId)
-    .order('submitted_at', { ascending: false })
+  const { data, error } = await runTolerant(
+    (fields) =>
+      requireSupabase()
+        .from('reading_attempts')
+        .select(fields)
+        .eq('reading_assignment_id', readingAssignmentId)
+        .order('submitted_at', { ascending: false }),
+    { fields: attemptFields, optional: optionalAttemptFields }
+  )
 
   if (error) throw new Error(`Okuma sonuçları yüklenemedi: ${error.message}`)
   return data || []
-}
-
-export const evaluateReadingGates = ({ reading, answers, dwellSeconds, scrolledBottom }) => {
-  const required = requiredDwellSeconds(reading)
-  const dwellOk = Number(dwellSeconds) >= required
-  const scrollOk = scrolledBottom === true
-  const questions = Array.isArray(reading?.questions) ? reading.questions : []
-  const scored =
-    questions.length === 0
-      ? { correctCount: 0, totalCount: 0, scorePercent: 100, details: [], totalSeconds: 0, topicStats: [] }
-      : scoreAttempt(
-          { title: reading.title, grade: reading.grade, subject: reading.subject, questions },
-          answers || {}
-        )
-  const threshold = Number(reading?.quizThreshold ?? 60)
-  const quizOk = questions.length === 0 ? true : scored.scorePercent >= threshold
-  return { required, dwellOk, scrollOk, quizOk, scored, read: dwellOk && scrollOk && quizOk }
 }
 
 export const submitReadingAttempt = async ({
@@ -263,10 +296,12 @@ export const submitReadingAttempt = async ({
   answers,
   dwellSeconds,
   scrolledBottom,
+  flowCompleted,
+  rsvpPlays,
   totalSeconds,
   startedAt
 }) => {
-  const gates = evaluateReadingGates({ reading, answers, dwellSeconds, scrolledBottom })
+  const gates = evaluateReadingGates({ reading, answers, dwellSeconds, scrolledBottom, flowCompleted })
   const attemptAnswers = gates.scored.details.map((detail) => ({
     questionId: detail.question.id,
     questionText: detail.question.text,
@@ -280,24 +315,38 @@ export const submitReadingAttempt = async ({
     seconds: detail.seconds
   }))
 
-  const { data, error } = await requireSupabase()
-    .from('reading_attempts')
-    .insert({
-      teacher_id: student.teacherId,
-      reading_assignment_id: readingAssignment.id,
-      student_id: student.id,
-      dwell_seconds: Math.max(0, Math.round(Number(dwellSeconds) || 0)),
-      scrolled_bottom: Boolean(scrolledBottom),
-      correct_count: gates.scored.correctCount,
-      total_count: gates.scored.totalCount,
-      score_percent: gates.scored.scorePercent,
-      read: gates.read,
-      total_seconds: Math.max(0, Math.round(Number(totalSeconds) || 0)),
-      started_at: new Date(startedAt).toISOString(),
-      submitted_at: new Date().toISOString()
-    })
-    .select('id, dwell_seconds, scrolled_bottom, correct_count, total_count, score_percent, read, total_seconds, submitted_at, created_at')
-    .single()
+  const plays = Math.max(0, Math.round(Number(rsvpPlays) || 0))
+  const row = {
+    teacher_id: student.teacherId,
+    reading_assignment_id: readingAssignment.id,
+    student_id: student.id,
+    dwell_seconds: Math.max(0, Math.round(Number(dwellSeconds) || 0)),
+    // Akış modunda kalıcı kanıt "sonuna kadar izlendi"dir; static modda kaydırma.
+    scrolled_bottom: gates.rsvp ? gates.flowOk : Boolean(scrolledBottom),
+    correct_count: gates.scored.correctCount,
+    total_count: gates.scored.totalCount,
+    score_percent: gates.scored.scorePercent,
+    read: gates.read,
+    total_seconds: Math.max(0, Math.round(Number(totalSeconds) || 0)),
+    started_at: new Date(startedAt).toISOString(),
+    submitted_at: new Date().toISOString()
+  }
+  // rsvp_plays kolonu migration ile gelir; 0 varsayılanına güvenip boşuna göndermeyiz.
+  if (plays > 0) row.rsvp_plays = plays
+
+  const selectAttempt = () =>
+    requireSupabase()
+      .from('reading_attempts')
+      .insert(row)
+      .select('id, dwell_seconds, scrolled_bottom, correct_count, total_count, score_percent, read, total_seconds, submitted_at, created_at')
+      .single()
+
+  let { data, error } = await selectAttempt()
+  // Kolon yoksa gönderimi düşürme: izleme sayısı kaybolur ama öğrenci sonucu kaydedilir.
+  if (error && row.rsvp_plays !== undefined && detectMissingColumn(error, ['rsvp_plays'])) {
+    delete row.rsvp_plays
+    ;({ data, error } = await selectAttempt())
+  }
 
   if (error) {
     if (error.code === '23505') throw new Error('Bu okuma için zaten kaydınız var.')
@@ -316,6 +365,13 @@ export const submitReadingAttempt = async ({
     read: Boolean(data.read),
     totalSeconds: data.total_seconds,
     answers: attemptAnswers,
-    gates: { dwellOk: gates.dwellOk, scrollOk: gates.scrollOk, quizOk: gates.quizOk, required: gates.required }
+    gates: {
+      rsvp: gates.rsvp,
+      flowOk: gates.flowOk,
+      dwellOk: gates.dwellOk,
+      scrollOk: gates.scrollOk,
+      quizOk: gates.quizOk,
+      required: gates.required
+    }
   }
 }

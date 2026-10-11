@@ -1,0 +1,98 @@
+{
+  "version": 1,
+  "kind": "reading-passage",
+  "exportedAt": "2026-10-11T21:00:00.000Z",
+  "passage": {
+    "title": "Kayıp Anahtar",
+    "sourceLabel": "3. Sınıf Türkçe Okuma Parçaları (Maarif Modeli)",
+    "body": "Mert, okuldan eve dönerken kaldırımın kenarında parlayan bir şey gördü. Eğildi ve küçük, sarı bir anahtar buldu. Anahtarın yanında deri bir anahtarlık vardı; anahtarlığın üzerine beyaz harflerle bir soyadı yazılmıştı.\n\nMert anahtarı cebine koydu. Eve gidince annesine gösterdi. Annesi, \"Bunu kaybeden kişi şimdi çok merak ediyordur,\" dedi. Mert bir an düşündü. Anahtarı çantasına koyup ödevini yapmaya oturdu ama aklı hep anahtardaydı. Kim kaybetmişti? Bir çocuk mu, bir bakkal mı, yoksa yaşlı bir teyze mi?\n\nAkşam babası geldiğinde Mert anahtarı gösterdi. Babası anahtarlığa baktı ve güldü. \"Bu soyadını tanıyorum,\" dedi. \"Sokağın başındaki bakkalın soyadı bu. Dükkân kapanmadan yetişirsek anahtarı verebiliriz.\" Mert hemen montunu giydi.\n\nDükkâna gittiklerinde bakkal, kasada oturmuş, çekmeceyi karıştırıyordu. Mert anahtarı uzattığında bakkalın yüzü aydınlandı. \"Bu deponun anahtarı! Kapatırken düşürmüşüm. Sabah erken geliyorum, bununla açıyorum. Bulmasaydın yarın kapıyı açamayacaktım,\" dedi. Sonra çekmeceden bir çikolata çıkarıp Mert'e uzattı. Mert başını iki yana salladı: \"Bunu almam gerekmiyor. Anahtarı size geri vermek doğru olan şeydi.\"\n\nBakkal ısrar etmedi, sadece gülümsedi. Eve dönerken Mert kendini hafiflemiş hissetti. Sanki cebinde taşıdığı şey bir anahtar değil, bir taştı ve o taşı yerine bırakmıştı. Annesi ona, \"Aldığın şey senin olmayabilir; ama verdiğin karar tamamen senindir,\" dedi. Mert o gece başını yastığa koyduğunda hiçbir şeyi düşünmek zorunda kalmadı; rahatça uyudu.",
+    "grade": 3,
+    "subject": "turkce",
+    "topic": "okuma-anlama",
+    "quizThreshold": 60,
+    "showPassageDuringQuiz": true,
+    "image": "",
+    "questions": [
+      {
+        "id": "q3_anahtar_1",
+        "grade": 3,
+        "subject": "turkce",
+        "topic": "okuma-anlama",
+        "text": "Mert anahtarı bulduktan sonra neden rahat edemedi?",
+        "options": [
+          "Anahtarı kaybedeceğinden korktuğu için",
+          "Annesi ona kızdığı için",
+          "Anahtarı kaybeden kişinin kim olduğunu ve ne durumda olduğunu düşündüğü için",
+          "Ödevini yapamadığı için"
+        ],
+        "correctIndex": 2,
+        "explanation": "Metinde Mert'in aklının hep anahtarda olduğu ve kaybedenin bir çocuk, bakkal ya da yaşlı bir teyze olabileceğini düşündüğü anlatılır.",
+        "image": ""
+      },
+      {
+        "id": "q3_anahtar_2",
+        "grade": 3,
+        "subject": "turkce",
+        "topic": "okuma-anlama",
+        "text": "Bakkal, anahtarı görünce neden sevindi?",
+        "options": [
+          "Anahtar çok değerli olduğu için",
+          "Anahtarı kendisi kaybetmediği için",
+          "Mert'e çikolata vereceği için",
+          "Bu anahtar olmadan ertesi gün dükkânı açamayacağı için"
+        ],
+        "correctIndex": 3,
+        "explanation": "Bakkal \"Sabah erken geliyorum, bununla açıyorum. Bulmasaydın yarın kapıyı açamayacaktım\" der.",
+        "image": ""
+      },
+      {
+        "id": "q3_anahtar_3",
+        "grade": 3,
+        "subject": "turkce",
+        "topic": "okuma-anlama",
+        "text": "Mert, bakkalın verdiği çikolatayı neden almadı?",
+        "options": [
+          "Anahtarı geri vermenin zaten yapılması gereken doğru şey olduğunu düşündüğü için",
+          "Çikolatayı sevmediği için",
+          "Annesi izin vermediği için",
+          "Bakkal ısrar etmediği için"
+        ],
+        "correctIndex": 0,
+        "explanation": "Mert \"Bunu almam gerekmiyor, anahtarı geri vermek doğru olan şeydi\" diyerek karşılık beklemediğini gösterir.",
+        "image": ""
+      },
+      {
+        "id": "q3_anahtar_4",
+        "grade": 3,
+        "subject": "turkce",
+        "topic": "okuma-anlama",
+        "text": "Annesinin \"Aldığın şey senin olmayabilir; ama verdiğin karar tamamen senindir\" sözüyle anlatmak istediği nedir?",
+        "options": [
+          "Bulunan eşyaların hemen kullanılabileceğini",
+          "Dürüst bir karar vermenin kişinin kendi elinde olduğunu",
+          "Kararları yalnızca büyüklerin verdiğini",
+          "Kaybedilen şeyleri kimsenin aramadığını"
+        ],
+        "correctIndex": 1,
+        "explanation": "Anne, anahtarın Mert'e ait olmadığını ama onu geri verme kararının Mert'in kendi seçimi olduğunu vurgular.",
+        "image": ""
+      },
+      {
+        "id": "q3_anahtar_5",
+        "grade": 3,
+        "subject": "turkce",
+        "topic": "okuma-anlama",
+        "text": "Metnin sonunda Mert'in rahatça uyuması neyi gösterir?",
+        "options": [
+          "Çok yorulduğunu",
+          "Ertesi gün okula gitmeyeceğini",
+          "Doğru olanı yaptığı için içinin rahat olduğunu",
+          "Çikolata almadığı için üzüldüğünü"
+        ],
+        "correctIndex": 2,
+        "explanation": "Metinde Mert'in \"kendini hafiflemiş hissettiği\" ve hiçbir şeyi düşünmek zorunda kalmadan uyuduğu belirtilir; bu, vicdan rahatlığıdır.",
+        "image": ""
+      }
+    ]
+  }
+}

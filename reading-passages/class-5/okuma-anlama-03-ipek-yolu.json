@@ -1,0 +1,114 @@
+{
+  "version": 1,
+  "kind": "reading-passage",
+  "exportedAt": "2026-10-11T17:06:14.202Z",
+  "passage": {
+    "title": "İpek Yolu",
+    "sourceLabel": "5. Sınıf Türkçe Okuma Parçaları (Maarif Modeli)",
+    "body": "İpek Yolu, antik çağlardan beri var olan bir ticaret yoluydu. Çin'den başlayıp Akdeniz'e kadar uzanıyordu. İpek, baharat, seramik ve cam taşınırdı. Bu yol sadece malları değil, kültürleri de taşıyordu. İslam, Hristiyanlık ve Budizm bu yolla yayıldı. İpek Yolu, dünya tarihini değiştirdi.",
+    "grade": 5,
+    "subject": "turkce",
+    "topic": "okuma-anlama",
+    "quizThreshold": 60,
+    "showPassageDuringQuiz": true,
+    "image": "",
+    "questions": [
+      {
+        "id": "q_mv42rlmi_h8ssu7",
+        "grade": 5,
+        "subject": "turkce",
+        "topic": "okuma-anlama",
+        "text": "İpek Yolu ne zamandan beri vardı?",
+        "options": [
+          "Günümüzde",
+          "Antik çağlardan beri",
+          "Sadece 19. yüzyılda",
+          "Sadece 20. yüzyılda"
+        ],
+        "correctIndex": 1,
+        "explanation": "",
+        "image": ""
+      },
+      {
+        "id": "q_mv42rlmi_ikb0ap",
+        "grade": 5,
+        "subject": "turkce",
+        "topic": "okuma-anlama",
+        "text": "İpek Yolu nereden nereye uzanıyordu?",
+        "options": [
+          "İstanbul'dan Ankara'ya",
+          "Çin'den Akdeniz'e",
+          "Ankara'dan İstanbul'a",
+          "Paris'ten Londra'ya"
+        ],
+        "correctIndex": 1,
+        "explanation": "",
+        "image": ""
+      },
+      {
+        "id": "q_mv42rlmi_j4pn0o",
+        "grade": 5,
+        "subject": "turkce",
+        "topic": "okuma-anlama",
+        "text": "İpek Yolu'nda ne taşınırdı?",
+        "options": [
+          "Sadece insan",
+          "İpek, baharat, seramik ve cam",
+          "Sadece altın",
+          "Sadece toprak"
+        ],
+        "correctIndex": 1,
+        "explanation": "",
+        "image": ""
+      },
+      {
+        "id": "q_mv42rlmi_kv6jdx",
+        "grade": 5,
+        "subject": "turkce",
+        "topic": "okuma-anlama",
+        "text": "İpek Yolu ne taşıyordu?",
+        "options": [
+          "Sadece malları",
+          "Malları ve kültürleri",
+          "Sadece insanları",
+          "Sadece hayvanları"
+        ],
+        "correctIndex": 1,
+        "explanation": "",
+        "image": ""
+      },
+      {
+        "id": "q_mv42rlmi_lg759w",
+        "grade": 5,
+        "subject": "turkce",
+        "topic": "okuma-anlama",
+        "text": "Hangi dinler İpek Yolu'yla yayıldı?",
+        "options": [
+          "Sadece İslam",
+          "İslam, Hristiyanlık ve Budizm",
+          "Sadece Budizm",
+          "Hiçbiri"
+        ],
+        "correctIndex": 1,
+        "explanation": "",
+        "image": ""
+      },
+      {
+        "id": "q_mv42rlmi_mndbb6",
+        "grade": 5,
+        "subject": "turkce",
+        "topic": "okuma-anlama",
+        "text": "Parçanın ana fikri nedir?",
+        "options": [
+          "İpek Yolu sadece bir ticaret yoluydu",
+          "İpek Yolu dünya tarihini değiştirdi",
+          "İpek Yolu kısa bir yoldu",
+          "İpek Yolu sadece Çin'i ilgilendiriyordu"
+        ],
+        "correctIndex": 1,
+        "explanation": "",
+        "image": ""
+      }
+    ]
+  }
+}

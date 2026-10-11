@@ -1,0 +1,98 @@
+{
+  "version": 1,
+  "kind": "reading-passage",
+  "exportedAt": "2026-10-11T20:30:00.000Z",
+  "passage": {
+    "title": "Sabah Yürüyüşünün Sırrı",
+    "sourceLabel": "5. Sınıf Türkçe Okuma Parçaları (Maarif Modeli)",
+    "body": "Anneannem, geçen yıl merdivenleri çıkarken sık sık durup nefes alırdı. Doktoru ona ilaç yazmadan önce basit bir öneri yaptı: Her sabah yarım saat yürüyüş. Anneannem önce güldü; \"Yarım saat yürümekle ne değişir?\" dedi. Ama doktor ısrar etti ve annem de ona eşlik etmeye karar verdi. İlk haftalarda anneannem yürüyüşten döndüğünde yorgun oluyor, \"Bugünlük yeter,\" diyordu. Bir ay sonra ise sabah yürüyüşünü hiç kaçırmaz olmuştu.\n\nBen bu değişimi merak ettim ve bir cumartesi onlara katıldım. Açıkçası ilk yarım saat bana çok sıkıcı geldi. Sürekli aynı sokakları, aynı ağaçları, aynı evleri görüyorduk. Anneanneme bunu söylediğimde bana gülümsedi: \"Sen yalnızca yolu görüyorsun. Ben ise her gün başka bir şey görüyorum,\" dedi. Gerçekten de öyleydi: Kavak ağacının tomurcukları haftalar içinde açmış, kaldırımın kenarındaki karınca yuvası her gün biraz daha büyümüştü. Ben o güne kadar bu ağaca hiç dikkat etmemiştim.\n\nYürüyüşün bana asıl etkisi ertesi hafta belli oldu. Sabah yürüdüğüm günlerde derste daha kolay odaklanıyor, akşam daha erken uykum geliyordu. Fen bilgisi öğretmenimize bunun nedenini sordum. Öğretmenimiz, düzenli yürüyüşün kalbi güçlendirdiğini, kasları çalıştırdığını ve beynin daha iyi çalışması için gereken oksijeni artırdığını anlattı. Sonra da ekledi: \"En önemlisi, bu bir yarış değil. Maraton koşan değil, her gün yürümeye devam eden kazanır.\"\n\nAnneannem bana kendi sırrını daha sonra söyledi. Yürüyüşün asıl faydasını yalnızca bedeninde değil, komşularıyla kurduğu ilişkide görmüştü. Her sabah aynı saatte yürüyen birkaç kişi vardı; zamanla selamlaşmaya, sonra birkaç dakika sohbet etmeye başlamışlardı. Anneannem, \"Yürümek bahaneydi,\" dedi, \"aslında her sabah birilerini gördüğümü bilmek beni yerimden kaldırıyordu.\"\n\nMayıs ayında arkadaşlarımla bir \"sabah yürüyüşü kulübü\" kurduk. Beş kişiyle başladık. Bugün on dört kişiyiz ve her cumartesi yürüyoruz. Dönüşte kimse yorgun görünmüyor; çünkü hiçbirimiz yürüyüşü bir görev olarak görmüyor, sadece sohbet ederek yürüyoruz. Anneannemin merdivenlerdeki nefes nefese hâlini hatırladığımda, iyi bir alışkanlığın nasıl sessizce hayatı değiştirdiğini daha iyi anlıyorum. Bir ilaç kutusu değil, her sabah tekrarlanan küçük bir adım…",
+    "grade": 5,
+    "subject": "turkce",
+    "topic": "okuma-anlama",
+    "quizThreshold": 60,
+    "showPassageDuringQuiz": true,
+    "image": "",
+    "questions": [
+      {
+        "id": "q_yuruyus_1",
+        "grade": 5,
+        "subject": "turkce",
+        "topic": "okuma-anlama",
+        "text": "Anneannemin \"Sen yalnızca yolu görüyorsun, ben ise her gün başka bir şey görüyorum.\" sözüyle anlatılmak istenen nedir?",
+        "options": [
+          "Aynı yerin, dikkatle bakıldığında her gün değişen ayrıntılar barındırdığı",
+          "Yolun aslında çok kısa olduğu",
+          "Anneannemin gözlerinin daha iyi gördüğü",
+          "Yürüyüşün yalnızca yaşlılar için faydalı olduğu"
+        ],
+        "correctIndex": 0,
+        "explanation": "Metinde kavak tomurcuklarının açması ve karınca yuvasının büyümesi örnek verilir; dikkatli bakan için aynı yol her gün yenidir.",
+        "image": ""
+      },
+      {
+        "id": "q_yuruyus_2",
+        "grade": 5,
+        "subject": "turkce",
+        "topic": "okuma-anlama",
+        "text": "Fen bilgisi öğretmeninin \"Maraton koşan değil, her gün yürümeye devam eden kazanır.\" sözü hangi düşünceyi vurgular?",
+        "options": [
+          "Yürüyüşte hızın en önemli ölçüt olduğunu",
+          "Sağlıkta sürekliliğin ve düzenliliğin, tek seferlik büyük çabadan daha değerli olduğunu",
+          "Kısa süreli yoğun çabanın uzun süreli düzenlilikten üstün olduğunu",
+          "Yalnızca sporcuların sağlıklı olabileceğini"
+        ],
+        "correctIndex": 1,
+        "explanation": "Öğretmen, düzenli ve sürdürülebilir alışkanlığın, bir kez yapılan büyük çabadan daha etkili olduğunu anlatır.",
+        "image": ""
+      },
+      {
+        "id": "q_yuruyus_3",
+        "grade": 5,
+        "subject": "turkce",
+        "topic": "okuma-anlama",
+        "text": "Anneannemin yürüyüşü sürdürmesinde hangi etken daha belirleyici olmuştur?",
+        "options": [
+          "Yürüyüş yolunun çok güzel olması",
+          "Doktorun onu sürekli kontrol etmesi",
+          "Her sabah komşularını görüyor olmanın ona iyi gelmesi",
+          "Yeni ayakkabılar alması"
+        ],
+        "correctIndex": 2,
+        "explanation": "Anneannem \"Yürümek bahaneydi, asıl beni yerimden kaldıran her sabah birilerini göreceğimi bilmekti\" der; sosyal bağ, sürekliliği sağlar.",
+        "image": ""
+      },
+      {
+        "id": "q_yuruyus_4",
+        "grade": 5,
+        "subject": "turkce",
+        "topic": "okuma-anlama",
+        "text": "Yazar, yürüyüş kulübünde kimsenin yorgun görünmemesini neye bağlıyor?",
+        "options": [
+          "Yürüyüş mesafesinin çok kısa tutulmasına",
+          "Herkesin çok iyi sporcu olmasına",
+          "Kulübün yalnızca cumartesileri toplanmasına",
+          "Yürüyüşü bir görev değil, sohbet ederek yapılan bir etkinlik olarak görmelerine"
+        ],
+        "correctIndex": 3,
+        "explanation": "Metinde \"hiçbirimiz yürüyüşü görev olarak görmüyor, sadece sohbet ederek yürüyoruz\" denir; bu da zorlanma duygusunu azaltır.",
+        "image": ""
+      },
+      {
+        "id": "q_yuruyus_5",
+        "grade": 5,
+        "subject": "turkce",
+        "topic": "okuma-anlama",
+        "text": "Metnin son cümlesindeki \"Bir ilaç kutusu değil, her sabah tekrarlanan küçük bir adım…\" ifadesi neyi anlatır?",
+        "options": [
+          "Büyük ve ani çözümler yerine küçük ama sürekli davranışların iyileştirici gücünü",
+          "İlaçların hiçbir zaman işe yaramadığını",
+          "Anneannemin artık ilaç kullanmadığını",
+          "Sabah yürüyüşünün yalnızca yaşlılar için gerekli olduğunu"
+        ],
+        "correctIndex": 0,
+        "explanation": "Yazar, alışkanlığın sessizce hayatı değiştirmesini vurgular: küçük ama her gün tekrarlanan bir adım, kalıcı iyileşme sağlar.",
+        "image": ""
+      }
+    ]
+  }
+}

@@ -1,5 +1,5 @@
 import { requireSupabase } from '../lib/supabase.js'
-import { normalizeReading } from '../domain/model.js'
+import { normalizeReading, normalizeSecondsPerWord } from '../domain/model.js'
 import { detectMissingColumn, dropKeys, probeMissingColumns, selectList } from './schemaFallback.js'
 
 const passageFields = [
@@ -12,17 +12,28 @@ const passageFields = [
   'grade',
   'subject',
   'topic',
+  'display_mode',
+  'rsvp_seconds_per_word',
   'quiz_threshold',
   'show_passage_during_quiz',
   'questions',
   'created_at'
 ]
 
-const optionalPassageFields = ['show_passage_during_quiz', 'image']
+const optionalPassageFields = [
+  'show_passage_during_quiz',
+  'image',
+  'display_mode',
+  'rsvp_seconds_per_word'
+]
 
 const imageMigrationHint =
   'Metin görseli kaydedilemedi: veritabanında "image" kolonu yok. Supabase SQL Editor üzerinde ' +
   'supabase/migrations/20260911090000_reading_images.sql dosyasını çalıştırın.'
+
+const rsvpMigrationHint =
+  'Hızlı kelime akışı kaydedilemedi: veritabanında "display_mode" kolonu yok. Supabase SQL Editor ' +
+  'üzerinde supabase/migrations/20261013120000_rsvp_reading_mode.sql dosyasını çalıştırın.'
 
 const runTolerant = async (run) => {
   const omitted = []
@@ -45,8 +56,11 @@ export const toPassage = (row) => ({
   grade: Number(row.grade),
   subject: row.subject,
   topic: row.topic || 'okuma-anlama',
+  displayMode: row.display_mode === 'rsvp' ? 'rsvp' : 'static',
+  rsvpSecondsPerWord: normalizeSecondsPerWord(row.rsvp_seconds_per_word),
   quizThreshold: Number(row.quiz_threshold ?? 60),
-  showPassageDuringQuiz: row.show_passage_during_quiz !== false,
+  showPassageDuringQuiz:
+    row.display_mode === 'rsvp' ? false : row.show_passage_during_quiz !== false,
   questions: Array.isArray(row.questions) ? row.questions : [],
   createdAt: row.created_at
 })
@@ -78,14 +92,19 @@ export const createPassage = async ({ teacherId, passage }) => {
     grade: normalized.grade,
     subject: normalized.subject,
     topic: normalized.topic,
+    display_mode: normalized.displayMode,
+    rsvp_seconds_per_word: normalized.rsvpSecondsPerWord,
     quiz_threshold: normalized.quizThreshold,
     show_passage_during_quiz: normalized.showPassageDuringQuiz !== false,
     questions: normalized.questions
   }
 
-  // Görsel kaydedilecekse kolonu ÖNCE doğrula, veri sessizce düşmesin.
-  if (normalized.image && (await missingPassageColumns()).includes('image')) {
-    throw new Error(imageMigrationHint)
+  // Görsel/akış modu kaydedilecekse kolonları ÖNCE doğrula, veri sessizce düşmesin.
+  if (normalized.image || normalized.displayMode === 'rsvp') {
+    const missing = await missingPassageColumns()
+    if (normalized.image && missing.includes('image')) throw new Error(imageMigrationHint)
+    if (normalized.displayMode === 'rsvp' && missing.includes('display_mode'))
+      throw new Error(rsvpMigrationHint)
   }
 
   const inserted = await runTolerant((fields, dropped) =>

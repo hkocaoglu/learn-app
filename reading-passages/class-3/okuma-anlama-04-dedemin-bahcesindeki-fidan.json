@@ -1,0 +1,98 @@
+{
+  "version": 1,
+  "kind": "reading-passage",
+  "exportedAt": "2026-10-11T21:00:00.000Z",
+  "passage": {
+    "title": "Dedemin Bahçesindeki Fidan",
+    "sourceLabel": "3. Sınıf Türkçe Okuma Parçaları (Maarif Modeli)",
+    "body": "Dedem, bahçenin ortasına incecik bir fidan dikti. Fidan o kadar küçüktü ki, yanına bir kalem koysak hangisinin daha uzun olduğu belli olmazdı. \"Bunun adı elma fidanı,\" dedi dedem. \"Ama bugün meyve vermeyecek.\"\n\nBen her sabah fidanın yanına koşuyordum. Bazen bir yaprak, bazen minicik bir tomurcuk arıyordum. Bir hafta sonra hiçbir şey değişmemişti. İki hafta sonra yine hiçbir şey. Sabırsızlanmaya başladım. \"Dedecim, bu fidan hiç büyümüyor,\" dedim. Dedem güldü. \"Sen her gün baktığın için fark etmiyorsun. Büyüme, gözle görülmeyecek kadar yavaştır.\"\n\nDedem bana bir defter verdi. \"Her hafta fidanın boyunu ölç ve yaz,\" dedi. Dört hafta sonra deftere baktım: 12 santimetre, 14 santimetre, 17 santimetre, 21 santimetre. Boyu gerçekten artıyordu; yalnızca her gün baktığım için bu farkı göremiyordum.\n\nYazın ortasında bir fırtına çıktı. Rüzgâr dalları savurdu, yağmur her yeri ıslattı. Sabah bahçeye koştuğumda fidanın yan yattığını gördüm. Hemen dedeme haber verdim. Dedem bir sopa buldu, fidanı ona bağladı ve kökünün etrafına toprak yığdı. \"Şimdi sabırla bekleyeceğiz,\" dedi. \"Fidanın kendi köklerini güçlendirmesi gerek.\"\n\nSonbaharda fidanın boyu benim boyuma yaklaşmıştı. Dedem bana sordu: \"Bu elmayı bugün mü yedin?\" Ben \"Hayır, ağaç henüz meyve vermedi,\" dedim. Dedem başını salladı: \"İşte sabır böyle bir şey. Tohumu bugün atarsın, meyveyi başka bir yıl yersin. Ama emek verdiğin her toprak, bir gün sana gölge olur.\"",
+    "grade": 3,
+    "subject": "turkce",
+    "topic": "okuma-anlama",
+    "quizThreshold": 60,
+    "showPassageDuringQuiz": true,
+    "image": "",
+    "questions": [
+      {
+        "id": "q3_fidan_1",
+        "grade": 3,
+        "subject": "turkce",
+        "topic": "okuma-anlama",
+        "text": "Çocuk, fidanın büyümediğini neden düşünüyordu?",
+        "options": [
+          "Fidanı başka biri suladığı için",
+          "Dedesi ona doğruyu söylemediğinden",
+          "Fidanın meyvesi olmadığından",
+          "Her gün baktığı için büyümeyi fark edemediğinden"
+        ],
+        "correctIndex": 3,
+        "explanation": "Dedesi \"Büyüme, gözle görülmeyecek kadar yavaştır\" der; her gün bakınca fark anlaşılmaz.",
+        "image": ""
+      },
+      {
+        "id": "q3_fidan_2",
+        "grade": 3,
+        "subject": "turkce",
+        "topic": "okuma-anlama",
+        "text": "Dedesi çocuğa defter verip boy ölçtürmesinin nedeni nedir?",
+        "options": [
+          "Gözle görülmeyen büyümeyi ölçerek göstermek istediği için",
+          "Çocuğu oyalamak istediği için",
+          "Çocuğun matematik öğrenmesini istediği için",
+          "Fidanın kaç santim olduğunu kendisi merak ettiği için"
+        ],
+        "correctIndex": 0,
+        "explanation": "Haftalık ölçümler (12, 14, 17, 21 cm) fidanın büyüdüğünü kanıtlar; amaç bu yavaş değişimi görünür kılmaktır.",
+        "image": ""
+      },
+      {
+        "id": "q3_fidan_3",
+        "grade": 3,
+        "subject": "turkce",
+        "topic": "okuma-anlama",
+        "text": "Fırtınadan sonra dedesi fidanı sopaya bağladığında \"Şimdi sabırla bekleyeceğiz\" dedi. Bunun anlamı nedir?",
+        "options": [
+          "Fidanın hemen meyve vereceği",
+          "Fidanın köklerini güçlendirmesi için zamana ihtiyaç olduğu",
+          "Fırtınanın yeniden çıkacağı",
+          "Sopanın fidandan daha önemli olduğu"
+        ],
+        "correctIndex": 1,
+        "explanation": "Dedesi \"Fidanın kendi köklerini güçlendirmesi gerek\" diyerek iyileşmenin zaman alacağını anlatır.",
+        "image": ""
+      },
+      {
+        "id": "q3_fidan_4",
+        "grade": 3,
+        "subject": "turkce",
+        "topic": "okuma-anlama",
+        "text": "Dedesinin \"Tohumu bugün atarsın, meyveyi başka bir yıl yersin\" sözü neyi öğütler?",
+        "options": [
+          "Meyve yemenin sağlıksız olduğunu",
+          "Ağaç dikmenin çok zor olduğunu",
+          "Emek verilen işin sonucunun hemen alınamayabileceğini, sabırlı olmak gerektiğini",
+          "Bahçede çalışmanın gereksiz olduğunu"
+        ],
+        "correctIndex": 2,
+        "explanation": "Dedesi, emeğin karşılığının gecikmeli geldiğini ve sabrın gerektiğini anlatır.",
+        "image": ""
+      },
+      {
+        "id": "q3_fidan_5",
+        "grade": 3,
+        "subject": "turkce",
+        "topic": "okuma-anlama",
+        "text": "Bu parçanın ana düşüncesi hangisidir?",
+        "options": [
+          "Bahçede yalnızca elma ağacı yetişir",
+          "Çocuklar defter tutmayı sevmez",
+          "Fırtınalar bütün bitkileri yok eder",
+          "Büyük sonuçlar, sabırla sürdürülen küçük emeklerle ortaya çıkar"
+        ],
+        "correctIndex": 3,
+        "explanation": "Fidanın yavaş büyümesi, ölçüm defteri ve dedesinin sözleri birlikte sabrın ve emeğin değerini anlatır.",
+        "image": ""
+      }
+    ]
+  }
+}

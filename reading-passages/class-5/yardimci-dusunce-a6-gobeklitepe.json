@@ -1,0 +1,33 @@
+{
+  "version": 1,
+  "kind": "reading-passage",
+  "exportedAt": "2026-10-11T17:06:14.204Z",
+  "passage": {
+    "title": "Göbeklitepe",
+    "sourceLabel": "turkceciyiz.com — Bilal Kış | 5. Sınıf Maarif Modeli",
+    "body": "Göbeklitepe, tarihin bilinen en eski tapınak kompleksidir. Yaklaşık 12 bin yıl öncesine dayanan bu yapı, yerleşik hayata geçilmeden önce de insanların büyük inanç sistemlerine sahip olduğunu kanıtlamıştır. Bu keşif, insanlık tarihine dair bildiğimiz pek çok teorinin yeniden yazılmasına yol açmıştır.",
+    "grade": 5,
+    "subject": "turkce",
+    "topic": "yardimci-dusunce",
+    "quizThreshold": 60,
+    "showPassageDuringQuiz": true,
+    "image": "",
+    "questions": [
+      {
+        "id": "q_mv42rlmk_2orn87w",
+        "grade": 5,
+        "subject": "turkce",
+        "topic": "yardimci-dusunce",
+        "text": "Aşağıdaki yargılardan hangisine bu metinden ulaşılamaz?",
+        "options": [
+          "Göbeklitepe, eski insanların inanç sahibi olduğuyla ilgili ipuçları verir.",
+          "İnsanlar Göbeklitepe sayesinde yerleşik hayata geçmiştir.",
+          "Göbeklitepe, tarihteki bilinen en eski tapınaktır."
+        ],
+        "correctIndex": 1,
+        "explanation": "",
+        "image": ""
+      }
+    ]
+  }
+}

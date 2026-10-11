@@ -1,0 +1,114 @@
+{
+  "version": 1,
+  "kind": "reading-passage",
+  "exportedAt": "2026-10-11T17:06:14.203Z",
+  "passage": {
+    "title": "Doğal Afetler",
+    "sourceLabel": "5. Sınıf Türkçe Okuma Parçaları (Maarif Modeli)",
+    "body": "Doğal afetler insanları etkiler. Deprem, sel, fırtına ve yangın en yaygın afetlerdir. Deprem sırasında sakin kalmalıyız. Sel bölgesinde yüksek yerlere çıkmalıyız. Fırtına sırasında evde kalmalıyız. Yangın çıkarsa 112'yi aramalıyız. Afetlere hazırlıklı olmalıyız.",
+    "grade": 5,
+    "subject": "turkce",
+    "topic": "okuma-anlama",
+    "quizThreshold": 60,
+    "showPassageDuringQuiz": true,
+    "image": "",
+    "questions": [
+      {
+        "id": "q_mv42rlmj_1ltz686",
+        "grade": 5,
+        "subject": "turkce",
+        "topic": "okuma-anlama",
+        "text": "En yaygın afetler hangileridir?",
+        "options": [
+          "Sadece deprem",
+          "Deprem, sel, fırtına ve yangın",
+          "Sadece sel",
+          "Sadece fırtına"
+        ],
+        "correctIndex": 1,
+        "explanation": "",
+        "image": ""
+      },
+      {
+        "id": "q_mv42rlmj_1muzvpl",
+        "grade": 5,
+        "subject": "turkce",
+        "topic": "okuma-anlama",
+        "text": "Deprem sırasında ne yapmalıyız?",
+        "options": [
+          "Koşmalıyız",
+          "Sakin kalmalıyız",
+          "Ağlamalıyız",
+          "Uyumalıyız"
+        ],
+        "correctIndex": 1,
+        "explanation": "",
+        "image": ""
+      },
+      {
+        "id": "q_mv42rlmj_1nlbni0",
+        "grade": 5,
+        "subject": "turkce",
+        "topic": "okuma-anlama",
+        "text": "Sel bölgesinde nereye çıkmalıyız?",
+        "options": [
+          "Alçak yerlere",
+          "Yüksek yerlere",
+          "Eve",
+          "Sokaklara"
+        ],
+        "correctIndex": 1,
+        "explanation": "",
+        "image": ""
+      },
+      {
+        "id": "q_mv42rlmj_1orwu9i",
+        "grade": 5,
+        "subject": "turkce",
+        "topic": "okuma-anlama",
+        "text": "Fırtına sırasında ne yapmalıyız?",
+        "options": [
+          "Dışarı çıkmalıyız",
+          "Evde kalmalıyız",
+          "Koşmalıyız",
+          "Uyumalıyız"
+        ],
+        "correctIndex": 1,
+        "explanation": "",
+        "image": ""
+      },
+      {
+        "id": "q_mv42rlmj_1pchm1t",
+        "grade": 5,
+        "subject": "turkce",
+        "topic": "okuma-anlama",
+        "text": "Yangın çıkarsa hangi numarayı aramalıyız?",
+        "options": [
+          "110",
+          "112",
+          "155",
+          "159"
+        ],
+        "correctIndex": 1,
+        "explanation": "",
+        "image": ""
+      },
+      {
+        "id": "q_mv42rlmj_1qv1kl1",
+        "grade": 5,
+        "subject": "turkce",
+        "topic": "okuma-anlama",
+        "text": "Parçanın ana fikri nedir?",
+        "options": [
+          "Afetler yoktur",
+          "Afetlere hazırlıklı olmalıyız",
+          "Sadece deprem önemlidir",
+          "Afetler kaçınılmazdır"
+        ],
+        "correctIndex": 1,
+        "explanation": "",
+        "image": ""
+      }
+    ]
+  }
+}

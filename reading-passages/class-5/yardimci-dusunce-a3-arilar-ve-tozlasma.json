@@ -1,0 +1,33 @@
+{
+  "version": 1,
+  "kind": "reading-passage",
+  "exportedAt": "2026-10-11T17:06:14.203Z",
+  "passage": {
+    "title": "Arılar ve Tozlaşma",
+    "sourceLabel": "turkceciyiz.com — Bilal Kış | 5. Sınıf Maarif Modeli",
+    "body": "Arılar, çiçekler arasında polen taşıyarak bitkilerin çoğalmasını ve tarımsal verimliliğin artmasını sağlayan en önemli canlılardır. Dünyadaki gıda üretiminin büyük bir kısmı arıların bu tozlaşma faaliyetine bağlıdır. Onların yokluğu, sadece bal üretimini değil tüm dünya gıda zincirini büyük bir tehlikeye sokar.",
+    "grade": 5,
+    "subject": "turkce",
+    "topic": "yardimci-dusunce",
+    "quizThreshold": 60,
+    "showPassageDuringQuiz": true,
+    "image": "",
+    "questions": [
+      {
+        "id": "q_mv42rlmj_2fvejh7",
+        "grade": 5,
+        "subject": "turkce",
+        "topic": "yardimci-dusunce",
+        "text": "Aşağıdaki yargılardan hangisine bu metinden ulaşılamaz?",
+        "options": [
+          "Arılar, tarımsal süreklilik ve biyoçeşitlilik için vazgeçilmez bir unsurdur.",
+          "Arılar dışındaki bazı hayvanlar da polen taşıyarak bitkilerin çoğalmasını sağlar.",
+          "Doğadaki pek çok bitkinin neslini devam ettirmesi arılara bağlıdır."
+        ],
+        "correctIndex": 1,
+        "explanation": "",
+        "image": ""
+      }
+    ]
+  }
+}

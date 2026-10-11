@@ -1,0 +1,98 @@
+{
+  "version": 1,
+  "kind": "reading-passage",
+  "exportedAt": "2026-10-11T20:30:00.000Z",
+  "passage": {
+    "title": "Sıfır Atık Kahramanları",
+    "sourceLabel": "5. Sınıf Türkçe Okuma Parçaları (Maarif Modeli)",
+    "body": "Elif, okulun yemekhanesinde tabağını bıraktığı sırada bir şey dikkatini çekti. Çöp kutusunun yanındaki büyük kapta, yarısı yenmiş ekmekler, hiç dokunulmamış meyveler ve poşetlerle dolu bir yığın yiyecek vardı. Elif o gün yemeğini bitirmiş olmasına rağmen içi rahat etmedi. Eve döndüğünde annesine, \"Bir günde bu kadar yemek çöpe gidiyorsa bir yılda neler olur?\" diye sordu. Annesi cevap vermedi; sadece mutfak tartısını çıkarıp hafta boyunca evlerinde çöpe giden yiyeceği tartmayı önerdi.\n\nErtesi hafta Elif, öğretmenine bir fikir anlattı: Okulda \"sıfır atık\" projesi başlatmak istiyordu. Öğretmeni çok sevindi ama küçük bir uyarı yaptı: \"Fikir güzel; ancak insanların alışkanlıklarını değiştirmek, tabela asmaktan çok daha zordur.\" Elif bunu o gün tam anlamadı. Sınıfta projeyi duyurduğunda bazı arkadaşları güldü. \"Bir tabak yemekle dünyayı mı kurtaracağız?\" dediler. Elif üzüldü ama vazgeçmedi.\n\nSınıfça üç şey yapmaya karar verdiler: Yemekhaneye \"istediğin kadar al, aldığını bitir\" yazan bir köşe kurdular; meyve ve ekmek artıkları için bir paylaşım rafı oluşturdular; sebze kabuklarını da okul bahçesindeki kompost kutusunda toprağa dönüştürmeye başladılar. İlk hafta raf boş kaldı, kompost kutusuna neredeyse hiçbir şey atılmadı. İkinci hafta birkaç öğrenci rafa meyve koydu. Üçüncü hafta yemekhanedeki atık tartıldı: Başlangıçta günde dört kilogram olan yiyecek atığı, iki kilograma düşmüştü.\n\nEn büyük değişim ise sayılarda değil, davranışlarda görüldü. Yemeğini yarıda bırakan bir arkadaşları, tabağını götürmeden önce bir an durup düşünmeye başladı. Kimi öğrenciler evdeki ekmek artıklarını okula getirip rafa koydu. Nisan ayında okullar arası bir çevre yarışması düzenlendi ve sınıfları ödül kazandı. Elif törene giderken sevinçliydi ama kafasında başka bir soru vardı: Ödül olmasaydı bu kadar kişi katılır mıydı?\n\nYıl sonunda öğretmenleri, panoya büyük harflerle bir cümle yazdı: \"Sıfır atık, çöpü azaltmakla değil, düşünmeyi öğrenmekle başlar.\" Elif o gün anladı: Asıl başarı, kimsenin görmediği anlarda bile aynı özeni göstermekti. Tabelalar sökülse, yarışma bitse de o sınıfın alışkanlığı artık değişmişti.",
+    "grade": 5,
+    "subject": "turkce",
+    "topic": "okuma-anlama",
+    "quizThreshold": 60,
+    "showPassageDuringQuiz": true,
+    "image": "",
+    "questions": [
+      {
+        "id": "q_sifiratik_1",
+        "grade": 5,
+        "subject": "turkce",
+        "topic": "okuma-anlama",
+        "text": "Öğretmenin \"İnsanların alışkanlıklarını değiştirmek, tabela asmaktan çok daha zordur.\" sözü, projenin hangi yönüne işaret eder?",
+        "options": [
+          "Projenin çok pahalı olduğuna",
+          "Yemekhanenin çok küçük olduğuna",
+          "İkna etmenin ve davranış değiştirmenin, duyuru yapmaktan zor olduğuna",
+          "Öğretmenlerin projeye inanmadığına"
+        ],
+        "correctIndex": 2,
+        "explanation": "Metinde ilk hafta rafın boş kalması ve bazı arkadaşların gülmesi, duyurunun yetmediğini; asıl zorluğun alışkanlık değişimi olduğunu gösterir.",
+        "image": ""
+      },
+      {
+        "id": "q_sifiratik_2",
+        "grade": 5,
+        "subject": "turkce",
+        "topic": "okuma-anlama",
+        "text": "Elif'in annesinin mutfak tartısını çıkarmasının amacı ne olabilir?",
+        "options": [
+          "Elif'i cezalandırmak",
+          "Tartıyı okula götürmek",
+          "Yeni bir yemek tarifi denemek",
+          "Sorunu görünür ve ölçülebilir hâle getirmek"
+        ],
+        "correctIndex": 3,
+        "explanation": "Anne tartıyla atığı ölçmeyi önererek sorunun boyutunu somut biçimde göstermek ister; Elif de okulda aynı ölçme yöntemini kullanır.",
+        "image": ""
+      },
+      {
+        "id": "q_sifiratik_3",
+        "grade": 5,
+        "subject": "turkce",
+        "topic": "okuma-anlama",
+        "text": "Metne göre projenin ilk haftalarında katılım az olmasının nedeni nedir?",
+        "options": [
+          "Alışkanlıkların hemen değişmemesi ve öğrencilerin konuyu önemsememesi",
+          "Projenin yalnızca bir ders saatinde yapılması",
+          "Öğrencilerin projeyi hiç duymaması",
+          "Yemekhanenin kapalı olması"
+        ],
+        "correctIndex": 0,
+        "explanation": "İlk hafta raf boş kalır ve komposta neredeyse hiçbir şey atılmaz; katılım ancak haftalar içinde, alışkanlıklar değiştikçe artar.",
+        "image": ""
+      },
+      {
+        "id": "q_sifiratik_4",
+        "grade": 5,
+        "subject": "turkce",
+        "topic": "okuma-anlama",
+        "text": "Elif'in ödül töreninde kendine sorduğu \"Ödül olmasaydı bu kadar kişi katılır mıydı?\" sorusu, onun hangi kaygısını gösterir?",
+        "options": [
+          "Ödülü kazanamayacaklarını düşündüğünü",
+          "Davranışların yarışma bitince sürüp sürmeyeceğini merak ettiğini",
+          "Yarışmanın kurallarının adaletsiz olduğunu",
+          "Öğretmeninin kendisini ödüllendirmediğini"
+        ],
+        "correctIndex": 1,
+        "explanation": "Elif, kazandıkları ödülden çok katılımın geçici olup olmadığını sorgular; bu, metnin sonundaki kalıcı alışkanlık vurgusuna bağlanır.",
+        "image": ""
+      },
+      {
+        "id": "q_sifiratik_5",
+        "grade": 5,
+        "subject": "turkce",
+        "topic": "okuma-anlama",
+        "text": "\"Sıfır atık, çöpü azaltmakla değil, düşünmeyi öğrenmekle başlar.\" cümlesiyle asıl vurgulanan nedir?",
+        "options": [
+          "Yalnızca yemekhanedeki çöpleri azaltmanın yeterli olduğu",
+          "Yarışmaların gereksiz olduğu",
+          "Kalıcı değişimin, kimse görmese de aynı özeni gösteren bir düşünme biçimi kazanmakla olacağı",
+          "Kompost yapmanın çok zor bir iş olduğu"
+        ],
+        "correctIndex": 2,
+        "explanation": "Metnin sonunda Elif, asıl başarının görülmediği anlarda da aynı özeni sürdürmek olduğunu anlar.",
+        "image": ""
+      }
+    ]
+  }
+}

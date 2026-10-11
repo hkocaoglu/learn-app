@@ -1,0 +1,39 @@
+{
+  "version": 1,
+  "kind": "reading-passage",
+  "exportedAt": "2026-10-11T20:00:00.000Z",
+  "passage": {
+    "title": "Test Okuma",
+    "sourceLabel": "Sistem testi",
+    "body": "Bahçede yaşayan küçük bir kedi her sabah kapının önüne gelir. Sahibi ona biraz süt verir ve kedi teşekkür eder gibi miyavlar. Gün boyunca bahçede koşar, kelebeklerin peşinden gider. Akşam olunca sıcak bir köşeye kıvrılıp uyur.",
+    "grade": 5,
+    "subject": "turkce",
+    "topic": "okuma-anlama",
+    "quizThreshold": 60,
+    "showPassageDuringQuiz": true,
+    "image": "",
+    "questions": [
+      {
+        "id": "tq1",
+        "text": "Kedi her sabah nereye gelir?",
+        "options": ["Kapının önüne", "Çatıya", "Ağaca", "Okula"],
+        "correctIndex": 0,
+        "topic": "okuma-anlama"
+      },
+      {
+        "id": "tq2",
+        "text": "Kedi gün boyunca neyin peşinden gider?",
+        "options": ["Kuşların", "Farelerin", "Kelebeklerin", "Balıklar"],
+        "correctIndex": 2,
+        "topic": "okuma-anlama"
+      },
+      {
+        "id": "tq3",
+        "text": "Akşam olunca kedi ne yapar?",
+        "options": ["Uçar", "Sıcak bir köşeye kıvrılıp uyur", "Bahçeyi kazar", "Süt içer"],
+        "correctIndex": 1,
+        "topic": "okuma-anlama"
+      }
+    ]
+  }
+}

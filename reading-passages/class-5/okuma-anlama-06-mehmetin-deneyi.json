@@ -1,0 +1,114 @@
+{
+  "version": 1,
+  "kind": "reading-passage",
+  "exportedAt": "2026-10-11T17:06:14.203Z",
+  "passage": {
+    "title": "Mehmet'in Deneyi",
+    "sourceLabel": "5. Sınıf Türkçe Okuma Parçaları (Maarif Modeli)",
+    "body": "Mehmet bilim fuarı için bir deney hazırladı. \"Su bitkileri nasıl büyür?\" sorusunu araştırdı. Üç saksı hazırladı. Birini güneşe, birini gölgeye, birini karanlığa koydu. Her gün suladı. İki hafta sonra güneş alan bitki en iyi büyüdü. Mehmet deney raporunu yazdı. Bilim fuarında birinci oldu!",
+    "grade": 5,
+    "subject": "turkce",
+    "topic": "okuma-anlama",
+    "quizThreshold": 60,
+    "showPassageDuringQuiz": true,
+    "image": "",
+    "questions": [
+      {
+        "id": "q_mv42rlmj_15r6q79",
+        "grade": 5,
+        "subject": "turkce",
+        "topic": "okuma-anlama",
+        "text": "Mehmet bilim fuarı için ne yaptı?",
+        "options": [
+          "Yemek yaptı",
+          "Bir deney hazırladı",
+          "Ödev yazdı",
+          "Resim çizdi"
+        ],
+        "correctIndex": 1,
+        "explanation": "",
+        "image": ""
+      },
+      {
+        "id": "q_mv42rlmj_162yg3n",
+        "grade": 5,
+        "subject": "turkce",
+        "topic": "okuma-anlama",
+        "text": "Mehmet hangi soruyu araştırdı?",
+        "options": [
+          "\"Su ne işe yarar?\"",
+          "\"Su bitkileri nasıl büyür?\"",
+          "\"Güneş nasıl parlar?\"",
+          "\"Toprak ne renktir?\""
+        ],
+        "correctIndex": 1,
+        "explanation": "",
+        "image": ""
+      },
+      {
+        "id": "q_mv42rlmj_17xtjyy",
+        "grade": 5,
+        "subject": "turkce",
+        "topic": "okuma-anlama",
+        "text": "Kaç saksı hazırladı?",
+        "options": [
+          "İki",
+          "Üç",
+          "Dört",
+          "Beş"
+        ],
+        "correctIndex": 1,
+        "explanation": "",
+        "image": ""
+      },
+      {
+        "id": "q_mv42rlmj_184ecc9",
+        "grade": 5,
+        "subject": "turkce",
+        "topic": "okuma-anlama",
+        "text": "Hangi bitki en iyi büyüdü?",
+        "options": [
+          "Karanlıkta olan",
+          "Gölgede olan",
+          "Güneş alan",
+          "Sulanmayan"
+        ],
+        "correctIndex": 2,
+        "explanation": "",
+        "image": ""
+      },
+      {
+        "id": "q_mv42rlmj_19o5ogo",
+        "grade": 5,
+        "subject": "turkce",
+        "topic": "okuma-anlama",
+        "text": "Mehmet bitkileri ne sıklıkla suladı?",
+        "options": [
+          "Haftada bir",
+          "Her gün",
+          "Hiç",
+          "Yılda bir"
+        ],
+        "correctIndex": 1,
+        "explanation": "",
+        "image": ""
+      },
+      {
+        "id": "q_mv42rlmj_1aapbtn",
+        "grade": 5,
+        "subject": "turkce",
+        "topic": "okuma-anlama",
+        "text": "Mehmet bilim fuarında ne oldu?",
+        "options": [
+          "İkinci oldu",
+          "Birinci oldu",
+          "Sonuncu oldu",
+          "Ödül almadı"
+        ],
+        "correctIndex": 1,
+        "explanation": "",
+        "image": ""
+      }
+    ]
+  }
+}
