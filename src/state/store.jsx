@@ -2,7 +2,8 @@ import { createContext, useCallback, useContext, useEffect, useMemo, useReducer,
 import { seedIfEmpty, saveDB } from '../db/storage.js'
 import { nowIso, uid } from '../domain/model.js'
 import { scoreAttempt } from '../domain/scoring.js'
-import { isSupabaseConfigured } from '../lib/supabase.js'
+import { earnForExam, earnTransaction, examEarnLabel, earnedAlready, adjustTransaction } from '../domain/points.js'
+import { isSupabaseConfigured, requireSupabase } from '../lib/supabase.js'
 import {
   createCloudQuestions,
   createCloudTest,
@@ -14,6 +15,13 @@ import {
   updateCloudQuestion,
   updateCloudTest
 } from '../cloud/teacherData.js'
+import {
+  createReward as createCloudReward,
+  deleteReward as deleteCloudReward,
+  fetchTeacherRewards,
+  toTransaction,
+  updateReward as updateCloudReward
+} from '../cloud/rewards.js'
 
 // Global uygulama durumu — localStorage'a senkronize edilir.
 
@@ -275,10 +283,27 @@ export function StoreProvider({ children, storageScope = '', cloudUser = null })
           answers,
           timing
         })
+        // Puan kazanımı sunucu tarafında (DB trigger) yazılır — bkz. docs/points-system.md.
         update((d) => ({ ...d, attempts: [saved, ...d.attempts] }))
         return saved
       }
-      update((d) => ({ ...d, attempts: [attempt, ...d.attempts] }))
+      // Yerel mod: aynı formül (domain/points.js) istemcide çalışır.
+      update((d) => {
+        let pointTransactions = d.pointTransactions || []
+        if (studentId && !earnedAlready(pointTransactions, 'exam', attempt.testId)) {
+          const earned = earnTransaction({
+            studentId,
+            source: 'exam',
+            refType: 'exam',
+            refId: attempt.testId,
+            amount: earnForExam({ scorePercent: attempt.scorePercent, timeUp: attempt.timeUp }),
+            label: examEarnLabel(test.title, attempt.scorePercent),
+            date: attempt.date
+          })
+          pointTransactions = [earned, ...pointTransactions]
+        }
+        return { ...d, attempts: [attempt, ...d.attempts], pointTransactions }
+      })
       return attempt
     },
     [cloudMode, cloudUser?.id, update]
@@ -307,6 +332,81 @@ export function StoreProvider({ children, storageScope = '', cloudUser = null })
     },
     [update]
   )
+
+  // ---------- puan & ödüller (öğretmen) ----------
+  const addReward = useCallback(
+    async (reward) => {
+      if (cloudMode) {
+        const saved = await createCloudReward({ teacherId: cloudUser.id, ...reward })
+        update((d) => ({ ...d, rewards: [saved, ...(d.rewards || [])] }))
+        return saved
+      }
+      const local = {
+        id: uid('rw'),
+        teacherId: null,
+        active: true,
+        redemptionCount: 0,
+        createdAt: nowIso(),
+        description: '',
+        icon: 'star',
+        ...reward
+      }
+      update((d) => ({ ...d, rewards: [local, ...(d.rewards || [])] }))
+      return local
+    },
+    [cloudMode, cloudUser?.id, update]
+  )
+
+  const updateReward = useCallback(
+    async (id, patch) => {
+      if (cloudMode) {
+        const saved = await updateCloudReward(id, patch)
+        update((d) => ({ ...d, rewards: (d.rewards || []).map((r) => (r.id === id ? saved : r)) }))
+        return saved
+      }
+      update((d) => ({ ...d, rewards: (d.rewards || []).map((r) => (r.id === id ? { ...r, ...patch } : r)) }))
+      return null
+    },
+    [cloudMode, update]
+  )
+
+  const deleteReward = useCallback(
+    async (id) => {
+      if (cloudMode) await deleteCloudReward(id)
+      update((d) => ({ ...d, rewards: (d.rewards || []).filter((r) => r.id !== id) }))
+    },
+    [cloudMode, update]
+  )
+
+  // Öğretmen puan düzeltmesi (eksi/artı); cloud'da RPC, yerelde ledger satırı.
+  const adjustPoints = useCallback(
+    async (studentId, amount, label) => {
+      const value = Math.round(Number(amount) || 0)
+      if (!studentId || !value) return null
+      if (cloudMode) {
+        const { data, error } = await requireSupabase().rpc('adjust_student_points', {
+          p_student_id: studentId,
+          p_amount: value,
+          p_label: String(label || 'Öğretmen düzeltmesi')
+        })
+        if (error) throw new Error(`Puan düzeltilemedi: ${error.message}`)
+        const saved = toTransaction(data)
+        update((d) => ({ ...d, pointTransactions: [saved, ...(d.pointTransactions || [])] }))
+        return saved
+      }
+      const tx = adjustTransaction({ studentId, amount: value, label: label || 'Öğretmen düzeltmesi' })
+      update((d) => ({ ...d, pointTransactions: [tx, ...(d.pointTransactions || [])] }))
+      return tx
+    },
+    [cloudMode, update]
+  )
+
+  // Cloud'da ledger/ödül verisini tazele (sunucu tetiklemesi yazdığı için istemci yazamaz).
+  const refreshPoints = useCallback(async () => {
+    if (!cloudMode) return
+    const fresh = await fetchTeacherRewards()
+    update((d) => ({ ...d, ...fresh }))
+  }, [cloudMode, update])
 
   const setThreshold = useCallback(
     (v) => {
@@ -350,6 +450,11 @@ export function StoreProvider({ children, storageScope = '', cloudUser = null })
         deleteBankQuestion,
         addAttempt,
         deleteAttempt,
+        addReward,
+        updateReward,
+        deleteReward,
+        adjustPoints,
+        refreshPoints,
         saveAiReport,
         setThreshold,
         setAiConfig
@@ -373,6 +478,11 @@ export function StoreProvider({ children, storageScope = '', cloudUser = null })
       deleteBankQuestion,
       addAttempt,
       deleteAttempt,
+      addReward,
+      updateReward,
+      deleteReward,
+      adjustPoints,
+      refreshPoints,
       saveAiReport,
       setThreshold,
       setAiConfig

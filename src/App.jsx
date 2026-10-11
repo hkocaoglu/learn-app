@@ -19,6 +19,7 @@ import ClassesScreen from './ui/screens/ClassesScreen.jsx'
 import AssignmentsScreen from './ui/screens/AssignmentsScreen.jsx'
 import StudentPortalScreen from './ui/screens/StudentPortalScreen.jsx'
 import ReadingsScreen from './ui/screens/ReadingsScreen.jsx'
+import RewardsScreen from './ui/screens/RewardsScreen.jsx'
 
 function Router() {
   const { route } = useStore()
@@ -37,6 +38,8 @@ function Router() {
       return <AssignmentsScreen />
     case 'okumalar':
       return <ReadingsScreen />
+    case 'oduller':
+      return <RewardsScreen />
     case 'ogrenci':
       return <StudentDetailScreen id={param1} />
     case 'testler':
@@ -101,6 +104,7 @@ function AppShell() {
               <a href="#/siniflar">Sınıflar</a>
               <a href="#/atamalar">Test Atama</a>
               <a href="#/okumalar">Okuma Ata</a>
+              <a href="#/oduller">🏆 Ödüller</a>
               <a href="#/ogrenciler">Öğrenciler</a>
               <a href="#/sonuclar">Sonuçlar</a>
               <a href="#/raporlar">Raporlar</a>

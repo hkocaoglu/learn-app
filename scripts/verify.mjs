@@ -7,6 +7,24 @@ import { normalizeTest, validateTest, validateQuestion, normalizeReading, valida
 import { createAIClient, OPENROUTER_DEFAULTS, PROVIDERS } from '../src/ai/client.js'
 import { normalizeStudentPart, studentCodeBase, studentAuthEmail } from '../src/domain/studentAuth.js'
 import { buildSpeechSegments, clampRate, formatRate, SPEECH_RATE, SPEECH_RATE_MAX, SPEECH_RATE_MIN } from '../src/lib/speech.js'
+import {
+  POINTS,
+  earnForExam,
+  earnForReading,
+  balanceOf,
+  studentBalance,
+  earnedAlready,
+  earnTransaction,
+  spendTransaction,
+  adjustTransaction,
+  examEarnLabel,
+  readingEarnLabel,
+  redeemLabel,
+  canAfford,
+  redeemState,
+  progressToward,
+  catalogForClass
+} from '../src/domain/points.js'
 import vercelReportHandler from '../api/ai/report.js'
 
 // --- localStorage stub ---
@@ -229,6 +247,74 @@ const aiResult = await createAIClient({
 globalThis.fetch = originalFetch
 check('OpenRouter chat completions çağrısı', aiRequest?.url === `${OPENROUTER_DEFAULTS.baseUrl}/chat/completions`)
 check('OpenRouter yanıtı işleniyor', aiResult.ok && aiResult.text === 'OpenRouter test yanıtı')
+
+console.log('\n6b) Puanlar & Ödüller')
+// Sınav kazanımı: sonuç kalitesi puanı belirler, süre dikkat bonusunu götürür.
+check('Sınav: mükemmel+dikkatli', earnForExam({ scorePercent: 100, timeUp: false }) === 25)
+check('Sınav: mükemmel+ süre dolmuş', earnForExam({ scorePercent: 100, timeUp: true }) === 20)
+check('Sınav: düşük + süre dolmuş: baz puan', earnForExam({ scorePercent: 0, timeUp: true }) === POINTS.exam.base)
+check('Sınav: sonuç yükseldikçe puan artıyor', earnForExam({ scorePercent: 80 }) > earnForExam({ scorePercent: 20 }))
+check(
+  'Sınav: tüm comboslar sınırlar içinde',
+  [0, 33, 50, 99, 100, 150, -5].every((score) =>
+    [true, false].every((timeUp) => {
+      const p = earnForExam({ scorePercent: score, timeUp })
+      return p >= POINTS.exam.min && p <= POINTS.exam.max
+    })
+  )
+)
+check('Sınav: geçersiz giriş güvenli', Number.isFinite(earnForExam()) && Number.isFinite(earnForExam({})))
+// Okuma kazanımı: yalnızca tamamlandıysa.
+check('Okuma: tamamlanmadı → 0', earnForReading({ read: false, scorePercent: 100 }) === 0)
+check('Okuma: tamamlandı+mükemmel quiz', earnForReading({ read: true, scorePercent: 100 }) === 11)
+check('Okuma: quiz kalitesi arttıkça puan artıyor', earnForReading({ read: true, scorePercent: 90 }) > earnForReading({ read: true, scorePercent: 40 }))
+check(
+  'Okuma: sınırlar içinde',
+  [0, 40, 60, 100].every((score) => {
+    const p = earnForReading({ read: true, scorePercent: score })
+    return p >= POINTS.reading.min && p <= POINTS.reading.max
+  })
+)
+// Ledger: bakiye = toplam; harcama negatif.
+const txA = earnTransaction({ studentId: 's1', source: 'exam', refType: 'exam', refId: 't1', amount: 21, label: examEarnLabel('Matematik', 85) })
+const txB = earnTransaction({ studentId: 's1', source: 'reading', refType: 'reading', refId: 'r1', amount: 9, label: readingEarnLabel('Kırlangıç') })
+const txC = spendTransaction({ studentId: 's1', refId: 'rd1', amount: 10, label: redeemLabel('Kırmızı kalem') })
+const txD = adjustTransaction({ studentId: 's2', amount: -5, label: 'Düzeltme' })
+check('Kazanım satırı pozitif', txA.amount > 0 && txB.amount > 0 && txA.kind === 'earn' && txA.source === 'exam')
+check('Harcama satırı negatif', txC.amount === -10 && txC.kind === 'spend' && txC.source === 'catalog')
+check('Düzeltme işareti korunuyor', txD.amount === -5 && txD.kind === 'adjust')
+check('Bakiye toplamı', balanceOf([txA, txB, txC]) === 20)
+check('Boş ledger bakiyesi 0', balanceOf([]) === 0 && balanceOf() === 0)
+check('Öğrenciye göre bakiye', studentBalance([txA, txB, txC, txD], 's1') === 20 && studentBalance([txA, txD], 's2') === -5)
+check('Etiketler Türkçe ve içerikli', examEarnLabel('Matematik', 85).includes('%85') && readingEarnLabel('Kırlangıç').includes('Kırlangıç') && redeemLabel('Kalem').startsWith('Ödül:'))
+// İdempotent kazanım: aynı kaynak ikinci kez sayılmaz.
+check('Aynı kaynak ikinci kez sayılmıyor', earnedAlready([txA], 'exam', 't1') && !earnedAlready([txA], 'exam', 't2') && !earnedAlready([], 'exam', 't1'))
+// Harcama: uygunluk + stok durumları.
+check('canAfford sınırda doğru', canAfford(10, 10) && !canAfford(9, 10) && canAfford(100, 10))
+const rw = { name: 'Kırmızı kalem', cost: 10, quantity: 10, active: true }
+check('Ödül durumu: uygun', redeemState(rw, 15) === 'affordable')
+check('Ödül durumu: yetersiz bakiye', redeemState(rw, 5) === 'unaffordable')
+check('Ödül durumu: tükendi', redeemState({ ...rw, quantity: 0 }, 100) === 'sold_out')
+check('Ödül durumu: pasif', redeemState({ ...rw, active: false }, 100) === 'inactive')
+check('Biriktirme ilerlemesi %0-100', progressToward(rw, 0) === 0 && progressToward(rw, 15) === 100 && progressToward(rw, 5) === 50)
+// Sınıf bazlı katalog (kullanıcı kararı: sınıf havuzları ayrıdır).
+const allRewards = seed.rewards || []
+check('Seed ödül havuzları var', allRewards.length >= 30, `(${allRewards.length})`)
+check('Her sınıf (1-6) kendi havuzuna sahip', [1, 2, 3, 4, 5, 6].every((g) => catalogForClass(allRewards, `grade:${g}`).length >= 4))
+check('Sınıf 4 ve sınıf 5 havuzları farklı', JSON.stringify(catalogForClass(allRewards, 'grade:4').map((r) => r.name)) !== JSON.stringify(catalogForClass(allRewards, 'grade:5').map((r) => r.name)))
+const pen = allRewards.find((r) => r.name === 'Kırmızı kalem')
+check('Kırmızı kalem 10 puan / 10 adet (ilk 10 öğrenci)', pen?.cost === 10 && pen?.quantity === 10)
+check('Katalog maliyete göre sıralı + pasifler eleniyor', (() => {
+  const rows = catalogForClass([...allRewards, { id: 'x', classKey: 'grade:4', name: 'Pasif', cost: 1, active: false }], 'grade:4')
+  return rows.every((r, i) => i === 0 || rows[i - 1].cost <= r.cost) && rows.every((r) => r.active !== false)
+})())
+check('Farklı sınıf anahtarı boş katalog döner', catalogForClass(allRewards, 'grade:99').length === 0)
+// Puan + ödül yedeği round-trip.
+const backupWithPoints = exportBackup({ ...seed, pointTransactions: [txA, txC], redemptions: [{ id: 'rd1', studentId: 's1', rewardId: pen?.id, cost: 10 }] })
+const restoredPoints = importBackup(backupWithPoints)
+check('Backup puan ledger round-trip', restoredPoints.pointTransactions.length === 2 && balanceOf(restoredPoints.pointTransactions) === 11)
+check('Backup ödül havuzu korunuyor', restoredPoints.rewards.length === allRewards.length)
+check('Backup harcamaları round-trip', restoredPoints.redemptions.length === 1 && restoredPoints.redemptions[0].cost === 10)
 
 console.log('\n7) Vercel backend function')
 const previousApiKey = process.env.OPENROUTER_API_KEY

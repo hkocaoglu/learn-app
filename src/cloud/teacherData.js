@@ -1,6 +1,7 @@
 import { requireSupabase } from '../lib/supabase.js'
 import { scoreAttempt } from '../domain/scoring.js'
 import { fetchStudents } from './students.js'
+import { fetchTeacherRewards } from './rewards.js'
 
 const questionFields =
   'id, teacher_id, grade, subject, topic, text, options, correct_index, explanation, image, is_shared, created_at, updated_at'
@@ -88,12 +89,17 @@ const readError = (prefix, error) => {
 
 export const fetchTeacherData = async () => {
   const client = requireSupabase()
-  const [bankResult, testResult, assignmentResult, attemptResult, students] = await Promise.all([
+  const [bankResult, testResult, assignmentResult, attemptResult, students, pointsResult] = await Promise.all([
     client.from('question_bank').select(questionFields).order('created_at', { ascending: false }),
     client.from('tests').select(testFields).order('created_at', { ascending: false }),
     client.from('assignments').select('id, test_id'),
     client.from('attempts').select(attemptFields).order('created_at', { ascending: false }),
-    fetchStudents()
+    fetchStudents(),
+    // Puan migration'ı henüz uygulanmamışsa ana verileri kilitleme: boş bırak + logla.
+    fetchTeacherRewards().catch((pointsError) => {
+      console.error('Puan/ödül verileri yüklenemedi (migration kontrolü):', pointsError)
+      return { rewards: [], pointTransactions: [], redemptions: [], saveGoals: [] }
+    })
   ])
 
   if (bankResult.error) throw readError('Soru bankası yüklenemedi', bankResult.error)
@@ -111,6 +117,10 @@ export const fetchTeacherData = async () => {
     tests,
     bank: (bankResult.data || []).map(mapQuestion),
     attempts: (attemptResult.data || []).map((attempt) => mapAttempt(attempt, assignmentsById, testsById)),
+    pointTransactions: pointsResult.pointTransactions,
+    rewards: pointsResult.rewards,
+    redemptions: pointsResult.redemptions,
+    saveGoals: pointsResult.saveGoals,
     aiReports: {}
   }
 }

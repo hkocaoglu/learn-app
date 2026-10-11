@@ -17,6 +17,7 @@ import {
 } from '../../lib/speech.js'
 import Modal from '../components/Modal.jsx'
 import QuestionImage from '../components/QuestionImage.jsx'
+import PointsEarned from '../components/PointsEarned.jsx'
 
 const DRAFT_VERSION = 2
 
@@ -469,6 +470,7 @@ export default function StudentReadingScreen({ student, readingAssignment, onBac
             {student.name} • {reading.title}
           </p>
           <div className="student-result-score">%{result.scorePercent}</div>
+          <PointsEarned studentId={student.id} refType="reading" refId={readingAssignment.id} show={result.read} />
           <div className="status-summary">
             <span className={`badge ${result.gates.dwellOk ? 'badge-success' : 'badge-danger'}`}>
               ⏱ Dwell {result.gates.dwellOk ? '✓' : '✗'}
