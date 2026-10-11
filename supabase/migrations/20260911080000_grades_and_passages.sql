@@ -1,4 +1,12 @@
--- 5-6. sınıf desteği: mevcut kurulu DB'lerdeki grade check'lerini ada bakmadan genişlet.
+-- 5-6. sınıf desteği: mevcut kurulu DB'lerdeki grade check'lerini genişletme girişimi.
+--
+-- ⚠️ BU BLOK ÇALIŞMIYOR (tarihsel kayıt olarak bırakıldı).
+--   PostgreSQL BETWEEN'i >= / <= olarak saklar ve pg_get_constraintdef bunu
+--   "CHECK (((grade >= 1) AND (grade <= 4)))" biçiminde döndürür; bu nedenle aşağıdaki
+--   ILIKE '%grade%between 1 and 4%' koşulu hiçbir kısıtı eşleştirmez ve döngü hiç dönmez.
+--   Eski kurulumlarda grade kısıtı 1-4 olarak kalır ve 5. sınıf kaydı şu hatayı verir:
+--     new row for relation "classes" violates check constraint "classes_grade_check"
+--   Onarım: supabase/migrations/20261012120000_widen_grade_checks.sql
 DO $$
 DECLARE r RECORD;
 BEGIN

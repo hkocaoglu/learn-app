@@ -3,7 +3,10 @@
 import { buildSeed, exportBackup, importBackup } from '../src/db/storage.js'
 import { scoreAttempt, aggregateStudentTopics, aggregateStudentAll, attemptDurationStats } from '../src/domain/scoring.js'
 import { computeDeficiencies, buildRuleReport } from '../src/domain/report.js'
-import { normalizeTest, validateTest, validateQuestion, normalizeReading, validateReading, requiredDwellSeconds, readingWordCount, exportPassage, importPassage, importPassages, GRADES } from '../src/domain/model.js'
+import { normalizeTest, validateTest, validateQuestion, normalizeReading, validateReading, requiredDwellSeconds, readingWordCount, exportPassage, importPassage, importPassages, GRADES, DISPLAY_MODES, RSVP_QUESTION_COUNT, RSVP_DEFAULT_SECONDS_PER_WORD, RSVP_MIN_SECONDS_PER_WORD, RSVP_MAX_SECONDS_PER_WORD, normalizeSecondsPerWord } from '../src/domain/model.js'
+import { evaluateReadingGates } from '../src/domain/readingGates.js'
+import { parsePassageSource, collectPassageSources, summarizePassages } from '../src/domain/passageImport.js'
+import { buildRsvpPlan, splitWords, wordsPerMinute, estimateRsvpSeconds, rsvpWordIndexAt, rsvpFinished, formatSecondsPerWord } from '../src/domain/rsvp.js'
 import { createAIClient, OPENROUTER_DEFAULTS, PROVIDERS } from '../src/ai/client.js'
 import { normalizeStudentPart, studentCodeBase, studentAuthEmail } from '../src/domain/studentAuth.js'
 import { buildSpeechSegments, clampRate, formatRate, SPEECH_RATE, SPEECH_RATE_MAX, SPEECH_RATE_MIN } from '../src/lib/speech.js'
@@ -198,28 +201,115 @@ check('Yanlış kind reddedilir', (() => {
     return e.message.includes('kind')
   }
 })())
-// evaluateReadingGates src/cloud/readings.js içindedir; vite-only supabase importu
-// Node'da yüklenemediği için eşdeğer kapı mantığı burada model+scoring ile doğrulanır:
-const evalGates = ({ reading, answers, dwellSeconds, scrolledBottom }) => {
-  const dwellOk = Number(dwellSeconds) >= requiredDwellSeconds(reading)
-  const scrollOk = scrolledBottom === true
-  const scored = scoreAttempt(
-    { title: reading.title, grade: reading.grade, subject: reading.subject, questions: reading.questions },
-    answers
-  )
-  const quizOk = scored.scorePercent >= Number(reading.quizThreshold ?? 60)
-  return { dwellOk, scrollOk, quizOk, scored, read: dwellOk && scrollOk && quizOk }
-}
+// Çoklu kaynak içe aktarımı (dosya/klasör): hatalı dosya diğerlerini engellemez
+const multi = collectPassageSources([
+  { name: 'a.json', text: exportPassage(readingFixture) },
+  { name: 'bozuk.json', text: '{"kind":"reading-passage","passage":{"title":"Kısa","body":"az"}}' },
+  { name: 'bos.json', text: '   ' },
+  { name: 'paket.json', text: collectionJson }
+])
+check('Çoklu kaynak: geçerli metinler toplanıyor', multi.passages.length === 2, `(${multi.passages.length})`)
+check('Çoklu kaynak: hatalı dosyalar raporlanıyor', multi.errors.length === 2 && multi.errors.some((m) => m.startsWith('bozuk.json:')) && multi.errors.some((m) => m.includes('boş')))
+check('Çoklu kaynak: hata adı dosya adını taşır', multi.errors.every((m) => /^[\w.ÇŞİÖÜçşıöü]+\.json:/.test(m)), multi.errors.join(' | '))
+check('Çoklu kaynak: aynı başlık tekilleştirilir + uyarı', multi.warnings.length === 1 && multi.passages.filter((p) => p.title === 'Kırlangıç').length === 1)
+check('Çoklu kaynak: kısmi aktarım (geçerli olanlar korunur)', multi.passages.every((p) => p.title && p.questions.length >= 0))
+const sameTitle = collectPassageSources([
+  { name: 'v1.json', text: exportPassage(readingFixture) },
+  { name: 'v2.json', text: exportPassage({ ...readingFixture, body: readingFixture.body + ' Ek cümle.' }) }
+])
+check('Çoklu kaynak: aynı başlıkta son sürüm kazanır + uyarı', sameTitle.passages.length === 1 && sameTitle.warnings.length === 1)
+const summary = summarizePassages(multi.passages)
+check('Önizleme özeti sayıları doğru', summary.count === 2 && summary.questions === multi.passages.reduce((s, p) => s + p.questions.length, 0) && summary.byGrade[2] === 2, JSON.stringify(summary))
+check('Boş kaynak listesi güvenli', collectPassageSources([]).passages.length === 0 && collectPassageSources().errors.length === 0)
+// Kapı mantığı artık saf domain modülünde (src/domain/readingGates.js) — test gerçek kodu çalıştırır.
 const goodAnswers = {}
 readingFixture.questions.forEach((q) => { goodAnswers[q.id] = q.correctIndex })
-const gatesNoScroll = evalGates({ reading: readingFixture, answers: goodAnswers, dwellSeconds: 48, scrolledBottom: false })
+const gatesNoScroll = evaluateReadingGates({ reading: readingFixture, answers: goodAnswers, dwellSeconds: 48, scrolledBottom: false })
 check('Scroll yoksa read=false', gatesNoScroll.read === false)
-const gatesFull = evalGates({ reading: readingFixture, answers: goodAnswers, dwellSeconds: 48, scrolledBottom: true })
+const gatesFull = evaluateReadingGates({ reading: readingFixture, answers: goodAnswers, dwellSeconds: 48, scrolledBottom: true })
 check('Dwell+scroll+quiz geçerse read=true', gatesFull.read === true && gatesFull.scored.scorePercent === 100)
 const badAnswers = {}
 readingFixture.questions.forEach((q) => { badAnswers[q.id] = (q.correctIndex + 1) % q.options.length })
-const gatesQuizFail = evalGates({ reading: readingFixture, answers: badAnswers, dwellSeconds: 48, scrolledBottom: true })
+const gatesQuizFail = evaluateReadingGates({ reading: readingFixture, answers: badAnswers, dwellSeconds: 48, scrolledBottom: true })
 check('Quiz kalırsa read=false', gatesQuizFail.read === false && gatesQuizFail.quizOk === false)
+
+console.log('\n8b) Hızlı kelime akışı (RSVP)')
+check('Kelime ayırma noktalama koruyor', splitWords('Bir  iki\nüç.').length === 3 && splitWords('Bir  iki\nüç.')[2] === 'üç.')
+check('Boş metin kelime üretmiyor', splitWords('   ').length === 0 && buildRsvpPlan('', 0.5).wordCount === 0)
+check('Hız varsayılanı 0,8 sn', normalizeSecondsPerWord(undefined) === RSVP_DEFAULT_SECONDS_PER_WORD && normalizeSecondsPerWord('abc') === RSVP_DEFAULT_SECONDS_PER_WORD)
+check('Hız alt sınırda kırpılıyor', normalizeSecondsPerWord(0.01) === RSVP_MIN_SECONDS_PER_WORD && normalizeSecondsPerWord(-2) === RSVP_DEFAULT_SECONDS_PER_WORD)
+check('Hız üst sınırda kırpılıyor', normalizeSecondsPerWord(9) === RSVP_MAX_SECONDS_PER_WORD)
+check('Hız metinden okunuyor', normalizeSecondsPerWord('0.35') === 0.35)
+check('Kelime/dk hesabı', wordsPerMinute(0.6) === 100 && wordsPerMinute(1) === 60)
+check('Tahmini süre (120 kelime, 0,5 sn)', estimateRsvpSeconds(120, 0.5) === 60)
+const plan4 = buildRsvpPlan('bir iki üç dört', 0.5)
+check('Plan kelime sayısı ve kelime süresi', plan4.wordCount === 4 && plan4.msPerWord === 500)
+check('Plan kümülatif başlangıçlar', plan4.words.map((w) => w.startMs).join(',') === '0,500,1000,1500')
+check('Plan toplam süresi son bitişe eşit', plan4.totalMs === 2000 && plan4.words[3].endMs === plan4.totalMs)
+check('Plan ilk kelimeden başlar', plan4.words[0].index === 0 && plan4.words[0].startMs === 0)
+check('Süreye göre kelime indeksi', rsvpWordIndexAt(plan4, 0) === 0 && rsvpWordIndexAt(plan4, 499) === 0 && rsvpWordIndexAt(plan4, 500) === 1)
+check('Akış sonunda son kelimede sabitlenir', rsvpWordIndexAt(plan4, 1999) === 3 && rsvpWordIndexAt(plan4, 99999) === 3)
+check('Boş planda indeks -1', rsvpWordIndexAt(buildRsvpPlan('', 0.5), 100) === -1)
+check('Bitiş tespiti', rsvpFinished(plan4, 1999) === false && rsvpFinished(plan4, 2000) === true)
+check('Hız etiketi Türkçe ondalık', formatSecondsPerWord(0.5) === '0,5 sn/kelime' && formatSecondsPerWord(1) === '1 sn/kelime')
+
+const rsvpQuestions = Array.from({ length: RSVP_QUESTION_COUNT }, (_, i) => ({
+  topic: 'okuma-anlama',
+  text: `Akış sorusu ${i + 1}`,
+  options: ['A', 'B'],
+  correctIndex: i % 2
+}))
+const rsvpFixture = normalizeReading({
+  title: 'Akış Metni',
+  body: 'kelime '.repeat(60).trim(),
+  grade: 3,
+  subject: 'turkce',
+  displayMode: 'rsvp',
+  rsvpSecondsPerWord: 0.5,
+  questions: rsvpQuestions
+})
+check('Akış modu normalize ediliyor', rsvpFixture.displayMode === 'rsvp' && rsvpFixture.rsvpSecondsPerWord === 0.5)
+check('Akış modunda metin quizde gizlenir', rsvpFixture.showPassageDuringQuiz === false)
+check('Akış modu 3 soru ile geçerli', validateReading(rsvpFixture).length === 0)
+check(
+  'Akış modu 4. soruyu reddeder',
+  validateReading({
+    ...rsvpFixture,
+    questions: [...rsvpQuestions, { topic: 'okuma-anlama', text: 'Fazla', options: ['A', 'B'], correctIndex: 0 }]
+  }).some((e) => e.includes('3 soru'))
+)
+check(
+  'Normal mod 6 soruya izin veriyor',
+  validateReading({
+    ...readingFixture,
+    questions: Array.from({ length: 6 }, (_, i) => ({
+      topic: 'okuma-anlama',
+      text: `S${i}`,
+      options: ['A', 'B'],
+      correctIndex: 0
+    }))
+  }).length === 0
+)
+check('Geçersiz kelime hızı doğrulamayı bozuyor', validateReading({ ...rsvpFixture, rsvpSecondsPerWord: 0.05 }).some((e) => e.includes('Kelime hızı')))
+check('Mod varsayılanı static', normalizeReading({ title: 'T', body: 'kelime '.repeat(60), grade: 2, subject: 'turkce' }).displayMode === 'static')
+check('Modlar listesi static+rsvp', DISPLAY_MODES.join(',') === 'static,rsvp')
+check('Normal moda dönerken hız korunuyor', normalizeReading({ ...rsvpFixture, displayMode: 'static' }).rsvpSecondsPerWord === 0.5)
+const rsvpBack = importPassage(exportPassage(rsvpFixture))
+check(
+  'Akış modu JSON round-trip',
+  rsvpBack.displayMode === 'rsvp' && rsvpBack.rsvpSecondsPerWord === 0.5 && rsvpBack.showPassageDuringQuiz === false && rsvpBack.questions.length === 3
+)
+
+const rsvpAnswers = {}
+rsvpFixture.questions.forEach((q) => { rsvpAnswers[q.id] = q.correctIndex })
+const rsvpLocked = evaluateReadingGates({ reading: rsvpFixture, answers: rsvpAnswers, dwellSeconds: 0, scrolledBottom: false, flowCompleted: false })
+check('Akış tamamlanmadan quiz kilitli', rsvpLocked.rsvp === true && rsvpLocked.flowOk === false && rsvpLocked.dwellOk === false && rsvpLocked.read === false)
+const rsvpOk = evaluateReadingGates({ reading: rsvpFixture, answers: rsvpAnswers, dwellSeconds: 0, scrolledBottom: false, flowCompleted: true })
+check('Akış tamamlanınca süre/kaydırma olmadan geçer', rsvpOk.read === true && rsvpOk.flowOk === true && rsvpOk.quizOk === true)
+const rsvpQuizFail = evaluateReadingGates({ reading: rsvpFixture, answers: {}, dwellSeconds: 0, scrolledBottom: false, flowCompleted: true })
+check('Akış tamam olsa da quiz eşiği gerekli', rsvpQuizFail.read === false && rsvpQuizFail.quizOk === false)
+const staticWithFlowFlag = evaluateReadingGates({ reading: readingFixture, answers: goodAnswers, dwellSeconds: 0, scrolledBottom: true, flowCompleted: true })
+check('Normal modda akış bayrağı kapıyı açmaz', staticWithFlowFlag.read === false && staticWithFlowFlag.rsvp === false)
 const speechBody = normalizeReading({
   title: 'Ses',
   grade: 2,

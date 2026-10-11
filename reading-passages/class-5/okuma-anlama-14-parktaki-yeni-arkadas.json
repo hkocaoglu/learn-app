@@ -1,0 +1,98 @@
+{
+  "version": 1,
+  "kind": "reading-passage",
+  "exportedAt": "2026-10-11T20:30:00.000Z",
+  "passage": {
+    "title": "Parktaki Yeni Arkadaş",
+    "sourceLabel": "5. Sınıf Türkçe Okuma Parçaları (Maarif Modeli)",
+    "body": "Deniz, kasabamıza taşınalı iki hafta olmuştu. Babasının işi nedeniyle şehir değiştirmişlerdi ve Deniz, sınıfta en arka sırada, kimseyle konuşmadan oturuyordu. Teneffüslerde pencere kenarına geçip dışarıyı seyrediyor, soru sorulduğunda sesini duyurmamak için neredeyse fısıldıyordu. Öğretmenimiz onun sessizliğini \"utangaçlık\" diye açıkladı ama ben başka bir şey olduğunu düşünüyordum.\n\nBen Mert. Sınıfın en hareketli öğrencisiyim ve herkesle kolayca arkadaş olurum. Deniz'e yardım etmeyi kafaya koydum. Teneffüste yanına gidip \"Hadi futbol oynayalım, takıma seni alacağım,\" dedim. Deniz başını iki yana salladı. Israr ettim; \"Yoksa futboldan mı hoşlanmıyorsun? Basket oynayalım, koşalım, bir şey yapalım,\" diye üsteledim. Deniz omuzlarını kaldırdı, defterini çantasına koyup uzaklaştı. O gün ilk kez onun benden kaçtığını fark ettim ve açıkçası biraz bozuldum. İyilik yapmak istemiştim, neden geri çevriliyordu?\n\nBir hafta sonra resim dersinde yan yana oturduk. Öğretmenimiz \"Hayalindeki yeri çizin,\" dedi. Ben kaleyi, kaleyi, daha çok kaleyi çizdim. Deniz ise kâğıdın ortasına, incecik çizgilerle bir vapur resmi yaptı. Vapurun güvertesinde tek başına duran bir çocuk vardı; arka planda ise gri bulutlar, denizde küçük dalgalar. Resim, sınıfın en güzel resmi değildi belki ama en çok konuşan resmiydi. Sanki Deniz, kâğıda söyleyemediği şeyleri yazmıştı.\n\nO gün ona yaklaşımımı değiştirdim. Ertesi gün çantama iki resim defteri koydum ve teneffüste yanına oturup kendi defterimi açtım. Hiçbir şey söylemedim; sadece çizmeye başladım. Bir süre sonra Deniz kendi defterini çıkardı. İkimiz de konuşmadık ama yarım saat boyunca yan yana çizdik. Ders zili çaldığında Deniz, ilk kez bana kendiliğinden bir şey söyledi: \"Vapurları severim. Eski şehrimizde evimizin önünden her sabah bir vapur geçerdi.\" O cümle, haftalarca süren boş sohbetlerden daha çok şey anlatmıştı.\n\nO günden sonra Deniz'le resim yapmaya devam ettik. Zamanla sınıftaki diğer arkadaşlar da yanımıza gelmeye başladı; birkaç hafta içinde Deniz, kendi resimlerini panoya asan, sorulara gönüllü cevap veren bir öğrenci oldu. Öğretmenimiz bir gün bana, \"İyilik, karşıdakine kendi sevdiğini vermek değil, onun dilinden konuşmaktır,\" dedi. Ben o cümleyi çok sonra, o vapurlu resme her baktığımda daha iyi anladım.",
+    "grade": 5,
+    "subject": "turkce",
+    "topic": "okuma-anlama",
+    "quizThreshold": 60,
+    "showPassageDuringQuiz": true,
+    "image": "",
+    "questions": [
+      {
+        "id": "q_park_1",
+        "grade": 5,
+        "subject": "turkce",
+        "topic": "okuma-anlama",
+        "text": "Mert, Deniz'e futbol ve basketbol önerdiğinde neden geri çevrildi?",
+        "options": [
+          "Deniz spor yapmayı hiç sevmediği için",
+          "Öğretmen oyun oynamayı yasakladığı için",
+          "Deniz o gün hasta olduğu için",
+          "Mert, kendi sevdiği şeyleri önerdiği ve Deniz'i dinlemediği için"
+        ],
+        "correctIndex": 3,
+        "explanation": "Mert kendi sevdiği etkinlikleri ısrarla önerir; Deniz'in neyi sevdiğini hiç sormaz. Bu yüzden yaklaşımı işe yaramaz.",
+        "image": ""
+      },
+      {
+        "id": "q_park_2",
+        "grade": 5,
+        "subject": "turkce",
+        "topic": "okuma-anlama",
+        "text": "Yazar, Deniz'in çizdiği resmi neden \"en çok konuşan resim\" olarak nitelendirmiştir?",
+        "options": [
+          "Deniz'in söyleyemediği duyguların o resimde görünmesi, çok şey anlatması nedeniyle",
+          "Resim sınıfta yapılan ilk vapur resmi olduğu için",
+          "Resimdeki renkler en canlı olduğu için",
+          "Öğretmen o resmi panoya astığı için"
+        ],
+        "correctIndex": 0,
+        "explanation": "Resimde yalnız bir çocuk, gri bulutlar ve dalgalar vardır; yazar bunun Deniz'in anlatamadığı yalnızlığı ve özlemi yansıttığını sezer.",
+        "image": ""
+      },
+      {
+        "id": "q_park_3",
+        "grade": 5,
+        "subject": "turkce",
+        "topic": "okuma-anlama",
+        "text": "Deniz'in Mert'e kendiliğinden ilk cümlesini söylemesini sağlayan şey nedir?",
+        "options": [
+          "Mert'in ona yeni bir oyun öğretmesi",
+          "Mert'in hiç konuşmadan yanında oturup aynı şeyi yapması, yani ortak ve baskısız bir paylaşım kurması",
+          "Öğretmenin ikisini yan yana oturtması",
+          "Sınıfın Deniz'e hediye alması"
+        ],
+        "correctIndex": 1,
+        "explanation": "Mert bu kez hiçbir şey söylemeden çizmeye başlar; Deniz de defterini çıkarır. Baskı olmadan kurulan ortak uğraş, iletişimi başlatır.",
+        "image": ""
+      },
+      {
+        "id": "q_park_4",
+        "grade": 5,
+        "subject": "turkce",
+        "topic": "okuma-anlama",
+        "text": "Öğretmenin \"İyilik, karşıdakine kendi sevdiğini vermek değil, onun dilinden konuşmaktır.\" sözü metindeki hangi olaya dayanarak söylenmiştir?",
+        "options": [
+          "Mert'in resim dersinde kaleyi çizmesine",
+          "Deniz'in sınıfa geç gelmesine",
+          "Mert'in Deniz'e futbolda ısrar edip başarısız olmasına, sonra resim yoluyla onu kazanmasına",
+          "Öğretmenin panoyu sık sık değiştirmesine"
+        ],
+        "correctIndex": 2,
+        "explanation": "Öğretmen, Mert'in ısrarla kendi sevdiği oyunu önerdiği dönemle, Deniz'in dilinden (resimden) konuştuğu dönemi karşılaştırır.",
+        "image": ""
+      },
+      {
+        "id": "q_park_5",
+        "grade": 5,
+        "subject": "turkce",
+        "topic": "okuma-anlama",
+        "text": "Metnin başında Deniz'in sessizliğini yazar neden \"utangaçlık\" diye açıklanan durumdan farklı görüyordu?",
+        "options": [
+          "Deniz'in yabancı bir ülkeden geldiğini bildiği için",
+          "Deniz'in çok konuşkan olmadığını düşündüğü için",
+          "Öğretmenin onu yanlış tanıdığını kanıtlamak istediği için",
+          "Sessizliğin arkasında alışamama ve özlem gibi başka duygular olabileceğini sezdiği için"
+        ],
+        "correctIndex": 3,
+        "explanation": "Yazar \"başka bir şey olduğunu düşünüyordum\" der ve resimdeki vapur–çocuk ayrıntısı bunu doğrular: Deniz'in sessizliği özlem ve yabancılıktır.",
+        "image": ""
+      }
+    ]
+  }
+}

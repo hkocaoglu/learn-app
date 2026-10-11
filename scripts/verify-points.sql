@@ -314,4 +314,56 @@ begin
 end $$;
 reset role;
 
+-- ============ TEST 9: akış (rsvp) modu puan kapısı ============
+-- Akış modunda kanıt "dwell süresi" değil "akışın tamamlanması"dır. Dwell formülü
+-- (150 kelime/dk) uygulanırsa hızlı ayarda tamamlanan okuma sessizce 0 puan kazanır.
+insert into public.reading_assignments (id, teacher_id, class_id, title, source_label, body, grade, subject, topic, quiz_threshold, published, questions, display_mode, rsvp_seconds_per_word) values
+  ('f0000000-0000-0000-0000-000000000020', '11111111-1111-1111-1111-111111111111', '44444444-4444-4444-4444-444444444444',
+   'Akış Metni', 'Dergi',
+   'Sabah erkenden kalkan çocuk, pencereden dışarı baktı ve gökyüzünün masmavi olduğunu gördü. Kuşlar cıvıldıyordu.',
+   4, 'turkce', 'okuma-anlama', 60, true,
+   '[{"id":"rq1","text":"Çocuk ne zaman kalktı?","options":["Sabah","Akşam"],"correctIndex":0}]'::jsonb,
+   'rsvp', 0.25);
+
+insert into public.reading_assignments (id, teacher_id, class_id, title, source_label, body, grade, subject, topic, quiz_threshold, published, questions, display_mode) values
+  ('f0000000-0000-0000-0000-000000000021', '11111111-1111-1111-1111-111111111111', '44444444-4444-4444-4444-444444444444',
+   'Yarım Akış', 'Dergi',
+   'Bu metnin akışı yarıda kesildi; öğrenci kelimelerin tamamını görmedi.',
+   4, 'turkce', 'okuma-anlama', 60, true,
+   '[{"id":"rq1","text":"Akış tamamlandı mı?","options":["Hayır","Evet"],"correctIndex":0}]'::jsonb,
+   'rsvp');
+
+select set_config('request.jwt.claim.sub', 'dddddddd-dddd-dddd-dddd-dddddddddddd', false);
+set role authenticated;
+-- A: dwell 1 sn (gerekli 30 sn'nin çok altında) ama akış tamamlandı + quiz %100 → puan VAR
+insert into public.reading_attempts (id, teacher_id, reading_assignment_id, student_id, dwell_seconds, scrolled_bottom, correct_count, total_count, score_percent, read, total_seconds, rsvp_plays, submitted_at)
+values ('f2000000-0000-0000-0000-000000000010', '11111111-1111-1111-1111-111111111111', 'f0000000-0000-0000-0000-000000000020',
+        'dddddddd-dddd-dddd-dddd-dddddddddddd', 1, true, 1, 1, 100, true, 3, 1, now());
+-- B: akış tamamlanmadı (scrolled_bottom=false) → puan YOK
+insert into public.reading_attempts (id, teacher_id, reading_assignment_id, student_id, dwell_seconds, scrolled_bottom, correct_count, total_count, score_percent, read, total_seconds, rsvp_plays, submitted_at)
+values ('f2000000-0000-0000-0000-000000000011', '11111111-1111-1111-1111-111111111111', 'f0000000-0000-0000-0000-000000000021',
+        'dddddddd-dddd-dddd-dddd-dddddddddddd', 1, false, 0, 1, 0, false, 3, 2, now());
+reset role;
+
+do $$
+declare v_count int; v_amount int; v_bal int; v_plays int;
+begin
+  select count(*) into v_count from point_transactions
+   where student_id = 'dddddddd-dddd-dddd-dddd-dddddddddddd' and ref_type = 'reading';
+  if v_count is distinct from 1 then
+    raise exception 'TEST FAIL: rsvp akışı 1 puan satırı üretmeli, çıktı: % (yarım akış puan üretmemeli)', v_count;
+  end if;
+
+  select amount, balance_after into v_amount, v_bal from point_transactions
+   where student_id = 'dddddddd-dddd-dddd-dddd-dddddddddddd' and ref_type = 'reading';
+  if v_amount is distinct from 11 or v_bal is distinct from 11 then
+    raise exception 'TEST FAIL: rsvp puanı 11 / bakiye 11 olmalı, çıktı: %/%', v_amount, v_bal;
+  end if;
+
+  select rsvp_plays into v_plays from reading_attempts where id = 'f2000000-0000-0000-0000-000000000010';
+  if v_plays is distinct from 1 then raise exception 'TEST FAIL: rsvp_plays kaydedilmedi: %', v_plays; end if;
+
+  raise notice 'OK: rsvp akışı dwell olmadan 11 puan kazandı, yarım akış 0 puan, rsvp_plays=1';
+end $$;
+
 select 'TÜM PG TESTLER GEÇTİ' as sonuc;

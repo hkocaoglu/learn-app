@@ -1,0 +1,114 @@
+{
+  "version": 1,
+  "kind": "reading-passage",
+  "exportedAt": "2026-10-11T17:06:14.203Z",
+  "passage": {
+    "title": "Teknoloji ve Hayatımız",
+    "sourceLabel": "5. Sınıf Türkçe Okuma Parçaları (Maarif Modeli)",
+    "body": "Teknoloji hayatımızı kolaylaştırır. Telefon, bilgisayar ve internet günlük hayatımızın parçasıdır. Teknoloji sayesinde uzaktan çalışabiliriz. Online eğitim alabiliriz. Hastaneler daha iyi cihazlara sahiptir. Ama teknoloji bağımlılık yaratabilir. Dengeli kullanmalıyız.",
+    "grade": 5,
+    "subject": "turkce",
+    "topic": "okuma-anlama",
+    "quizThreshold": 60,
+    "showPassageDuringQuiz": true,
+    "image": "",
+    "questions": [
+      {
+        "id": "q_mv42rlmj_21ahew8",
+        "grade": 5,
+        "subject": "turkce",
+        "topic": "okuma-anlama",
+        "text": "Teknoloji hayatımıza nasıl etki eder?",
+        "options": [
+          "Zorlaştırır",
+          "Kolaylaştırır",
+          "Etkilemez",
+          "Yavaşlatır"
+        ],
+        "correctIndex": 1,
+        "explanation": "",
+        "image": ""
+      },
+      {
+        "id": "q_mv42rlmj_22ysid6",
+        "grade": 5,
+        "subject": "turkce",
+        "topic": "okuma-anlama",
+        "text": "Hangi teknolojiler günlük hayatımızın parçasıdır?",
+        "options": [
+          "Sadece telefon",
+          "Telefon, bilgisayar ve internet",
+          "Sadece bilgisayar",
+          "Hiçbiri"
+        ],
+        "correctIndex": 1,
+        "explanation": "",
+        "image": ""
+      },
+      {
+        "id": "q_mv42rlmj_235gzwh",
+        "grade": 5,
+        "subject": "turkce",
+        "topic": "okuma-anlama",
+        "text": "Teknoloji sayesinde ne yapabiliriz?",
+        "options": [
+          "Uzaktan çalışabiliriz",
+          "Yürüyebiliriz",
+          "Uçabiliriz",
+          "Yüzebiliriz"
+        ],
+        "correctIndex": 0,
+        "explanation": "",
+        "image": ""
+      },
+      {
+        "id": "q_mv42rlmj_24sktxh",
+        "grade": 5,
+        "subject": "turkce",
+        "topic": "okuma-anlama",
+        "text": "Online olarak ne alabiliriz?",
+        "options": [
+          "Yemek",
+          "Eğitim",
+          "Kitap",
+          "Sinema"
+        ],
+        "correctIndex": 1,
+        "explanation": "",
+        "image": ""
+      },
+      {
+        "id": "q_mv42rlmj_25egln3",
+        "grade": 5,
+        "subject": "turkce",
+        "topic": "okuma-anlama",
+        "text": "Hastaneler neye sahiptir?",
+        "options": [
+          "Eski cihazlar",
+          "Daha iyi cihazlar",
+          "Hiçbir şey",
+          "Sadece doktor"
+        ],
+        "correctIndex": 1,
+        "explanation": "",
+        "image": ""
+      },
+      {
+        "id": "q_mv42rlmj_26r7w4m",
+        "grade": 5,
+        "subject": "turkce",
+        "topic": "okuma-anlama",
+        "text": "Parçanın ana fikri nedir?",
+        "options": [
+          "Teknoloji kötüdür",
+          "Teknoloji faydalıdır ama dengeli kullanılmalıdır",
+          "Teknoloji gereksizdir",
+          "Teknoloji sadece çocuklar içindir"
+        ],
+        "correctIndex": 1,
+        "explanation": "",
+        "image": ""
+      }
+    ]
+  }
+}

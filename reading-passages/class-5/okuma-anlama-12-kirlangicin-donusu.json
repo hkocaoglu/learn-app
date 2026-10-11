@@ -1,0 +1,98 @@
+{
+  "version": 1,
+  "kind": "reading-passage",
+  "exportedAt": "2026-10-11T20:30:00.000Z",
+  "passage": {
+    "title": "Kırlangıcın Yuvasına Dönüşü",
+    "sourceLabel": "5. Sınıf Türkçe Okuma Parçaları (Maarif Modeli)",
+    "body": "Nisanın ilk günleriydi. Sabah okula giderken kaldırımın üzerinde küçük bir kırlangıç gördüm. Kanadının ucu çamurlanmış, karnı beyaz, sırtı ise maviye çalan parlak bir siyahtı. Yürümeye çalışıyor ama havalanamıyordu. Eğilip baktığımda ayağının incindiğini fark ettim. Onu ceketimin içine alıp veterinere götürdüm. Veteriner hanım, kırlangıçların her yıl binlerce kilometre yol kat ettiğini söyledi. \"Bunlar göçmen kuşlardır. Kışın sıcak ülkelere giderler, baharda yuvalarına dönerler. Bu yavru, belki de yolculuğun sonunda yoruldu,\" dedi.\n\nKırlangıcı üç gün boyunca süt kutusundan yaptığım küçük bir evde besledim. Dördüncü gün kanatlarını açtı, odanın içinde iki tur attı ve umut verici bir ses çıkardı. Büyükbabam, \"Bırakabileceğimiz kadar güçlendi. Ama onu nereye bırakacağımızı iyi seçmeliyiz,\" dedi. Bahçemizdeki eski ahırın saçağında yıllardır boş duran bir kırlangıç yuvası vardı. Meğer o yuva, her bahar geri gelen aynı çiftin yuvasıymış. Büyükbabam babasından, babası dedesinden duymuş; yıllar boyunca kuşlar bu saçağın altına yuva yapmış.\n\nKırlangıcı bahçede özgür bıraktığımızda bir ağacın dalına kondu, oradan saçağın altındaki boş yuvaya baktı ve sonra uçup gitti. Üzüldüm; geri gelmeyeceğini düşündüm. Bir hafta sonra sabah kahvaltıda cıvıltılar duyduk. Yuvanın kenarına konmuş iki kırlangıç, gagalarında çamur taşıyordu. Yuvayı onarıyorlardı. Büyükbabam gülümsedi: \"Bak, yuvasını unutmamış. Bazen yolunu kaybetmiş gibi görünürler ama gökyüzünde güneşe ve yıldızlara bakarak, kimi zaman da toprağın kokusunu izleyerek binlerce kilometre sonra bu saçağı bulurlar.\"\n\nO gün pencerenin önünde uzun süre oturup onları izledim. Küçücük bir kuşun, insanların yaptığı koca gemilerin ve uçakların rotasından daha şaşmaz bir yol bulması bana inanılmaz geldi. Bilim dergisinde okuduğum bir yazıyı hatırladım: Kırlangıçlar, göç yollarını yalnızca içgüdüleriyle değil, öğrenerek ve deneyimleyerek de bulurlar. Genç kuşlar, ilk yolculuklarında sürünün gerisinden gider; ikinci yılda rotayı neredeyse kusursuz izlerler.\n\nYuvanın onarılması, bahçemizin sessiz bir sabahına bambaşka bir anlam kattı. Bir kuşun yuvasına dönmesi, bana sadakati ve kararlılığı düşündürdü. Şimdi her nisan ayında pencereden gökyüzünü tarıyorum. Karşıdan gelen küçük siyah lekeleri gördüğümde içim rahatlıyor: Belki binlerce kilometre öteden gelen konuklarımız, yine aynı saçağın altında çamur taşıyor.",
+    "grade": 5,
+    "subject": "turkce",
+    "topic": "okuma-anlama",
+    "quizThreshold": 60,
+    "showPassageDuringQuiz": true,
+    "image": "",
+    "questions": [
+      {
+        "id": "q_kirlangic_1",
+        "grade": 5,
+        "subject": "turkce",
+        "topic": "okuma-anlama",
+        "text": "Metne göre büyükbabamın \"Bırakabileceğimiz kadar güçlendi ama nereye bırakacağımızı iyi seçmeliyiz.\" demesinin nedeni nedir?",
+        "options": [
+          "Kırlangıcın eve alışmasından korktuğu için",
+          "Kuşun kendi yuvasını tanıdığını ve oraya daha kolay uyum sağlayacağını düşündüğü için",
+          "Bahçede kedi bulunduğu için",
+          "Veterinerin kuşu geri istemesinden çekindiği için"
+        ],
+        "correctIndex": 1,
+        "explanation": "Metinde saçaktaki yuvanın her bahar dönen aynı çifte ait olduğu ve kuşun yuvasını unutmadığı anlatılıyor; büyükbaba doğru yeri yani kuşun kendi yuvasını seçer.",
+        "image": ""
+      },
+      {
+        "id": "q_kirlangic_2",
+        "grade": 5,
+        "subject": "turkce",
+        "topic": "okuma-anlama",
+        "text": "Kırlangıç serbest bırakıldıktan sonra yazar neden üzülmüştür?",
+        "options": [
+          "Kuşun kanadını yeniden incitmesinden korktuğu için",
+          "Yuvayı onarmak zorunda kaldığı için",
+          "Kuşun bir daha geri dönmeyeceğini düşündüğü için",
+          "Büyükbabasına söz verdiğini yerine getiremediği için"
+        ],
+        "correctIndex": 2,
+        "explanation": "Yazar, kuş uçup gittiğinde \"geri gelmeyeceğini düşündüm\" diyerek üzüldüğünü belirtiyor; bir hafta sonra kuşlar yuvaya döner.",
+        "image": ""
+      },
+      {
+        "id": "q_kirlangic_3",
+        "grade": 5,
+        "subject": "turkce",
+        "topic": "okuma-anlama",
+        "text": "Büyükbabanın anlattıklarına göre kırlangıçlar göç yolunu bulmak için yalnızca içgüdülerine mi güvenir?",
+        "options": [
+          "Evet, yalnızca doğuştan gelen içgüdüleriyle hareket ederler.",
+          "Evet, ama yalnızca yetişkin kuşlar yolunu bulabilir.",
+          "Hayır; yollarını insanların yaptığı gemilerden öğrenirler.",
+          "Hayır; güneşe, yıldızlara ve kokulara bakmanın yanı sıra öğrenerek ve deneyimleyerek de yollarını bulurlar."
+        ],
+        "correctIndex": 3,
+        "explanation": "Büyükbaba güneş, yıldız ve koku ipuçlarından; dergi yazısı ise genç kuşların deneyimleyerek öğrendiğinden söz ediyor.",
+        "image": ""
+      },
+      {
+        "id": "q_kirlangic_4",
+        "grade": 5,
+        "subject": "turkce",
+        "topic": "okuma-anlama",
+        "text": "Yazar, küçük kuşun yol bulmasını neden \"inanılmaz\" bulmuştur?",
+        "options": [
+          "Küçücük bir kuşun, insanların koca gemilerle uçaklarla bulduğu rotadan daha şaşmaz bir yol izlemesinden dolayı",
+          "Kuşun uçmayı çok kısa sürede öğrenmesinden dolayı",
+          "Kuşun yuvasını kendi elleriyle yapmasından dolayı",
+          "Kuşların yalnızca gündüzleri uçmasından dolayı"
+        ],
+        "correctIndex": 0,
+        "explanation": "Yazar, insanların araçlarla bulduğu rotayla kuşun doğal yön bulma becerisini karşılaştırarak bunu şaşırtıcı bulur.",
+        "image": ""
+      },
+      {
+        "id": "q_kirlangic_5",
+        "grade": 5,
+        "subject": "turkce",
+        "topic": "okuma-anlama",
+        "text": "Metnin sonunda yazarın duygularında görülen değişim hangisidir?",
+        "options": [
+          "Üzüntüden kızgınlığa",
+          "Kuşun dönmeyeceği endişesinden, onun yuvasına dönüşünü görünce duyduğu güvene ve huzura",
+          "Meraktan korkuya",
+          "Sevinçten umutsuzluğa"
+        ],
+        "correctIndex": 1,
+        "explanation": "Başta \"geri gelmeyecek\" diye üzülen yazar, kuşların yuvayı onardığını görünce rahatlar; sonunda her nisanda gökyüzünü güvenle tarar.",
+        "image": ""
+      }
+    ]
+  }
+}

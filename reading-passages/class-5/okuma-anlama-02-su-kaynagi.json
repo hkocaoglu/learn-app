@@ -1,0 +1,114 @@
+{
+  "version": 1,
+  "kind": "reading-passage",
+  "exportedAt": "2026-10-11T17:06:14.202Z",
+  "passage": {
+    "title": "Su Kaynağı",
+    "sourceLabel": "5. Sınıf Türkçe Okuma Parçaları (Maarif Modeli)",
+    "body": "Su, yaşamın kaynağıdır. Dünya'nın yüzde yetmişini su kaplar. İnsan vücudunun yüzde yetmişi sudur. Suyu korumalıyız. Muslukları kapatmalıyız. Yağmur suyunu toplamalıyız. Nehirleri kirletmemeliyiz. Su azalan bir kaynak değildir ama temiz su azalıyor. Her damla su değerlidir.",
+    "grade": 5,
+    "subject": "turkce",
+    "topic": "okuma-anlama",
+    "quizThreshold": 60,
+    "showPassageDuringQuiz": true,
+    "image": "",
+    "questions": [
+      {
+        "id": "q_mv42rlmi_9yveff",
+        "grade": 5,
+        "subject": "turkce",
+        "topic": "okuma-anlama",
+        "text": "Dünya'nın ne kadarını su kaplar?",
+        "options": [
+          "Yüzde otuzu",
+          "Yüzde yetmişi",
+          "Yüzde doksanı",
+          "Yüzde onu"
+        ],
+        "correctIndex": 1,
+        "explanation": "",
+        "image": ""
+      },
+      {
+        "id": "q_mv42rlmi_aqk106",
+        "grade": 5,
+        "subject": "turkce",
+        "topic": "okuma-anlama",
+        "text": "İnsan vücudunun ne kadarı sudur?",
+        "options": [
+          "Yüzde ellisi",
+          "Yüzde yirmisi",
+          "Yüzde yetmişi",
+          "Yüzde kırkı"
+        ],
+        "correctIndex": 2,
+        "explanation": "",
+        "image": ""
+      },
+      {
+        "id": "q_mv42rlmi_bce2fg",
+        "grade": 5,
+        "subject": "turkce",
+        "topic": "okuma-anlama",
+        "text": "Suyu nasıl korumalıyız?",
+        "options": [
+          "Muslukları açık bırakmalıyız",
+          "Muslukları kapatmalıyız",
+          "Nehirleri kirletmeliyiz",
+          "Su israf etmeliyiz"
+        ],
+        "correctIndex": 1,
+        "explanation": "",
+        "image": ""
+      },
+      {
+        "id": "q_mv42rlmi_cmwk9c",
+        "grade": 5,
+        "subject": "turkce",
+        "topic": "okuma-anlama",
+        "text": "Nehirler konusunda hangisi doğrudur?",
+        "options": [
+          "Nehirleri kirletmemeliyiz",
+          "Nehirleri kirletmeliyiz",
+          "Nehirleri kurutmalıyız",
+          "Nehirleri doldurmalıyız"
+        ],
+        "correctIndex": 0,
+        "explanation": "",
+        "image": ""
+      },
+      {
+        "id": "q_mv42rlmi_dbh9zf",
+        "grade": 5,
+        "subject": "turkce",
+        "topic": "okuma-anlama",
+        "text": "Temiz su hakkında ne söylenebilir?",
+        "options": [
+          "Çok fazla",
+          "Azalıyor",
+          "Yok",
+          "Değişmiyor"
+        ],
+        "correctIndex": 1,
+        "explanation": "",
+        "image": ""
+      },
+      {
+        "id": "q_mv42rlmi_eplt6a",
+        "grade": 5,
+        "subject": "turkce",
+        "topic": "okuma-anlama",
+        "text": "Parçanın ana fikri nedir?",
+        "options": [
+          "Su çoktur",
+          "Suyu korumalıyız",
+          "Nehirler kirli",
+          "Musluklar bozuk"
+        ],
+        "correctIndex": 1,
+        "explanation": "",
+        "image": ""
+      }
+    ]
+  }
+}

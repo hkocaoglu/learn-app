@@ -44,10 +44,24 @@ sonuçları saklar ve **eksik konu raporu** çıkarır.
      dışa aktarılır / içe aktarılır.
    - **Görsel (opsiyonel):** metne görsel eklenebilir — dosyadan yükleme (JPEG/PNG/GIF/WebP ≤ 800 KB)
      veya `https://` bağlantısı. Görsel metnin üstünde gösterilir, JSON dışa aktarımına gömülür ve
-     öğrenci ekranında kaydırılabilir metin alanının içinde yer alır.
+     öğrenci ekranında kaydırılabilir metin alanının içinde yer alır (hızlı kelime akışı modunda
+     gösterilmez — metin görseli akışı bozar).
    - **Kanıt kapıları (üçü birlikte):** metni **sonuna kadar kaydırma** + **en az okuma süresi**
      (öğretmen belirler; boşsa kelime sayısından 150 wpm, 30-600 sn) + **quiz eşiği** (varsayılan %60).
      Süre ölçümü sekme arka plandayken durur.
+   - **Hızlı kelime akışı (RSVP):** gösterim modu **"Hızlı kelime akışı"** seçilirse metin sabit
+     hızda **kelime kelime** akar. Hızı öğretmen belirler (`kelime başına sn`, 0,1–5; örn.
+     `0,8 sn/kelime` ≈ 75 kelime/dk ve form hazır hız kademeleri sunar). Akış
+     `kelime sayısı × hız` kadar sürer ve **kaymaz**: zamanlama tek referans saatten yürüdüğü için
+     ilk kelimeden son kelimeye geçen süre planın toplamına eşittir.
+     - **Kanıt kapısı:** dwell + kaydırma yerine **akışın sonuna kadar izlenmesi** + quiz eşiği.
+       Quiz, akış tamamlanana kadar kilitlidir.
+     - **Ölçüm bütünlüğü:** akış modunda metin quiz sırasında gösterilmez (metni normal hızda okumak
+       ölçümü bozar), sesli okuma kapalıdır, metnin tamamı sayfanın DOM'unda bulunmaz ve sekme arka
+       plana alınırsa akış **duraklar**. Öğrenci akışı "Tekrar izle" ile yeniden başlatabilir;
+       kaç kez izlediği (`rsvp_plays`) "Kim okudu" tablosunda görünür.
+     - **3 soru sınırı:** akış modunda anlama sorusu en fazla **3** olabilir (kısa süreli akıştan
+       sonra ayrıntı/ezber ölçümü). Normal modda sınır 6 olarak kalır.
    - **Sınav davranışı:** quiz, okuma süresi dolana kadar kilitlidir; öğrenci **"Teste hazırım"**
      dedikten sonra açılır. Öğretmen, metnin quiz sırasında **görünür kalmasını** seçebilir
      (görünürse geniş ekranda metin ve sorular yan yana gösterilir).
@@ -141,6 +155,8 @@ kütüphaneye kaydedilir (aynı başlık varsa güncellenir); öğrencilere ula�
     "grade": 2,
     "subject": "turkce",
     "topic": "okuma-anlama",
+    "displayMode": "rsvp",
+    "rsvpSecondsPerWord": 0.8,
     "quizThreshold": 60,
     "showPassageDuringQuiz": true,
     "image": "",
@@ -157,7 +173,10 @@ kütüphaneye kaydedilir (aynı başlık varsa güncellenir); öğrencilere ula�
 ```
 
 - `grade`: `1`-`6` • `subject`: `matematik` | `geometri` | `turkce` • `body`: 50-20000 karakter
-- `questions` (0-6): boş bırakılabilir; quiz yoksa kanıt yalnızca süre + kaydırmaya dayanır
+- `displayMode`: `static` (normal okuma) | `rsvp` (hızlı kelime akışı) — varsayılan `static`
+- `rsvpSecondsPerWord`: akış modunda kelime başına ekranda kalma süresi (`0,1`-`5`, varsayılan `0,8`)
+- `questions` (0-6): boş bırakılabilir; quiz yoksa kanıt yalnızca süre + kaydırmaya dayanır.
+  `displayMode: "rsvp"` ise sınır **3**'tür.
 - `quizThreshold`: quiz geçme eşiği (%) — varsayılan `60`
 - `showPassageDuringQuiz`: quiz çözülürken metin görünür kalsın mı (varsayılan `true`)
 - `image` (opsiyonel): metin görseli. `data:image/...;base64,...` (dosyadan yüklenir) veya
@@ -224,6 +243,9 @@ supabase/migrations/20260910090000_reading_assignments.sql
 supabase/migrations/20260910120000_reading_passage_visibility.sql
 supabase/migrations/20260911080000_grades_and_passages.sql
 supabase/migrations/20260911090000_reading_images.sql
+supabase/migrations/20261011120000_points_rewards.sql
+supabase/migrations/20261012120000_widen_grade_checks.sql
+supabase/migrations/20261013120000_rsvp_reading_mode.sql
 ```
 
 Kurulum:
@@ -239,6 +261,14 @@ Kurulum:
    `20260910120000_reading_passage_visibility.sql`,
    `20260911080000_grades_and_passages.sql` ve
    `20260911090000_reading_images.sql` dosyalarını çalıştırın.
+   Puan/ödül sistemi için `20261011120000_points_rewards.sql`.
+   **Hızlı kelime akışı** için `20261013120000_rsvp_reading_mode.sql` (`display_mode`,
+   `rsvp_seconds_per_word`, `rsvp_plays` kolonları + akış modu puan kapısı).
+   **5. ve 6. sınıf kaydı** `check constraint "classes_grade_check"` hatası veriyorsa,
+   veritabanı eski şemayla (1-4) kurulmuş demektir;
+   `20261012120000_widen_grade_checks.sql` dosyasını çalıştırın. Bu dosya `classes`,
+   `question_bank`, `tests`, `reading_assignments` ve `reading_passages` tablolarındaki
+   `grade` kısıtlarını 1-6 aralığına genişletir ve tekrar çalıştırılabilir.
    Görsel kolonu eklenmemişse `#/okumalar` ekranı uyarı gösterir ve görselli
    gönderim, hangi dosyanın çalıştırılacağını söyleyen bir hata verir.
 3. Supabase Authentication ayarlarında email/password girişi varsayılan olarak
@@ -415,6 +445,8 @@ src/
   domain/model.js             sabitler, doğrulama, normalizasyon
   domain/scoring.js           puanlama, konu istatistikleri
   domain/report.js            kural tabanlı eksik-konu raporu
+  domain/readingGates.js      okuma kanıt kapıları (static: dwell+scroll, rsvp: akış)
+  domain/rsvp.js              kelime akışı zamanlama planı (saf, kaymasız)
   ai/client.js                OpenAI-uyumlu AI istemci (arayüz)
   ai/prompts.js               Türkçe AI prompt şablonu
   lib/supabase.js             Supabase browser client yapılandırması
@@ -428,6 +460,6 @@ supabase/migrations/…          PostgreSQL tabloları ve RLS politikaları
 ## 🧪 Test
 
 ```bash
-node verify.tmp.mjs   # çekirdek mantık (seed, puanlama, rapor, JSON round-trip) doğrulaması
+npm test   # çekirdek mantık doğrulaması (seed, puanlama, rapor, okuma/akış, JSON round-trip, puanlar)
 ```
 ##8.59

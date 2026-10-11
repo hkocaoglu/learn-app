@@ -1317,6 +1317,67 @@ tr:hover td {
   }
 }
 
+/* ---------- Hızlı kelime akışı (RSVP) ---------- */
+
+.rsvp-player {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.rsvp-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+/* Kelime sahnesi: yükseklik sabit, böylece kelime değişince sayfa zıplamaz. */
+.rsvp-stage {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: min(38vh, 340px);
+  padding: 20px;
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius);
+  background: #fff;
+  overflow: hidden;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.rsvp-word {
+  font-size: clamp(2rem, 7vw, 4.25rem);
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: 0.01em;
+  color: var(--gray-900);
+  text-align: center;
+  word-break: break-word;
+}
+
+.rsvp-progress {
+  height: 8px;
+  border-radius: 999px;
+  background: var(--gray-200);
+  overflow: hidden;
+}
+
+.rsvp-progress-bar {
+  height: 100%;
+  background: var(--primary);
+  transition: width 80ms linear;
+}
+
+.rsvp-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
 
 .submit-confirmation {
   text-align: center;

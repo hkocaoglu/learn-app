@@ -60,7 +60,13 @@ server-side in the earn trigger; score display + reading answers gap still open)
 code (scripts, asset counts, the TTS/reading subsystem, `npm test` as the sole
 check). Confirm the points system is reflected too once it lands.
 
-**Status:** parked.
+**Partially fixed (2026-10-13):** the reading + RSVP subsystem is now documented in
+`AGENTS.md` (`domain/readingGates.js`, `domain/rsvp.js`, `cloud/readings.js`,
+`cloud/passages.js`, `docs/rsvp-reading.md`, migration count) and `README.md`'s stale
+`node verify.tmp.mjs` was corrected to `npm test`. Still open: the phantom `npm run lint`
+claim, asset/screen counts, and the parent `~/AGENTS.md`.
+
+**Status:** parked (partially fixed).
 
 ---
 
@@ -84,8 +90,9 @@ line-101 dep array (or simplify the timer effect so the workaround is unnecessar
   recompute for exam scores, so the reward ledger is already tamper-resistant for
   exams. Reading quiz scores remain client-trusted until BL-1 adds an `answers`
   column to `reading_attempts`.
-- Points system verification: `npm test` (108 checks incl. 35 for `domain/points.js`)
-  plus `bash scripts/verify-points-db.sh` (17 live-SQL assertions — run when
+- Points system verification: `npm test` (144 checks incl. 35 for `domain/points.js`
+  and 33 for the RSVP word-flow mode) plus `bash scripts/verify-points-db.sh`
+  (19 live-SQL assertions, one of which covers the RSVP points gate — run when
   migrations change; needs local PostgreSQL).
 - No automated test coverage exists for React UI, router/store, cloud, or CSS
   (`scripts/verify.mjs` covers only `src/domain/*`, `src/db/storage.js`,

@@ -1,0 +1,33 @@
+{
+  "version": 1,
+  "kind": "reading-passage",
+  "exportedAt": "2026-10-11T17:06:14.204Z",
+  "passage": {
+    "title": "Yapay Zekâ",
+    "sourceLabel": "turkceciyiz.com — Bilal Kış | 5. Sınıf Maarif Modeli",
+    "body": "Yapay zekâ teknolojisi, insan zekâsını taklit ederek karmaşık verileri saniyeler içinde analiz edebilen sistemler bütünüdür. Günümüzde tıptan eğitime, sanattan sanayiye kadar pek çok alanda hata payını en aza indirmek için kullanılmaktadır. Bu teknolojinin doğru yönetilmesi, insanlığın karşılaştığı küresel sorunların çözümünde hız kazandırıcı bir rol üstlenmektedir.",
+    "grade": 5,
+    "subject": "turkce",
+    "topic": "yardimci-dusunce",
+    "quizThreshold": 60,
+    "showPassageDuringQuiz": true,
+    "image": "",
+    "questions": [
+      {
+        "id": "q_mv42rlmk_36m50u9",
+        "grade": 5,
+        "subject": "turkce",
+        "topic": "yardimci-dusunce",
+        "text": "Aşağıdaki yargılardan hangisine bu metinden ulaşılamaz?",
+        "options": [
+          "Yapay zekâ, karmaşık verileri saniyeler içinde analiz edebilir.",
+          "Yapay zekâ, insanların yerini tamamen almıştır.",
+          "Yapay zekâ, birçok alanda hata payını azaltmak için kullanılır."
+        ],
+        "correctIndex": 1,
+        "explanation": "",
+        "image": ""
+      }
+    ]
+  }
+}

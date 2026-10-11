@@ -1,0 +1,114 @@
+{
+  "version": 1,
+  "kind": "reading-passage",
+  "exportedAt": "2026-10-11T17:06:14.203Z",
+  "passage": {
+    "title": "İstanbul'un Büyüklüğü",
+    "sourceLabel": "5. Sınıf Türkçe Okuma Parçaları (Maarif Modeli)",
+    "body": "İstanbul, Türkiye'nin en büyük şehridir. Boğaz'ın iki yakasında kuruludur. Avrupa ve Asya kıtalarını birbirine bağlar. Ayasofya'yı ziyaret ettik. Kapalıçarşı'da alışveriş yaptık. Balık yedik. Vapurda Boğaz'ı geçtik. İstanbul tarihi ve modern bir şehirdir.",
+    "grade": 5,
+    "subject": "turkce",
+    "topic": "okuma-anlama",
+    "quizThreshold": 60,
+    "showPassageDuringQuiz": true,
+    "image": "",
+    "questions": [
+      {
+        "id": "q_mv42rlmj_1dimkon",
+        "grade": 5,
+        "subject": "turkce",
+        "topic": "okuma-anlama",
+        "text": "İstanbul Türkiye'nin ne tür şehridir?",
+        "options": [
+          "En küçük",
+          "En büyük",
+          "Orta",
+          "En eski"
+        ],
+        "correctIndex": 1,
+        "explanation": "",
+        "image": ""
+      },
+      {
+        "id": "q_mv42rlmj_1egc4ir",
+        "grade": 5,
+        "subject": "turkce",
+        "topic": "okuma-anlama",
+        "text": "Boğaz'ın kaç yakasında kuruludur?",
+        "options": [
+          "Bir",
+          "İki",
+          "Üç",
+          "Dört"
+        ],
+        "correctIndex": 1,
+        "explanation": "",
+        "image": ""
+      },
+      {
+        "id": "q_mv42rlmj_1fc8o42",
+        "grade": 5,
+        "subject": "turkce",
+        "topic": "okuma-anlama",
+        "text": "Hangi iki kıtayı birbirine bağlar?",
+        "options": [
+          "Afrika ve Asya",
+          "Avrupa ve Asya",
+          "Avrupa ve Afrika",
+          "Asya ve Amerika"
+        ],
+        "correctIndex": 1,
+        "explanation": "",
+        "image": ""
+      },
+      {
+        "id": "q_mv42rlmj_1gysm9r",
+        "grade": 5,
+        "subject": "turkce",
+        "topic": "okuma-anlama",
+        "text": "Hangi tarihi yeri ziyaret ettiler?",
+        "options": [
+          "Topkapı Sarayı",
+          "Ayasofya",
+          "Galata Kulesi",
+          "Dolmabahçe"
+        ],
+        "correctIndex": 1,
+        "explanation": "",
+        "image": ""
+      },
+      {
+        "id": "q_mv42rlmj_1h2jiwb",
+        "grade": 5,
+        "subject": "turkce",
+        "topic": "okuma-anlama",
+        "text": "Nerede alışveriş yaptılar?",
+        "options": [
+          "AVM",
+          "Kapalıçarşı",
+          "Pazar",
+          "Market"
+        ],
+        "correctIndex": 1,
+        "explanation": "",
+        "image": ""
+      },
+      {
+        "id": "q_mv42rlmj_1ixodld",
+        "grade": 5,
+        "subject": "turkce",
+        "topic": "okuma-anlama",
+        "text": "İstanbul nasıl bir şehirdir?",
+        "options": [
+          "Sadece tarihi",
+          "Sadece modern",
+          "Hem tarihi hem modern",
+          "Hiçbiri"
+        ],
+        "correctIndex": 2,
+        "explanation": "",
+        "image": ""
+      }
+    ]
+  }
+}

@@ -9,20 +9,21 @@ SPA composition: `src/main.jsx` → `src/App.jsx` (`AuthProvider` → `Authentic
 - `domain/` holds pure logic (no state/cloud imports); `cloud/` adapts Supabase snake_case rows to camelCase; `src/ui/screens/*` are thin callers of `useStore()`/`useAuth()`.
 - Dual-write: cloud mode (`cloudUser?.id && isSupabaseConfigured`) writes Supabase first then patches local `db` + `saveDB` cache; local mode uses per-user keys `learn_app_db_v1_<userId>`, seeded by `buildSeed()`.
 - Exam flow: `ExamScreen` collects `answers {qid→index}` + `timeByQid` → `actions.addAttempt` → `scoreAttempt()` → attempt row → `Results`/`Reports` read `aggregate*`/`buildRuleReport` or `createAIClient(settings.ai).generateReport(ctx)` → `saveAiReport`.
+- Reading flow (cloud-only): `ReadingsScreen` (teacher: passage library + assignment to a class) → `fetchStudentReadings()` → `StudentReadingScreen`. Two display modes drive the evidence gates in `src/domain/readingGates.js`: `static` = dwell + scroll-to-bottom + quiz; `rsvp` (hızlı kelime akışı) = words flash one at a time at the teacher's `rsvpSecondsPerWord`, so the gate becomes flow-completed + quiz. RSVP hides the passage text, TTS and the passage image to keep the fast-flow measurement honest, and the full text never enters the DOM. See `docs/rsvp-reading.md`.
 - Auth: `AuthProvider` wraps `supabase.auth` + `profiles` role lookup (`role==='admin'`); student role short-circuits to `StudentPortalScreen`. Routes are Turkish hashes: `#/`, `#/ogrenciler`, `#/siniflar`, `#/atamalar`, `#/testler`, `#/banka`, `#/sinav/:id`, `#/sonuclar`, `#/raporlar`, `#/ayarlar`, `#/admin`.
 
 ## Key Directories
 - `src/state/store.jsx` — single Context store, routing, all CRUD + AI-report actions.
 - `src/auth/` — `AuthProvider.jsx`, `authErrors.js` (TR message mapping).
-- `src/domain/` — `model.js` (constants/validation/normalize), `scoring.js`, `report.js` (rule fallback), `studentAuth.js` (code→synthetic email).
+- `src/domain/` — `model.js` (constants/validation/normalize), `scoring.js`, `report.js` (rule fallback), `studentAuth.js` (code→synthetic email), `points.js` (ledger + earn formulas), `readingGates.js` (reading evidence gates, shared by cloud + tests), `rsvp.js` (word-flow timing plan).
 - `src/db/storage.js` — `localStorage` DB (`learn_app_db_v1`), seed/backup, scoped keys.
-- `src/cloud/` — `teacherData.js` (fetch + CRUD), `students.js`, `classes.js`, `assignments.js`, `attempts.js`, `tests.js`, `adminData.js`.
+- `src/cloud/` — `teacherData.js` (fetch + CRUD), `students.js`, `classes.js`, `assignments.js`, `attempts.js`, `tests.js`, `adminData.js`, `readings.js` (reading assignments/attempts), `passages.js` (passage library), `rewards.js`, `schemaFallback.js` (tolerates columns from not-yet-applied migrations).
 - `src/ai/` — `client.js` (`createAIClient`, `PROVIDERS`), `prompts.js`.
 - `src/ui/screens/` (17 files) + `src/ui/components/` (8 files: `Modal`, `QuestionForm`, `JsonImportDialog`, `Review*`, `ScoreBar`, `Badges`).
 - `src/lib/supabase.js` — client singleton, `isSupabaseConfigured`, `requireSupabase()`.
 - `src/data/seedQuestions.js` — first-run bank (≥60 Qs, 12 tests).
 - `api/ai/report.js`, `api/students/provision.js` — Vercel serverless (OpenRouter proxy, student provisioning).
-- `supabase/migrations/` — 5 SQL migrations (run in date order via SQL Editor).
+- `supabase/migrations/` — 12 SQL migrations (run in date order via SQL Editor). Reading display modes live in `20261013120000_rsvp_reading_mode.sql`: it adds `display_mode`/`rsvp_seconds_per_word`/`rsvp_plays` and makes the reading points trigger mode-aware.
 - `scripts/verify.mjs` — only repo script / only test.
 
 ## Development Commands
@@ -46,7 +47,7 @@ No lint/format/typecheck scripts. Deploy `dist/` to Netlify Drop / GitHub Pages 
 
 ## Important Files
 - Entry: `index.html` → `src/main.jsx` → `src/App.jsx` → `src/state/store.jsx`.
-- Logic: `src/domain/model.js`, `src/domain/scoring.js`, `src/domain/report.js`, `src/db/storage.js`, `src/ai/client.js`, `src/lib/supabase.js`, `src/cloud/teacherData.js`.
+- Logic: `src/domain/model.js`, `src/domain/scoring.js`, `src/domain/report.js`, `src/domain/readingGates.js`, `src/domain/rsvp.js`, `src/db/storage.js`, `src/ai/client.js`, `src/lib/supabase.js`, `src/cloud/teacherData.js`.
 - Config: `package.json`, `vite.config.js` (`react()` + conditional `viteSingleFile()`, `base:'./'`, `target:'es2019'`), `vercel.json`, `.env.example`, `.gitignore`.
 - Backend: `api/ai/report.js` (needs `OPENROUTER_API_KEY`, 503 if missing), `api/students/provision.js` (needs `SUPABASE_SECRET_KEY`).
 - Docs/fixtures: `README.md` (357 lines, Turkish; note stale `node verify.tmp.mjs` — use `npm test`), `ornek-test-2-sinif-matematik.json`, `ornek-test-2-sinif-geometri-resimli.json`.
@@ -58,5 +59,6 @@ No lint/format/typecheck scripts. Deploy `dist/` to Netlify Drop / GitHub Pages 
 
 ## Testing & QA
 - No framework, no `*.test.*`/`tests/`/`e2e/`, no coverage tool. Single check: `npm test` (= `node scripts/verify.mjs`).
-- `scripts/verify.mjs`: hand-rolled `check(name, cond, extra)` → `✓`/`✗`, exit 0 + `TÜM TESTLER GEÇTİ` on pass, else `N TEST BAŞARISIZ` exit 1. Sections: seed (≥60 bank Qs, 12 tests, ≥5 Qs/test), scoring + timing, JSON export/import, `ZAYIF KONULAR` rule report, backup, student-code normalization, mocked OpenRouter client + Vercel handler (inline `localStorage`/`fetch`/fake-response stubs, no fixtures).
+- `scripts/verify.mjs`: hand-rolled `check(name, cond, extra)` → `✓`/`✗`, exit 0 + `TÜM TESTLER GEÇTİ` on pass, else `N TEST BAŞARISIZ` exit 1. Sections: seed (≥60 bank Qs, 12 tests, ≥5 Qs/test), scoring + timing, JSON export/import, `ZAYIF KONULAR` rule report, backup, student-code normalization, reading + RSVP word flow (plan timing, display-mode validation, gates through the real `domain/readingGates.js`), mocked OpenRouter client + Vercel handler (inline `localStorage`/`fetch`/fake-response stubs, no fixtures).
 - Covers only `src/domain/*`, `src/db/storage.js`, `src/ai/client.js`, `api/ai/report.js`. Never covered: React UI, router/store, Supabase cloud, CSS, `ornek-test-*.json`. No CI (`.github/` absent); validate locally with `npm test`.
+- DB changes additionally run through `bash scripts/verify-points-db.sh` (scratch PostgreSQL, every migration applied in order, 19 live-SQL assertions incl. the RSVP points gate).
