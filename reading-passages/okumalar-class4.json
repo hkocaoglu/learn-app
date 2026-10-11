@@ -1,0 +1,472 @@
+{
+  "version": 1,
+  "kind": "reading-passage-collection",
+  "exportedAt": "2026-10-11T18:46:56.044Z",
+  "passages": [
+    {
+      "title": "Sokaktan Gelen Misafir",
+      "sourceLabel": "4. Sınıf Türkçe Okuma Parçaları (Maarif Modeli)",
+      "body": "Okuldan eve dönerken yağmur birden bastırdı. Kerem, apartmanın giriş kapısının yanındaki boşlukta büzülmüş küçük bir kedi gördü. Kedinin tüyleri sırılsıklamdı, bir kulağının ucu yırtıktı ve arka patisini yere basmıyordu. Kerem çantasından su şişesini çıkardı, kapağına biraz su koyup önüne bıraktı. Kedi önce korkuyla geri çekildi, sonra yaklaşıp suyu içti.\n\nKerem eve çıktığında annesine olanları anlattı. Annesi, \"Yardım etmek istemen güzel,\" dedi, \"ama bir hayvanı eve almak büyük bir sorumluluktur. Yemek, su, temizlik, veteriner... Bunları her gün yapabilecek misin?\" Kerem bir an durdu. \"Evet,\" dedi, \"ama önce onu iyileştirmemiz gerek. Sonra ne yapacağımıza karar veririz.\"\n\nO akşam kedi, karton bir kutuda, eski bir havlunun üzerinde uyudu. Kerem gece iki kez kalkıp ona baktı. Sabah veteriner, kedinin patisinde çatlak olduğunu ve birkaç hafta dinlenmesi gerektiğini söyledi. Ayrıca kedinin kulağındaki yırtığın eski olduğunu, yani bu kedinin uzun süredir sokakta yaşadığını ekledi.\n\nHaftalar geçti. Patisi iyileşen kedi, evin içinde koşmaya, perde kenarında uyuklamaya başladı. Kerem ona \"Pamuk\" adını koydu. Ancak Kerem'in aklında annesinin sorusu vardı. Bir gün, \"Pamuk'u sahiplenmeye karar verdim,\" dedi. \"Çünkü artık sorumluluğun ne demek olduğunu biliyorum: her gün, ben istemesem de yapmak.\" Annesi gülümsedi ve kedi yatağını oturma odasına taşıdı.\n\nSonraki aylarda Kerem, mahalledeki diğer sokak kedileri için de kapının önüne bir su kabı koymaya başladı. Öğretmeni bu konuyu duyunca ondan sınıfta anlatmasını istedi. Kerem arkadaşlarına şunu söyledi: \"Bir hayvanı sevmek kolay. Zor olan, onu sevmeye devam ederken işini de yapmak.\" Sınıf, kış için mahalleye üç tane kedi evi yaptı.",
+      "grade": 4,
+      "subject": "turkce",
+      "topic": "okuma-anlama",
+      "quizThreshold": 60,
+      "showPassageDuringQuiz": true,
+      "image": "",
+      "questions": [
+        {
+          "id": "q4_kedi_1",
+          "grade": 4,
+          "subject": "turkce",
+          "topic": "okuma-anlama",
+          "text": "Kerem kediyi ilk gördüğünde ne yaptı?",
+          "options": [
+            "Şişe kapağına su koyup önüne bıraktı",
+            "Hemen kucağına alıp veterinere götürdü",
+            "Kediyi kovalayıp uzaklaştırdı",
+            "Annesini çağırmaya gitti"
+          ],
+          "correctIndex": 0,
+          "explanation": "Metinde Kerem'in çantasından su şişesini çıkarıp kapağa su koyduğu ve önüne bıraktığı anlatılır.",
+          "image": ""
+        },
+        {
+          "id": "q4_kedi_2",
+          "grade": 4,
+          "subject": "turkce",
+          "topic": "okuma-anlama",
+          "text": "Annesinin \"Bunları her gün yapabilecek misin?\" sorusu ile asıl anlatmak istediği nedir?",
+          "options": [
+            "Kedilerin bakımının çok pahalı olduğunu",
+            "Sevginin tek başına yetmediğini, sorumluluğun süreklilik gerektirdiğini",
+            "Kerem'in henüz küçük olduğunu",
+            "Evin kediler için uygun olmadığını"
+          ],
+          "correctIndex": 1,
+          "explanation": "Annesi yemek, su, temizlik, veteriner gibi işleri sayar; bunların her gün yapılması gerektiğini vurgular.",
+          "image": ""
+        },
+        {
+          "id": "q4_kedi_3",
+          "grade": 4,
+          "subject": "turkce",
+          "topic": "okuma-anlama",
+          "text": "Veterinerin kulağındaki yırtığın eski olduğunu söylemesi neyi gösterir?",
+          "options": [
+            "Kedinin çok kavga ettiğini",
+            "Kedinin kulaklarının iyi duymadığını",
+            "Kediye daha önce de zarar verildiğini ve uzun süredir sokakta yaşadığını",
+            "Kedinin çok yaşlı olduğunu"
+          ],
+          "correctIndex": 2,
+          "explanation": "Metin, eski yırtıktan yola çıkarak kedinin uzun süredir sokakta yaşadığı sonucunu verir.",
+          "image": ""
+        },
+        {
+          "id": "q4_kedi_4",
+          "grade": 4,
+          "subject": "turkce",
+          "topic": "okuma-anlama",
+          "text": "Kerem'in \"Sorumluluğun ne demek olduğunu biliyorum: her gün, ben istemesem de yapmak\" sözü neyi anlatır?",
+          "options": [
+            "İşini aksatmayı gerektiğinde yaptığını",
+            "Annesinin onu zorladığını",
+            "Kediyi sahiplenmekten vazgeçtiğini",
+            "Sorumluluğun istek duymasa bile sürdürülen bir görev olduğunu"
+          ],
+          "correctIndex": 3,
+          "explanation": "Kerem, sorumluluğun yalnızca hevesle değil, istek olmasa da her gün yerine getirmekle ilgili olduğunu söyler.",
+          "image": ""
+        },
+        {
+          "id": "q4_kedi_5",
+          "grade": 4,
+          "subject": "turkce",
+          "topic": "okuma-anlama",
+          "text": "Parçanın sonunda Kerem'in mahalledeki diğer kediler için de su kabı koyması ve sınıfın kedi evi yapması neyi gösterir?",
+          "options": [
+            "Öğrendiği sorumluluğu başkalarına da yaydığını ve arkadaşlarını harekete geçirdiğini",
+            "Kerem'in yalnızca kendi kedisini önemsediğini",
+            "Mahallede çok kedi olduğunu",
+            "Kerem'in veteriner olmak istediğini"
+          ],
+          "correctIndex": 0,
+          "explanation": "Kerem'in davranışı sınıfa örnek olur; metin kapanışta sorumluluğun paylaşıldıkça büyüdüğünü gösterir.",
+          "image": ""
+        }
+      ]
+    },
+    {
+      "title": "Sınıf Gazetesi",
+      "sourceLabel": "4. Sınıf Türkçe Okuma Parçaları (Maarif Modeli)",
+      "body": "Öğretmenimiz kasım ayının ilk haftasında sınıfa bir öneri getirdi: \"Bu yıl bir sınıf gazetesi çıkaralım. Ayda bir sayı, içinde sizin haberleriniz olsun.\" Sınıf sevinçle karşıladı. Herkes bir görev istedi: fotoğrafçı, yazı işleri, sayfa düzenleyici, röportaj sorumlusu. Ben sayfa düzenini aldım. Ne kadar zor olabilirdi ki?\n\nİlk sayı için on gün çalıştık. Herkes yazısını teslim etti, ben de bilgisayarda düzenlemeye başladım. Ancak bir sorun vardı: Yazıların uzunlukları birbirini hiç tutmuyordu. Bir arkadaşım yarım sayfa yazmıştı, bir diğeri dört satır. Fotoğraflar yan yana sığmıyor, başlıklar birbirine giriyordu. Ayrıca gazetenin adını nasıl yazacağımıza bile karar vermemiştik; herkes farklı bir isim öneriyordu.\n\nO akşam çalışmayı bırakıp düşündüm. Sorun, arkadaşlarımın çalışmaması değildi. Sorun, bizim baştan konuşmamış olmamızdı. Kimse \"bir yazı en az bir yarım sayfa olacak\" dememişti. Kimse gazetenin adını seçmemişti. Yani yola çıkarken kuralları belirlememiştik.\n\nErtesi gün sınıfta bir toplantı istedim. Arkadaşlarıma durumu olduğu gibi anlattım: \"Suç sizde değil, biz baştan plan yapmadık. Şimdi kuralları birlikte koyalım.\" O toplantıda gazetenin adı \"Kırlangıç\" oldu, yazıların uzunluğu için bir ölçü belirledik ve her sayfada kaç haber olacağını kararlaştırdık. Fotoğrafçı arkadaşımız, fotoğrafları önceden boyutlandırmayı önerdi.\n\nİkinci sayı on gün değil, üç günde hazırlandı. Öğretmenimiz gazeteyi elimize aldığında gülümsedi ve \"Bu sayı sadece daha hızlı olmadı, daha iyi de oldu,\" dedi. Sonra bize bir soru sordu: \"Sizce bunun sebebi ne?\" Ben cevap verdim: \"Çünkü bu kez önce konuştuk, sonra çalıştık.\" O gün plan yapmanın işi yavaşlatmadığını, tam tersine hızlandırdığını öğrendim.",
+      "grade": 4,
+      "subject": "turkce",
+      "topic": "okuma-anlama",
+      "quizThreshold": 60,
+      "showPassageDuringQuiz": true,
+      "image": "",
+      "questions": [
+        {
+          "id": "q4_gazete_1",
+          "grade": 4,
+          "subject": "turkce",
+          "topic": "okuma-anlama",
+          "text": "Yazar, ilk sayıyı hazırlarken asıl sorunun ne olduğunu fark etmiştir?",
+          "options": [
+            "Arkadaşlarının görevlerini yapmaması",
+            "Baştan kuralların ve ölçülerin birlikte belirlenmemiş olması",
+            "Bilgisayarın yeterince iyi olmaması",
+            "Öğretmenin çok fazla iş istemesi"
+          ],
+          "correctIndex": 1,
+          "explanation": "Yazar \"Sorun, bizim baştan konuşmamış olmamızdı\" diyerek plan eksikliğini asıl neden olarak gösterir.",
+          "image": ""
+        },
+        {
+          "id": "q4_gazete_2",
+          "grade": 4,
+          "subject": "turkce",
+          "topic": "okuma-anlama",
+          "text": "İlk sayıda yazıların düzenlenmesini zorlaştıran şey neydi?",
+          "options": [
+            "Yazıların hiç okunmaması",
+            "Fotoğraf makinesinin bozuk olması",
+            "Yazı uzunluklarının birbirini tutmaması ve gazetenin adının belirlenmemiş olması",
+            "Sınıfta yeterli kalem bulunmaması"
+          ],
+          "correctIndex": 2,
+          "explanation": "Metinde bir yazının yarım sayfa, birinin dört satır olduğu; ayrıca gazetenin adına karar verilmediği anlatılır.",
+          "image": ""
+        },
+        {
+          "id": "q4_gazete_3",
+          "grade": 4,
+          "subject": "turkce",
+          "topic": "okuma-anlama",
+          "text": "Yazarın toplantıda \"Suç sizde değil, biz baştan plan yapmadık\" demesi hangi tutumu gösterir?",
+          "options": [
+            "Arkadaşlarını suçlayıp işi bırakmayı",
+            "Gazeteyi tek başına yapmayı",
+            "Öğretmene şikâyet etmeyi",
+            "Hatayı paylaşarak çözüm aramayı"
+          ],
+          "correctIndex": 3,
+          "explanation": "Yazar sorumluluğu paylaşır ve birlikte kural koymayı önerir; bu, iş birliğine dayalı bir çözümdür.",
+          "image": ""
+        },
+        {
+          "id": "q4_gazete_4",
+          "grade": 4,
+          "subject": "turkce",
+          "topic": "okuma-anlama",
+          "text": "İkinci sayının üç günde hazırlanmasının nedeni nedir?",
+          "options": [
+            "Ölçülerin ve görevlerin önceden belirlenmiş olması",
+            "Daha az haber yazılması",
+            "Öğretmenin gazeteyi kendisinin yapması",
+            "Yazıların kısa tutulması"
+          ],
+          "correctIndex": 0,
+          "explanation": "Toplantıdan sonra yazı uzunluğu ölçüsü, sayfa düzeni ve gazetenin adı belirlenir; bu planlama işi hızlandırır.",
+          "image": ""
+        },
+        {
+          "id": "q4_gazete_5",
+          "grade": 4,
+          "subject": "turkce",
+          "topic": "okuma-anlama",
+          "text": "Parçadan çıkarılabilecek en uygun sonuç hangisidir?",
+          "options": [
+            "Plan yapmak işi yavaşlatır",
+            "Baştan yapılan planlama, işi yavaşlatmak yerine hızlandırır ve iyileştirir",
+            "Gazete çıkarmak çok zordur",
+            "Kalabalık gruplar hiç anlaşamaz"
+          ],
+          "correctIndex": 1,
+          "explanation": "Yazar son cümlede plan yapmanın işi hızlandırdığını öğrendiğini söyler; ana düşünce budur.",
+          "image": ""
+        }
+      ]
+    },
+    {
+      "title": "Rüzgârgülü Deneyi",
+      "sourceLabel": "4. Sınıf Türkçe Okuma Parçaları (Maarif Modeli)",
+      "body": "Fen bilgisi dersinde öğretmenimiz \"Rüzgâr nasıl oluşur?\" diye sordu. Kimse tam olarak cevap veremedi. Bazı arkadaşlarım \"Ağaçlar sallandığı için\" dedi, bazıları \"Bulutlar esince\" dedi. Öğretmenimiz tahtaya bir ok çizdi ve \"Rüzgâr, sıcak ve soğuk havanın yer değiştirmesidir,\" dedi. Sonra bize bir ödev verdi: Kendi rüzgârgülümüzü yapıp bir hafta boyunca gözlem yapmak.\n\nEve gittiğimde karton, makas, raptiye ve ince bir çubuk buldum. Kare şeklinde bir karton kestim, köşelerinden ortasına doğru makasla çizikler attım, köşeleri ortada birleştirip raptiyeyle çubuğa tuttum. İlk denemede rüzgârgülü dönmedi. Raptiyeyi çok sıkı tutturmuşum, kâğıt sıkışmıştı. İkinci denemede raptiyeyi biraz gevşettim ve rüzgârgülü dönmeye başladı. Pencereye koydum, balkona taşıdım, elimde koşturup denedim.\n\nDefterime her gün not tuttum. Pazartesi öğle vakti rüzgârgülü çok hızlı dönüyordu; akşam neredeyse durdu. Salı sabahı sisli ve rüzgârsızdı; rüzgârgülü kıpırdamadı. Çarşamba yağmur başlamadan önce rüzgâr şiddetlendi, rüzgârgülü dönerken ses çıkardı. Perşembe ise hava birden soğudu ve rüzgâr yön değiştirdi.\n\nBu notları sınıfta arkadaşlarımın notlarıyla karşılaştırdık. İlginç bir sonuç çıktı: Rüzgârgülünden uzak oturan arkadaşımın ölçümleri bazı günler benimkilerle uyuşmuyordu. Çünkü o, rüzgârgülünü apartmanın bahçesine koymuştu; benimki balkondaydı. Öğretmenimiz \"Rüzgârı ölçerken yalnızca rüzgârı değil, ölçtüğünüz yeri de hesaba katmalısınız,\" dedi.\n\nO hafta öğrendiğim en önemli şey, rüzgârın ne olduğu değildi yalnızca. Bir sonuca varmadan önce ölçümünü yaptığım koşulları sorgulamayı öğrendim. Öğretmenimiz deney defterimin sonuna şöyle yazdı: \"Deney yapmak, gözlemekle başlar; ama sorgulamakla anlam kazanır.\"",
+      "grade": 4,
+      "subject": "turkce",
+      "topic": "okuma-anlama",
+      "quizThreshold": 60,
+      "showPassageDuringQuiz": true,
+      "image": "",
+      "questions": [
+        {
+          "id": "q4_ruzgar_1",
+          "grade": 4,
+          "subject": "turkce",
+          "topic": "okuma-anlama",
+          "text": "Yazarın ilk rüzgârgülü neden dönmedi?",
+          "options": [
+            "Rüzgâr hiç esmediği için",
+            "Kartonu yanlış kestiği için",
+            "Raptiyeyi çok sıkı tutturduğu ve kâğıdın sıkıştığı için",
+            "Rüzgârgülünü içeride tuttuğu için"
+          ],
+          "correctIndex": 2,
+          "explanation": "Metinde \"Raptiyeyi çok sıkı tutturmuşum, kâğıt sıkışmıştı\" denir; ikinci denemede gevşetince döner.",
+          "image": ""
+        },
+        {
+          "id": "q4_ruzgar_2",
+          "grade": 4,
+          "subject": "turkce",
+          "topic": "okuma-anlama",
+          "text": "Defterdeki notlara göre rüzgârın en belirgin şekilde arttığı an hangisidir?",
+          "options": [
+            "Salı sabahı, sisli havada",
+            "Pazartesi akşamı",
+            "Perşembe öğle vakti",
+            "Çarşamba, yağmur başlamadan önce"
+          ],
+          "correctIndex": 3,
+          "explanation": "Notlarda çarşamba günü yağmur başlamadan önce rüzgârın şiddetlendiği ve rüzgârgülünün ses çıkardığı yazılıdır.",
+          "image": ""
+        },
+        {
+          "id": "q4_ruzgar_3",
+          "grade": 4,
+          "subject": "turkce",
+          "topic": "okuma-anlama",
+          "text": "İki arkadaşın ölçümlerinin bazı günler uyuşmamasının nedeni nedir?",
+          "options": [
+            "Ölçüm yaptıkları yerlerin farklı olması (balkon ve bahçe)",
+            "Rüzgârgüllerinin farklı büyüklükte olması",
+            "Biri not tutmadığı için",
+            "Havanın her gün aynı olması"
+          ],
+          "correctIndex": 0,
+          "explanation": "Öğretmen \"ölçtüğünüz yeri de hesaba katmalısınız\" diyerek farkın mekândan kaynaklandığını açıklar.",
+          "image": ""
+        },
+        {
+          "id": "q4_ruzgar_4",
+          "grade": 4,
+          "subject": "turkce",
+          "topic": "okuma-anlama",
+          "text": "Öğretmenin \"Deney yapmak gözlemekle başlar; ama sorgulamakla anlam kazanır\" sözüyle anlatmak istediği nedir?",
+          "options": [
+            "Gözlem yapmanın gereksiz olduğunu",
+            "Yalnızca ölçüm yapmanın yeterli olmadığını, sonuçların nedenlerinin de düşünülmesi gerektiğini",
+            "Deney defterinin zorunlu olduğunu",
+            "Rüzgârın yalnızca kışın esdiğini"
+          ],
+          "correctIndex": 1,
+          "explanation": "Yazar, ölçüm koşullarını sorgulamayı öğrendiğini belirtir; öğretmenin sözü bu sorgulamanın değerini vurgular.",
+          "image": ""
+        },
+        {
+          "id": "q4_ruzgar_5",
+          "grade": 4,
+          "subject": "turkce",
+          "topic": "okuma-anlama",
+          "text": "Yazarın bu deneyden çıkardığı en önemli kazanım hangisidir?",
+          "options": [
+            "Rüzgârgülü yapmanın kolay olduğunu öğrenmesi",
+            "Rüzgârın yönünü ezberlemesi",
+            "Bir sonuca varmadan önce koşulları sorgulamayı öğrenmesi",
+            "Arkadaşlarıyla rekabet etmeyi öğrenmesi"
+          ],
+          "correctIndex": 2,
+          "explanation": "Yazar son bölümde \"ölçümünü yaptığım koşulları sorgulamayı öğrendim\" diyerek asıl kazanımını açıklar.",
+          "image": ""
+        }
+      ]
+    },
+    {
+      "title": "Büyükannemin Sandığı",
+      "sourceLabel": "4. Sınıf Türkçe Okuma Parçaları (Maarif Modeli)",
+      "body": "Bayramın ikinci günü büyükannemin evinde, tavan arasındaki eski ceviz sandığı açtık. Sandığın kapağı gıcırdayarak kalktı ve içinden naftalin kokusuyla birlikte yıllanmış bir dünya çıktı. En üstte, kenarları işlemeli bir mendil vardı. Altında sararmış mektuplar, küçük bir ayna, kumaş parçaları ve iki tane tahta kaşık duruyordu.\n\nBüyükannem mendili eline aldı ve güldü. \"Bu, dedemin annesinin mendili,\" dedi. \"O zamanlar mendile isim işlemek gelenekti. Bir kıza mendil hediye edilirdi, o da yıllarca saklardı.\" Sonra mektuplardan birini açtı. Yazı eski harflerleydi; ben hiçbir kelimeyi okuyamadım. Büyükannem yüksek sesle bir kısmını okudu. Mektupta, askerdeki bir ağabeyin köyüne selamı yazıyordu. \"Bu mektup geldiğinde bütün köy okumak için sıraya girmişti,\" dedi. O an, mektubun kâğıttan çok daha fazlası olduğunu anladım.\n\nSandığın dibinde bir de küçük bir defter bulduk. Kapağında \"Hesap Defteri\" yazıyordu. İçinde tarihler, satılan buğday miktarları, borçlar ve ödenen paralar vardı. Büyükannem bunu büyükbabamın tuttuğunu söyledi. \"Bir kuruşu bile yazmadan harcamazdı,\" dedi. Rakamlar eski yazıyla ve düzenli sütunlar hâlinde yazılmıştı.\n\nBen o gün sandıktaki eşyaların maddi değerini düşündüm. Mendil eski, mektuplar yıpranmış, defter yırtılmaya yüz tutmuştu. Ama büyükannem onları başka türlü görüyordu: \"Bunlar bizim hikâyemiz,\" dedi. \"Sen bunları okuduğunda, bizden önceki insanların nasıl yaşadığını öğreniyorsun. Sandık, geçmişle kurulan bir köprüdür.\"\n\nO günden sonra ben de kendi küçük kutumda bir şeyler biriktirmeye başladım: Bir sinema bileti, bayramda çekilmiş bir fotoğraf, en sevdiğim kalemin ucu kırılmış hâli. Annem bunları görünce şaşırdı. Ben ona büyükannemin sözünü hatırlattım: \"Gelecekte birisi bunları açtığında, bugünü merak edecek.\" O akşam büyükannemden mendili istedim; bana vermedi. \"Bu sende dursun,\" dedi, \"ama bir şartla: sen de kendi sandığını doldur.\"",
+      "grade": 4,
+      "subject": "turkce",
+      "topic": "okuma-anlama",
+      "quizThreshold": 60,
+      "showPassageDuringQuiz": true,
+      "image": "",
+      "questions": [
+        {
+          "id": "q4_sandik_1",
+          "grade": 4,
+          "subject": "turkce",
+          "topic": "okuma-anlama",
+          "text": "Yazar, sandıktaki eşyaların maddi değerinin düşük olduğunu düşünmesine rağmen büyükannesi neden onları değerli buluyordu?",
+          "options": [
+            "Eşyalar çok eski olduğu için para ediyordu",
+            "Eşyalar sandıkta yer kapladığı için",
+            "Eşyaları satmayı planladığı için",
+            "Eşyalar ailenin hikâyesini taşıdığı ve geçmişle bağ kurduğu için"
+          ],
+          "correctIndex": 3,
+          "explanation": "Büyükannesi \"Bunlar bizim hikâyemiz... Sandık geçmişle kurulan bir köprüdür\" diyerek değeri hikâyeye bağlar.",
+          "image": ""
+        },
+        {
+          "id": "q4_sandik_2",
+          "grade": 4,
+          "subject": "turkce",
+          "topic": "okuma-anlama",
+          "text": "Mektubun \"kâğıttan çok daha fazlası\" olması ne anlama gelir?",
+          "options": [
+            "Mektubun, insanların duygularını ve o dönemin yaşamını taşıması",
+            "Mektubun askerden gelmesi",
+            "Mektubun çok uzun olması",
+            "Mektubun eski harflerle yazılması"
+          ],
+          "correctIndex": 0,
+          "explanation": "Metinde köyün mektubu okumak için sıraya girmesi anlatılır; mektup, haberleşmenin ve özlemin taşıyıcısıdır.",
+          "image": ""
+        },
+        {
+          "id": "q4_sandik_3",
+          "grade": 4,
+          "subject": "turkce",
+          "topic": "okuma-anlama",
+          "text": "Hesap defterinin içeriği büyükbaba hakkında ne gösterir?",
+          "options": [
+            "Çok zengin olduğunu",
+            "Harcamalarını düzenli kaydeden, dikkatli biri olduğunu",
+            "Tutumsuz ve savurgan olduğunu",
+            "Yazı yazmayı sevmediğini"
+          ],
+          "correctIndex": 1,
+          "explanation": "Büyükannesi \"Bir kuruşu bile yazmadan harcamazdı\" der; defterde tarihler ve düzenli sütunlar vardır.",
+          "image": ""
+        },
+        {
+          "id": "q4_sandik_4",
+          "grade": 4,
+          "subject": "turkce",
+          "topic": "okuma-anlama",
+          "text": "Yazarın kendi küçük kutusunu doldurmaya başlamasının nedeni nedir?",
+          "options": [
+            "Arkadaşlarına gösteriş yapmak istemesi",
+            "Annesinin ondan bunu istemesi",
+            "Büyükannesinin sözünden etkilenip geleceğe iz bırakma fikrini benimsemesi",
+            "Eski eşyaları toplamayı sevmesi"
+          ],
+          "correctIndex": 2,
+          "explanation": "Yazar \"Gelecekte birisi bunları açtığında bugünü merak edecek\" diyerek gelenek fikrini sürdürür.",
+          "image": ""
+        },
+        {
+          "id": "q4_sandik_5",
+          "grade": 4,
+          "subject": "turkce",
+          "topic": "okuma-anlama",
+          "text": "Büyükannenin mendili vermeyip yerine kendi sandığını doldurmasını şart koşması neyi gösterir?",
+          "options": [
+            "Mendili vermek istemediğini",
+            "Mendilin kaybolduğunu",
+            "Yazarın sandığı olmadığını",
+            "Geleneğin kopyalanması yerine yaşatılmasını istediğini"
+          ],
+          "correctIndex": 3,
+          "explanation": "Büyükanne hatırayı vermek yerine \"sen de kendi sandığını doldur\" diyerek geleneğin sürdürülmesini ister.",
+          "image": ""
+        }
+      ]
+    },
+    {
+      "title": "Matematik Korkusu",
+      "sourceLabel": "4. Sınıf Türkçe Okuma Parçaları (Maarif Modeli)",
+      "body": "Defterimi açtığımda elim titriyordu. Tahtadaki soru şuydu: \"Bir sepette 48 elma var. Elmaların üçte biri çürük. Sağlam elmalar dörderli kutulara konulacak. Kaç kutu gerekir?\" Soruyu okudum, bir daha okudum, hiçbir şey anlamadım. Zil çaldığında defterim hâlâ boştu.\n\nBen matematikten korkuyordum. Ama korktuğum şey sayılar değildi. Korktuğum şey, arkadaşlarım cevabı bulurken benim bulamamamdı. O gün öğretmenim beni teneffüste yanına çağırdı. \"Hata yapmaktan mı korkuyorsun, yoksa yanlış anlamaktan mı?\" diye sordu. Cevap veremedim. Öğretmenim defterime bir soru yazdı ve \"Bu soruyu çözmeyeceğiz,\" dedi. \"Sadece bana anlat: sepette kaç elma var?\"\n\n\"48,\" dedim. \"Peki üçte biri ne demek?\" diye sordu. \"Üçe bölmek,\" dedim. \"Öyleyse böl.\" 48'i 3'e böldüm, 16 buldum. \"Çürük kaç elma?\" \"16.\" \"Sağlam kaç elma kalır?\" 48'den 16'yı çıkardım, 32 kaldı. \"Şimdi son adım: dörderli kutulara koy.\" 32'yi 4'e böldüm, 8 kutuyu buldum. Şaşkınlıkla başımı kaldırdım: Cevabı bulmuştum. Hem de öğretmen bana hiçbir işlem yaptırmadan, yalnızca doğru soruları sorarak.\n\nÖğretmenim gülümsedi ve \"Gördün mü?\" dedi. \"Senin sorunun matematik değildi. Sorun, bütün soruyu bir anda çözmeye çalışmandı. Bir soruyu parçalara ayırırsan, her parça küçücük olur.\" O günden sonra uzun soruları küçük adımlara böldüm. Önce \"elimde ne var?\", sonra \"ne isteniyor?\", sonra \"ilk adım ne?\" diye sordum kendime. Zamanla defterimdeki boşluklar dolmaya başladı.\n\nYıl sonunda matematik sınavından yüksek not aldığımda, sevincim nottan çok, o gün öğrendiğim yöntemden geldi. Bir şeyden korkmak, onu yapamamak anlamına gelmiyordu. Bazen yalnızca o şeyi daha küçük parçalara ayırmak gerekiyordu.",
+      "grade": 4,
+      "subject": "turkce",
+      "topic": "okuma-anlama",
+      "quizThreshold": 60,
+      "showPassageDuringQuiz": true,
+      "image": "",
+      "questions": [
+        {
+          "id": "q4_mat_1",
+          "grade": 4,
+          "subject": "turkce",
+          "topic": "okuma-anlama",
+          "text": "Yazar, aslında neyden korktuğunu fark etmiştir?",
+          "options": [
+            "Arkadaşları cevabı bulurken kendisinin bulamamasından",
+            "Sayılardan ve işlem yapmaktan",
+            "Öğretmeninin kızmasından",
+            "Tahtaya çıkmaktan"
+          ],
+          "correctIndex": 0,
+          "explanation": "Metinde \"Korktuğum şey sayılar değildi. Korktuğum şey, arkadaşlarım cevabı bulurken benim bulamamamdı\" denir.",
+          "image": ""
+        },
+        {
+          "id": "q4_mat_2",
+          "grade": 4,
+          "subject": "turkce",
+          "topic": "okuma-anlama",
+          "text": "Öğretmeninin \"Bu soruyu çözmeyeceğiz\" deyip küçük sorular sormasının amacı nedir?",
+          "options": [
+            "Soruyu evde çözmesini istemek",
+            "Sorunun asıl zorluk kaynağını görüp yazarı adım adım yönlendirmek",
+            "Yazarın defterini kontrol etmek",
+            "Zaman geçirmek"
+          ],
+          "correctIndex": 1,
+          "explanation": "Öğretmen işlemi kendisi yapmaz; sorularla yazarı adım adım sonuca ulaştırır ve asıl sorunun yöntem olduğunu gösterir.",
+          "image": ""
+        },
+        {
+          "id": "q4_mat_3",
+          "grade": 4,
+          "subject": "turkce",
+          "topic": "okuma-anlama",
+          "text": "Öğretmenin \"Bir soruyu parçalara ayırırsan, her parça küçücük olur\" sözü neyi öğütler?",
+          "options": [
+            "Zor soruları hiç çözmemeyi",
+            "Yalnızca kolay soruları seçmeyi",
+            "Büyük görünen işleri küçük adımlara bölerek çözmenin kolaylaştığını",
+            "Sorunun cevabını ezberlemeyi"
+          ],
+          "correctIndex": 2,
+          "explanation": "Yazar bu yöntemi uygulayıp 48 elmalı soruyu adım adım çözer; öğüt, bölerek ilerlemektir.",
+          "image": ""
+        },
+        {
+          "id": "q4_mat_4",
+          "grade": 4,
+          "subject": "turkce",
+          "topic": "okuma-anlama",
+          "text": "Yazar, sınavdan yüksek not aldığında sevincinin kaynağı neydi?",
+          "options": [
+            "Notun kendisi",
+            "Ailesinin onunla gurur duyması",
+            "Sınavın kolay olması",
+            "Öğrendiği yöntem ve korkusunu yenmesi"
+          ],
+          "correctIndex": 3,
+          "explanation": "\"Sevincim nottan çok, o gün öğrendiğim yöntemden geldi\" cümlesi kazanımın yöntem olduğunu gösterir.",
+          "image": ""
+        },
+        {
+          "id": "q4_mat_5",
+          "grade": 4,
+          "subject": "turkce",
+          "topic": "okuma-anlama",
+          "text": "Parçanın ana düşüncesi hangisidir?",
+          "options": [
+            "Bir şeyden korkmak, onu asla yapamayacağımız anlamına gelmez; doğru yöntemle başarılabilir",
+            "Matematik dersi çok zordur",
+            "Öğretmenler öğrencilere cevabı söylememelidir",
+            "Uzun sorular çözülemez"
+          ],
+          "correctIndex": 0,
+          "explanation": "Metnin son cümlesi doğrudan ana düşünceyi verir: korku, yapamamak değildir; parçalara ayırmak yeterlidir.",
+          "image": ""
+        }
+      ]
+    }
+  ]
+}

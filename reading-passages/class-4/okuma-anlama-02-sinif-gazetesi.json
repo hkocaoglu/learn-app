@@ -1,0 +1,98 @@
+{
+  "version": 1,
+  "kind": "reading-passage",
+  "exportedAt": "2026-10-11T22:00:00.000Z",
+  "passage": {
+    "title": "Sınıf Gazetesi",
+    "sourceLabel": "4. Sınıf Türkçe Okuma Parçaları (Maarif Modeli)",
+    "body": "Öğretmenimiz kasım ayının ilk haftasında sınıfa bir öneri getirdi: \"Bu yıl bir sınıf gazetesi çıkaralım. Ayda bir sayı, içinde sizin haberleriniz olsun.\" Sınıf sevinçle karşıladı. Herkes bir görev istedi: fotoğrafçı, yazı işleri, sayfa düzenleyici, röportaj sorumlusu. Ben sayfa düzenini aldım. Ne kadar zor olabilirdi ki?\n\nİlk sayı için on gün çalıştık. Herkes yazısını teslim etti, ben de bilgisayarda düzenlemeye başladım. Ancak bir sorun vardı: Yazıların uzunlukları birbirini hiç tutmuyordu. Bir arkadaşım yarım sayfa yazmıştı, bir diğeri dört satır. Fotoğraflar yan yana sığmıyor, başlıklar birbirine giriyordu. Ayrıca gazetenin adını nasıl yazacağımıza bile karar vermemiştik; herkes farklı bir isim öneriyordu.\n\nO akşam çalışmayı bırakıp düşündüm. Sorun, arkadaşlarımın çalışmaması değildi. Sorun, bizim baştan konuşmamış olmamızdı. Kimse \"bir yazı en az bir yarım sayfa olacak\" dememişti. Kimse gazetenin adını seçmemişti. Yani yola çıkarken kuralları belirlememiştik.\n\nErtesi gün sınıfta bir toplantı istedim. Arkadaşlarıma durumu olduğu gibi anlattım: \"Suç sizde değil, biz baştan plan yapmadık. Şimdi kuralları birlikte koyalım.\" O toplantıda gazetenin adı \"Kırlangıç\" oldu, yazıların uzunluğu için bir ölçü belirledik ve her sayfada kaç haber olacağını kararlaştırdık. Fotoğrafçı arkadaşımız, fotoğrafları önceden boyutlandırmayı önerdi.\n\nİkinci sayı on gün değil, üç günde hazırlandı. Öğretmenimiz gazeteyi elimize aldığında gülümsedi ve \"Bu sayı sadece daha hızlı olmadı, daha iyi de oldu,\" dedi. Sonra bize bir soru sordu: \"Sizce bunun sebebi ne?\" Ben cevap verdim: \"Çünkü bu kez önce konuştuk, sonra çalıştık.\" O gün plan yapmanın işi yavaşlatmadığını, tam tersine hızlandırdığını öğrendim.",
+    "grade": 4,
+    "subject": "turkce",
+    "topic": "okuma-anlama",
+    "quizThreshold": 60,
+    "showPassageDuringQuiz": true,
+    "image": "",
+    "questions": [
+      {
+        "id": "q4_gazete_1",
+        "grade": 4,
+        "subject": "turkce",
+        "topic": "okuma-anlama",
+        "text": "Yazar, ilk sayıyı hazırlarken asıl sorunun ne olduğunu fark etmiştir?",
+        "options": [
+          "Arkadaşlarının görevlerini yapmaması",
+          "Baştan kuralların ve ölçülerin birlikte belirlenmemiş olması",
+          "Bilgisayarın yeterince iyi olmaması",
+          "Öğretmenin çok fazla iş istemesi"
+        ],
+        "correctIndex": 1,
+        "explanation": "Yazar \"Sorun, bizim baştan konuşmamış olmamızdı\" diyerek plan eksikliğini asıl neden olarak gösterir.",
+        "image": ""
+      },
+      {
+        "id": "q4_gazete_2",
+        "grade": 4,
+        "subject": "turkce",
+        "topic": "okuma-anlama",
+        "text": "İlk sayıda yazıların düzenlenmesini zorlaştıran şey neydi?",
+        "options": [
+          "Yazıların hiç okunmaması",
+          "Fotoğraf makinesinin bozuk olması",
+          "Yazı uzunluklarının birbirini tutmaması ve gazetenin adının belirlenmemiş olması",
+          "Sınıfta yeterli kalem bulunmaması"
+        ],
+        "correctIndex": 2,
+        "explanation": "Metinde bir yazının yarım sayfa, birinin dört satır olduğu; ayrıca gazetenin adına karar verilmediği anlatılır.",
+        "image": ""
+      },
+      {
+        "id": "q4_gazete_3",
+        "grade": 4,
+        "subject": "turkce",
+        "topic": "okuma-anlama",
+        "text": "Yazarın toplantıda \"Suç sizde değil, biz baştan plan yapmadık\" demesi hangi tutumu gösterir?",
+        "options": [
+          "Arkadaşlarını suçlayıp işi bırakmayı",
+          "Gazeteyi tek başına yapmayı",
+          "Öğretmene şikâyet etmeyi",
+          "Hatayı paylaşarak çözüm aramayı"
+        ],
+        "correctIndex": 3,
+        "explanation": "Yazar sorumluluğu paylaşır ve birlikte kural koymayı önerir; bu, iş birliğine dayalı bir çözümdür.",
+        "image": ""
+      },
+      {
+        "id": "q4_gazete_4",
+        "grade": 4,
+        "subject": "turkce",
+        "topic": "okuma-anlama",
+        "text": "İkinci sayının üç günde hazırlanmasının nedeni nedir?",
+        "options": [
+          "Ölçülerin ve görevlerin önceden belirlenmiş olması",
+          "Daha az haber yazılması",
+          "Öğretmenin gazeteyi kendisinin yapması",
+          "Yazıların kısa tutulması"
+        ],
+        "correctIndex": 0,
+        "explanation": "Toplantıdan sonra yazı uzunluğu ölçüsü, sayfa düzeni ve gazetenin adı belirlenir; bu planlama işi hızlandırır.",
+        "image": ""
+      },
+      {
+        "id": "q4_gazete_5",
+        "grade": 4,
+        "subject": "turkce",
+        "topic": "okuma-anlama",
+        "text": "Parçadan çıkarılabilecek en uygun sonuç hangisidir?",
+        "options": [
+          "Plan yapmak işi yavaşlatır",
+          "Baştan yapılan planlama, işi yavaşlatmak yerine hızlandırır ve iyileştirir",
+          "Gazete çıkarmak çok zordur",
+          "Kalabalık gruplar hiç anlaşamaz"
+        ],
+        "correctIndex": 1,
+        "explanation": "Yazar son cümlede plan yapmanın işi hızlandırdığını öğrendiğini söyler; ana düşünce budur.",
+        "image": ""
+      }
+    ]
+  }
+}

@@ -1,0 +1,98 @@
+{
+  "version": 1,
+  "kind": "reading-passage",
+  "exportedAt": "2026-10-11T22:00:00.000Z",
+  "passage": {
+    "title": "Büyükannemin Sandığı",
+    "sourceLabel": "4. Sınıf Türkçe Okuma Parçaları (Maarif Modeli)",
+    "body": "Bayramın ikinci günü büyükannemin evinde, tavan arasındaki eski ceviz sandığı açtık. Sandığın kapağı gıcırdayarak kalktı ve içinden naftalin kokusuyla birlikte yıllanmış bir dünya çıktı. En üstte, kenarları işlemeli bir mendil vardı. Altında sararmış mektuplar, küçük bir ayna, kumaş parçaları ve iki tane tahta kaşık duruyordu.\n\nBüyükannem mendili eline aldı ve güldü. \"Bu, dedemin annesinin mendili,\" dedi. \"O zamanlar mendile isim işlemek gelenekti. Bir kıza mendil hediye edilirdi, o da yıllarca saklardı.\" Sonra mektuplardan birini açtı. Yazı eski harflerleydi; ben hiçbir kelimeyi okuyamadım. Büyükannem yüksek sesle bir kısmını okudu. Mektupta, askerdeki bir ağabeyin köyüne selamı yazıyordu. \"Bu mektup geldiğinde bütün köy okumak için sıraya girmişti,\" dedi. O an, mektubun kâğıttan çok daha fazlası olduğunu anladım.\n\nSandığın dibinde bir de küçük bir defter bulduk. Kapağında \"Hesap Defteri\" yazıyordu. İçinde tarihler, satılan buğday miktarları, borçlar ve ödenen paralar vardı. Büyükannem bunu büyükbabamın tuttuğunu söyledi. \"Bir kuruşu bile yazmadan harcamazdı,\" dedi. Rakamlar eski yazıyla ve düzenli sütunlar hâlinde yazılmıştı.\n\nBen o gün sandıktaki eşyaların maddi değerini düşündüm. Mendil eski, mektuplar yıpranmış, defter yırtılmaya yüz tutmuştu. Ama büyükannem onları başka türlü görüyordu: \"Bunlar bizim hikâyemiz,\" dedi. \"Sen bunları okuduğunda, bizden önceki insanların nasıl yaşadığını öğreniyorsun. Sandık, geçmişle kurulan bir köprüdür.\"\n\nO günden sonra ben de kendi küçük kutumda bir şeyler biriktirmeye başladım: Bir sinema bileti, bayramda çekilmiş bir fotoğraf, en sevdiğim kalemin ucu kırılmış hâli. Annem bunları görünce şaşırdı. Ben ona büyükannemin sözünü hatırlattım: \"Gelecekte birisi bunları açtığında, bugünü merak edecek.\" O akşam büyükannemden mendili istedim; bana vermedi. \"Bu sende dursun,\" dedi, \"ama bir şartla: sen de kendi sandığını doldur.\"",
+    "grade": 4,
+    "subject": "turkce",
+    "topic": "okuma-anlama",
+    "quizThreshold": 60,
+    "showPassageDuringQuiz": true,
+    "image": "",
+    "questions": [
+      {
+        "id": "q4_sandik_1",
+        "grade": 4,
+        "subject": "turkce",
+        "topic": "okuma-anlama",
+        "text": "Yazar, sandıktaki eşyaların maddi değerinin düşük olduğunu düşünmesine rağmen büyükannesi neden onları değerli buluyordu?",
+        "options": [
+          "Eşyalar çok eski olduğu için para ediyordu",
+          "Eşyalar sandıkta yer kapladığı için",
+          "Eşyaları satmayı planladığı için",
+          "Eşyalar ailenin hikâyesini taşıdığı ve geçmişle bağ kurduğu için"
+        ],
+        "correctIndex": 3,
+        "explanation": "Büyükannesi \"Bunlar bizim hikâyemiz... Sandık geçmişle kurulan bir köprüdür\" diyerek değeri hikâyeye bağlar.",
+        "image": ""
+      },
+      {
+        "id": "q4_sandik_2",
+        "grade": 4,
+        "subject": "turkce",
+        "topic": "okuma-anlama",
+        "text": "Mektubun \"kâğıttan çok daha fazlası\" olması ne anlama gelir?",
+        "options": [
+          "Mektubun, insanların duygularını ve o dönemin yaşamını taşıması",
+          "Mektubun askerden gelmesi",
+          "Mektubun çok uzun olması",
+          "Mektubun eski harflerle yazılması"
+        ],
+        "correctIndex": 0,
+        "explanation": "Metinde köyün mektubu okumak için sıraya girmesi anlatılır; mektup, haberleşmenin ve özlemin taşıyıcısıdır.",
+        "image": ""
+      },
+      {
+        "id": "q4_sandik_3",
+        "grade": 4,
+        "subject": "turkce",
+        "topic": "okuma-anlama",
+        "text": "Hesap defterinin içeriği büyükbaba hakkında ne gösterir?",
+        "options": [
+          "Çok zengin olduğunu",
+          "Harcamalarını düzenli kaydeden, dikkatli biri olduğunu",
+          "Tutumsuz ve savurgan olduğunu",
+          "Yazı yazmayı sevmediğini"
+        ],
+        "correctIndex": 1,
+        "explanation": "Büyükannesi \"Bir kuruşu bile yazmadan harcamazdı\" der; defterde tarihler ve düzenli sütunlar vardır.",
+        "image": ""
+      },
+      {
+        "id": "q4_sandik_4",
+        "grade": 4,
+        "subject": "turkce",
+        "topic": "okuma-anlama",
+        "text": "Yazarın kendi küçük kutusunu doldurmaya başlamasının nedeni nedir?",
+        "options": [
+          "Arkadaşlarına gösteriş yapmak istemesi",
+          "Annesinin ondan bunu istemesi",
+          "Büyükannesinin sözünden etkilenip geleceğe iz bırakma fikrini benimsemesi",
+          "Eski eşyaları toplamayı sevmesi"
+        ],
+        "correctIndex": 2,
+        "explanation": "Yazar \"Gelecekte birisi bunları açtığında bugünü merak edecek\" diyerek gelenek fikrini sürdürür.",
+        "image": ""
+      },
+      {
+        "id": "q4_sandik_5",
+        "grade": 4,
+        "subject": "turkce",
+        "topic": "okuma-anlama",
+        "text": "Büyükannenin mendili vermeyip yerine kendi sandığını doldurmasını şart koşması neyi gösterir?",
+        "options": [
+          "Mendili vermek istemediğini",
+          "Mendilin kaybolduğunu",
+          "Yazarın sandığı olmadığını",
+          "Geleneğin kopyalanması yerine yaşatılmasını istediğini"
+        ],
+        "correctIndex": 3,
+        "explanation": "Büyükanne hatırayı vermek yerine \"sen de kendi sandığını doldur\" diyerek geleneğin sürdürülmesini ister.",
+        "image": ""
+      }
+    ]
+  }
+}
