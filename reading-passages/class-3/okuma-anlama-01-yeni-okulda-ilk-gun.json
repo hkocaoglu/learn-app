@@ -1,0 +1,98 @@
+{
+  "version": 1,
+  "kind": "reading-passage",
+  "exportedAt": "2026-10-11T21:00:00.000Z",
+  "passage": {
+    "title": "Yeni Okulda İlk Gün",
+    "sourceLabel": "3. Sınıf Türkçe Okuma Parçaları (Maarif Modeli)",
+    "body": "Elif, sabah okula giderken ayakkabılarının bağcıklarını üç kez bağladı. Bugün yeni bir okulda, hiç tanımadığı çocukların arasında olacaktı. Annesi elini tutmak istedi ama Elif kapının önünde elini çekti. \"Ben kendim girebilirim,\" dedi. Sesi biraz titriyordu.\n\nSınıfın kapısında bir an durdu. İçeride çocuklar konuşuyor, sıralarına yerleşiyordu. Öğretmen onu görünce gülümsedi. \"Aramıza hoş geldin. Bu sınıfta bir gelenek var: Her yeni arkadaş, kendini bir cümleyle tanıtır,\" dedi. Elif tahtanın önüne çıktı. Yutkundu ve tek cümle söyledi: \"Ben Elif. Kitapları ve kuş seslerini severim.\"\n\nSonra arka sıradan bir çocuk elini kaldırdı. \"Benim adım Kerem. Ben de kuşları severim. Pencereye kuş yemliği astık, görmek ister misin?\" dedi. Elif şaşkınlıkla gülümsedi. Teneffüste pencereye koştular. Yemliğin yanında iki serçe vardı. Kerem, \"İlk gün seni buraya bekliyorduk sanki,\" diye şaka yaptı.\n\nÖğle arasında Elif, sınıfın panosuna asılı bir kâğıt gördü. Üzerinde \"Sınıf Görevleri\" yazıyordu. Sıra başkanı, pencere sorumlusu, kitap düzenleyici... Listede boş bir satır vardı: \"Kuş yemliği sorumlusu.\" Elif o satıra adını yazdı. Öğretmeni onu görünce başını salladı: \"İlk günden bir iş üstlenmek cesaret ister, aferin.\"\n\nAkşam annesi onu kapıda karşıladığında Elif'in yüzü gülüyordu. \"Bugün nasıl geçti?\" diye sordu annesi. Elif çantasını bıraktı ve cevap verdi: \"Korktuğum şey sınıf değilmiş. Korktuğum şey, kimsenin beni fark etmemesiymiş. Ama bir cümle söyledim ve beni fark ettiler.\"",
+    "grade": 3,
+    "subject": "turkce",
+    "topic": "okuma-anlama",
+    "quizThreshold": 60,
+    "showPassageDuringQuiz": true,
+    "image": "",
+    "questions": [
+      {
+        "id": "q3_ilkkan_1",
+        "grade": 3,
+        "subject": "turkce",
+        "topic": "okuma-anlama",
+        "text": "Elif kapının önünde annesinin elini neden çekti?",
+        "options": [
+          "Kendi başına girmeye çalışarak korkusunu yenmek istediği için",
+          "Kimseye görünmeden eve dönmek istediği için",
+          "Annesine kızdığı için",
+          "Öğretmenini beklemediği için"
+        ],
+        "correctIndex": 0,
+        "explanation": "Elif korksa da \"Ben kendim girebilirim\" diyerek ilk adımı kendi başına atmayı seçer.",
+        "image": ""
+      },
+      {
+        "id": "q3_ilkkan_2",
+        "grade": 3,
+        "subject": "turkce",
+        "topic": "okuma-anlama",
+        "text": "Elif kendini tanıttıktan sonra ne oldu?",
+        "options": [
+          "Sınıftaki herkes onunla konuşmak için sıraya girdi",
+          "Kuşları seven bir arkadaş onunla ilgilendi, böylece yalnız kalmadı",
+          "Öğretmen ondan tahtayı silmesini istedi",
+          "Elif teneffüste eve gitti"
+        ],
+        "correctIndex": 1,
+        "explanation": "Kerem, Elif'in kuş sevgisini duyunca elini kaldırıp onunla konuştu ve kuş yemliğini gösterdi.",
+        "image": ""
+      },
+      {
+        "id": "q3_ilkkan_3",
+        "grade": 3,
+        "subject": "turkce",
+        "topic": "okuma-anlama",
+        "text": "Öğretmenin \"İlk günden bir iş üstlenmek cesaret ister\" demesinin nedeni nedir?",
+        "options": [
+          "Görev almanın çok zor bir iş olması",
+          "Sınıfta hiç boş görev kalmaması",
+          "Elif'in yeni olduğu hâlde sorumluluk almaya gönüllü olması",
+          "Kuş yemliğinin kırık olması"
+        ],
+        "correctIndex": 2,
+        "explanation": "Elif henüz ilk gününde adını görev listesine yazarak sorumluluk almaya istekli olduğunu gösterir.",
+        "image": ""
+      },
+      {
+        "id": "q3_ilkkan_4",
+        "grade": 3,
+        "subject": "turkce",
+        "topic": "okuma-anlama",
+        "text": "Elif'in akşam annesine söylediği sözler, aslında neyi anlatır?",
+        "options": [
+          "Okulun çok yorucu olduğunu",
+          "Öğretmeninden yardım aldığını",
+          "Kuşları artık sevmediğini",
+          "Asıl korkusunun görünmemek, yani kimseyle bağ kuramamak olduğunu"
+        ],
+        "correctIndex": 3,
+        "explanation": "Elif \"Korktuğum şey kimsenin beni fark etmemesiymiş\" diyerek gerçek korkusunu açıklar.",
+        "image": ""
+      },
+      {
+        "id": "q3_ilkkan_5",
+        "grade": 3,
+        "subject": "turkce",
+        "topic": "okuma-anlama",
+        "text": "Bu parçadan çıkarılabilecek en uygun sonuç hangisidir?",
+        "options": [
+          "Yeni bir yere alışmak için ilk adımı atmak ve kendini anlatmak gerekir",
+          "Okul değiştirmek her zaman kötü bir şeydir",
+          "Sınıfta görev alan çocuklar daha çok sever",
+          "Yeni gelen öğrenciye hiç soru sorulmamalıdır"
+        ],
+        "correctIndex": 0,
+        "explanation": "Elif tek bir cümle söyleyerek bağ kurar ve o gün korkusu azalır; parça ilk adımın önemini anlatır.",
+        "image": ""
+      }
+    ]
+  }
+}

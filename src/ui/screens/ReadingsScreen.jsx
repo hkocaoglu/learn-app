@@ -8,11 +8,12 @@ import {
   fetchTeacherReadings,
   updateReading
 } from '../../cloud/readings.js'
-import { GRADES, SUBJECTS, gradeLabel, subjectLabel, formatDate, formatSeconds, validateReading, exportPassage, importPassage, fileToImageData } from '../../domain/model.js'
+import { GRADES, SUBJECTS, gradeLabel, subjectLabel, formatDate, formatSeconds, validateReading, exportPassage, fileToImageData, displayModeLabel, normalizeSecondsPerWord, RSVP_DEFAULT_SECONDS_PER_WORD, RSVP_MAX_SECONDS_PER_WORD, RSVP_MIN_SECONDS_PER_WORD, RSVP_QUESTION_COUNT } from '../../domain/model.js'
+import { buildRsvpPlan, describeRsvpPlan, formatSecondsPerWord, formatWordSpeed } from '../../domain/rsvp.js'
 import { downloadJSON } from '../../db/storage.js'
 import { createPassage, deletePassage, fetchTeacherPassages } from '../../cloud/passages.js'
-import Modal from '../components/Modal.jsx'
 import QuestionForm from '../components/QuestionForm.jsx'
+import PassageImportDialog from '../components/PassageImportDialog.jsx'
 
 const initialForm = {
   classId: '',
@@ -22,12 +23,23 @@ const initialForm = {
   image: '',
   grade: 2,
   subject: 'turkce',
+  displayMode: 'static',
+  rsvpSecondsPerWord: RSVP_DEFAULT_SECONDS_PER_WORD,
   minDwellSeconds: '',
   quizThreshold: 60,
   showPassageDuringQuiz: true,
   startsAt: '',
   endsAt: ''
 }
+
+// Öğretmen için hazır hız kademeleri (kelime başına sn) — yavaştan hızlıya.
+const RSVP_SPEED_PRESETS = [
+  { seconds: 1.2, label: 'Çok yavaş' },
+  { seconds: 0.8, label: 'Yavaş' },
+  { seconds: 0.6, label: 'Orta' },
+  { seconds: 0.4, label: 'Hızlı' },
+  { seconds: 0.25, label: 'Çok hızlı' }
+]
 
 const localDateToIso = (value) => (value ? new Date(value).toISOString() : null)
 const isoToLocalDate = (value) => (value ? new Date(value).toISOString().slice(0, 16) : '')
@@ -39,7 +51,6 @@ export default function ReadingsScreen() {
   const [form, setForm] = useState(initialForm)
   const [passages, setPassages] = useState([])
   const [showImport, setShowImport] = useState(false)
-  const [importText, setImportText] = useState('')
   const [questions, setQuestions] = useState([])
   const [addingQuestion, setAddingQuestion] = useState(false)
   const [loading, setLoading] = useState(true)
@@ -193,6 +204,8 @@ export default function ReadingsScreen() {
     image: form.image,
     grade: Number(form.grade),
     subject: form.subject,
+    displayMode: form.displayMode === 'rsvp' ? 'rsvp' : 'static',
+    rsvpSecondsPerWord: normalizeSecondsPerWord(form.rsvpSecondsPerWord),
     minDwellSeconds: form.minDwellSeconds === '' ? null : Number(form.minDwellSeconds),
     quizThreshold: Number(form.quizThreshold),
     showPassageDuringQuiz: form.showPassageDuringQuiz !== false,
@@ -221,6 +234,8 @@ export default function ReadingsScreen() {
       image: incomingImage || current.image,
       grade: passage.grade,
       subject: passage.subject,
+      displayMode: passage.displayMode === 'rsvp' ? 'rsvp' : 'static',
+      rsvpSecondsPerWord: normalizeSecondsPerWord(passage.rsvpSecondsPerWord),
       quizThreshold: passage.quizThreshold ?? 60,
       showPassageDuringQuiz: passage.showPassageDuringQuiz !== false
     }))
@@ -276,32 +291,38 @@ export default function ReadingsScreen() {
     }
   }
 
-  const doImportText = async () => {
+  // Çoklu dosya/klasör/yapıştırma diyaloğundan gelen hazır metinleri kaydeder.
+  const doImportPassages = async (importedList) => {
+    if (!importedList?.length) return
     setError('')
     setNotice('')
+    setSaving(true)
     try {
-      const imported = importPassage(importText)
-      const { passage: saved, updated } = await createPassage({ teacherId: user.id, passage: imported })
-      setPassages((current) => [saved, ...current.filter((item) => item.id !== saved.id)])
-      setImportText('')
+      const results = []
+      for (const imported of importedList) {
+        results.push(await createPassage({ teacherId: user.id, passage: imported }))
+      }
+      const savedList = results.map((result) => result.passage)
+      setPassages((current) => {
+        const savedIds = new Set(savedList.map((item) => item.id))
+        return [...savedList, ...current.filter((item) => !savedIds.has(item.id))]
+      })
       setShowImport(false)
-      setNotice(
-        updated
-          ? `"${saved.title}" kütüphanede güncellendi. Öğrencilere ulaşması için "Okumayı sınıfa ata" ile gönderin.`
-          : `"${saved.title}" içe aktarıldı. Öğrencilere ulaşması için "Okumayı sınıfa ata" ile gönderin.`
-      )
+      const suffix = 'Öğrencilere ulaşması için "Okumayı sınıfa ata" ile gönderin.'
+      if (savedList.length > 1) {
+        setNotice(`${savedList.length} metin kütüphaneye aktarıldı. ${suffix}`)
+      } else {
+        setNotice(
+          results[0].updated
+            ? `"${savedList[0].title}" kütüphanede güncellendi. ${suffix}`
+            : `"${savedList[0].title}" içe aktarıldı. ${suffix}`
+        )
+      }
     } catch (caughtError) {
       setError(caughtError.message)
+    } finally {
+      setSaving(false)
     }
-  }
-
-  const onImportFile = (file) => {
-    if (!file) return
-    const reader = new FileReader()
-    reader.onload = () => {
-      setImportText(String(reader.result || ''))
-    }
-    reader.readAsText(file)
   }
 
   const removePassage = async (passage) => {
@@ -318,13 +339,18 @@ export default function ReadingsScreen() {
 
   const supportsImages =
     !missingReadingColumns.includes('image') && !missingPassageColumns.includes('image')
+  const supportsRsvp =
+    !missingReadingColumns.includes('display_mode') && !missingPassageColumns.includes('display_mode')
+  const isRsvp = form.displayMode === 'rsvp'
+  const questionLimit = isRsvp ? RSVP_QUESTION_COUNT : 6
+  const rsvpPlan = buildRsvpPlan(form.body, form.rsvpSecondsPerWord)
 
   return (
     <div>
       <div className="page-head">
         <div>
           <h1>Okuma Ata</h1>
-          <div className="subtitle">Bir metni sınıfa yayınlayın; öğrenciler dwell + scroll + quiz ile okuduğunu kanıtlar.</div>
+          <div className="subtitle">Bir metni sınıfa yayınlayın; öğrenciler okuduğunu dwell + kaydırma + quiz ile kanıtlar. Hızlı kelime akışı modunda metin öğretmenin belirlediği hızda kelime kelime akar ve kanıt akışın tamamlanması olur.</div>
         </div>
         <button className="btn btn-sm" type="button" onClick={load} disabled={loading}>
           {loading ? 'Yükleniyor…' : '↻ Yenile'}
@@ -338,6 +364,13 @@ export default function ReadingsScreen() {
           <strong>Veritabanı güncellenmemiş:</strong> okuma görselleri için gereken <code>image</code> kolonu yok, bu
           yüzden görseller kaydedilemez ve öğrenciler görselleri göremez. Supabase SQL Editor üzerinde{' '}
           <code>supabase/migrations/20260911090000_reading_images.sql</code> dosyasını çalıştırın.
+        </div>
+      )}
+      {!supportsRsvp && (
+        <div className="alert alert-warning">
+          <strong>Veritabanı güncellenmemiş:</strong> hızlı kelime akışı için gereken <code>display_mode</code> kolonu
+          yok, bu yüzden akış modu kaydedilemez (seçim devre dışı). Supabase SQL Editor üzerinde{' '}
+          <code>supabase/migrations/20261013120000_rsvp_reading_mode.sql</code> dosyasını çalıştırın.
         </div>
       )}
 
@@ -374,7 +407,13 @@ export default function ReadingsScreen() {
                         {passage.image ? ' • 🖼 görsel' : ''}
                       </div>
                     </td>
-                    <td className="small">{passage.showPassageDuringQuiz !== false ? 'Metin görünür' : 'Metin gizli'}</td>
+                    <td className="small">
+                      {passage.displayMode === 'rsvp'
+                        ? `⚡ Akış • ${formatSecondsPerWord(passage.rsvpSecondsPerWord)}`
+                        : passage.showPassageDuringQuiz !== false
+                          ? 'Metin görünür'
+                          : 'Metin gizli'}
+                    </td>
                     <td>
                       <div className="row-actions" style={{ justifyContent: 'flex-end' }}>
                         <button className="btn btn-sm btn-primary" type="button" onClick={() => selectPassage(passage)}>
@@ -522,17 +561,63 @@ export default function ReadingsScreen() {
               </select>
             </div>
             <div className="form-row">
-              <label htmlFor="reading-dwell">En az okuma süresi sn (boş = kelime sayısından)</label>
-              <input
-                id="reading-dwell"
-                type="number"
-                min={15}
-                max={1800}
-                value={form.minDwellSeconds}
-                onChange={(event) => setForm((current) => ({ ...current, minDwellSeconds: event.target.value }))}
-                placeholder="örn. 120"
-              />
+              <label htmlFor="reading-display-mode">Gösterim modu</label>
+              <select
+                id="reading-display-mode"
+                value={form.displayMode}
+                disabled={!supportsRsvp}
+                onChange={(event) => setForm((current) => ({ ...current, displayMode: event.target.value }))}
+              >
+                <option value="static">{displayModeLabel('static')}</option>
+                <option value="rsvp">⚡ {displayModeLabel('rsvp')}</option>
+              </select>
             </div>
+            {isRsvp ? (
+              <div className="form-row">
+                <label htmlFor="reading-rsvp-speed">Kelime hızı (kelime başına sn)</label>
+                <input
+                  id="reading-rsvp-speed"
+                  type="number"
+                  step={0.05}
+                  min={RSVP_MIN_SECONDS_PER_WORD}
+                  max={RSVP_MAX_SECONDS_PER_WORD}
+                  value={form.rsvpSecondsPerWord}
+                  onChange={(event) =>
+                    setForm((current) => ({ ...current, rsvpSecondsPerWord: event.target.value }))
+                  }
+                />
+                <div className="row-actions mt-8">
+                  {RSVP_SPEED_PRESETS.map((preset) => (
+                    <button
+                      key={preset.seconds}
+                      className="btn btn-sm"
+                      type="button"
+                      onClick={() =>
+                        setForm((current) => ({ ...current, rsvpSecondsPerWord: preset.seconds }))
+                      }
+                    >
+                      {preset.label} ({String(preset.seconds).replace('.', ',')} sn)
+                    </button>
+                  ))}
+                </div>
+                <div className="small muted mt-8">
+                  {formatWordSpeed(form.rsvpSecondsPerWord)} • {describeRsvpPlan(rsvpPlan)}
+                </div>
+              </div>
+            ) : (
+              <div className="form-row">
+                <label htmlFor="reading-dwell">En az okuma süresi sn (boş = kelime sayısından)</label>
+                <input
+                  id="reading-dwell"
+                  type="number"
+                  min={15}
+                  max={1800}
+                  value={form.minDwellSeconds}
+                  onChange={(event) => setForm((current) => ({ ...current, minDwellSeconds: event.target.value }))}
+                  placeholder="örn. 120"
+                />
+              </div>
+            )}
             <div className="form-row">
               <label htmlFor="reading-threshold">Quiz geçme eşiği %</label>
               <input
@@ -546,17 +631,27 @@ export default function ReadingsScreen() {
                 }
               />
             </div>
-            <div className="form-row">
-              <label htmlFor="reading-visible">Soruları yanıtlarken metin görünsün</label>
-              <input
-                id="reading-visible"
-                type="checkbox"
-                checked={form.showPassageDuringQuiz !== false}
-                onChange={(event) =>
-                  setForm((current) => ({ ...current, showPassageDuringQuiz: event.target.checked }))
-                }
-              />
-            </div>
+            {isRsvp ? (
+              <div className="form-row">
+                <label htmlFor="reading-rsvp-note">Metin görünürlüğü</label>
+                <p id="reading-rsvp-note" className="small muted" style={{ margin: 0 }}>
+                  Akış modunda metin sorular sırasında gösterilmez; metin yalnızca kelime kelime akarak okunur. Sesli
+                  okuma ve metin görseli de kullanılmaz — ikisi de ölçümü bozar.
+                </p>
+              </div>
+            ) : (
+              <div className="form-row">
+                <label htmlFor="reading-visible">Soruları yanıtlarken metin görünsün</label>
+                <input
+                  id="reading-visible"
+                  type="checkbox"
+                  checked={form.showPassageDuringQuiz !== false}
+                  onChange={(event) =>
+                    setForm((current) => ({ ...current, showPassageDuringQuiz: event.target.checked }))
+                  }
+                />
+              </div>
+            )}
             <div className="form-row" style={{ gridColumn: '1 / -1' }}>
               <label htmlFor="reading-body">Metin (en az 50 karakter)</label>
               <textarea
@@ -606,15 +701,37 @@ export default function ReadingsScreen() {
           )}
 
           <div className="section-heading mt-16">
-            <h3>Anlama soruları ({questions.length}/6)</h3>
-            {!addingQuestion && questions.length < 6 && (
+            <h3>
+              Anlama soruları ({questions.length}/{questionLimit})
+              {isRsvp ? ` • akış modu en fazla ${RSVP_QUESTION_COUNT} soru` : ''}
+            </h3>
+            {!addingQuestion && questions.length < questionLimit && (
               <button className="btn btn-sm" type="button" onClick={() => setAddingQuestion(true)}>
                 + Soru ekle
               </button>
             )}
           </div>
+          {isRsvp && questions.length > RSVP_QUESTION_COUNT && (
+            <div className="alert alert-warning mt-8">
+              Bu metinde {questions.length} soru var; hızlı kelime akışı en fazla {RSVP_QUESTION_COUNT} soru kabul eder.
+              Kaydetmeden önce fazlalıkları kaldırın.
+              <div className="row-actions mt-8">
+                <button
+                  className="btn btn-sm"
+                  type="button"
+                  onClick={() => setQuestions((current) => current.slice(0, RSVP_QUESTION_COUNT))}
+                >
+                  İlk {RSVP_QUESTION_COUNT} soruyu tut
+                </button>
+              </div>
+            </div>
+          )}
           {questions.length === 0 && !addingQuestion && (
-            <p className="small muted">Soru yok — okuma yine dwell+scroll gerektirir ama kanıt daha zayıf olur.</p>
+            <p className="small muted">
+              {isRsvp
+                ? 'Soru yok — öğrenci yalnızca kelime akışını tamamlar; anlama ölçülmez.'
+                : 'Soru yok — okuma yine dwell + kaydırma gerektirir ama kanıt daha zayıf olur.'}
+            </p>
           )}
           {questions.map((q, i) => (
             <div key={q.text + i} className="question-block">
@@ -677,13 +794,21 @@ export default function ReadingsScreen() {
                       <div className="small muted">
                         {gradeLabel(reading.grade)} • {subjectLabel(reading.subject)} •{' '}
                         {(reading.questions || []).length} soru •{' '}
-                        {reading.showPassageDuringQuiz !== false ? 'Metin quizde görünür' : 'Metin quizde gizli'}
+                        {reading.displayMode === 'rsvp'
+                          ? `⚡ Akış • ${formatSecondsPerWord(reading.rsvpSecondsPerWord)}`
+                          : reading.showPassageDuringQuiz !== false
+                            ? 'Metin quizde görünür'
+                            : 'Metin quizde gizli'}
                         {reading.image ? ' • 🖼' : ''}
                       </div>
                     </td>
                     <td>{reading.className}</td>
                     <td className="small">
-                      {reading.image ? (
+                      {reading.displayMode === 'rsvp' ? (
+                        <span className="small muted" title="Akış modunda metin görseli gösterilmez.">
+                          — akışta gizli
+                        </span>
+                      ) : reading.image ? (
                         <span className="badge badge-success">🖼 var</span>
                       ) : (
                         <span className="small muted" title="Bu atama görselsiz kaydedilmiş. Metni forma yükleyip görsel ekleyerek yeniden gönderin.">
@@ -730,38 +855,7 @@ export default function ReadingsScreen() {
       )}
 
       {showImport && (
-        <Modal title="Metin İçe Aktar (JSON)" onClose={() => setShowImport(false)}>
-          <p className="small muted">
-            Dışa aktarılmış okuma dosyasını yapıştırın veya seçin. Şema: kind "reading-passage".
-          </p>
-          <div className="form-row">
-            <label htmlFor="reading-import-file">Dosya seç</label>
-            <input
-              id="reading-import-file"
-              type="file"
-              accept="application/json,.json"
-              onChange={(event) => onImportFile(event.target.files?.[0])}
-            />
-          </div>
-          <div className="form-row mt-8">
-            <label htmlFor="reading-import-text">JSON metni</label>
-            <textarea
-              id="reading-import-text"
-              rows={8}
-              value={importText}
-              onChange={(event) => setImportText(event.target.value)}
-              placeholder='{"version":1,"kind":"reading-passage",...}'
-            />
-          </div>
-          <div className="row-actions mt-16" style={{ justifyContent: 'flex-end' }}>
-            <button className="btn" type="button" onClick={() => setShowImport(false)}>
-              Vazgeç
-            </button>
-            <button className="btn btn-primary" type="button" disabled={!importText.trim()} onClick={doImportText}>
-              İçe aktar
-            </button>
-          </div>
-        </Modal>
+        <PassageImportDialog busy={saving} onClose={() => setShowImport(false)} onImport={doImportPassages} />
       )}
     </div>
   )
@@ -777,7 +871,8 @@ function ReadingAttemptTable({ rows }) {
           <th>Okundu?</th>
           <th>Quiz %</th>
           <th>Süre</th>
-          <th>Scroll</th>
+          <th>Kaydırma / akış</th>
+          <th>İzleme</th>
         </tr>
       </thead>
       <tbody>
@@ -790,6 +885,7 @@ function ReadingAttemptTable({ rows }) {
             <td>%{row.score_percent}</td>
             <td>{formatSeconds(row.total_seconds)}</td>
             <td>{row.scrolled_bottom ? '✓' : '—'}</td>
+            <td className="small muted">{row.rsvp_plays ? `${row.rsvp_plays} kez` : '—'}</td>
           </tr>
         ))}
       </tbody>

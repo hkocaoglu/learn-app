@@ -1,0 +1,98 @@
+{
+  "version": 1,
+  "kind": "reading-passage",
+  "exportedAt": "2026-10-11T20:30:00.000Z",
+  "passage": {
+    "title": "Karagöz ve Gölge Oyunu",
+    "sourceLabel": "5. Sınıf Türkçe Okuma Parçaları (Maarif Modeli)",
+    "body": "Sınıfımızın Türkçe öğretmeni, cuma günü bizi kasabadaki eski kültür evine götüreceğini söylediğinde hepimiz çok heyecanlandık. Öğretmenimiz gölge oyunu izleyeceğimizi, üstelik oyunu perde arkasından da görebileceğimizi anlattı. Karagöz'ün ne olduğunu tam olarak bilmiyordum; yalnızca büyükbabamın \"beyaz perdede doğan gölgeler\" diye bahsettiği bir şey olduğunu hatırlıyordum.\n\nKültür evine vardığımızda içeride loş bir salon, salonun ucunda gergin beyaz bir perde vardı. Perdenin arkasına geçtiğimizde, hayalî adı verilen sanatkârın neler hazırladığını görünce şaşkına döndüm. Deve derisinden yapılmış, boyanmış ve sayısız eklem yerinden kesilmiş figürler ince çubuklara tutturulmuştu. Hayalî, elindeki çubuğu hafifçe oynattığında figür hayat buluyor; küçük bir kukla, perdede kocaman bir Karagöz'e dönüşüyordu. Işık perdenin arkasından geldiği için seyirci, figürün yalnızca gölgesini görüyordu. Perdeye yansıyan gölge, kuklanın kendisinden çok daha canlı ve büyük görünüyordu.\n\nOyun başlamadan önce hayalî perdenin önüne çıktı ve ağır ağır bir bölüm okudu. \"Perde gazeli\" denilen bu bölümde, gösterinin yalnızca bir eğlence değil, insanı düşündüren bir ders olduğu anlatılıyordu. Sonra Karagöz ile Hacivat perdeye geldi. Hacivat ağdalı bir dille konuşuyor, Karagöz ise söylenenleri yanlış anlıyordu. Bir sözcüğü duyduğunda kendi aklınca bambaşka bir anlam çıkarıyor, bu yüzden ikisi sürekli tartışıyordu. Salondaki çocuklar kahkahalarla gülerken ben, bu tartışmaların hep bir ders taşıdığını fark ettim: Karagöz, sözün arkasındaki anlamı düşünmeden konuşan kişiyi temsil ediyordu.\n\nOyunun sonunda hayalî hepimizi perdenin arkasına davet etti. Figürleri elimize aldığımızda ne kadar hafif ve narin olduklarını gördük. Boyamalar yıllar içinde solmuş, bazı eklemler yıpranmıştı. Hayalî, \"Bunları yaşatan seyircidir. Siz seyretmeyi bırakırsanız perde boş kalır,\" dedi. Bu söz aklıma takıldı.\n\nErtesi hafta arkadaşlarımla karton, makas ve çubuklardan kendi gölge oyunumuzu hazırladık. Okul koridorunda küçük bir perde kurup oynattık. Kardeşim perdenin arkasına geçip figürü oynattığında, gölgenin duvara düştüğünü görünce çok sevindi. O akşam büyükbabam oyunumuzu izlerken gözlerinin dolduğunu gördüm. Meğer çocukluğunda bu oyunları defalarca izlemiş, hatta kendi figürlerini yapmış. Bir geleneğin benden sonra da yaşayacağını bilmek, o gün beni en çok mutlu eden şey oldu.",
+    "grade": 5,
+    "subject": "turkce",
+    "topic": "okuma-anlama",
+    "quizThreshold": 60,
+    "showPassageDuringQuiz": true,
+    "image": "",
+    "questions": [
+      {
+        "id": "q_karagoz_1",
+        "grade": 5,
+        "subject": "turkce",
+        "topic": "okuma-anlama",
+        "text": "Perdede görünen gölge, kuklanın kendisinden neden daha canlı ve büyük görünüyordu?",
+        "options": [
+          "Işık arkadan geldiği ve gölge perdeye yansıdığı için",
+          "Kuklalar gerçekten canlı varlıklardan yapıldığı için",
+          "Hayalî gölgeleri elle boyadığı için",
+          "Seyirciler perdeye çok yakın oturduğu için"
+        ],
+        "correctIndex": 0,
+        "explanation": "Metinde ışığın perdenin arkasından geldiği ve seyircinin yalnızca gölgeyi gördüğü belirtiliyor; gölge bu yüzden büyük ve canlı görünür.",
+        "image": ""
+      },
+      {
+        "id": "q_karagoz_2",
+        "grade": 5,
+        "subject": "turkce",
+        "topic": "okuma-anlama",
+        "text": "Yazar, Karagöz ile Hacivat'ın tartışmalarını izlerken hangi sonuca varmıştır?",
+        "options": [
+          "Tartışmalar yalnızca güldürmek için yazılmıştır.",
+          "Karagöz, söyleneni düşünmeden anlayan kişiyi temsil ettiği için oyun ders verir.",
+          "Hacivat'ın konuşmaları gereksiz yere uzundur.",
+          "Oyun sırasında gerçek bir kavga çıkmıştır."
+        ],
+        "correctIndex": 1,
+        "explanation": "Yazar, kahkahaların arkasında bir ders olduğunu ve Karagöz'ün anlamı düşünmeden konuşan kişiyi temsil ettiğini fark eder.",
+        "image": ""
+      },
+      {
+        "id": "q_karagoz_3",
+        "grade": 5,
+        "subject": "turkce",
+        "topic": "okuma-anlama",
+        "text": "Metne göre \"perde gazeli\" bölümünün oyundaki işlevi nedir?",
+        "options": [
+          "Oyunu bir anda bitirmek",
+          "Figürlerin nasıl yapıldığını anlatmak",
+          "Gösterinin bir eğlence değil, düşündüren bir ders olduğunu duyurmak",
+          "Seyirciden alkış istemek"
+        ],
+        "correctIndex": 2,
+        "explanation": "Perde gazelinde gösterinin sadece eğlence değil, insanı düşündüren bir ders olduğu anlatılıyordu.",
+        "image": ""
+      },
+      {
+        "id": "q_karagoz_4",
+        "grade": 5,
+        "subject": "turkce",
+        "topic": "okuma-anlama",
+        "text": "Hayalî'nin \"Bunları yaşatan seyircidir. Siz seyretmeyi bırakırsanız perde boş kalır.\" sözüyle anlatmak istediği nedir?",
+        "options": [
+          "Figürlerin çok dayanıksız olduğu",
+          "Perdenin sık sık değiştirilmesi gerektiği",
+          "Oyunu yalnızca çocukların sevdiği",
+          "Seyirci ilgi göstermezse geleneğin süremeyeceği"
+        ],
+        "correctIndex": 3,
+        "explanation": "Sanatkâr, geleneğin yaşamasını seyircinin ilgisine bağlıyor; ilgi biterse oyun da biter.",
+        "image": ""
+      },
+      {
+        "id": "q_karagoz_5",
+        "grade": 5,
+        "subject": "turkce",
+        "topic": "okuma-anlama",
+        "text": "Metnin bütünü dikkate alındığında asıl anlatılmak istenen nedir?",
+        "options": [
+          "Geleneğin ancak paylaşılarak ve yaşatılarak süreceği",
+          "Eski eşyaların artık değersiz olduğu",
+          "Büyüklerin çocuklardan farklı düşündüğü",
+          "Her oyunun mutlaka bir kazananı olması gerektiği"
+        ],
+        "correctIndex": 0,
+        "explanation": "Yazar oyunu kendi hazırlayıp kardeşine ve büyükbabasına göstererek geleneği sürdürür; ana düşünce paylaşarak yaşatmaktır.",
+        "image": ""
+      }
+    ]
+  }
+}

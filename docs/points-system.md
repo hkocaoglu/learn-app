@@ -1,8 +1,8 @@
 # Points & Rewards System — Sketch
 
 Status: **UYGULANDI (2026-10-11)** — domain + yerel mod + cloud (migration/RLS/trigger/RPC) + UI
-sonlandırmaları yapıldı. Doğrulama: `npm test` (108 kontrol) + `bash scripts/verify-points-db.sh`
-(17 SQL doğrulaması: yetkili skorlama, idempotency, stok yarışı, RLS).
+sonlandırmaları yapıldı. Doğrulama: `npm test` (144 kontrol) + `bash scripts/verify-points-db.sh`
+(19 SQL doğrulaması: yetkili skorlama, idempotency, stok yarışı, RLS, akış modu kapısı).
 Coupled to `BACKLOG.md` item **BL-1** — see *Server-side integrity* below.
 Created 2026-10-11.
 
@@ -161,8 +161,7 @@ points = clamp(base + bonus + care, 1, 30)
 
 ### 4.2 Reading
 
-A reading earns when **read = true** (dwell + scroll met, per `reading attempts`)
-and the quiz passes `quiz_threshold`:
+A reading earns when **read = true** and the quiz passes `quiz_threshold`:
 
 ```
 base   = 3
@@ -170,8 +169,16 @@ quiz   = round(quizScorePercent * 0.08)  -- 0..8
 points = clamp(base + quiz, 1, 12)
 ```
 
-Incomplete reading (`read = false`) earns 0 (no points for skipping), matching the
-existing "careful" intent. Quiz quality feeds the bonus.
+`read` itself is display-mode dependent (see `docs/rsvp-reading.md`):
+
+| `display_mode` | read = true requires |
+| --- | --- |
+| `static` | `dwell_seconds >= required_dwell_seconds(body)` **and** `scrolled_bottom` **and** quiz ≥ threshold |
+| `rsvp` | `scrolled_bottom` (= the word flow ran to the end) **and** quiz ≥ threshold — the 150 wpm dwell formula is **not** applied, because the pace comes from the teacher's `rsvp_seconds_per_word` |
+
+The `award_reading_points` trigger mirrors this branch (migration
+`20261013120000_rsvp_reading_mode.sql`); without it a completed fast-flow reading
+would silently earn 0.
 
 ### 4.3 Idempotency
 
@@ -285,9 +292,10 @@ as an open question in §8.
 - Yedek: ledger + havuz + harcama round-trip.
 
 `scripts/verify-points-db.sh` (+ `scripts/verify-points.sql`) — gerçek PostgreSQL
-üzerinde tüm migration'lar ve 17 doğrulama: yetkili skorlama (istemci sahte
+üzerinde tüm migration'lar ve 19 doğrulama: yetkili skorlama (istemci sahte
 %100 → 10 puan), ledger RLS yazma engeli, sil+yeniden puanlamama, okuma kapıları,
-stok yarışı/kilit, sınıf sınırı, yetersiz bakiye, öğretmen düzeltmesi,
+**akış (rsvp) kapısı** (dwell olmadan tamamlanan akış puan kazanır, yarım akış
+kazanmaz), stok yarışı/kilit, sınıf sınırı, yetersiz bakiye, öğretmen düzeltmesi,
 yabancı öğretmen izolasyonu, bakiye zinciri. `npm test` yerine **yalnızca
 veritabanı değişikliklerinde** çalıştırılır (yerel PostgreSQL gerektirir).
 

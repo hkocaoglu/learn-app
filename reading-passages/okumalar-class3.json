@@ -1,0 +1,472 @@
+{
+  "version": 1,
+  "kind": "reading-passage-collection",
+  "exportedAt": "2026-10-11T18:19:04.761Z",
+  "passages": [
+    {
+      "title": "Yeni Okulda İlk Gün",
+      "sourceLabel": "3. Sınıf Türkçe Okuma Parçaları (Maarif Modeli)",
+      "body": "Elif, sabah okula giderken ayakkabılarının bağcıklarını üç kez bağladı. Bugün yeni bir okulda, hiç tanımadığı çocukların arasında olacaktı. Annesi elini tutmak istedi ama Elif kapının önünde elini çekti. \"Ben kendim girebilirim,\" dedi. Sesi biraz titriyordu.\n\nSınıfın kapısında bir an durdu. İçeride çocuklar konuşuyor, sıralarına yerleşiyordu. Öğretmen onu görünce gülümsedi. \"Aramıza hoş geldin. Bu sınıfta bir gelenek var: Her yeni arkadaş, kendini bir cümleyle tanıtır,\" dedi. Elif tahtanın önüne çıktı. Yutkundu ve tek cümle söyledi: \"Ben Elif. Kitapları ve kuş seslerini severim.\"\n\nSonra arka sıradan bir çocuk elini kaldırdı. \"Benim adım Kerem. Ben de kuşları severim. Pencereye kuş yemliği astık, görmek ister misin?\" dedi. Elif şaşkınlıkla gülümsedi. Teneffüste pencereye koştular. Yemliğin yanında iki serçe vardı. Kerem, \"İlk gün seni buraya bekliyorduk sanki,\" diye şaka yaptı.\n\nÖğle arasında Elif, sınıfın panosuna asılı bir kâğıt gördü. Üzerinde \"Sınıf Görevleri\" yazıyordu. Sıra başkanı, pencere sorumlusu, kitap düzenleyici... Listede boş bir satır vardı: \"Kuş yemliği sorumlusu.\" Elif o satıra adını yazdı. Öğretmeni onu görünce başını salladı: \"İlk günden bir iş üstlenmek cesaret ister, aferin.\"\n\nAkşam annesi onu kapıda karşıladığında Elif'in yüzü gülüyordu. \"Bugün nasıl geçti?\" diye sordu annesi. Elif çantasını bıraktı ve cevap verdi: \"Korktuğum şey sınıf değilmiş. Korktuğum şey, kimsenin beni fark etmemesiymiş. Ama bir cümle söyledim ve beni fark ettiler.\"",
+      "grade": 3,
+      "subject": "turkce",
+      "topic": "okuma-anlama",
+      "quizThreshold": 60,
+      "showPassageDuringQuiz": true,
+      "image": "",
+      "questions": [
+        {
+          "id": "q3_ilkkan_1",
+          "grade": 3,
+          "subject": "turkce",
+          "topic": "okuma-anlama",
+          "text": "Elif kapının önünde annesinin elini neden çekti?",
+          "options": [
+            "Kendi başına girmeye çalışarak korkusunu yenmek istediği için",
+            "Kimseye görünmeden eve dönmek istediği için",
+            "Annesine kızdığı için",
+            "Öğretmenini beklemediği için"
+          ],
+          "correctIndex": 0,
+          "explanation": "Elif korksa da \"Ben kendim girebilirim\" diyerek ilk adımı kendi başına atmayı seçer.",
+          "image": ""
+        },
+        {
+          "id": "q3_ilkkan_2",
+          "grade": 3,
+          "subject": "turkce",
+          "topic": "okuma-anlama",
+          "text": "Elif kendini tanıttıktan sonra ne oldu?",
+          "options": [
+            "Sınıftaki herkes onunla konuşmak için sıraya girdi",
+            "Kuşları seven bir arkadaş onunla ilgilendi, böylece yalnız kalmadı",
+            "Öğretmen ondan tahtayı silmesini istedi",
+            "Elif teneffüste eve gitti"
+          ],
+          "correctIndex": 1,
+          "explanation": "Kerem, Elif'in kuş sevgisini duyunca elini kaldırıp onunla konuştu ve kuş yemliğini gösterdi.",
+          "image": ""
+        },
+        {
+          "id": "q3_ilkkan_3",
+          "grade": 3,
+          "subject": "turkce",
+          "topic": "okuma-anlama",
+          "text": "Öğretmenin \"İlk günden bir iş üstlenmek cesaret ister\" demesinin nedeni nedir?",
+          "options": [
+            "Görev almanın çok zor bir iş olması",
+            "Sınıfta hiç boş görev kalmaması",
+            "Elif'in yeni olduğu hâlde sorumluluk almaya gönüllü olması",
+            "Kuş yemliğinin kırık olması"
+          ],
+          "correctIndex": 2,
+          "explanation": "Elif henüz ilk gününde adını görev listesine yazarak sorumluluk almaya istekli olduğunu gösterir.",
+          "image": ""
+        },
+        {
+          "id": "q3_ilkkan_4",
+          "grade": 3,
+          "subject": "turkce",
+          "topic": "okuma-anlama",
+          "text": "Elif'in akşam annesine söylediği sözler, aslında neyi anlatır?",
+          "options": [
+            "Okulun çok yorucu olduğunu",
+            "Öğretmeninden yardım aldığını",
+            "Kuşları artık sevmediğini",
+            "Asıl korkusunun görünmemek, yani kimseyle bağ kuramamak olduğunu"
+          ],
+          "correctIndex": 3,
+          "explanation": "Elif \"Korktuğum şey kimsenin beni fark etmemesiymiş\" diyerek gerçek korkusunu açıklar.",
+          "image": ""
+        },
+        {
+          "id": "q3_ilkkan_5",
+          "grade": 3,
+          "subject": "turkce",
+          "topic": "okuma-anlama",
+          "text": "Bu parçadan çıkarılabilecek en uygun sonuç hangisidir?",
+          "options": [
+            "Yeni bir yere alışmak için ilk adımı atmak ve kendini anlatmak gerekir",
+            "Okul değiştirmek her zaman kötü bir şeydir",
+            "Sınıfta görev alan çocuklar daha çok sever",
+            "Yeni gelen öğrenciye hiç soru sorulmamalıdır"
+          ],
+          "correctIndex": 0,
+          "explanation": "Elif tek bir cümle söyleyerek bağ kurar ve o gün korkusu azalır; parça ilk adımın önemini anlatır.",
+          "image": ""
+        }
+      ]
+    },
+    {
+      "title": "Karınca Köyünde Bir Gün",
+      "sourceLabel": "3. Sınıf Türkçe Okuma Parçaları (Maarif Modeli)",
+      "body": "Bahçedeki taşın altında küçük bir karınca köyü vardı. Yusuf her sabah okula gitmeden önce bu taşın yanına oturur, karıncaları izlerdi. Karıncaların hiçbiri boş durmuyordu. Kimi kırıntı taşıyor, kimi yolu temizliyordu.\n\nBir gün Yusuf pillerini bahçeye düşürdü. Ertesi sabah baktığında bir pilin yerinde olmadığını gördü. İzleri takip etti ve pilin, karınca yolunun ortasında durduğunu gördü. Karıncalar pilin etrafında dolaşıyor ama onu taşıyamıyorlardı. Yusuf onları ürkütmemek için geri çekildi ve uzaktan izledi. Yolun iki ucundan gelen karıncaların sayısı arttı. Bazıları pilin önüne küçük toprak parçaları taşıyıp yolu düzleştirdi. Sonra hep birlikte pilin arkasına geçtiler. İlk denemede pil kıpırdamadı. İkinci denemede hafifçe kaydı. Üçüncü denemede pil, yuvanın girişine doğru yavaş yavaş ilerledi.\n\nYusuf o gün, karıncaların işini nasıl paylaştığını düşündü. Hiçbiri diğerine bağırmıyor, kimse bir işi tek başına yapmaya çalışmıyordu. Hepsi aynı yöne doğru itiyordu. Akşam babasına olanları anlattı. Babası gülümsedi. \"Bir karıncanın gücü küçücüktür,\" dedi, \"ama yüzlerce karınca aynı işi yaparsa koca bir pili taşır.\"\n\nErtesi hafta Yusuf'un sınıfı bahçede bir temizlik yaptı. Kağıtlar, poşetler, dallar... İş çoktu ve Yusuf başta tek başına her şeyi toplamaya çalıştı. Kısa süre sonra yoruldu. Sonra arkadaşlarına baktı ve gülümsedi: \"Karıncalar gibi yapalım!\" dedi. Herkes bir iş aldı: biri kağıtları, biri poşetleri, biri de çöp arabasını taşıdı. Bahçe öğle olmadan tertemiz oldu.",
+      "grade": 3,
+      "subject": "turkce",
+      "topic": "okuma-anlama",
+      "quizThreshold": 60,
+      "showPassageDuringQuiz": true,
+      "image": "",
+      "questions": [
+        {
+          "id": "q3_karinca_1",
+          "grade": 3,
+          "subject": "turkce",
+          "topic": "okuma-anlama",
+          "text": "Yusuf, karıncaların pili taşımasını izlerken önce neden geri çekildi?",
+          "options": [
+            "Pili geri almak istemediği için",
+            "Karıncaları ürkütmemek için",
+            "Karıncalardan korktuğu için",
+            "Annesi onu eve çağırdığı için"
+          ],
+          "correctIndex": 1,
+          "explanation": "Metinde \"Yusuf onları ürkütmemek için geri çekildi ve uzaktan izledi\" denir.",
+          "image": ""
+        },
+        {
+          "id": "q3_karinca_2",
+          "grade": 3,
+          "subject": "turkce",
+          "topic": "okuma-anlama",
+          "text": "Karıncalar pili taşımaya çalışırken ilk olarak ne yaptılar?",
+          "options": [
+            "Pili hemen yuvaya götürdüler",
+            "Pilin etrafında oyun oynadılar",
+            "Yolu düzleştirmek için toprak parçaları taşıdılar",
+            "Pili bırakıp yuvalarına döndüler"
+          ],
+          "correctIndex": 2,
+          "explanation": "Karıncalar önce yolun önüne toprak parçaları taşıyıp yolu düzleştirdiler, sonra birlikte ittiler.",
+          "image": ""
+        },
+        {
+          "id": "q3_karinca_3",
+          "grade": 3,
+          "subject": "turkce",
+          "topic": "okuma-anlama",
+          "text": "Pilin ilk denemede kıpırdamaması neyi gösterir?",
+          "options": [
+            "Karıncaların yolu bilmediğini",
+            "Karıncaların pes ettiğini",
+            "Pilin yere yapıştığını",
+            "Pilin çok ağır olduğunu ve tek denemede sonuç alınamadığını"
+          ],
+          "correctIndex": 3,
+          "explanation": "İlk denemede pil kıpırdamaz, ikincide kayar, üçüncüde ilerler; bu, işin kolay olmadığını gösterir.",
+          "image": ""
+        },
+        {
+          "id": "q3_karinca_4",
+          "grade": 3,
+          "subject": "turkce",
+          "topic": "okuma-anlama",
+          "text": "Babası, karıncaların pili taşımasını hangi sözle açıklamıştır?",
+          "options": [
+            "Bir karıncanın gücü küçüktür ama yüzlerce karınca birleşince büyük işler yapar",
+            "Karıncalar yalnız yaşar",
+            "Karıncalar yalnızca yazın çalışır",
+            "Pil, karıncalar için yemektir"
+          ],
+          "correctIndex": 0,
+          "explanation": "Babası, tek bir karıncanın gücünün az olduğunu ama birlikte çalışınca büyük işi başardıklarını söyler.",
+          "image": ""
+        },
+        {
+          "id": "q3_karinca_5",
+          "grade": 3,
+          "subject": "turkce",
+          "topic": "okuma-anlama",
+          "text": "Yusuf, bahçe temizliğinde karıncalardan ne öğrendiğini göstermiştir?",
+          "options": [
+            "İşi tek başına yapmanın daha hızlı olduğunu",
+            "İşleri paylaşınca işin daha kolay ve çabuk bittiğini",
+            "Çöpleri toplamanın gereksiz olduğunu",
+            "Bahçede hiç oyun oynanmadığını"
+          ],
+          "correctIndex": 1,
+          "explanation": "Yusuf tek başına yorulunca \"Karıncalar gibi yapalım!\" der ve iş paylaşılınca bahçe öğleye kalmadan temizlenir.",
+          "image": ""
+        }
+      ]
+    },
+    {
+      "title": "Kayıp Anahtar",
+      "sourceLabel": "3. Sınıf Türkçe Okuma Parçaları (Maarif Modeli)",
+      "body": "Mert, okuldan eve dönerken kaldırımın kenarında parlayan bir şey gördü. Eğildi ve küçük, sarı bir anahtar buldu. Anahtarın yanında deri bir anahtarlık vardı; anahtarlığın üzerine beyaz harflerle bir soyadı yazılmıştı.\n\nMert anahtarı cebine koydu. Eve gidince annesine gösterdi. Annesi, \"Bunu kaybeden kişi şimdi çok merak ediyordur,\" dedi. Mert bir an düşündü. Anahtarı çantasına koyup ödevini yapmaya oturdu ama aklı hep anahtardaydı. Kim kaybetmişti? Bir çocuk mu, bir bakkal mı, yoksa yaşlı bir teyze mi?\n\nAkşam babası geldiğinde Mert anahtarı gösterdi. Babası anahtarlığa baktı ve güldü. \"Bu soyadını tanıyorum,\" dedi. \"Sokağın başındaki bakkalın soyadı bu. Dükkân kapanmadan yetişirsek anahtarı verebiliriz.\" Mert hemen montunu giydi.\n\nDükkâna gittiklerinde bakkal, kasada oturmuş, çekmeceyi karıştırıyordu. Mert anahtarı uzattığında bakkalın yüzü aydınlandı. \"Bu deponun anahtarı! Kapatırken düşürmüşüm. Sabah erken geliyorum, bununla açıyorum. Bulmasaydın yarın kapıyı açamayacaktım,\" dedi. Sonra çekmeceden bir çikolata çıkarıp Mert'e uzattı. Mert başını iki yana salladı: \"Bunu almam gerekmiyor. Anahtarı size geri vermek doğru olan şeydi.\"\n\nBakkal ısrar etmedi, sadece gülümsedi. Eve dönerken Mert kendini hafiflemiş hissetti. Sanki cebinde taşıdığı şey bir anahtar değil, bir taştı ve o taşı yerine bırakmıştı. Annesi ona, \"Aldığın şey senin olmayabilir; ama verdiğin karar tamamen senindir,\" dedi. Mert o gece başını yastığa koyduğunda hiçbir şeyi düşünmek zorunda kalmadı; rahatça uyudu.",
+      "grade": 3,
+      "subject": "turkce",
+      "topic": "okuma-anlama",
+      "quizThreshold": 60,
+      "showPassageDuringQuiz": true,
+      "image": "",
+      "questions": [
+        {
+          "id": "q3_anahtar_1",
+          "grade": 3,
+          "subject": "turkce",
+          "topic": "okuma-anlama",
+          "text": "Mert anahtarı bulduktan sonra neden rahat edemedi?",
+          "options": [
+            "Anahtarı kaybedeceğinden korktuğu için",
+            "Annesi ona kızdığı için",
+            "Anahtarı kaybeden kişinin kim olduğunu ve ne durumda olduğunu düşündüğü için",
+            "Ödevini yapamadığı için"
+          ],
+          "correctIndex": 2,
+          "explanation": "Metinde Mert'in aklının hep anahtarda olduğu ve kaybedenin bir çocuk, bakkal ya da yaşlı bir teyze olabileceğini düşündüğü anlatılır.",
+          "image": ""
+        },
+        {
+          "id": "q3_anahtar_2",
+          "grade": 3,
+          "subject": "turkce",
+          "topic": "okuma-anlama",
+          "text": "Bakkal, anahtarı görünce neden sevindi?",
+          "options": [
+            "Anahtar çok değerli olduğu için",
+            "Anahtarı kendisi kaybetmediği için",
+            "Mert'e çikolata vereceği için",
+            "Bu anahtar olmadan ertesi gün dükkânı açamayacağı için"
+          ],
+          "correctIndex": 3,
+          "explanation": "Bakkal \"Sabah erken geliyorum, bununla açıyorum. Bulmasaydın yarın kapıyı açamayacaktım\" der.",
+          "image": ""
+        },
+        {
+          "id": "q3_anahtar_3",
+          "grade": 3,
+          "subject": "turkce",
+          "topic": "okuma-anlama",
+          "text": "Mert, bakkalın verdiği çikolatayı neden almadı?",
+          "options": [
+            "Anahtarı geri vermenin zaten yapılması gereken doğru şey olduğunu düşündüğü için",
+            "Çikolatayı sevmediği için",
+            "Annesi izin vermediği için",
+            "Bakkal ısrar etmediği için"
+          ],
+          "correctIndex": 0,
+          "explanation": "Mert \"Bunu almam gerekmiyor, anahtarı geri vermek doğru olan şeydi\" diyerek karşılık beklemediğini gösterir.",
+          "image": ""
+        },
+        {
+          "id": "q3_anahtar_4",
+          "grade": 3,
+          "subject": "turkce",
+          "topic": "okuma-anlama",
+          "text": "Annesinin \"Aldığın şey senin olmayabilir; ama verdiğin karar tamamen senindir\" sözüyle anlatmak istediği nedir?",
+          "options": [
+            "Bulunan eşyaların hemen kullanılabileceğini",
+            "Dürüst bir karar vermenin kişinin kendi elinde olduğunu",
+            "Kararları yalnızca büyüklerin verdiğini",
+            "Kaybedilen şeyleri kimsenin aramadığını"
+          ],
+          "correctIndex": 1,
+          "explanation": "Anne, anahtarın Mert'e ait olmadığını ama onu geri verme kararının Mert'in kendi seçimi olduğunu vurgular.",
+          "image": ""
+        },
+        {
+          "id": "q3_anahtar_5",
+          "grade": 3,
+          "subject": "turkce",
+          "topic": "okuma-anlama",
+          "text": "Metnin sonunda Mert'in rahatça uyuması neyi gösterir?",
+          "options": [
+            "Çok yorulduğunu",
+            "Ertesi gün okula gitmeyeceğini",
+            "Doğru olanı yaptığı için içinin rahat olduğunu",
+            "Çikolata almadığı için üzüldüğünü"
+          ],
+          "correctIndex": 2,
+          "explanation": "Metinde Mert'in \"kendini hafiflemiş hissettiği\" ve hiçbir şeyi düşünmek zorunda kalmadan uyuduğu belirtilir; bu, vicdan rahatlığıdır.",
+          "image": ""
+        }
+      ]
+    },
+    {
+      "title": "Dedemin Bahçesindeki Fidan",
+      "sourceLabel": "3. Sınıf Türkçe Okuma Parçaları (Maarif Modeli)",
+      "body": "Dedem, bahçenin ortasına incecik bir fidan dikti. Fidan o kadar küçüktü ki, yanına bir kalem koysak hangisinin daha uzun olduğu belli olmazdı. \"Bunun adı elma fidanı,\" dedi dedem. \"Ama bugün meyve vermeyecek.\"\n\nBen her sabah fidanın yanına koşuyordum. Bazen bir yaprak, bazen minicik bir tomurcuk arıyordum. Bir hafta sonra hiçbir şey değişmemişti. İki hafta sonra yine hiçbir şey. Sabırsızlanmaya başladım. \"Dedecim, bu fidan hiç büyümüyor,\" dedim. Dedem güldü. \"Sen her gün baktığın için fark etmiyorsun. Büyüme, gözle görülmeyecek kadar yavaştır.\"\n\nDedem bana bir defter verdi. \"Her hafta fidanın boyunu ölç ve yaz,\" dedi. Dört hafta sonra deftere baktım: 12 santimetre, 14 santimetre, 17 santimetre, 21 santimetre. Boyu gerçekten artıyordu; yalnızca her gün baktığım için bu farkı göremiyordum.\n\nYazın ortasında bir fırtına çıktı. Rüzgâr dalları savurdu, yağmur her yeri ıslattı. Sabah bahçeye koştuğumda fidanın yan yattığını gördüm. Hemen dedeme haber verdim. Dedem bir sopa buldu, fidanı ona bağladı ve kökünün etrafına toprak yığdı. \"Şimdi sabırla bekleyeceğiz,\" dedi. \"Fidanın kendi köklerini güçlendirmesi gerek.\"\n\nSonbaharda fidanın boyu benim boyuma yaklaşmıştı. Dedem bana sordu: \"Bu elmayı bugün mü yedin?\" Ben \"Hayır, ağaç henüz meyve vermedi,\" dedim. Dedem başını salladı: \"İşte sabır böyle bir şey. Tohumu bugün atarsın, meyveyi başka bir yıl yersin. Ama emek verdiğin her toprak, bir gün sana gölge olur.\"",
+      "grade": 3,
+      "subject": "turkce",
+      "topic": "okuma-anlama",
+      "quizThreshold": 60,
+      "showPassageDuringQuiz": true,
+      "image": "",
+      "questions": [
+        {
+          "id": "q3_fidan_1",
+          "grade": 3,
+          "subject": "turkce",
+          "topic": "okuma-anlama",
+          "text": "Çocuk, fidanın büyümediğini neden düşünüyordu?",
+          "options": [
+            "Fidanı başka biri suladığı için",
+            "Dedesi ona doğruyu söylemediğinden",
+            "Fidanın meyvesi olmadığından",
+            "Her gün baktığı için büyümeyi fark edemediğinden"
+          ],
+          "correctIndex": 3,
+          "explanation": "Dedesi \"Büyüme, gözle görülmeyecek kadar yavaştır\" der; her gün bakınca fark anlaşılmaz.",
+          "image": ""
+        },
+        {
+          "id": "q3_fidan_2",
+          "grade": 3,
+          "subject": "turkce",
+          "topic": "okuma-anlama",
+          "text": "Dedesi çocuğa defter verip boy ölçtürmesinin nedeni nedir?",
+          "options": [
+            "Gözle görülmeyen büyümeyi ölçerek göstermek istediği için",
+            "Çocuğu oyalamak istediği için",
+            "Çocuğun matematik öğrenmesini istediği için",
+            "Fidanın kaç santim olduğunu kendisi merak ettiği için"
+          ],
+          "correctIndex": 0,
+          "explanation": "Haftalık ölçümler (12, 14, 17, 21 cm) fidanın büyüdüğünü kanıtlar; amaç bu yavaş değişimi görünür kılmaktır.",
+          "image": ""
+        },
+        {
+          "id": "q3_fidan_3",
+          "grade": 3,
+          "subject": "turkce",
+          "topic": "okuma-anlama",
+          "text": "Fırtınadan sonra dedesi fidanı sopaya bağladığında \"Şimdi sabırla bekleyeceğiz\" dedi. Bunun anlamı nedir?",
+          "options": [
+            "Fidanın hemen meyve vereceği",
+            "Fidanın köklerini güçlendirmesi için zamana ihtiyaç olduğu",
+            "Fırtınanın yeniden çıkacağı",
+            "Sopanın fidandan daha önemli olduğu"
+          ],
+          "correctIndex": 1,
+          "explanation": "Dedesi \"Fidanın kendi köklerini güçlendirmesi gerek\" diyerek iyileşmenin zaman alacağını anlatır.",
+          "image": ""
+        },
+        {
+          "id": "q3_fidan_4",
+          "grade": 3,
+          "subject": "turkce",
+          "topic": "okuma-anlama",
+          "text": "Dedesinin \"Tohumu bugün atarsın, meyveyi başka bir yıl yersin\" sözü neyi öğütler?",
+          "options": [
+            "Meyve yemenin sağlıksız olduğunu",
+            "Ağaç dikmenin çok zor olduğunu",
+            "Emek verilen işin sonucunun hemen alınamayabileceğini, sabırlı olmak gerektiğini",
+            "Bahçede çalışmanın gereksiz olduğunu"
+          ],
+          "correctIndex": 2,
+          "explanation": "Dedesi, emeğin karşılığının gecikmeli geldiğini ve sabrın gerektiğini anlatır.",
+          "image": ""
+        },
+        {
+          "id": "q3_fidan_5",
+          "grade": 3,
+          "subject": "turkce",
+          "topic": "okuma-anlama",
+          "text": "Bu parçanın ana düşüncesi hangisidir?",
+          "options": [
+            "Bahçede yalnızca elma ağacı yetişir",
+            "Çocuklar defter tutmayı sevmez",
+            "Fırtınalar bütün bitkileri yok eder",
+            "Büyük sonuçlar, sabırla sürdürülen küçük emeklerle ortaya çıkar"
+          ],
+          "correctIndex": 3,
+          "explanation": "Fidanın yavaş büyümesi, ölçüm defteri ve dedesinin sözleri birlikte sabrın ve emeğin değerini anlatır.",
+          "image": ""
+        }
+      ]
+    },
+    {
+      "title": "Bir Damla Suyun Yolculuğu",
+      "sourceLabel": "3. Sınıf Türkçe Okuma Parçaları (Maarif Modeli)",
+      "body": "Ayşe, yağmurlu bir günde pencerenin önüne oturmuş, cama vuran damlaları sayıyordu. Camdan aşağı süzülen bir damla dikkatini çekti. Damla, camın kenarından kaydı, pencere kenarına düştü ve oradan bahçedeki toprağa karıştı.\n\nAyşe o gün öğretmenine sordu: \"Bu su nereye gidiyor? Bir daha görür müyüm onu?\" Öğretmeni tahtaya basit bir resim çizdi. \"Su yok olmaz,\" dedi. \"Sadece yer değiştirir. Toprağa inen su, oradan bitkilerin köklerine gider. Bitkiler suyu yapraklarına taşır. Güneş ısıtınca su, görünmez bir buhar olup gökyüzüne çıkar. Yüksekte hava soğuktur; buhar yeniden damlacığa dönüşür ve bulut olur. Bulut ağırlaşınca yağmur olarak aşağı iner.\"\n\nAyşe o akşam bahçeye çıktı. Toprak nemliydi. Bir çiçeğin yaprağına dokundu; parmağı ıslandı. Ertesi gün hava çok sıcaktı. Öğle vakti gökyüzüne baktı ve beyaz bulutları gördü. \"Acaba o damla şimdi orada mı?\" diye düşündü.\n\nBir hafta sonra yağmur yeniden başladı. Ayşe camın önüne koştu. Bu kez damlaları saymadı; sadece gülümsedi. Annesi \"Neye gülüyorsun?\" diye sordu. Ayşe, \"Su bize geri döndü,\" dedi. \"Belki de bu damlalardan biri, geçen hafta toprağa karışan damladır. O gider, buharlaşır, bulut olur, yağar ve yine bize gelir. Hiç kaybolmuyor, sadece dolaşıyor.\"\n\nO günden sonra Ayşe suyu boşa akıtmamaya dikkat etti. Ellerini yıkarken musluğu kısıyor, dişlerini fırçalarken suyu kapatıyordu. Çünkü artık biliyordu ki o damla, yalnızca kendi bahçesinin değil, bütün dünyanın suyuydu.",
+      "grade": 3,
+      "subject": "turkce",
+      "topic": "okuma-anlama",
+      "quizThreshold": 60,
+      "showPassageDuringQuiz": true,
+      "image": "",
+      "questions": [
+        {
+          "id": "q3_su_1",
+          "grade": 3,
+          "subject": "turkce",
+          "topic": "okuma-anlama",
+          "text": "Öğretmenin \"Su yok olmaz, sadece yer değiştirir\" sözüyle anlatmak istediği nedir?",
+          "options": [
+            "Su buharlaşır, bulut olur ve yağmur olarak geri döner; döngü içinde hep vardır",
+            "Su her zaman aynı yerde kalır",
+            "Su yalnızca toprağa karışır ve kaybolur",
+            "Su yalnızca kışın görülür"
+          ],
+          "correctIndex": 0,
+          "explanation": "Öğretmenin resimle anlattığı yol: toprak → bitki → buhar → bulut → yağmur. Su döngü içinde yer değiştirir ama yok olmaz.",
+          "image": ""
+        },
+        {
+          "id": "q3_su_2",
+          "grade": 3,
+          "subject": "turkce",
+          "topic": "okuma-anlama",
+          "text": "Ayşe, topraktaki suyun bitkilere nasıl ulaştığını öğrenmiştir?",
+          "options": [
+            "Su doğrudan yapraklara sıçrar",
+            "Su, bitkilerin köklerinden alınıp yapraklara taşınır",
+            "Su yalnızca yağmur sırasında bitkiye girer",
+            "Su bitkiler için gerekli değildir"
+          ],
+          "correctIndex": 1,
+          "explanation": "Öğretmeni \"Toprağa inen su, oradan bitkilerin köklerine gider; bitkiler suyu yapraklarına taşır\" der.",
+          "image": ""
+        },
+        {
+          "id": "q3_su_3",
+          "grade": 3,
+          "subject": "turkce",
+          "topic": "okuma-anlama",
+          "text": "Güneşli ve sıcak bir günde gökyüzünde beyaz bulutlar gören Ayşe neyi fark etmiştir?",
+          "options": [
+            "Bulutların rüzgârla oluştuğunu",
+            "Bulutların yalnızca kışın göründüğünü",
+            "Bulutların sudan oluştuğunu ve buharlaşan suyun gökyüzünde olabileceğini",
+            "Bulutların hiç değişmediğini"
+          ],
+          "correctIndex": 2,
+          "explanation": "Ayşe \"Acaba o damla şimdi orada mı?\" diye düşünür; bu, buharın buluta dönüştüğünü anladığını gösterir.",
+          "image": ""
+        },
+        {
+          "id": "q3_su_4",
+          "grade": 3,
+          "subject": "turkce",
+          "topic": "okuma-anlama",
+          "text": "Bir hafta sonra yağmuru görünce Ayşe neden bu kez damlaları saymadı?",
+          "options": [
+            "Yağmuru artık sevmediği için",
+            "Hava çok soğuk olduğu için",
+            "Ödevi olduğu için",
+            "Suyun döngüsünü anladığı ve ona yeniden kavuştuğu için sevindiğinden"
+          ],
+          "correctIndex": 3,
+          "explanation": "Ayşe artık suyun kaybolmadığını bilir; \"Su bize geri döndü\" diyerek sevincini anlatır.",
+          "image": ""
+        },
+        {
+          "id": "q3_su_5",
+          "grade": 3,
+          "subject": "turkce",
+          "topic": "okuma-anlama",
+          "text": "Parçanın sonunda Ayşe'nin suyu boşa akıtmamaya dikkat etmesi neyi gösterir?",
+          "options": [
+            "Öğrendiği bilginin davranışına dönüştüğünü, suyu korumaya başladığını",
+            "Su içmeyi sevmediğini",
+            "Musluğun bozuk olduğunu",
+            "Annesinin onu uyardığını"
+          ],
+          "correctIndex": 0,
+          "explanation": "Ayşe suyu tasarruflu kullanmaya başlar; sorunun son cümlesi suyun dünyanın ortak varlığı olduğunu vurgular.",
+          "image": ""
+        }
+      ]
+    }
+  ]
+}

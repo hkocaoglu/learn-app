@@ -1,0 +1,114 @@
+{
+  "version": 1,
+  "kind": "reading-passage",
+  "exportedAt": "2026-10-11T17:06:14.202Z",
+  "passage": {
+    "title": "Mustafa Kemal Atatürk",
+    "sourceLabel": "5. Sınıf Türkçe Okuma Parçaları (Maarif Modeli)",
+    "body": "Mustafa Kemal Atatürk, Türkiye Cumhuriyeti'nin kurucusudur. 1881 yılında Selanik'te doğdu. Askeri okulda okudu. Çanakkale Savaşı'nda büyük bir başarı gösterdi. Kurtuluş Savaşı'nı yönetti. 29 Ekim 1923'te Cumhuriyet'i ilan etti. Türk gençliğine şöyle seslendi: \"Ey Türk gençliği! Birinci vazifen, Türk istiklalini ve Türk Cumhuriyeti'ni ilelebet muhafaza ve müdafaa etmektir.\" 10 Kasım 1938'de vefat etti. Türk milleti onu her yıl saygı ve özlemle anar.",
+    "grade": 5,
+    "subject": "turkce",
+    "topic": "okuma-anlama",
+    "quizThreshold": 60,
+    "showPassageDuringQuiz": true,
+    "image": "",
+    "questions": [
+      {
+        "id": "q_mv42rlmi_1zdu4p",
+        "grade": 5,
+        "subject": "turkce",
+        "topic": "okuma-anlama",
+        "text": "Atatürk nerede doğdu?",
+        "options": [
+          "İstanbul",
+          "Ankara",
+          "Selanik",
+          "İzmir"
+        ],
+        "correctIndex": 2,
+        "explanation": "",
+        "image": ""
+      },
+      {
+        "id": "q_mv42rlmi_2l8vne",
+        "grade": 5,
+        "subject": "turkce",
+        "topic": "okuma-anlama",
+        "text": "Atatürk ne kurdu?",
+        "options": [
+          "Okul",
+          "Türkiye Cumhuriyeti",
+          "Ordu",
+          "Hastane"
+        ],
+        "correctIndex": 1,
+        "explanation": "",
+        "image": ""
+      },
+      {
+        "id": "q_mv42rlmi_3xflbt",
+        "grade": 5,
+        "subject": "turkce",
+        "topic": "okuma-anlama",
+        "text": "Atatürk hangi savaşı yönetti?",
+        "options": [
+          "Çanakkale",
+          "Kurtuluş Savaşı",
+          "Balkan Savaşları",
+          "I. Dünya Savaşı"
+        ],
+        "correctIndex": 1,
+        "explanation": "",
+        "image": ""
+      },
+      {
+        "id": "q_mv42rlmi_4ccqrb",
+        "grade": 5,
+        "subject": "turkce",
+        "topic": "okuma-anlama",
+        "text": "Cumhuriyet ne zaman ilan edildi?",
+        "options": [
+          "1920",
+          "1923",
+          "1938",
+          "1919"
+        ],
+        "correctIndex": 1,
+        "explanation": "",
+        "image": ""
+      },
+      {
+        "id": "q_mv42rlmi_5qked7",
+        "grade": 5,
+        "subject": "turkce",
+        "topic": "okuma-anlama",
+        "text": "Atatürk hangi tür okulda okudu?",
+        "options": [
+          "Hukuk",
+          "Askeri okul",
+          "Tıp",
+          "Mühendislik"
+        ],
+        "correctIndex": 1,
+        "explanation": "",
+        "image": ""
+      },
+      {
+        "id": "q_mv42rlmi_6curlz",
+        "grade": 5,
+        "subject": "turkce",
+        "topic": "okuma-anlama",
+        "text": "Parçaya göre Atatürk'ün en önemli başarısı nedir?",
+        "options": [
+          "Sadece savaş kazanmak",
+          "Türkiye Cumhuriyeti'ni kurmak",
+          "Sadece okul açmak",
+          "Sadece yazı yazmak"
+        ],
+        "correctIndex": 1,
+        "explanation": "",
+        "image": ""
+      }
+    ]
+  }
+}

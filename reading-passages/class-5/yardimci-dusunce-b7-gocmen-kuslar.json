@@ -1,0 +1,33 @@
+{
+  "version": 1,
+  "kind": "reading-passage",
+  "exportedAt": "2026-10-11T17:06:14.204Z",
+  "passage": {
+    "title": "Göçmen Kuşlar",
+    "sourceLabel": "turkceciyiz.com — Bilal Kış | 5. Sınıf Maarif Modeli",
+    "body": "Göçmen kuşlar, her yıl binlerce kilometrelik mesafeleri hiçbir harita kullanmadan geçerek dünyanın manyetik alanından faydalanır. Yıldızların konumunu ve güneşin açısı gibi doğal ipuçlarını takip ederek yollarını şaşırmadan aynı noktaya geri dönebilir. Bu biyolojik pusula sistemi, doğanın en karmaşık ve kusursuz mühendislik harikalarından biri kabul edilir.",
+    "grade": 5,
+    "subject": "turkce",
+    "topic": "yardimci-dusunce",
+    "quizThreshold": 60,
+    "showPassageDuringQuiz": true,
+    "image": "",
+    "questions": [
+      {
+        "id": "q_mv42rlmk_395dn1w",
+        "grade": 5,
+        "subject": "turkce",
+        "topic": "yardimci-dusunce",
+        "text": "Aşağıdaki yargılardan hangisine bu metinden ulaşılamaz?",
+        "options": [
+          "Göçmen kuşlar dünyanın manyetik alanından faydalanır.",
+          "Göçmen kuşlar, yıldızların konumunu ve güneşin açısını kullanır.",
+          "Göçmen kuşlar yollarını bulmak için harita kullanır."
+        ],
+        "correctIndex": 2,
+        "explanation": "",
+        "image": ""
+      }
+    ]
+  }
+}

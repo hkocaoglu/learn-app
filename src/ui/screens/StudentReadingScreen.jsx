@@ -1,5 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
-import { evaluateReadingGates, submitReadingAttempt } from '../../cloud/readings.js'
+import { submitReadingAttempt } from '../../cloud/readings.js'
+import { evaluateReadingGates } from '../../domain/readingGates.js'
+import { buildRsvpPlan, formatSecondsPerWord } from '../../domain/rsvp.js'
 import { synthesizeSpeech } from '../../ai/tts.js'
 import { formatSeconds, gradeLabel, requiredDwellSeconds, subjectLabel, topicLabel } from '../../domain/model.js'
 import {
@@ -18,8 +20,9 @@ import {
 import Modal from '../components/Modal.jsx'
 import QuestionImage from '../components/QuestionImage.jsx'
 import PointsEarned from '../components/PointsEarned.jsx'
+import RsvpPlayer from '../components/RsvpPlayer.jsx'
 
-const DRAFT_VERSION = 2
+const DRAFT_VERSION = 3
 // b436647 bu tanımı silmişti — taslaklar sessizce kaydedilemiyordu (draftKey ReferenceError).
 const draftKey = (studentId, assignmentId) => `learn_app_student_reading_v${DRAFT_VERSION}_${studentId}_${assignmentId}`
 
@@ -60,6 +63,12 @@ export default function StudentReadingScreen({ student, readingAssignment, onBac
   const questions = reading?.questions || []
   const total = questions.length
   const required = requiredDwellSeconds(reading)
+  // Hızlı kelime akışı modu: metin kelime kelime akar, quiz akış bitince açılır.
+  const isRsvp = reading?.displayMode === 'rsvp'
+  const rsvpPlan = useMemo(
+    () => buildRsvpPlan(reading?.body, reading?.rsvpSecondsPerWord),
+    [reading?.body, reading?.rsvpSecondsPerWord]
+  )
 
   const [step, setStep] = useState(() => Math.min(Math.max(Number(draft?.step) || 0, 0), Math.max(0, total - 1)))
   const [answers, setAnswers] = useState(() => draft?.answers || {})
@@ -75,6 +84,12 @@ export default function StudentReadingScreen({ student, readingAssignment, onBac
   const [speechIndex, setSpeechIndex] = useState(-1)
   const [speechNotice, setSpeechNotice] = useState('')
   const [speechRate, setSpeechRate] = useState(loadSpeechRate)
+  // Akış durumu: rsvpCompleted olmadan quiz kilidi açılmaz. Taslakta saklanır —
+  // sekme yenilenirse öğrenci akışı yeniden izlemek zorunda kalmaz (yeni bilgi de kazanmaz).
+  const [rsvpRunning, setRsvpRunning] = useState(false)
+  const [rsvpCompleted, setRsvpCompleted] = useState(() => draft?.rsvpCompleted === true)
+  const [rsvpPlays, setRsvpPlays] = useState(() => Number(draft?.rsvpPlays) || 0)
+  const [rsvpPlayKey, setRsvpPlayKey] = useState(0)
 
   const startedAtRef = useRef(draft?.startedAt || Date.now())
   const accumulatedRef = useRef(Number(draft?.dwellSeconds) || 0)
@@ -96,7 +111,13 @@ export default function StudentReadingScreen({ student, readingAssignment, onBac
 
   const answeredCount = Object.values(answers).filter((value) => Number.isInteger(value) && value >= 0).length
   const unansweredCount = Math.max(0, total - answeredCount)
-  const gates = evaluateReadingGates({ reading, answers, dwellSeconds, scrolledBottom })
+  const gates = evaluateReadingGates({
+    reading,
+    answers,
+    dwellSeconds,
+    scrolledBottom,
+    flowCompleted: rsvpCompleted
+  })
   const canFinish = gates.dwellOk && gates.scrollOk
   const passageVisible = !quizStarted || total === 0 || reading?.showPassageDuringQuiz !== false
 
@@ -133,9 +154,11 @@ export default function StudentReadingScreen({ student, readingAssignment, onBac
       dwellSeconds: accumulatedRef.current,
       scrolledBottom: scrolledRef.current,
       quizStarted,
+      rsvpCompleted,
+      rsvpPlays,
       startedAt: startedAtRef.current
     })
-  }, [answers, dwellSeconds, quizStarted, reading, readingAssignment.id, scrolledBottom, step, student.id])
+  }, [answers, dwellSeconds, quizStarted, reading, readingAssignment.id, rsvpCompleted, rsvpPlays, scrolledBottom, step, student.id])
 
   useEffect(() => {
     if (finishedRef.current || !reading) return undefined
@@ -150,6 +173,18 @@ export default function StudentReadingScreen({ student, readingAssignment, onBac
   const markScrolled = () => {
     scrolledRef.current = true
     setScrolledBottom(true)
+  }
+
+  // ---- Akış (RSVP) ----
+  const handleRsvpComplete = () => {
+    setRsvpRunning(false)
+    setRsvpCompleted(true)
+    setRsvpPlays((plays) => plays + 1)
+  }
+
+  const startRsvp = () => {
+    setRsvpPlayKey((key) => key + 1)
+    setRsvpRunning(true)
   }
 
   const handleScroll = (event) => {
@@ -447,6 +482,8 @@ export default function StudentReadingScreen({ student, readingAssignment, onBac
         answers,
         dwellSeconds: Math.floor(accumulatedRef.current),
         scrolledBottom: scrolledRef.current,
+        flowCompleted: rsvpCompleted,
+        rsvpPlays,
         totalSeconds,
         startedAt: startedAtRef.current
       })
@@ -474,24 +511,38 @@ export default function StudentReadingScreen({ student, readingAssignment, onBac
           <div className="student-result-score">%{result.scorePercent}</div>
           <PointsEarned studentId={student.id} refType="reading" refId={readingAssignment.id} show={result.read} />
           <div className="status-summary">
-            <span className={`badge ${result.gates.dwellOk ? 'badge-success' : 'badge-danger'}`}>
-              ⏱ Dwell {result.gates.dwellOk ? '✓' : '✗'}
-            </span>
-            <span className={`badge ${result.gates.scrollOk ? 'badge-success' : 'badge-danger'}`}>
-              Scroll {result.gates.scrollOk ? '✓' : '✗'}
-            </span>
+            {result.gates.rsvp ? (
+              <span className={`badge ${result.gates.flowOk ? 'badge-success' : 'badge-danger'}`}>
+                ⚡ Akış {result.gates.flowOk ? '✓' : '✗'}
+              </span>
+            ) : (
+              <>
+                <span className={`badge ${result.gates.dwellOk ? 'badge-success' : 'badge-danger'}`}>
+                  ⏱ Dwell {result.gates.dwellOk ? '✓' : '✗'}
+                </span>
+                <span className={`badge ${result.gates.scrollOk ? 'badge-success' : 'badge-danger'}`}>
+                  Scroll {result.gates.scrollOk ? '✓' : '✗'}
+                </span>
+              </>
+            )}
             <span className={`badge ${result.gates.quizOk ? 'badge-success' : 'badge-danger'}`}>
               Quiz {result.gates.quizOk ? '✓' : '✗'}
             </span>
           </div>
           {!result.read && (
             <div className="alert alert-warning">
-              {!result.gates.dwellOk && <div>Okuma süresi dolmadı ({required} sn gerekli).</div>}
-              {!result.gates.scrollOk && <div>Metin sonuna kadar kaydırılmadı.</div>}
+              {result.gates.rsvp && !result.gates.flowOk && <div>Kelime akışı tamamlanmadı.</div>}
+              {!result.gates.rsvp && !result.gates.dwellOk && (
+                <div>Okuma süresi dolmadı ({required} sn gerekli).</div>
+              )}
+              {!result.gates.rsvp && !result.gates.scrollOk && <div>Metin sonuna kadar kaydırılmadı.</div>}
               {!result.gates.quizOk && <div>Quiz eşiği geçilemedi.</div>}
             </div>
           )}
-          <p className="muted small">⏱ Süre: {formatSeconds(result.totalSeconds)}</p>
+          <p className="muted small">
+            ⏱ Süre: {formatSeconds(result.totalSeconds)}
+            {rsvpPlays > 0 ? ` • ⚡ Akış ${rsvpPlays} kez izlendi` : ''}
+          </p>
         </div>
         <button className="btn btn-primary" type="button" onClick={onBack}>
           Okumalara dön
@@ -516,7 +567,7 @@ export default function StudentReadingScreen({ student, readingAssignment, onBac
       Number(question.correctIndex) < 0 ||
       Number(question.correctIndex) >= question.options.length)
   // Quiz sırasında metin görünürse yan yana (geniş ekranda) yerleşim kullanılır.
-  const splitLayout = quizStarted && total > 0 && reading?.showPassageDuringQuiz !== false
+  const splitLayout = quizStarted && total > 0 && !isRsvp && reading?.showPassageDuringQuiz !== false
 
   if (!reading) {
     return (
@@ -545,12 +596,25 @@ export default function StudentReadingScreen({ student, readingAssignment, onBac
           </div>
         </div>
         <div className="row-actions exam-status-group" aria-live="polite">
-          <span className={`badge ${gates.dwellOk ? 'badge-success' : 'badge-warning'}`}>
-            ⏱ {dwellSeconds}/{required} sn
-          </span>
-          <span className={`badge ${scrolledBottom ? 'badge-success' : 'badge-warning'}`}>
-            Kaydırma: %{scrolledBottom ? 100 : 0}
-          </span>
+          {isRsvp ? (
+            <span className={`badge ${rsvpCompleted ? 'badge-success' : 'badge-warning'}`}>
+              ⚡ Akış:{' '}
+              {rsvpCompleted
+                ? rsvpPlays > 1
+                  ? `tamamlandı (${rsvpPlays} kez)`
+                  : 'tamamlandı'
+                : `${rsvpPlan.wordCount} kelime bekliyor`}
+            </span>
+          ) : (
+            <>
+              <span className={`badge ${gates.dwellOk ? 'badge-success' : 'badge-warning'}`}>
+                ⏱ {dwellSeconds}/{required} sn
+              </span>
+              <span className={`badge ${scrolledBottom ? 'badge-success' : 'badge-warning'}`}>
+                Kaydırma: %{scrolledBottom ? 100 : 0}
+              </span>
+            </>
+          )}
           {total > 0 && (
             <span className={`badge ${answeredCount === total ? 'badge-success' : 'badge-warning'}`}>
               Quiz: {answeredCount}/{total}
@@ -562,7 +626,56 @@ export default function StudentReadingScreen({ student, readingAssignment, onBac
       {error && <div className="alert alert-error">{error}</div>}
 
       <div className={`reading-layout ${splitLayout ? 'reading-layout-split' : ''}`}>
-        {passageVisible && (
+        {isRsvp && (
+          <div className="card reading-pane">
+            {rsvpRunning ? (
+              <RsvpPlayer key={rsvpPlayKey} plan={rsvpPlan} onComplete={handleRsvpComplete} />
+            ) : rsvpCompleted ? (
+              <div className="submit-confirmation">
+                <div className="submit-confirmation-icon">⚡</div>
+                <p>
+                  <strong>Akış tamamlandı.</strong> Metin bir daha gösterilmeyecek; sorular hatırda kalan ayrıntıları
+                  ölçer.
+                </p>
+                <p className="muted">
+                  {rsvpPlays > 1 ? `${rsvpPlays} kez izlediniz.` : 'Tek seferlik akış.'} Hız:{' '}
+                  {formatSecondsPerWord(rsvpPlan.secondsPerWord)}.
+                </p>
+                <div className="row-actions submit-confirmation-actions">
+                  {!quizStarted && (
+                    <button className="btn" type="button" onClick={startRsvp}>
+                      ↻ Tekrar izle
+                    </button>
+                  )}
+                </div>
+              </div>
+            ) : (
+              <div className="submit-confirmation">
+                <div className="submit-confirmation-icon">⚡</div>
+                <p>
+                  <strong>Metin kelime kelime akacak.</strong> Her kelime ekranda{' '}
+                  {formatSecondsPerWord(rsvpPlan.secondsPerWord)} duracak ({rsvpPlan.wordCount} kelime, yaklaşık{' '}
+                  {formatSeconds(Math.ceil(rsvpPlan.totalMs / 1000))}). Metin akıştan sonra bir daha gösterilmez.
+                </p>
+                <div className="row-actions submit-confirmation-actions">
+                  <button
+                    className="btn btn-success"
+                    type="button"
+                    disabled={rsvpPlan.wordCount === 0}
+                    onClick={startRsvp}
+                  >
+                    ▶ Akışı başlat
+                  </button>
+                </div>
+                <p className="small muted mt-8">
+                  Akış tamamlanınca sorular açılır; sorular sırasında metin görünmez ve sesli okuma kapalıdır.
+                </p>
+              </div>
+            )}
+          </div>
+        )}
+
+        {!isRsvp && passageVisible && (
           <div className="card reading-pane">
             <div className="reading-audio-bar">
               <button
@@ -639,7 +752,11 @@ export default function StudentReadingScreen({ student, readingAssignment, onBac
         <div className="reading-quiz-column">
       {total === 0 ? (
         <div className="card mt-16">
-          <p>Bu okumada quiz sorusu yok. Süre + kaydırma koşulunu doldurunca bitirebilirsiniz.</p>
+          <p>
+            {isRsvp
+              ? 'Bu okumada quiz sorusu yok. Kelime akışını tamamlayınca bitirebilirsiniz.'
+              : 'Bu okumada quiz sorusu yok. Süre + kaydırma koşulunu doldurunca bitirebilirsiniz.'}
+          </p>
           <button
             className="btn btn-success"
             type="button"
@@ -648,14 +765,18 @@ export default function StudentReadingScreen({ student, readingAssignment, onBac
             title={
               canFinish
                 ? 'Okumayı bitir'
-                : `Önce metni sonuna kadar kaydırın ve ${required} sn okuma süresini doldurun.`
+                : isRsvp
+                  ? 'Önce kelime akışını sonuna kadar izleyin.'
+                  : `Önce metni sonuna kadar kaydırın ve ${required} sn okuma süresini doldurun.`
             }
           >
             {submitting ? 'Gönderiliyor…' : '✅ Okumayı Bitir'}
           </button>
           {!canFinish && (
             <p className="small muted mt-8">
-              Önce metni sonuna kadar kaydırın ve {required} sn okuma süresini doldurun.
+              {isRsvp
+                ? 'Önce kelime akışını sonuna kadar izleyin.'
+                : `Önce metni sonuna kadar kaydırın ve ${required} sn okuma süresini doldurun.`}
             </p>
           )}
         </div>
@@ -664,11 +785,13 @@ export default function StudentReadingScreen({ student, readingAssignment, onBac
           <div className="submit-confirmation">
             <div className="submit-confirmation-icon">🔒</div>
             <p>
-              <strong>Quiz henüz kilitli.</strong> Sorular, okuma süresi dolunca açılacak.
+              <strong>Quiz henüz kilitli.</strong>{' '}
+              {isRsvp ? 'Sorular, kelime akışı tamamlanınca açılacak.' : 'Sorular, okuma süresi dolunca açılacak.'}
             </p>
             <p className="muted">
-              ⏱ {dwellSeconds}/{required} sn — kalan {Math.max(0, required - dwellSeconds)} sn. Önce metni
-              sonuna kadar kaydırarak okumaya devam edin.
+              {isRsvp
+                ? `⚡ ${rsvpPlan.wordCount} kelimelik akışı baştan sona izleyin (${formatSecondsPerWord(rsvpPlan.secondsPerWord)}).`
+                : `⏱ ${dwellSeconds}/${required} sn — kalan ${Math.max(0, required - dwellSeconds)} sn. Önce metni sonuna kadar kaydırarak okumaya devam edin.`}
             </p>
           </div>
         </div>
@@ -678,9 +801,11 @@ export default function StudentReadingScreen({ student, readingAssignment, onBac
             <div className="submit-confirmation-icon">📖</div>
             <p>
               <strong>Okuma tamamlandı.</strong> Sorulara geçmeye hazır olduğunuzda başlayın.
-              {reading.showPassageDuringQuiz === false
-                ? ' Metin, test sırasında gizlenecek.'
-                : ' Metin, test sırasında görünür kalacak.'}
+              {isRsvp
+                ? ' Metin, test sırasında gösterilmez.'
+                : reading.showPassageDuringQuiz === false
+                  ? ' Metin, test sırasında gizlenecek.'
+                  : ' Metin, test sırasında görünür kalacak.'}
             </p>
             <div className="row-actions submit-confirmation-actions">
               <button className="btn btn-success" type="button" onClick={() => setQuizStarted(true)}>
@@ -779,7 +904,9 @@ export default function StudentReadingScreen({ student, readingAssignment, onBac
                 title={
                   canFinish
                     ? 'Okumayı bitir'
-                    : `Önce metni sonuna kadar kaydırın ve ${required} sn okuma süresini doldurun.`
+                    : isRsvp
+                      ? 'Önce kelime akışını sonuna kadar izleyin.'
+                      : `Önce metni sonuna kadar kaydırın ve ${required} sn okuma süresini doldurun.`
                 }
               >
                 {submitting ? 'Gönderiliyor…' : '✅ Okumayı Bitir'}
@@ -788,7 +915,9 @@ export default function StudentReadingScreen({ student, readingAssignment, onBac
           </div>
           {!canFinish && (
             <p className="small muted mt-8">
-              Önce metni sonuna kadar kaydırın ve {required} sn okuma süresini doldurun.
+              {isRsvp
+                ? 'Önce kelime akışını sonuna kadar izleyin.'
+                : `Önce metni sonuna kadar kaydırın ve ${required} sn okuma süresini doldurun.`}
             </p>
           )}
         </div>

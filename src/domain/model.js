@@ -128,11 +128,38 @@ export const normalizeTest = (t) => ({
   questions: (t.questions || []).map((q) => normalizeQuestion(q, t.grade, t.subject))
 })
 
+// ---------- Hızlı kelime akışı (RSVP) ----------
+// Metin ekranda kelime kelime akar; hızı öğretmen belirler (sn/kelime).
+export const DISPLAY_MODES = ['static', 'rsvp']
+
+export const DISPLAY_MODE_LABELS = {
+  static: 'Normal okuma (kaydırma + süre)',
+  rsvp: 'Hızlı kelime akışı'
+}
+
+export const displayModeLabel = (mode) => DISPLAY_MODE_LABELS[mode] || DISPLAY_MODE_LABELS.static
+
+// Akış modunda ezber/ayrıntı ölçümü kısa tutulur: en fazla 3 anlama sorusu.
+export const RSVP_QUESTION_COUNT = 3
+export const RSVP_MIN_SECONDS_PER_WORD = 0.1
+export const RSVP_MAX_SECONDS_PER_WORD = 5
+export const RSVP_DEFAULT_SECONDS_PER_WORD = 0.8
+
+// Süreyi sınırlar içine çeker; geçersiz/boş değerde varsayılana döner (2 ondalık).
+export const normalizeSecondsPerWord = (value) => {
+  if (value === undefined || value === null || value === '') return RSVP_DEFAULT_SECONDS_PER_WORD
+  const n = Number(value)
+  if (!Number.isFinite(n) || n <= 0) return RSVP_DEFAULT_SECONDS_PER_WORD
+  const clamped = Math.min(RSVP_MAX_SECONDS_PER_WORD, Math.max(RSVP_MIN_SECONDS_PER_WORD, n))
+  return Math.round(clamped * 100) / 100
+}
+
 // ---------- Okuma ödevi ----------
 // minDwellSeconds boşsa requiredDwellSeconds kelime sayısından türetir (150 wpm, 30-600 sn).
 export const validateReading = (r) => {
   const errors = []
   if (!r) return ['Okuma verisi eksik']
+  const displayMode = r.displayMode === 'rsvp' ? 'rsvp' : 'static'
   if (!r.title || String(r.title).trim().length < 1 || String(r.title).trim().length > 200)
     errors.push('Okuma başlığı 1-200 karakter olmalı')
   const body = String(r.body || '')
@@ -152,9 +179,24 @@ export const validateReading = (r) => {
   }
   if (r.showPassageDuringQuiz !== undefined && r.showPassageDuringQuiz !== null && typeof r.showPassageDuringQuiz !== 'boolean')
     errors.push('Metin görünürlüğü seçimi geçersiz')
+  if (r.displayMode !== undefined && r.displayMode !== null && !DISPLAY_MODES.includes(r.displayMode))
+    errors.push('Gösterim modu geçersiz (static veya rsvp)')
+  if (r.rsvpSecondsPerWord !== undefined && r.rsvpSecondsPerWord !== null && r.rsvpSecondsPerWord !== '') {
+    const rate = Number(r.rsvpSecondsPerWord)
+    if (!Number.isFinite(rate) || rate < RSVP_MIN_SECONDS_PER_WORD || rate > RSVP_MAX_SECONDS_PER_WORD)
+      errors.push(
+        `Kelime hızı ${RSVP_MIN_SECONDS_PER_WORD}-${RSVP_MAX_SECONDS_PER_WORD} sn/kelime arasında olmalı`
+      )
+  }
   if (r.questions !== undefined && r.questions !== null) {
+    const limit = displayMode === 'rsvp' ? RSVP_QUESTION_COUNT : 6
     if (!Array.isArray(r.questions)) errors.push('Sorular listesi eksik')
-    else if (r.questions.length > 6) errors.push('Okuma sorusu en fazla 6 olabilir')
+    else if (r.questions.length > limit)
+      errors.push(
+        displayMode === 'rsvp'
+          ? `Hızlı kelime akışında en fazla ${limit} soru olabilir`
+          : `Okuma sorusu en fazla ${limit} olabilir`
+      )
     else {
       r.questions.forEach((q, i) => {
         validateQuestion({ ...q, grade: r.grade, subject: r.subject }).forEach((e) =>
@@ -168,6 +210,9 @@ export const validateReading = (r) => {
 
 export const normalizeReading = (r) => ({
   id: r.id || uid('r_'),
+  // Akış modunda metin quiz sırasında gösterilmez: metni normal hızda okumak ölçümü bozar.
+  displayMode: DISPLAY_MODES.includes(r.displayMode) ? r.displayMode : 'static',
+  rsvpSecondsPerWord: normalizeSecondsPerWord(r.rsvpSecondsPerWord),
   title: String(r.title || '').trim(),
   sourceLabel: r.sourceLabel ? String(r.sourceLabel).trim() : '',
   body: String(r.body || '').trim(),
@@ -183,9 +228,11 @@ export const normalizeReading = (r) => ({
       ? 60
       : Number(r.quizThreshold),
   showPassageDuringQuiz:
-    r.showPassageDuringQuiz === undefined || r.showPassageDuringQuiz === null
-      ? true
-      : Boolean(r.showPassageDuringQuiz),
+    r.displayMode === 'rsvp'
+      ? false
+      : r.showPassageDuringQuiz === undefined || r.showPassageDuringQuiz === null
+        ? true
+        : Boolean(r.showPassageDuringQuiz),
   image: r.image ? String(r.image) : '',
   questions: (r.questions || []).map((q) => normalizeQuestion(q, r.grade, r.subject)),
   createdAt: r.createdAt || nowIso()
@@ -206,6 +253,8 @@ export const exportPassage = (passage) => {
         grade: normalized.grade,
         subject: normalized.subject,
         topic: normalized.topic,
+        displayMode: normalized.displayMode,
+        rsvpSecondsPerWord: normalized.rsvpSecondsPerWord,
         quizThreshold: normalized.quizThreshold,
         showPassageDuringQuiz: normalized.showPassageDuringQuiz,
         image: normalized.image,
@@ -224,6 +273,24 @@ export const importPassage = (json) => {
   const errors = validateReading(parsed.passage)
   if (errors.length > 0) throw new Error(`Geçersiz metin: ${errors[0]}`)
   return normalizeReading(parsed.passage)
+}
+
+// Toplu içe aktarım: tek metin ya da koleksiyon dosyası → passage[].
+// Koleksiyon formatı: { version, kind: 'reading-passage-collection', passages: [passage, ...] }
+export const importPassages = (json) => {
+  const parsed = typeof json === 'string' ? JSON.parse(json) : json
+  if (!parsed) throw new Error('Geçersiz dosya: JSON okunamadı.')
+  if (parsed.kind === 'reading-passage' && parsed.passage) return [importPassage(parsed)]
+  if (parsed.kind === 'reading-passage-collection' && Array.isArray(parsed.passages)) {
+    if (parsed.passages.length === 0) throw new Error('Geçersiz dosya: koleksiyonda metin yok.')
+    return parsed.passages.map((passage, index) => {
+      const errors = validateReading(passage)
+      if (errors.length > 0)
+        throw new Error(`Metin ${index + 1} ("${passage?.title || 'başlıksız'}"): ${errors[0]}`)
+      return normalizeReading(passage)
+    })
+  }
+  throw new Error('Geçersiz dosya: kind "reading-passage" veya "reading-passage-collection" olmalı.')
 }
 
 export const readingWordCount = (body) => {
