@@ -61,6 +61,12 @@ export const submitStudentAttempt = async ({
     .single()
 
   if (error) {
+    // Kural ihlalleri RLS ile engellenir: eşik zaten geçilmiş ya da günlük hak dolmuş.
+    if (/row-level security policy/i.test(error.message || '')) {
+      throw new Error(
+        'Bu sınava şu anda başlayamazsınız: başarı eşiğini geçtiniz ya da bugünkü deneme hakkınız doldu. Yarın tekrar deneyebilirsiniz.'
+      )
+    }
     if (error.code === '23505') throw new Error('Bu test için zaten tamamlanmış bir denemeniz var.')
     throw new Error(`Sınav sonucu kaydedilemedi: ${error.message}`)
   }

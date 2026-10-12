@@ -1,0 +1,98 @@
+{
+  "version": 1,
+  "kind": "reading-passage",
+  "exportedAt": "2026-10-11T22:00:00.000Z",
+  "passage": {
+    "title": "Rüzgârgülü Deneyi",
+    "sourceLabel": "4. Sınıf Türkçe Okuma Parçaları (Maarif Modeli)",
+    "body": "Fen bilgisi dersinde öğretmenimiz \"Rüzgâr nasıl oluşur?\" diye sordu. Kimse tam olarak cevap veremedi. Bazı arkadaşlarım \"Ağaçlar sallandığı için\" dedi, bazıları \"Bulutlar esince\" dedi. Öğretmenimiz tahtaya bir ok çizdi ve \"Rüzgâr, sıcak ve soğuk havanın yer değiştirmesidir,\" dedi. Sonra bize bir ödev verdi: Kendi rüzgârgülümüzü yapıp bir hafta boyunca gözlem yapmak.\n\nEve gittiğimde karton, makas, raptiye ve ince bir çubuk buldum. Kare şeklinde bir karton kestim, köşelerinden ortasına doğru makasla çizikler attım, köşeleri ortada birleştirip raptiyeyle çubuğa tuttum. İlk denemede rüzgârgülü dönmedi. Raptiyeyi çok sıkı tutturmuşum, kâğıt sıkışmıştı. İkinci denemede raptiyeyi biraz gevşettim ve rüzgârgülü dönmeye başladı. Pencereye koydum, balkona taşıdım, elimde koşturup denedim.\n\nDefterime her gün not tuttum. Pazartesi öğle vakti rüzgârgülü çok hızlı dönüyordu; akşam neredeyse durdu. Salı sabahı sisli ve rüzgârsızdı; rüzgârgülü kıpırdamadı. Çarşamba yağmur başlamadan önce rüzgâr şiddetlendi, rüzgârgülü dönerken ses çıkardı. Perşembe ise hava birden soğudu ve rüzgâr yön değiştirdi.\n\nBu notları sınıfta arkadaşlarımın notlarıyla karşılaştırdık. İlginç bir sonuç çıktı: Rüzgârgülünden uzak oturan arkadaşımın ölçümleri bazı günler benimkilerle uyuşmuyordu. Çünkü o, rüzgârgülünü apartmanın bahçesine koymuştu; benimki balkondaydı. Öğretmenimiz \"Rüzgârı ölçerken yalnızca rüzgârı değil, ölçtüğünüz yeri de hesaba katmalısınız,\" dedi.\n\nO hafta öğrendiğim en önemli şey, rüzgârın ne olduğu değildi yalnızca. Bir sonuca varmadan önce ölçümünü yaptığım koşulları sorgulamayı öğrendim. Öğretmenimiz deney defterimin sonuna şöyle yazdı: \"Deney yapmak, gözlemekle başlar; ama sorgulamakla anlam kazanır.\"",
+    "grade": 4,
+    "subject": "turkce",
+    "topic": "okuma-anlama",
+    "quizThreshold": 60,
+    "showPassageDuringQuiz": true,
+    "image": "",
+    "questions": [
+      {
+        "id": "q4_ruzgar_1",
+        "grade": 4,
+        "subject": "turkce",
+        "topic": "okuma-anlama",
+        "text": "Yazarın ilk rüzgârgülü neden dönmedi?",
+        "options": [
+          "Rüzgâr hiç esmediği için",
+          "Kartonu yanlış kestiği için",
+          "Raptiyeyi çok sıkı tutturduğu ve kâğıdın sıkıştığı için",
+          "Rüzgârgülünü içeride tuttuğu için"
+        ],
+        "correctIndex": 2,
+        "explanation": "Metinde \"Raptiyeyi çok sıkı tutturmuşum, kâğıt sıkışmıştı\" denir; ikinci denemede gevşetince döner.",
+        "image": ""
+      },
+      {
+        "id": "q4_ruzgar_2",
+        "grade": 4,
+        "subject": "turkce",
+        "topic": "okuma-anlama",
+        "text": "Defterdeki notlara göre rüzgârın en belirgin şekilde arttığı an hangisidir?",
+        "options": [
+          "Salı sabahı, sisli havada",
+          "Pazartesi akşamı",
+          "Perşembe öğle vakti",
+          "Çarşamba, yağmur başlamadan önce"
+        ],
+        "correctIndex": 3,
+        "explanation": "Notlarda çarşamba günü yağmur başlamadan önce rüzgârın şiddetlendiği ve rüzgârgülünün ses çıkardığı yazılıdır.",
+        "image": ""
+      },
+      {
+        "id": "q4_ruzgar_3",
+        "grade": 4,
+        "subject": "turkce",
+        "topic": "okuma-anlama",
+        "text": "İki arkadaşın ölçümlerinin bazı günler uyuşmamasının nedeni nedir?",
+        "options": [
+          "Ölçüm yaptıkları yerlerin farklı olması (balkon ve bahçe)",
+          "Rüzgârgüllerinin farklı büyüklükte olması",
+          "Biri not tutmadığı için",
+          "Havanın her gün aynı olması"
+        ],
+        "correctIndex": 0,
+        "explanation": "Öğretmen \"ölçtüğünüz yeri de hesaba katmalısınız\" diyerek farkın mekândan kaynaklandığını açıklar.",
+        "image": ""
+      },
+      {
+        "id": "q4_ruzgar_4",
+        "grade": 4,
+        "subject": "turkce",
+        "topic": "okuma-anlama",
+        "text": "Öğretmenin \"Deney yapmak gözlemekle başlar; ama sorgulamakla anlam kazanır\" sözüyle anlatmak istediği nedir?",
+        "options": [
+          "Gözlem yapmanın gereksiz olduğunu",
+          "Yalnızca ölçüm yapmanın yeterli olmadığını, sonuçların nedenlerinin de düşünülmesi gerektiğini",
+          "Deney defterinin zorunlu olduğunu",
+          "Rüzgârın yalnızca kışın esdiğini"
+        ],
+        "correctIndex": 1,
+        "explanation": "Yazar, ölçüm koşullarını sorgulamayı öğrendiğini belirtir; öğretmenin sözü bu sorgulamanın değerini vurgular.",
+        "image": ""
+      },
+      {
+        "id": "q4_ruzgar_5",
+        "grade": 4,
+        "subject": "turkce",
+        "topic": "okuma-anlama",
+        "text": "Yazarın bu deneyden çıkardığı en önemli kazanım hangisidir?",
+        "options": [
+          "Rüzgârgülü yapmanın kolay olduğunu öğrenmesi",
+          "Rüzgârın yönünü ezberlemesi",
+          "Bir sonuca varmadan önce koşulları sorgulamayı öğrenmesi",
+          "Arkadaşlarıyla rekabet etmeyi öğrenmesi"
+        ],
+        "correctIndex": 2,
+        "explanation": "Yazar son bölümde \"ölçümünü yaptığım koşulları sorgulamayı öğrendim\" diyerek asıl kazanımını açıklar.",
+        "image": ""
+      }
+    ]
+  }
+}

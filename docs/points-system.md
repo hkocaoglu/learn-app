@@ -306,3 +306,28 @@ Append-only ledger → full audit ("why is this student's balance X?"), trivial
 survives catalog edits (a past redemption keeps its `cost` snapshot). The
 denormalized `balance_after` keeps reads cheap; the server trigger keeps it
 consistent. This is the shape the whole sketch builds around.
+
+## 11. Revizyon (2026-10-11) — atama bazlı puan, başarı eşiği ve deneme hakkı
+
+Kullanıcı kararları (1a / 2 / 3a) doğrultusunda **sabit formüller kaldırıldı**.
+
+| Karar | Sonuç |
+|---|---|
+| ① Puan modeli | **Oranlı**: eşik geçilirse `max(1, round(puan × başarı / 100))`; eşik altında **0** |
+| ② Deneme kuralı | Sınav tamamlandıktan sonra tekrar **yok**. Yalnızca eşik altında kalanlar için günde `daily_attempts` (varsayılan **2**) hak; gün değişince (Europe/Istanbul) yenilenir |
+| ③ Okumalar | Öğretmen puanı belirler (`reading_assignments.points`, varsayılan 10); quiz eşiği zaten vardı |
+
+**Şema:** `assignments.points` (20) · `assignments.pass_threshold` (60) · `assignments.daily_attempts` (2) ·
+`reading_assignments.points` (10).
+
+**Sunucu denetimi:** `public.attempt_allowed(assignment_id)` deneme hakkını denetler (yayında mı, kendi sınıfı mı,
+eşik geçilmiş mi, bugünkü kota dolmuş mu) ve `attempts_student_insert` RLS politikası bunu kullanır. Eski
+`unique (assignment_id, student_id)` kısıtı kaldırıldı (ikinci denemeye izin).
+
+**Örnek:** 20 puanlık sınav, eşik %60 → %50 alan öğrenci **0 puan** alır (bugün 1 hakkı kalır); %75 alan
+öğrenci **15 puan** alır ve sınavı bir daha çözemez.
+
+**Kanıt:** `scripts/verify-points.sql` — 16 canlı SQL doğrulaması (eşik altı 0, günlük kota, gün yenilenmesi,
+eşik sonrası kilit, oranlı okuma puanı, RLS sınırları) + `scripts/verify.mjs` 21 kontrol.
+
+Varsayılanlar eski davranışa en yakın değerlerdir; mevcut atamalar migration sonrası otomatik bu değerlerle çalışır.

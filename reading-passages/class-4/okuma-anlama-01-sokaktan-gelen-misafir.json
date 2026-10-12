@@ -1,0 +1,98 @@
+{
+  "version": 1,
+  "kind": "reading-passage",
+  "exportedAt": "2026-10-11T22:00:00.000Z",
+  "passage": {
+    "title": "Sokaktan Gelen Misafir",
+    "sourceLabel": "4. Sınıf Türkçe Okuma Parçaları (Maarif Modeli)",
+    "body": "Okuldan eve dönerken yağmur birden bastırdı. Kerem, apartmanın giriş kapısının yanındaki boşlukta büzülmüş küçük bir kedi gördü. Kedinin tüyleri sırılsıklamdı, bir kulağının ucu yırtıktı ve arka patisini yere basmıyordu. Kerem çantasından su şişesini çıkardı, kapağına biraz su koyup önüne bıraktı. Kedi önce korkuyla geri çekildi, sonra yaklaşıp suyu içti.\n\nKerem eve çıktığında annesine olanları anlattı. Annesi, \"Yardım etmek istemen güzel,\" dedi, \"ama bir hayvanı eve almak büyük bir sorumluluktur. Yemek, su, temizlik, veteriner... Bunları her gün yapabilecek misin?\" Kerem bir an durdu. \"Evet,\" dedi, \"ama önce onu iyileştirmemiz gerek. Sonra ne yapacağımıza karar veririz.\"\n\nO akşam kedi, karton bir kutuda, eski bir havlunun üzerinde uyudu. Kerem gece iki kez kalkıp ona baktı. Sabah veteriner, kedinin patisinde çatlak olduğunu ve birkaç hafta dinlenmesi gerektiğini söyledi. Ayrıca kedinin kulağındaki yırtığın eski olduğunu, yani bu kedinin uzun süredir sokakta yaşadığını ekledi.\n\nHaftalar geçti. Patisi iyileşen kedi, evin içinde koşmaya, perde kenarında uyuklamaya başladı. Kerem ona \"Pamuk\" adını koydu. Ancak Kerem'in aklında annesinin sorusu vardı. Bir gün, \"Pamuk'u sahiplenmeye karar verdim,\" dedi. \"Çünkü artık sorumluluğun ne demek olduğunu biliyorum: her gün, ben istemesem de yapmak.\" Annesi gülümsedi ve kedi yatağını oturma odasına taşıdı.\n\nSonraki aylarda Kerem, mahalledeki diğer sokak kedileri için de kapının önüne bir su kabı koymaya başladı. Öğretmeni bu konuyu duyunca ondan sınıfta anlatmasını istedi. Kerem arkadaşlarına şunu söyledi: \"Bir hayvanı sevmek kolay. Zor olan, onu sevmeye devam ederken işini de yapmak.\" Sınıf, kış için mahalleye üç tane kedi evi yaptı.",
+    "grade": 4,
+    "subject": "turkce",
+    "topic": "okuma-anlama",
+    "quizThreshold": 60,
+    "showPassageDuringQuiz": true,
+    "image": "",
+    "questions": [
+      {
+        "id": "q4_kedi_1",
+        "grade": 4,
+        "subject": "turkce",
+        "topic": "okuma-anlama",
+        "text": "Kerem kediyi ilk gördüğünde ne yaptı?",
+        "options": [
+          "Şişe kapağına su koyup önüne bıraktı",
+          "Hemen kucağına alıp veterinere götürdü",
+          "Kediyi kovalayıp uzaklaştırdı",
+          "Annesini çağırmaya gitti"
+        ],
+        "correctIndex": 0,
+        "explanation": "Metinde Kerem'in çantasından su şişesini çıkarıp kapağa su koyduğu ve önüne bıraktığı anlatılır.",
+        "image": ""
+      },
+      {
+        "id": "q4_kedi_2",
+        "grade": 4,
+        "subject": "turkce",
+        "topic": "okuma-anlama",
+        "text": "Annesinin \"Bunları her gün yapabilecek misin?\" sorusu ile asıl anlatmak istediği nedir?",
+        "options": [
+          "Kedilerin bakımının çok pahalı olduğunu",
+          "Sevginin tek başına yetmediğini, sorumluluğun süreklilik gerektirdiğini",
+          "Kerem'in henüz küçük olduğunu",
+          "Evin kediler için uygun olmadığını"
+        ],
+        "correctIndex": 1,
+        "explanation": "Annesi yemek, su, temizlik, veteriner gibi işleri sayar; bunların her gün yapılması gerektiğini vurgular.",
+        "image": ""
+      },
+      {
+        "id": "q4_kedi_3",
+        "grade": 4,
+        "subject": "turkce",
+        "topic": "okuma-anlama",
+        "text": "Veterinerin kulağındaki yırtığın eski olduğunu söylemesi neyi gösterir?",
+        "options": [
+          "Kedinin çok kavga ettiğini",
+          "Kedinin kulaklarının iyi duymadığını",
+          "Kediye daha önce de zarar verildiğini ve uzun süredir sokakta yaşadığını",
+          "Kedinin çok yaşlı olduğunu"
+        ],
+        "correctIndex": 2,
+        "explanation": "Metin, eski yırtıktan yola çıkarak kedinin uzun süredir sokakta yaşadığı sonucunu verir.",
+        "image": ""
+      },
+      {
+        "id": "q4_kedi_4",
+        "grade": 4,
+        "subject": "turkce",
+        "topic": "okuma-anlama",
+        "text": "Kerem'in \"Sorumluluğun ne demek olduğunu biliyorum: her gün, ben istemesem de yapmak\" sözü neyi anlatır?",
+        "options": [
+          "İşini aksatmayı gerektiğinde yaptığını",
+          "Annesinin onu zorladığını",
+          "Kediyi sahiplenmekten vazgeçtiğini",
+          "Sorumluluğun istek duymasa bile sürdürülen bir görev olduğunu"
+        ],
+        "correctIndex": 3,
+        "explanation": "Kerem, sorumluluğun yalnızca hevesle değil, istek olmasa da her gün yerine getirmekle ilgili olduğunu söyler.",
+        "image": ""
+      },
+      {
+        "id": "q4_kedi_5",
+        "grade": 4,
+        "subject": "turkce",
+        "topic": "okuma-anlama",
+        "text": "Parçanın sonunda Kerem'in mahalledeki diğer kediler için de su kabı koyması ve sınıfın kedi evi yapması neyi gösterir?",
+        "options": [
+          "Öğrendiği sorumluluğu başkalarına da yaydığını ve arkadaşlarını harekete geçirdiğini",
+          "Kerem'in yalnızca kendi kedisini önemsediğini",
+          "Mahallede çok kedi olduğunu",
+          "Kerem'in veteriner olmak istediğini"
+        ],
+        "correctIndex": 0,
+        "explanation": "Kerem'in davranışı sınıfa örnek olur; metin kapanışta sorumluluğun paylaşıldıkça büyüdüğünü gösterir.",
+        "image": ""
+      }
+    ]
+  }
+}

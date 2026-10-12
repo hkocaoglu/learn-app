@@ -1,0 +1,98 @@
+{
+  "version": 1,
+  "kind": "reading-passage",
+  "exportedAt": "2026-10-11T22:00:00.000Z",
+  "passage": {
+    "title": "Matematik Korkusu",
+    "sourceLabel": "4. Sınıf Türkçe Okuma Parçaları (Maarif Modeli)",
+    "body": "Defterimi açtığımda elim titriyordu. Tahtadaki soru şuydu: \"Bir sepette 48 elma var. Elmaların üçte biri çürük. Sağlam elmalar dörderli kutulara konulacak. Kaç kutu gerekir?\" Soruyu okudum, bir daha okudum, hiçbir şey anlamadım. Zil çaldığında defterim hâlâ boştu.\n\nBen matematikten korkuyordum. Ama korktuğum şey sayılar değildi. Korktuğum şey, arkadaşlarım cevabı bulurken benim bulamamamdı. O gün öğretmenim beni teneffüste yanına çağırdı. \"Hata yapmaktan mı korkuyorsun, yoksa yanlış anlamaktan mı?\" diye sordu. Cevap veremedim. Öğretmenim defterime bir soru yazdı ve \"Bu soruyu çözmeyeceğiz,\" dedi. \"Sadece bana anlat: sepette kaç elma var?\"\n\n\"48,\" dedim. \"Peki üçte biri ne demek?\" diye sordu. \"Üçe bölmek,\" dedim. \"Öyleyse böl.\" 48'i 3'e böldüm, 16 buldum. \"Çürük kaç elma?\" \"16.\" \"Sağlam kaç elma kalır?\" 48'den 16'yı çıkardım, 32 kaldı. \"Şimdi son adım: dörderli kutulara koy.\" 32'yi 4'e böldüm, 8 kutuyu buldum. Şaşkınlıkla başımı kaldırdım: Cevabı bulmuştum. Hem de öğretmen bana hiçbir işlem yaptırmadan, yalnızca doğru soruları sorarak.\n\nÖğretmenim gülümsedi ve \"Gördün mü?\" dedi. \"Senin sorunun matematik değildi. Sorun, bütün soruyu bir anda çözmeye çalışmandı. Bir soruyu parçalara ayırırsan, her parça küçücük olur.\" O günden sonra uzun soruları küçük adımlara böldüm. Önce \"elimde ne var?\", sonra \"ne isteniyor?\", sonra \"ilk adım ne?\" diye sordum kendime. Zamanla defterimdeki boşluklar dolmaya başladı.\n\nYıl sonunda matematik sınavından yüksek not aldığımda, sevincim nottan çok, o gün öğrendiğim yöntemden geldi. Bir şeyden korkmak, onu yapamamak anlamına gelmiyordu. Bazen yalnızca o şeyi daha küçük parçalara ayırmak gerekiyordu.",
+    "grade": 4,
+    "subject": "turkce",
+    "topic": "okuma-anlama",
+    "quizThreshold": 60,
+    "showPassageDuringQuiz": true,
+    "image": "",
+    "questions": [
+      {
+        "id": "q4_mat_1",
+        "grade": 4,
+        "subject": "turkce",
+        "topic": "okuma-anlama",
+        "text": "Yazar, aslında neyden korktuğunu fark etmiştir?",
+        "options": [
+          "Arkadaşları cevabı bulurken kendisinin bulamamasından",
+          "Sayılardan ve işlem yapmaktan",
+          "Öğretmeninin kızmasından",
+          "Tahtaya çıkmaktan"
+        ],
+        "correctIndex": 0,
+        "explanation": "Metinde \"Korktuğum şey sayılar değildi. Korktuğum şey, arkadaşlarım cevabı bulurken benim bulamamamdı\" denir.",
+        "image": ""
+      },
+      {
+        "id": "q4_mat_2",
+        "grade": 4,
+        "subject": "turkce",
+        "topic": "okuma-anlama",
+        "text": "Öğretmeninin \"Bu soruyu çözmeyeceğiz\" deyip küçük sorular sormasının amacı nedir?",
+        "options": [
+          "Soruyu evde çözmesini istemek",
+          "Sorunun asıl zorluk kaynağını görüp yazarı adım adım yönlendirmek",
+          "Yazarın defterini kontrol etmek",
+          "Zaman geçirmek"
+        ],
+        "correctIndex": 1,
+        "explanation": "Öğretmen işlemi kendisi yapmaz; sorularla yazarı adım adım sonuca ulaştırır ve asıl sorunun yöntem olduğunu gösterir.",
+        "image": ""
+      },
+      {
+        "id": "q4_mat_3",
+        "grade": 4,
+        "subject": "turkce",
+        "topic": "okuma-anlama",
+        "text": "Öğretmenin \"Bir soruyu parçalara ayırırsan, her parça küçücük olur\" sözü neyi öğütler?",
+        "options": [
+          "Zor soruları hiç çözmemeyi",
+          "Yalnızca kolay soruları seçmeyi",
+          "Büyük görünen işleri küçük adımlara bölerek çözmenin kolaylaştığını",
+          "Sorunun cevabını ezberlemeyi"
+        ],
+        "correctIndex": 2,
+        "explanation": "Yazar bu yöntemi uygulayıp 48 elmalı soruyu adım adım çözer; öğüt, bölerek ilerlemektir.",
+        "image": ""
+      },
+      {
+        "id": "q4_mat_4",
+        "grade": 4,
+        "subject": "turkce",
+        "topic": "okuma-anlama",
+        "text": "Yazar, sınavdan yüksek not aldığında sevincinin kaynağı neydi?",
+        "options": [
+          "Notun kendisi",
+          "Ailesinin onunla gurur duyması",
+          "Sınavın kolay olması",
+          "Öğrendiği yöntem ve korkusunu yenmesi"
+        ],
+        "correctIndex": 3,
+        "explanation": "\"Sevincim nottan çok, o gün öğrendiğim yöntemden geldi\" cümlesi kazanımın yöntem olduğunu gösterir.",
+        "image": ""
+      },
+      {
+        "id": "q4_mat_5",
+        "grade": 4,
+        "subject": "turkce",
+        "topic": "okuma-anlama",
+        "text": "Parçanın ana düşüncesi hangisidir?",
+        "options": [
+          "Bir şeyden korkmak, onu asla yapamayacağımız anlamına gelmez; doğru yöntemle başarılabilir",
+          "Matematik dersi çok zordur",
+          "Öğretmenler öğrencilere cevabı söylememelidir",
+          "Uzun sorular çözülemez"
+        ],
+        "correctIndex": 0,
+        "explanation": "Metnin son cümlesi doğrudan ana düşünceyi verir: korku, yapamamak değildir; parçalara ayırmak yeterlidir.",
+        "image": ""
+      }
+    ]
+  }
+}

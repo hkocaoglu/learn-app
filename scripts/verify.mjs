@@ -14,6 +14,7 @@ import {
   POINTS,
   earnForExam,
   earnForReading,
+  attemptState,
   balanceOf,
   studentBalance,
   earnedAlready,
@@ -369,25 +370,30 @@ check('OpenRouter chat completions çağrısı', aiRequest?.url === `${OPENROUTE
 check('OpenRouter yanıtı işleniyor', aiResult.ok && aiResult.text === 'OpenRouter test yanıtı')
 
 console.log('\n6b) Puanlar & Ödüller')
-// Sınav kazanımı: sonuç kalitesi puanı belirler, süre dikkat bonusunu götürür.
-check('Sınav: mükemmel+dikkatli', earnForExam({ scorePercent: 100, timeUp: false }) === 25)
-check('Sınav: mükemmel+ süre dolmuş', earnForExam({ scorePercent: 100, timeUp: true }) === 20)
-check('Sınav: düşük + süre dolmuş: baz puan', earnForExam({ scorePercent: 0, timeUp: true }) === POINTS.exam.base)
-check('Sınav: sonuç yükseldikçe puan artıyor', earnForExam({ scorePercent: 80 }) > earnForExam({ scorePercent: 20 }))
+// Sınav: başarı eşiği geçilmediyse HİÇ puan yok; geçilirse öğretmenin verdiği puanın
+// başarı oranındaki kısmı verilir.
+check('Sınav: eşik altı → 0 puan', earnForExam({ scorePercent: 50, points: 20, passThreshold: 60 }) === 0)
+check('Sınav: eşik sınırında puan var (%60 → 12)', earnForExam({ scorePercent: 60, points: 20, passThreshold: 60 }) === 12)
+check('Sınav: oranlı (20 puanın %80’i = 16)', earnForExam({ scorePercent: 80, points: 20, passThreshold: 60 }) === 16)
+check('Sınav: tam başarı = tam puan', earnForExam({ scorePercent: 100, points: 20, passThreshold: 60 }) === 20)
+check('Sınav: öğretmenin puanı esas (50 puanın %80’i = 40)', earnForExam({ scorePercent: 80, points: 50, passThreshold: 60 }) === 40)
+check('Sınav: varsayılanlar (20 puan / eşik %60)', earnForExam({ scorePercent: 100 }) === 20 && earnForExam({ scorePercent: 59 }) === 0)
+check('Sınav: eşik %0 ise 0 alan bile en az 1 puan', earnForExam({ scorePercent: 0, points: 20, passThreshold: 0 }) === 1)
 check(
-  'Sınav: tüm comboslar sınırlar içinde',
-  [0, 33, 50, 99, 100, 150, -5].every((score) =>
-    [true, false].every((timeUp) => {
-      const p = earnForExam({ scorePercent: score, timeUp })
-      return p >= POINTS.exam.min && p <= POINTS.exam.max
+  'Sınav: tüm kombinasyonlar sınırlar içinde',
+  [0, 33, 50, 60, 99, 100, 150, -5].every((score) =>
+    [0, 50, 60, 100].every((passThreshold) => {
+      const p = earnForExam({ scorePercent: score, points: 20, passThreshold })
+      return p >= 0 && p <= POINTS.exam.max
     })
   )
 )
-check('Sınav: geçersiz giriş güvenli', Number.isFinite(earnForExam()) && Number.isFinite(earnForExam({})))
-// Okuma kazanımı: yalnızca tamamlandıysa.
+check('Sınav: geçersiz giriş güvenli', earnForExam() === 0 && Number.isFinite(earnForExam({})))
+// Okuma: yalnızca tamamlandıysa ve eşiği geçtiyse (kapı quiz tarafında).
 check('Okuma: tamamlanmadı → 0', earnForReading({ read: false, scorePercent: 100 }) === 0)
-check('Okuma: tamamlandı+mükemmel quiz', earnForReading({ read: true, scorePercent: 100 }) === 11)
-check('Okuma: quiz kalitesi arttıkça puan artıyor', earnForReading({ read: true, scorePercent: 90 }) > earnForReading({ read: true, scorePercent: 40 }))
+check('Okuma: oranlı (10 puanın %90’ı = 9)', earnForReading({ read: true, scorePercent: 90, points: 10 }) === 9)
+check('Okuma: tam başarı = tam puan', earnForReading({ read: true, scorePercent: 100, points: 10 }) === 10)
+check('Okuma: öğretmenin puanı esas (30 puanın %60’ı = 18)', earnForReading({ read: true, scorePercent: 60, points: 30 }) === 18)
 check(
   'Okuma: sınırlar içinde',
   [0, 40, 60, 100].every((score) => {
@@ -395,6 +401,27 @@ check(
     return p >= POINTS.reading.min && p <= POINTS.reading.max
   })
 )
+// Deneme hakkı: tamamlanan sınavda tekrar yok; eşik altında günde N hak, gün değişince yenilenir.
+const todayIso = new Date().toISOString()
+const yesterdayIso = new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString()
+check('Deneme: deneme yoksa 2 hak', attemptState({}, []).canAttempt && attemptState({}, []).leftToday === 2)
+check('Deneme: bir başarısız sonrası 1 hak', attemptState({}, [{ scorePercent: 25, date: todayIso }]).leftToday === 1)
+check(
+  'Deneme: günlük hak dolunca engellenir',
+  attemptState({}, [{ scorePercent: 25, date: todayIso }, { scorePercent: 50, date: todayIso }]).canAttempt === false &&
+    attemptState({}, [{ scorePercent: 25, date: todayIso }, { scorePercent: 50, date: todayIso }]).reason === 'daily_limit'
+)
+check('Deneme: gün değişince hak yenilenir', attemptState({}, [{ scorePercent: 25, date: yesterdayIso }]).leftToday === 2)
+check(
+  'Deneme: eşik geçilince tekrar yok',
+  attemptState({ passThreshold: 60 }, [{ scorePercent: 80, date: todayIso }]).reason === 'passed' &&
+    attemptState({ passThreshold: 60 }, [{ scorePercent: 80, date: todayIso }]).canAttempt === false
+)
+check(
+  'Deneme: en iyi skor bildirilir',
+  attemptState({}, [{ scorePercent: 25, date: todayIso }, { scorePercent: 50, date: todayIso }]).bestScore === 50
+)
+check('Deneme: günlük hak ayarlanabilir (3)', attemptState({ dailyAttempts: 3 }, [{ scorePercent: 25, date: todayIso }]).leftToday === 2)
 // Ledger: bakiye = toplam; harcama negatif.
 const txA = earnTransaction({ studentId: 's1', source: 'exam', refType: 'exam', refId: 't1', amount: 21, label: examEarnLabel('Matematik', 85) })
 const txB = earnTransaction({ studentId: 's1', source: 'reading', refType: 'reading', refId: 'r1', amount: 9, label: readingEarnLabel('Kırlangıç') })

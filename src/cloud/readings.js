@@ -18,6 +18,7 @@ const readingFields = [
   'rsvp_seconds_per_word',
   'min_dwell_seconds',
   'quiz_threshold',
+  'points',
   'show_passage_during_quiz',
   'image',
   'questions',
@@ -32,7 +33,8 @@ const optionalReadingFields = [
   'show_passage_during_quiz',
   'image',
   'display_mode',
-  'rsvp_seconds_per_word'
+  'rsvp_seconds_per_word',
+  'points'
 ]
 
 const rsvpMigrationHint =
@@ -104,6 +106,7 @@ export const toReading = (row, classesById) => {
     rsvpSecondsPerWord: normalizeSecondsPerWord(row.rsvp_seconds_per_word),
     minDwellSeconds: row.min_dwell_seconds ?? null,
     quizThreshold: Number(row.quiz_threshold ?? 60),
+    points: Number(row.points ?? 10),
     // Akış modunda metin quiz sırasında ASLA görünmez (ölçümü bozar).
     showPassageDuringQuiz: displayMode === 'rsvp' ? false : row.show_passage_during_quiz !== false,
     questions: Array.isArray(row.questions) ? row.questions : [],
@@ -138,7 +141,7 @@ const readRows = async () => {
 
 export const fetchTeacherReadings = async () => readRows()
 
-export const createReading = async ({ teacherId, classId, reading, startsAt, endsAt, published = true }) => {
+export const createReading = async ({ teacherId, classId, reading, startsAt, endsAt, published = true, points = 10 }) => {
   if (endsAt && startsAt && new Date(endsAt).getTime() <= new Date(startsAt).getTime()) {
     throw new Error('Bitiş tarihi başlangıçtan sonra olmalı.')
   }
@@ -157,6 +160,7 @@ export const createReading = async ({ teacherId, classId, reading, startsAt, end
     rsvp_seconds_per_word: normalized.rsvpSecondsPerWord,
     min_dwell_seconds: normalized.minDwellSeconds,
     quiz_threshold: normalized.quizThreshold,
+    points: Number(points),
     show_passage_during_quiz: normalized.showPassageDuringQuiz !== false,
     questions: normalized.questions,
     starts_at: startsAt || null,
@@ -203,12 +207,13 @@ export const createReading = async ({ teacherId, classId, reading, startsAt, end
   return { reading: refreshed.data, updated: true }
 }
 
-export const updateReading = async ({ id, published, startsAt, endsAt }) => {
+export const updateReading = async ({ id, published, startsAt, endsAt, points }) => {
   const payload = {
     published: Boolean(published),
     starts_at: startsAt || null,
     ends_at: endsAt || null
   }
+  if (points !== undefined) payload.points = Number(points)
   const { data, error } = await runTolerant((fields) =>
     requireSupabase().from('reading_assignments').update(payload).eq('id', id).select(fields).single()
   )
@@ -263,6 +268,7 @@ export const fetchStudentReadings = async (studentId) => {
         rsvpSecondsPerWord: normalizeSecondsPerWord(row.rsvp_seconds_per_word),
         minDwellSeconds: row.min_dwell_seconds ?? null,
         quizThreshold: Number(row.quiz_threshold ?? 60),
+        points: Number(row.points ?? 10),
         showPassageDuringQuiz:
           row.display_mode === 'rsvp' ? false : row.show_passage_during_quiz !== false,
         questions: Array.isArray(row.questions) ? row.questions : []

@@ -4,6 +4,7 @@ import { fetchCurrentStudent, fetchStudentAssignments } from '../../cloud/assign
 import { fetchStudentReadings } from '../../cloud/readings.js'
 import { fetchStudentBalance } from '../../cloud/rewards.js'
 import { gradeLabel, subjectLabel, formatDate, formatMinutesShort } from '../../domain/model.js'
+import { earnForExam, earnForReading } from '../../domain/points.js'
 import StudentExamScreen from './StudentExamScreen.jsx'
 import StudentReadingScreen from './StudentReadingScreen.jsx'
 import StudentShopScreen from './StudentShopScreen.jsx'
@@ -187,14 +188,28 @@ export default function StudentPortalScreen() {
 
 function AssignmentCard({ assignment }) {
   const attempt = assignment.attempt
-  const canStart = Boolean(assignment.available && assignment.test && !attempt)
-  const status = attempt
-    ? `Tamamlandı • %${attempt.score_percent}`
-    : assignment.available
-      ? 'Çözmeye hazır'
-      : assignment.endsAt && new Date(assignment.endsAt).getTime() < Date.now()
-        ? 'Süre doldu'
-        : 'Henüz başlamadı'
+  const state = assignment.state || {
+    canAttempt: !attempt,
+    passed: false,
+    bestScore: attempt?.score_percent || 0,
+    usedToday: 0,
+    daily: assignment.dailyAttempts ?? 2,
+    leftToday: assignment.dailyAttempts ?? 2
+  }
+  const points = assignment.points ?? 20
+  const threshold = assignment.passThreshold ?? 60
+  const passed = state.passed
+  const canStart = Boolean(assignment.available && assignment.test && state.canAttempt)
+  const earned = passed ? earnForExam({ scorePercent: state.bestScore, points, passThreshold: threshold }) : 0
+  const status = passed
+    ? `Başarıldı • %${state.bestScore} • +${earned} puan`
+    : attempt
+      ? `Eşik altı • en iyi %${state.bestScore}`
+      : assignment.available
+        ? 'Çözmeye hazır'
+        : assignment.endsAt && new Date(assignment.endsAt).getTime() < Date.now()
+          ? 'Süre doldu'
+          : 'Henüz başlamadı'
 
   return (
     <article className="student-assignment-card">
@@ -210,6 +225,8 @@ function AssignmentCard({ assignment }) {
             {assignment.test?.durationMinutes && (
               <span className="badge badge-warning">{formatMinutesShort(assignment.test.durationMinutes)}</span>
             )}
+            <span className="badge badge-primary">⭐ {points} puan</span>
+            <span className="badge badge-muted">eşik %{threshold}</span>
           </div>
           <p className="small muted">
             Başlangıç: {assignment.startsAt ? formatDate(assignment.startsAt) : 'Hemen'} • Bitiş:{' '}
@@ -218,16 +235,20 @@ function AssignmentCard({ assignment }) {
         </div>
       </div>
       <div className="student-assignment-action">
-        <span className={`badge ${attempt ? 'badge-success' : assignment.available ? 'badge-primary' : 'badge-warning'}`}>
+        <span className={`badge ${passed ? 'badge-success' : attempt ? 'badge-warning' : assignment.available ? 'badge-primary' : 'badge-warning'}`}>
           {status}
         </span>
         {canStart ? (
           <a className="btn btn-primary" href={`#/ogrenci-sinav/${assignment.id}`}>
-            Sınava başla
+            {attempt ? 'Tekrar dene' : 'Sınava başla'}
           </a>
+        ) : passed ? (
+          <span className="small muted">Tamamlandı ✓</span>
         ) : attempt ? (
           <span className="small muted">
-            {attempt.correct_count}/{attempt.total_count} doğru
+            {state.leftToday > 0
+              ? `${state.leftToday} deneme hakkın var (bugün ${state.daily} hak)`
+              : 'Bugünlük hakkın doldu — yarın tekrar deneyebilirsin'}
           </span>
         ) : (
           <span className="small muted">Öğretmeninizden bilgi alın</span>
@@ -241,10 +262,13 @@ function ReadingCard({ readingAssignment }) {
   const reading = readingAssignment.reading
   const attempt = readingAssignment.attempt
   const canStart = Boolean(readingAssignment.available && reading && !attempt)
+  const points = reading?.points ?? 10
+  const threshold = reading?.quizThreshold ?? 60
+  const earned = attempt?.read ? earnForReading({ read: true, scorePercent: attempt.score_percent, points }) : 0
   const status = attempt
     ? attempt.read
-      ? `Tamamlandı • %${attempt.score_percent}`
-      : `Tamamlanmadı • %${attempt.score_percent}`
+      ? `Tamamlandı • %${attempt.score_percent} • +${earned} puan`
+      : `Tamamlanmadı • eşik %${threshold} altı`
     : readingAssignment.available
       ? 'Okumaya hazır'
       : readingAssignment.endsAt && new Date(readingAssignment.endsAt).getTime() < Date.now()
@@ -263,6 +287,8 @@ function ReadingCard({ readingAssignment }) {
             <span className="badge badge-grade">{reading ? gradeLabel(reading.grade) : '—'}</span>
             <span className="badge badge-subject">{reading ? subjectLabel(reading.subject) : '—'}</span>
             <span className="badge badge-topic">{reading?.questions?.length || 0} soru</span>
+            <span className="badge badge-primary">⭐ {points} puan</span>
+            <span className="badge badge-muted">eşik %{threshold}</span>
           </div>
           <p className="small muted">
             Başlangıç: {readingAssignment.startsAt ? formatDate(readingAssignment.startsAt) : 'Hemen'} • Bitiş:{' '}

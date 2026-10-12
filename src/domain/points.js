@@ -4,28 +4,63 @@
 import { uid } from './model.js'
 
 // Puan ekonomisi ayarları — öğretmen/ileride admin tarafından ayarlanabilir.
+// NOT: Bir sınavın/okumanın puanı ARTIK ATAMA BAZINDA belirlenir (assignments.points,
+// reading_assignments.points). Buradakiler yalnızca varsayılan ve güvenlik sınırlarıdır.
 export const POINTS = {
-  exam: { base: 5, qualityWeight: 0.15, carefulBonus: 5, min: 1, max: 30 },
-  reading: { base: 3, qualityWeight: 0.08, min: 1, max: 12 }
+  exam: { defaultPoints: 20, defaultPassThreshold: 60, min: 1, max: 100 },
+  reading: { defaultPoints: 10, min: 1, max: 100 }
 }
 
 const clamp = (v, lo, hi) => Math.min(hi, Math.max(lo, v))
 const toScore = (v) => (Number.isFinite(Number(v)) ? clamp(Math.round(Number(v)), 0, 100) : 0)
+const toPoints = (v, fallback) => clamp(Math.round(Number(v)) || fallback, POINTS.exam.min, POINTS.exam.max)
 
-// Sınav: katılım baz + sonuç kalitesi + (süre dolmadıysa) dikkat bonusu.
-export const earnForExam = ({ scorePercent, timeUp = false } = {}) => {
+// Sınav: başarı eşiği geçilmediyse HİÇ puan yok; geçilirse öğretmenin verdiği
+// puanın başarı oranındaki kısmı verilir.
+export const earnForExam = ({ scorePercent, points, passThreshold } = {}) => {
   const score = toScore(scorePercent)
-  const raw =
-    POINTS.exam.base + Math.round(score * POINTS.exam.qualityWeight) + (timeUp ? 0 : POINTS.exam.carefulBonus)
-  return clamp(raw, POINTS.exam.min, POINTS.exam.max)
+  const threshold = toScore(passThreshold ?? POINTS.exam.defaultPassThreshold)
+  if (score < threshold) return 0
+  const maxPoints = toPoints(points, POINTS.exam.defaultPoints)
+  return clamp(Math.round((maxPoints * score) / 100), 1, POINTS.exam.max)
 }
 
-// Okuma: yalnızca tamamlandıysa (read=true) quiz kalitesine göre puan verir.
-export const earnForReading = ({ read, scorePercent } = {}) => {
+// Okuma: yalnızca tamamlandıysa (read=true) puan verir; quiz eşiği okuma
+// kapılarında denetlenir. Puan = öğretmenin verdiği puan × quiz başarısı.
+export const earnForReading = ({ read, scorePercent, points } = {}) => {
   if (!read) return 0
   const score = toScore(scorePercent)
-  const raw = POINTS.reading.base + Math.round(score * POINTS.reading.qualityWeight)
-  return clamp(raw, POINTS.reading.min, POINTS.reading.max)
+  const maxPoints = toPoints(points, POINTS.reading.defaultPoints)
+  return clamp(Math.round((maxPoints * score) / 100), 1, POINTS.reading.max)
+}
+
+// ---------- deneme hakkı (sunucudaki attempt_allowed kuralının aynısı) ----------
+const dayKey = (date, timeZone = 'Europe/Istanbul') => {
+  const d = date instanceof Date ? date : new Date(date)
+  if (Number.isNaN(d.getTime())) return ''
+  return new Intl.DateTimeFormat('sv-SE', { timeZone, year: 'numeric', month: '2-digit', day: '2-digit' }).format(d)
+}
+
+// Sınav tamamlandıysa (eşik geçildiyse) yeni deneme YOK. Eşik altında kalındıysa
+// günde `dailyAttempts` hak vardır; gün değişince haklar yenilenir.
+export const attemptState = ({ passThreshold, dailyAttempts } = {}, attempts = [], now = new Date()) => {
+  const threshold = toScore(passThreshold ?? POINTS.exam.defaultPassThreshold)
+  const daily = clamp(Math.round(Number(dailyAttempts) || 2), 1, 5)
+  const scoreOf = (a) => toScore(a?.scorePercent ?? a?.score_percent)
+  const passed = attempts.some((a) => scoreOf(a) >= threshold)
+  const bestScore = attempts.reduce((max, a) => Math.max(max, scoreOf(a)), 0)
+  const today = dayKey(now)
+  const usedToday = attempts.filter((a) => dayKey(a?.date ?? a?.createdAt ?? a?.created_at) === today).length
+  const leftToday = Math.max(0, daily - usedToday)
+  return {
+    passed,
+    bestScore,
+    usedToday,
+    daily,
+    leftToday,
+    canAttempt: !passed && leftToday > 0,
+    reason: passed ? 'passed' : leftToday > 0 ? 'ok' : 'daily_limit'
+  }
 }
 
 // ---------- ledger ----------
