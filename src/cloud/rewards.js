@@ -33,6 +33,7 @@ export const toTransaction = (row) => ({
   refType: row.ref_type,
   refId: row.ref_id,
   amount: Number(row.amount),
+  balanceAfter: row.balance_after != null ? Number(row.balance_after) : null,
   label: row.label || '',
   date: row.created_at
 })

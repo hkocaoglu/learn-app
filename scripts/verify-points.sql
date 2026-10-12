@@ -324,4 +324,56 @@ begin
   raise notice 'OK: bakiyeler — A: 15 (sınav) - 10 (harcama) + 15 (düzeltme) = 20 | B: 20 + 7 - 10 = 17';
 end $$;
 
+-- ============ TEST 12: admin de puan düzeltebilir, öğrenci düzelte(ME)z ============
+insert into auth.users (id, raw_user_meta_data) values
+  ('33333333-3333-3333-3333-333333333333', '{"role":"student"}'); -- profil otomatik oluşmasın
+insert into public.profiles (id, role, full_name) values
+  ('33333333-3333-3333-3333-333333333333', 'admin', 'Yönetici')
+on conflict (id) do nothing;
+
+-- öğrenci kendi puanını düzeltemez
+select set_config('request.jwt.claim.sub', 'aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa', false);
+set role authenticated;
+do $$
+begin
+  begin
+    perform public.adjust_student_points('aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa', 500, 'hile');
+    raise exception 'TEST FAIL: öğrenci kendi puanını düzeltti';
+  exception when others then
+    if sqlerrm like 'TEST FAIL%' then raise; end if;
+    raise notice 'OK: öğrenci puan düzeltme reddedildi (%)', sqlerrm;
+  end;
+end $$;
+reset role;
+
+-- admin düzeltebilir
+select set_config('request.jwt.claim.sub', '33333333-3333-3333-3333-333333333333', false);
+set role authenticated;
+do $$
+declare v_row public.point_transactions%rowtype; v_bal int;
+begin
+  v_row := public.adjust_student_points('bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb', -3, 'Admin düzeltmesi');
+  if v_row.amount is distinct from -3 or v_row.kind is distinct from 'adjust' then
+    raise exception 'TEST FAIL: admin düzeltme satırı: %/%', v_row.amount, v_row.kind;
+  end if;
+  -- Admin RLS gereği ledger'ı okuyamaz; doğrulama fonksiyonun döndürdüğü satırdan yapılır.
+  if v_row.balance_after is distinct from 14 then
+    raise exception 'TEST FAIL: B bakiye 14 olmalı: %', v_row.balance_after;
+  end if;
+  raise notice 'OK: admin hesabı da puan düzeltebiliyor (B: 17 → 14)';
+end $$;
+reset role;
+
+-- admin ledger'ı okuyabilir mi (yeni RLS politikaları)
+select set_config('request.jwt.claim.sub', '33333333-3333-3333-3333-333333333333', false);
+set role authenticated;
+do $$
+declare v_count int;
+begin
+  select count(*) into v_count from point_transactions;
+  if v_count is distinct from 7 then raise exception 'TEST FAIL: admin ledger görmeli (7 satır), çıktı: %', v_count; end if;
+  raise notice 'OK: admin ledger''ı okuyabiliyor (% satır)', v_count;
+end $$;
+reset role;
+
 select 'TÜM PG TESTLER GEÇTİ' as sonuc;
