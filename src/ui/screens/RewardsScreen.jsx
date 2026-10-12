@@ -129,13 +129,21 @@ export default function RewardsScreen() {
   }
 
   const handleAdjust = async (student, rawValue) => {
-    const value = Math.round(Number(String(rawValue).replace(',', '.')))
-    if (!Number.isFinite(value) || value === 0) return
-    setBusy(true)
     setError('')
+    setNotice('')
+    const parsed = Number(String(rawValue).replace(',', '.'))
+    if (!Number.isFinite(parsed) || Math.round(parsed) === 0) {
+      setError('Geçerli bir puan miktarı girin (ör. 10 veya -5).')
+      return
+    }
+    const value = Math.round(parsed)
+    setBusy(true)
     try {
-      await actions.adjustPoints(student.id, value, `Öğretmen düzeltmesi`)
-      setNotice(`${student.name}: ${value > 0 ? '+' : ''}${value} puan işlendi.`)
+      const tx = await actions.adjustPoints(student.id, value, 'Öğretmen düzeltmesi')
+      const after = tx?.balanceAfter
+      setNotice(
+        `${student.name}: ${value > 0 ? '+' : ''}${value} puan işlendi${after != null ? ` — yeni bakiye ${after}` : ''}.`
+      )
     } catch (caughtError) {
       setError(caughtError.message)
     } finally {

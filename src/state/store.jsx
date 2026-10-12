@@ -378,11 +378,12 @@ export function StoreProvider({ children, storageScope = '', cloudUser = null })
     [cloudMode, update]
   )
 
-  // Öğretmen puan düzeltmesi (eksi/artı); cloud'da RPC, yerelde ledger satırı.
+  // Öğretmen/admin puan düzeltmesi (eksi/artı); cloud'da RPC, yerelde ledger satırı.
   const adjustPoints = useCallback(
     async (studentId, amount, label) => {
       const value = Math.round(Number(amount) || 0)
-      if (!studentId || !value) return null
+      if (!studentId) throw new Error('Öğrenci seçilemedi.')
+      if (!value) throw new Error('Puan miktarı 0 olamaz.')
       if (cloudMode) {
         const { data, error } = await requireSupabase().rpc('adjust_student_points', {
           p_student_id: studentId,
@@ -390,8 +391,17 @@ export function StoreProvider({ children, storageScope = '', cloudUser = null })
           p_label: String(label || 'Öğretmen düzeltmesi')
         })
         if (error) throw new Error(`Puan düzeltilemedi: ${error.message}`)
-        const saved = toTransaction(data)
-        update((d) => ({ ...d, pointTransactions: [saved, ...(d.pointTransactions || [])] }))
+        // PostgREST tablo tipini dizi olarak döndürür; tek satırı da kabul et.
+        const row = Array.isArray(data) ? data[0] : data
+        const saved = row ? toTransaction(row) : null
+        if (saved) update((d) => ({ ...d, pointTransactions: [saved, ...(d.pointTransactions || [])] }))
+        // Görünen bakiye sunucudan gelsin (istemci tahminine güvenme).
+        try {
+          const fresh = await fetchTeacherRewards()
+          update((d) => ({ ...d, ...fresh }))
+        } catch (refreshError) {
+          console.warn('Düzeltme sonrası ledger tazelenemedi:', refreshError)
+        }
         return saved
       }
       const tx = adjustTransaction({ studentId, amount: value, label: label || 'Öğretmen düzeltmesi' })
