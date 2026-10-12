@@ -4,6 +4,26 @@ import { attemptState } from '../domain/points.js'
 
 const assignmentFields =
   'id, teacher_id, class_id, test_id, starts_at, ends_at, max_attempts, published, points, pass_threshold, daily_attempts, created_at'
+// Puan migration'ı henüz uygulanmamışsa bu alanlarla çalışılır (varsayılanlara düşülür).
+const legacyAssignmentFields =
+  'id, teacher_id, class_id, test_id, starts_at, ends_at, max_attempts, published, created_at'
+const POINTS_COLUMNS = ['points', 'pass_threshold', 'daily_attempts']
+
+const isPointsColumnMissing = (error) =>
+  /column|schema cache/i.test(error?.message || '') &&
+  POINTS_COLUMNS.some((column) => new RegExp(column, 'i').test(error?.message || ''))
+
+// Kolonlar yoksa eski alan listesiyle tekrar dener — deploy sırası migration'a bağımlı olmasın.
+const selectAssignments = async (client, { publishedOnly = false } = {}) => {
+  const build = (fields) => {
+    const query = client.from('assignments').select(fields).order('created_at', { ascending: false })
+    return publishedOnly ? query.eq('published', true) : query
+  }
+  const result = await build(assignmentFields)
+  if (!result.error || !isPointsColumnMissing(result.error)) return result
+  console.warn('Puan kolonları yok; eski alanlarla devam ediliyor:', result.error.message)
+  return build(legacyAssignmentFields)
+}
 
 const toAssignment = (row, classesById, testsById) => {
   const test = testsById.get(row.test_id)
@@ -29,7 +49,7 @@ const toAssignment = (row, classesById, testsById) => {
 const readRows = async () => {
   const client = requireSupabase()
   const [assignmentResult, classResult, testResult] = await Promise.all([
-    client.from('assignments').select(assignmentFields).order('created_at', { ascending: false }),
+    selectAssignments(client),
     client.from('classes').select('id, name, grade'),
     client.from('tests').select('id, title, grade, subject, duration_minutes, questions, created_at')
   ])
@@ -79,22 +99,29 @@ export const createAssignment = async ({
     throw new Error('Soru içermeyen testler öğrencilere atanamaz.')
   }
   const cloudTest = await ensureCloudTest({ teacherId, test })
-  const { data, error } = await requireSupabase()
-    .from('assignments')
-    .insert({
-      teacher_id: teacherId,
-      class_id: classId,
-      test_id: cloudTest.id,
-      starts_at: startsAt || null,
-      ends_at: endsAt || null,
-      max_attempts: Number(maxAttempts),
-      published: Boolean(published),
-      points: Number(points),
-      pass_threshold: Number(passThreshold),
-      daily_attempts: Number(dailyAttempts)
-    })
-    .select(assignmentFields)
-    .single()
+  const payload = {
+    teacher_id: teacherId,
+    class_id: classId,
+    test_id: cloudTest.id,
+    starts_at: startsAt || null,
+    ends_at: endsAt || null,
+    max_attempts: Number(maxAttempts),
+    published: Boolean(published),
+    points: Number(points),
+    pass_threshold: Number(passThreshold),
+    daily_attempts: Number(dailyAttempts)
+  }
+  let { data, error } = await requireSupabase().from('assignments').insert(payload).select(assignmentFields).single()
+  if (error && isPointsColumnMissing(error)) {
+    // Migration henüz uygulanmadı: puan alanları olmadan kaydet (varsayılanlar geçerli olur).
+    const legacy = { ...payload }
+    POINTS_COLUMNS.forEach((column) => delete legacy[column])
+    ;({ data, error } = await requireSupabase()
+      .from('assignments')
+      .insert(legacy)
+      .select(legacyAssignmentFields)
+      .single())
+  }
 
   if (error) {
     if (error.code === '23505') throw new Error('Bu test bu sınıfa zaten atanmış.')
@@ -118,12 +145,22 @@ export const updateAssignment = async ({ id, published, startsAt, endsAt, maxAtt
   if (points !== undefined) payload.points = Number(points)
   if (passThreshold !== undefined) payload.pass_threshold = Number(passThreshold)
   if (dailyAttempts !== undefined) payload.daily_attempts = Number(dailyAttempts)
-  const { data, error } = await requireSupabase()
+  let { data, error } = await requireSupabase()
     .from('assignments')
     .update(payload)
     .eq('id', id)
     .select(assignmentFields)
     .single()
+  if (error && isPointsColumnMissing(error)) {
+    const legacy = { ...payload }
+    POINTS_COLUMNS.forEach((column) => delete legacy[column])
+    ;({ data, error } = await requireSupabase()
+      .from('assignments')
+      .update(legacy)
+      .eq('id', id)
+      .select(legacyAssignmentFields)
+      .single())
+  }
 
   if (error) throw new Error(`Atama güncellenemedi: ${error.message}`)
   return data
@@ -137,11 +174,7 @@ export const deleteAssignment = async (id) => {
 export const fetchStudentAssignments = async (studentId) => {
   if (!studentId) throw new Error('Öğrenci kimliği bulunamadı.')
   const client = requireSupabase()
-  const { data: assignments, error: assignmentError } = await client
-    .from('assignments')
-    .select(assignmentFields)
-    .eq('published', true)
-    .order('created_at', { ascending: false })
+  const { data: assignments, error: assignmentError } = await selectAssignments(client, { publishedOnly: true })
 
   if (assignmentError) throw new Error(`Atanan testler yüklenemedi: ${assignmentError.message}`)
 
