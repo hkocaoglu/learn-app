@@ -27,6 +27,7 @@ const initialForm = {
   rsvpSecondsPerWord: RSVP_DEFAULT_SECONDS_PER_WORD,
   minDwellSeconds: '',
   quizThreshold: 60,
+  points: 10,
   showPassageDuringQuiz: true,
   startsAt: '',
   endsAt: ''
@@ -125,7 +126,8 @@ export default function ReadingsScreen() {
         classId: form.classId,
         reading: candidate,
         startsAt: localDateToIso(form.startsAt),
-        endsAt: localDateToIso(form.endsAt)
+        endsAt: localDateToIso(form.endsAt),
+        points: Math.round(Number(form.points) || 10)
       })
       const imageNote = candidate.image ? 'görsel dâhil' : 'görselsiz'
       setNotice(
@@ -629,6 +631,17 @@ export default function ReadingsScreen() {
                 onChange={(event) =>
                   setForm((current) => ({ ...current, quizThreshold: Number(event.target.value) }))
                 }
+              />
+            </div>
+            <div className="form-row">
+              <label htmlFor="reading-points">Bu okuma kaç puan?</label>
+              <input
+                id="reading-points"
+                type="number"
+                min={1}
+                max={100}
+                value={form.points}
+                onChange={(event) => setForm((current) => ({ ...current, points: event.target.value }))}
               />
             </div>
             {isRsvp ? (

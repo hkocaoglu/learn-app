@@ -4,7 +4,7 @@ import { useStore } from '../../state/store.jsx'
 import { createAssignment, deleteAssignment, fetchTeacherAssignments, updateAssignment } from '../../cloud/assignments.js'
 import { GRADES, gradeLabel, formatDate, formatMinutesShort } from '../../domain/model.js'
 
-const initialForm = { classId: '', testId: '', startsAt: '', endsAt: '' }
+const initialForm = { classId: '', testId: '', startsAt: '', endsAt: '', points: 20, passThreshold: 60, dailyAttempts: 2 }
 
 const localDateToIso = (value) => (value ? new Date(value).toISOString() : null)
 const isoToLocalDate = (value) => (value ? new Date(value).toISOString().slice(0, 16) : '')
@@ -67,7 +67,10 @@ export default function AssignmentsScreen() {
         test,
         startsAt: localDateToIso(form.startsAt),
         endsAt: localDateToIso(form.endsAt),
-        maxAttempts: 1
+        maxAttempts: 1,
+        points: Math.round(Number(form.points) || 20),
+        passThreshold: Math.round(Number(form.passThreshold) || 0),
+        dailyAttempts: Math.round(Number(form.dailyAttempts) || 2)
       })
       setNotice('Test sınıfa atandı.')
       setForm((current) => ({ ...initialForm, classId: current.classId, testId: current.testId }))
@@ -194,13 +197,53 @@ export default function AssignmentsScreen() {
                 onChange={(event) => setForm((current) => ({ ...current, endsAt: event.target.value }))}
               />
             </div>
+            <div className="form-row">
+              <label htmlFor="assignment-points">Bu test kaç puan?</label>
+              <input
+                id="assignment-points"
+                type="number"
+                min={1}
+                max={100}
+                value={form.points}
+                onChange={(event) => setForm((current) => ({ ...current, points: event.target.value }))}
+                required
+              />
+            </div>
+            <div className="form-row">
+              <label htmlFor="assignment-threshold">Başarı eşiği %</label>
+              <input
+                id="assignment-threshold"
+                type="number"
+                min={0}
+                max={100}
+                value={form.passThreshold}
+                onChange={(event) => setForm((current) => ({ ...current, passThreshold: event.target.value }))}
+                required
+              />
+            </div>
+            <div className="form-row">
+              <label htmlFor="assignment-daily">Eşik altında kalırsa günde kaç deneme?</label>
+              <input
+                id="assignment-daily"
+                type="number"
+                min={1}
+                max={5}
+                value={form.dailyAttempts}
+                onChange={(event) => setForm((current) => ({ ...current, dailyAttempts: event.target.value }))}
+                required
+              />
+            </div>
             <div className="row-actions" style={{ gridColumn: '1 / -1' }}>
               <button className="btn btn-primary" type="submit" disabled={saving}>
                 {saving ? 'Atanıyor…' : 'Testi sınıfa ata'}
               </button>
             </div>
           </form>
-          <p className="small muted mt-8">İlk sürümde her öğrenci bir atama için yalnızca bir deneme yapabilir.</p>
+          <p className="small muted mt-8">
+            Eşiği geçen öğrenci puanın başarı oranındaki kısmını alır (ör. 20 puan, %80 → 16 puan). Eşik altında
+            puan yoktur. Eşiği geçen sınavı tekrar çözemez; eşik altında kalanlar günde belirtilen sayıda deneme
+            yapabilir ve bu hak her gün yenilenir.
+          </p>
         </div>
       )}
 
@@ -235,6 +278,13 @@ export default function AssignmentsScreen() {
                     {assignment.test?.durationMinutes && (
                       <div className="small muted">{formatMinutesShort(assignment.test.durationMinutes)}</div>
                     )}
+                    <div className="small">
+                      <span className="badge badge-primary">⭐ {assignment.points ?? 20} puan</span>{' '}
+                      <span className="badge badge-warning">eşik %{assignment.passThreshold ?? 60}</span>
+                      {assignment.dailyAttempts > 1 && (
+                        <> <span className="badge badge-muted">günde {assignment.dailyAttempts} deneme</span></>
+                      )}
+                    </div>
                   </td>
                   <td>{assignment.className}</td>
                   <td className="small">

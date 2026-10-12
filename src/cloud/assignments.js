@@ -1,7 +1,9 @@
 import { requireSupabase } from '../lib/supabase.js'
 import { ensureCloudTest } from './tests.js'
+import { attemptState } from '../domain/points.js'
 
-const assignmentFields = 'id, teacher_id, class_id, test_id, starts_at, ends_at, max_attempts, published, created_at'
+const assignmentFields =
+  'id, teacher_id, class_id, test_id, starts_at, ends_at, max_attempts, published, points, pass_threshold, daily_attempts, created_at'
 
 const toAssignment = (row, classesById, testsById) => {
   const test = testsById.get(row.test_id)
@@ -16,6 +18,9 @@ const toAssignment = (row, classesById, testsById) => {
     startsAt: row.starts_at,
     endsAt: row.ends_at,
     maxAttempts: Number(row.max_attempts || 1),
+    points: Number(row.points ?? 20),
+    passThreshold: Number(row.pass_threshold ?? 60),
+    dailyAttempts: Number(row.daily_attempts ?? 2),
     published: Boolean(row.published),
     createdAt: row.created_at
   }
@@ -58,7 +63,18 @@ const readRows = async () => {
 
 export const fetchTeacherAssignments = async () => readRows()
 
-export const createAssignment = async ({ teacherId, classId, test, startsAt, endsAt, maxAttempts = 1, published = true }) => {
+export const createAssignment = async ({
+  teacherId,
+  classId,
+  test,
+  startsAt,
+  endsAt,
+  maxAttempts = 1,
+  published = true,
+  points = 20,
+  passThreshold = 60,
+  dailyAttempts = 2
+}) => {
   if (!Array.isArray(test?.questions) || test.questions.length === 0) {
     throw new Error('Soru içermeyen testler öğrencilere atanamaz.')
   }
@@ -72,7 +88,10 @@ export const createAssignment = async ({ teacherId, classId, test, startsAt, end
       starts_at: startsAt || null,
       ends_at: endsAt || null,
       max_attempts: Number(maxAttempts),
-      published: Boolean(published)
+      published: Boolean(published),
+      points: Number(points),
+      pass_threshold: Number(passThreshold),
+      daily_attempts: Number(dailyAttempts)
     })
     .select(assignmentFields)
     .single()
@@ -88,15 +107,20 @@ export const createAssignment = async ({ teacherId, classId, test, startsAt, end
   return { ...data, test: cloudTest }
 }
 
-export const updateAssignment = async ({ id, published, startsAt, endsAt, maxAttempts }) => {
+export const updateAssignment = async ({ id, published, startsAt, endsAt, maxAttempts, points, passThreshold, dailyAttempts }) => {
+  const payload = {
+    published: Boolean(published),
+    starts_at: startsAt || null,
+    ends_at: endsAt || null,
+    max_attempts: Number(maxAttempts)
+  }
+  // Puan/eşik yalnızca verildiğinde güncellenir (eski çağrılar bozulmasın).
+  if (points !== undefined) payload.points = Number(points)
+  if (passThreshold !== undefined) payload.pass_threshold = Number(passThreshold)
+  if (dailyAttempts !== undefined) payload.daily_attempts = Number(dailyAttempts)
   const { data, error } = await requireSupabase()
     .from('assignments')
-    .update({
-      published: Boolean(published),
-      starts_at: startsAt || null,
-      ends_at: endsAt || null,
-      max_attempts: Number(maxAttempts)
-    })
+    .update(payload)
     .eq('id', id)
     .select(assignmentFields)
     .single()
@@ -134,7 +158,13 @@ export const fetchStudentAssignments = async (studentId) => {
   if (attemptError) throw new Error(`Öğrenci sonuçları yüklenemedi: ${attemptError.message}`)
 
   const testsById = new Map((tests || []).map((item) => [item.id, item]))
-  const attemptsByAssignment = new Map((attempts || []).map((item) => [item.assignment_id, item]))
+  // Bir öğrenci aynı atamayı birden çok kez deneyebilir (eşik altında kalırsa).
+  const attemptsByAssignment = new Map()
+  ;(attempts || []).forEach((item) => {
+    const list = attemptsByAssignment.get(item.assignment_id) || []
+    list.push(item)
+    attemptsByAssignment.set(item.assignment_id, list)
+  })
   const now = Date.now()
 
   return (assignments || []).map((row) => {
@@ -143,11 +173,21 @@ export const fetchStudentAssignments = async (studentId) => {
     const endsAt = row.ends_at
     const isStarted = !startsAt || new Date(startsAt).getTime() <= now
     const isNotExpired = !endsAt || new Date(endsAt).getTime() >= now
+    const list = attemptsByAssignment.get(row.id) || []
+    // Karttaki gösterim en iyi denemeyi yansıtır; deneme hakkı sunucu kuralının aynısıdır.
+    const best = list.reduce((acc, item) => (!acc || item.score_percent > acc.score_percent ? item : acc), null)
+    const state = attemptState(
+      { passThreshold: row.pass_threshold, dailyAttempts: row.daily_attempts },
+      list.map((item) => ({ scorePercent: item.score_percent, date: item.created_at }))
+    )
     return {
       ...row,
       startsAt,
       endsAt,
       maxAttempts: Number(row.max_attempts || 1),
+      points: Number(row.points ?? 20),
+      passThreshold: Number(row.pass_threshold ?? 60),
+      dailyAttempts: Number(row.daily_attempts ?? 2),
       test: testRow
         ? {
             id: testRow.id,
@@ -159,7 +199,9 @@ export const fetchStudentAssignments = async (studentId) => {
             createdAt: testRow.created_at
           }
         : null,
-      attempt: attemptsByAssignment.get(row.id) || null,
+      attempt: best,
+      attempts: list,
+      state,
       available: Boolean(testRow && isStarted && isNotExpired)
     }
   }).filter((assignment) => assignment.test?.questions?.length > 0)

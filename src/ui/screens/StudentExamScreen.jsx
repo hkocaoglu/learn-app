@@ -186,6 +186,10 @@ export default function StudentExamScreen({ student, assignment, onBack }) {
 
   if (finished && result) {
     const unansweredAfterSubmit = result.answers.filter((answer) => answer.selected === undefined || answer.selected < 0).length
+    const passThreshold = Number(assignment.passThreshold ?? 60)
+    const passedThreshold = Number(result.scorePercent) >= passThreshold
+    const daily = assignment.dailyAttempts ?? 2
+    const leftAfter = Math.max(0, daily - ((assignment.state?.usedToday ?? 0) + 1))
     return (
       <div>
         <div className="card student-result-card">
@@ -196,6 +200,18 @@ export default function StudentExamScreen({ student, assignment, onBack }) {
           {timeUp && <div className="alert alert-warning">Süre dolduğu için test otomatik teslim edildi.</div>}
           <div className="student-result-score">%{result.scorePercent}</div>
           <PointsEarned studentId={student.id} refType="exam" refId={test.id} />
+          {passedThreshold ? (
+            <p className="small muted">Başarı eşiği (%{passThreshold}) geçildi.</p>
+          ) : (
+            <div className="alert alert-warning">
+              <strong>Başarı eşiği (%{passThreshold}) geçilemedi — puan kazanılmadı.</strong>
+              <div className="small mt-8">
+                {leftAfter > 0
+                  ? `Bugün ${leftAfter} deneme hakkın kaldı; tekrar deneyebilirsin.`
+                  : 'Bugünlük deneme hakkın doldu — yarın tekrar deneyebilirsin.'}
+              </div>
+            </div>
+          )}
           <div className="status-summary">
             <span className="badge badge-success">✓ {result.correctCount} Doğru</span>
             <span className="badge badge-danger">✗ {result.totalCount - result.correctCount - unansweredAfterSubmit} Yanlış</span>
@@ -251,6 +267,8 @@ export default function StudentExamScreen({ student, assignment, onBack }) {
           </div>
         </div>
         <div className="row-actions exam-status-group" aria-live="polite">
+          <span className="badge badge-primary">⭐ {assignment.points ?? 20} puan</span>
+          <span className="badge badge-muted">eşik %{assignment.passThreshold ?? 60}</span>
           <span className={`badge ${unansweredCount > 0 ? 'badge-warning' : 'badge-success'}`}>
             {answeredCount}/{total} cevaplandı
           </span>
