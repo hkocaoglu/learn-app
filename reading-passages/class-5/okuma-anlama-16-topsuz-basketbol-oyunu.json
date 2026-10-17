@@ -1,0 +1,98 @@
+{
+  "version": 1,
+  "kind": "reading-passage",
+  "exportedAt": "2026-10-17T18:00:00.000Z",
+  "passage": {
+    "title": "Topsuz Basketbol Oyunu",
+    "sourceLabel": "5. Sınıf Türkçe Ders Kitabı (MEB) — 1. Tema: Oyun Dünyası",
+    "body": "Bir gün, kasabada basketbol maçı yaparken çocukların topları patladı. Oynayan herkes çok üzülmüştü. Moni o esnada “Ne yapabilirim acaba?” diye düşünüyordu. Maçın en heyecanlı anında top patladı diye maçı bitiremezlerdi. Ona göre oyunda bir sorun varsa bir öğrenme fırsatı da vardı. Problemler onu yıldıramazdı; her zaman, her yerde bir çözüm üretebileceğine inanıyordu. Bu oyunun devam etmesi için bir çözüm bulmaları gerekiyordu. Aklına parlak bir fikir geldi.\n\n— Topsuz basketbol maçı yapabiliriz, dedi Moni. Basketbol oynamak için bir topa ihtiyacımız yok.\n\nÇocuklar arasından fısıltılar yükseldi.\n\n— İnanılmaaaaaz!\n\nBu ilginç fikri duyan herkes şoke olmuştu. Hayalimizde istediğimiz her şeye sahip olabiliriz. Oyunda neye ihtiyacımız varsa çantamızdan onu çıkarabiliriz.\n\nMoni, sahanın ortasına geçip bağırdı.\n\n— Çantamdan Top Çıktıııı!\n\nÇocuklar arasında neşeli bir koşturmaca başladı. Topu sektirdiler. Birbirlerine pas attılar. Şık bir sayı yaptılar. Hatta Mete kendini o kadar oyuna kaptırdı ki bir anda acı içerisinde yerde kıvranmaya başladı.\n\nİnci, panikle bağırdı:\n\n— Ahhh! Hayır! Mete topa bastı. Acil durum! Sağlık görevlileri, buraya lütfen!\n\nMete, yerde o kadar inandırıcı bir şekilde kıvranıyordu ki görenler gerçekten de topa basıp düştüğünü zannedebilirdi. Oyunu çok iyi oynuyordu, hatta biraz abartıyordu. Bir ara Moni, “Mete, gerçekten topa mı bastı acaba?” diye şüpheye düştü.\n\nBir siren sesi duyuldu. Moni, İnci ve Taci sağlık görevlisi olup ambulansla olay yerine geldi. Mete’nin ayağına buz tuttular. İncinen bileğini sargı beziyle titizlikle sardılar. Mete’yi sedyeyle saha kenarına aldılar.\n\nElbette ortada bir buz, sargı bezi, sedye, ambulans falan yoktu. Siren sesini de Moni çıkarmıştı. Bu bir oyundu. Oyun oynamanın en keyifli yanı da sanki gerçekten varmış gibi yapmaktan geçiyordu. Bu, altın kuraldı.\n\nMete, gökyüzüne baktı.\n\n— İstersem şimdi Satürn gezegeninde bir hastaneye gidip orada da tedavi olabilirim, dedi.\n\nHayal etsenize; gezegenler arası yolculuk... Oyun oynamak muhteşem bir şey yahu!\n\nMete, saha kenarında keyifle gülümsüyordu. Oyun oynarken özgürdü çünkü. Çantasından bir gezegen çıkarabilir, ya da okyanusun derinliklerinde tam teşekküllü bir Denizaltı Hastanesine gidebilirdi.\n\nMete, Satürn Devlet Hastanesi’nde tedavi olmayı seçti. Satürn gezegeninde tıp çok gelişmiş olacak ki hemencecik iyileşiverdi. Tedavisini olduktan sonra maça geri döndü.\n\nMert ARIK\n(Kısaltılmıştır.)",
+    "grade": 5,
+    "subject": "turkce",
+    "topic": "okuma-anlama",
+    "quizThreshold": 60,
+    "showPassageDuringQuiz": true,
+    "image": "",
+    "questions": [
+      {
+        "id": "q5_topsuz_1",
+        "grade": 5,
+        "subject": "turkce",
+        "topic": "okuma-anlama",
+        "text": "Moni’nin “Oyunlarda bir sorun varsa bir öğrenme fırsatı da vardı.” sözü, onun hangi yönünü ortaya koyar?",
+        "options": [
+          "Oyunlarda hiç hata yapmadığını",
+          "Karşılaştığı sorunları çözülecek bir fırsat olarak gören yapısını",
+          "Yalnızca kazandığında mutlu olduğunu",
+          "Kurallara uymayı gereksiz bulduğunu"
+        ],
+        "correctIndex": 1,
+        "explanation": "Moni için sorun, pes etmeyi gerektiren değil çözüm üretmeyi gerektiren bir fırsattır; metin bu yönünü vurgular.",
+        "image": ""
+      },
+      {
+        "id": "q5_topsuz_2",
+        "grade": 5,
+        "subject": "turkce",
+        "topic": "okuma-anlama",
+        "text": "Top patladığında arkadaşları “Keşke patlamasaydı.” derken Moni ne yapmıştır?",
+        "options": [
+          "Maçı bitirip herkesi evine göndermiştir",
+          "Yeni bir top almak için kasabaya gitmiştir",
+          "Oyunun sürmesi için bir çözüm yolu düşünmüştür",
+          "Topu tamir etmeye çalışmıştır"
+        ],
+        "correctIndex": 2,
+        "explanation": "Diğerleri üzülüp yakınırken Moni “Ne yapabilirim acaba?” diye düşünerek çözüm arayışına girer.",
+        "image": ""
+      },
+      {
+        "id": "q5_topsuz_3",
+        "grade": 5,
+        "subject": "turkce",
+        "topic": "okuma-anlama",
+        "text": "Mete’nin yerde kıvranmasına bakıp gerçekten topa bastığını düşünenlerin olması, Mete hakkında ne gösterir?",
+        "options": [
+          "Gerçekten ağır yaralandığını",
+          "Moni’ye kızdığını",
+          "Oyunu sevmediğini",
+          "Oyunu çok inandırıcı biçimde oynadığını"
+        ],
+        "correctIndex": 3,
+        "explanation": "Metin, Mete’nin “o kadar inandırıcı” kıvrandığını ve Moni’nin bile şüpheye düştüğünü söyler.",
+        "image": ""
+      },
+      {
+        "id": "q5_topsuz_4",
+        "grade": 5,
+        "subject": "turkce",
+        "topic": "okuma-anlama",
+        "text": "Parçada geçen “Bu, altın kuraldı.” sözüyle oyunun hangi özelliği anlatılmak istenmiştir?",
+        "options": [
+          "Gerçekte olmayan şeyleri varmış gibi yapmanın oyunun özü olduğu",
+          "Her oyuncunun kendi malzemesini getirmesi",
+          "Sedyenin nasıl taşınacağı",
+          "Oyunda hiç kaybetmemek gerektiği"
+        ],
+        "correctIndex": 0,
+        "explanation": "Buz, sedye ve ambulans yoktu; hepsi hayal edildi. Metin bunu “altın kural” olarak adlandırır.",
+        "image": ""
+      },
+      {
+        "id": "q5_topsuz_5",
+        "grade": 5,
+        "subject": "turkce",
+        "topic": "okuma-anlama",
+        "text": "Mete’nin Satürn’deki hastaneyi seçmesi ve “Oyun oynarken özgürdü çünkü.” denmesi, hayal gücünün hangi yönünü gösterir?",
+        "options": [
+          "Yalnızca küçük çocuklarda bulunduğunu",
+          "Sınır tanımadığını ve kişiyi özgürleştirdiğini",
+          "Gerçeklerden tamamen kopmayı gerektirdiğini",
+          "Zamanla azalan bir yetenek olduğunu"
+        ],
+        "correctIndex": 1,
+        "explanation": "Mete bir çantadan gezegen çıkarır, uzay korsanlarıyla maceraya atılır; metin bunu özgürlük olarak açıklar.",
+        "image": ""
+      }
+    ]
+  }
+}

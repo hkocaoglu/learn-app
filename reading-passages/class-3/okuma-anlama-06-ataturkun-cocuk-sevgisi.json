@@ -1,0 +1,98 @@
+{
+  "version": 1,
+  "kind": "reading-passage",
+  "exportedAt": "2026-10-17T18:15:00.000Z",
+  "passage": {
+    "title": "Atatürk’ün Çocuk Sevgisi",
+    "sourceLabel": "3. Sınıf Türkçe Ders Kitabı (MEB) — 2. Tema: Atatürk ve Kahramanlarımız",
+    "body": "Atatürk, yaşamı boyunca tüm sevdiklerine hangi yaşta olursa olsun “çocuk” diye seslenirdi. Onun sözlüğünde çocuk, sevgi demekti. Onun çocuğu yoktu ama içinde bitip tükenmeyen bir çocuk sevgisi vardı. Türk çocukları onun öz yavruları gibiydi.\n\nAtatürk bir gün çocuk balosuna gider. Ortalıkta bir şaşkınlık havası doğar. Küçük bir oğlan salonun orta yerinde kalır. Bu yavru, hayranlıkla bir süre Atatürk’e baktıktan sonra:\n\n— Atatürk’üm, seni öpmek istiyorum, der.\n\nOrtalığa bir sessizlik dalgası yayılır. Bu derin sessizliği Atatürk’ün sesi bozar:\n\n— Öyleyse gel öp!\n\nÇocuk koşarak Atatürk’ün boynuna sarılır. O sırada diğer çocuklar da:\n\n— Biz de... Biz de... diye bağırırlar.\n\nBöylece tüm çocuklar Ata’yı doya doya öperler. Bu görüntü çoğu kişiyi ağlatır. Büyük Atatürk de ağlar. Evet, Türk çocuklarının bu engin sevgisi için ağlar. Hem de sevinç gözyaşlarını dökerek. O gün çevresindekilere övünçle:\n\n— İşte benim kuşaklarım, der.",
+    "grade": 3,
+    "subject": "turkce",
+    "topic": "okuma-anlama",
+    "quizThreshold": 60,
+    "showPassageDuringQuiz": true,
+    "image": "",
+    "questions": [
+      {
+        "id": "q3_cocuksevgisi_1",
+        "grade": 3,
+        "subject": "turkce",
+        "topic": "okuma-anlama",
+        "text": "Atatürk’ün, yaşı ne olursa olsun sevdiklerine “çocuk” diye seslenmesi onun hakkında ne gösterir?",
+        "options": [
+          "Sevgisini yaşla sınırlamadığını",
+          "Herkesi çocuk gibi gördüğünü ve onlara kızdığını",
+          "Sadece çocuklarla konuşmayı sevdiğini",
+          "İnsanların adlarını hatırlamadığını"
+        ],
+        "correctIndex": 0,
+        "explanation": "Metin, “Onun sözlüğünde çocuk, sevgi demekti.” diyerek bu seslenişin sevgi anlamına geldiğini açıklar.",
+        "image": ""
+      },
+      {
+        "id": "q3_cocuksevgisi_2",
+        "grade": 3,
+        "subject": "turkce",
+        "topic": "okuma-anlama",
+        "text": "Küçük oğlan öpmek istediğini söyleyince salonda neden bir sessizlik olmuştur?",
+        "options": [
+          "Çocuğun sesi duyulmadığı için",
+          "Çocuğun isteği beklenmedik ve cesur bulunduğu için",
+          "Atatürk salondan ayrıldığı için",
+          "Ortamda hiç çocuk kalmadığı için"
+        ],
+        "correctIndex": 1,
+        "explanation": "Salonun ortasında küçük bir çocuğun bu isteği şaşkınlık yaratır; metin “bir sessizlik dalgası yayılır” der.",
+        "image": ""
+      },
+      {
+        "id": "q3_cocuksevgisi_3",
+        "grade": 3,
+        "subject": "turkce",
+        "topic": "okuma-anlama",
+        "text": "Atatürk’ün “Öyleyse gel öp!” demesi, onun hangi yönünü ortaya koyar?",
+        "options": [
+          "Kalabalıkta konuşmayı sevmediğini",
+          "Baloları gereksiz bulduğunu",
+          "Çocukları geri çevirmeyen, sıcak ve içten yaklaşımını",
+          "Kurallara çok bağlı olduğunu"
+        ],
+        "correctIndex": 2,
+        "explanation": "Atatürk duraksamaz, hemen izin verir ve çocuk boynuna sarılır; bu, onun içten yaklaşımını gösterir.",
+        "image": ""
+      },
+      {
+        "id": "q3_cocuksevgisi_4",
+        "grade": 3,
+        "subject": "turkce",
+        "topic": "okuma-anlama",
+        "text": "Küçük oğlanın ardından diğer çocukların da “Biz de!” diye bağırması neyi gösterir?",
+        "options": [
+          "Çocukların sıraya girmeyi bilmediğini",
+          "Atatürk’ün onlara kızdığını",
+          "Salondakilerin gitmek istediğini",
+          "İlk çocuğun atılgan davranışının diğer çocuklara da cesaret verdiğini"
+        ],
+        "correctIndex": 3,
+        "explanation": "Bir çocuğun isteği karşılık bulunca diğerleri de aynı şeyi istemeye başlar; bu istek bir anda yayılır.",
+        "image": ""
+      },
+      {
+        "id": "q3_cocuksevgisi_5",
+        "grade": 3,
+        "subject": "turkce",
+        "topic": "okuma-anlama",
+        "text": "Atatürk’ün “İşte benim kuşaklarım.” sözüyle anlatmak istediği nedir?",
+        "options": [
+          "Türk çocuklarını kendi evlatları gibi, ülkenin geleceği olarak gördüğünü",
+          "Çocukların büyüyünce onu hatırlamayacağını",
+          "Yalnızca baloya gelen çocukları tanıdığını",
+          "Çocukların çok gürültü yaptığını"
+        ],
+        "correctIndex": 0,
+        "explanation": "Metin baştan itibaren “Türk çocukları onun öz yavruları gibiydi.” der; “kuşaklarım” sözü bu bakışı özetler.",
+        "image": ""
+      }
+    ]
+  }
+}

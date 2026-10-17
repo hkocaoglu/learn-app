@@ -91,3 +91,33 @@ for (const f of readdirSync("reading-passages/class-5").filter(f=>f.endsWith(".j
 console.log(`ok=${ok} bad=${bad}`);
 '
 ```
+
+## Ek metinler (16–18) — eksik temalar
+
+İlk sette (01–10 + yardımcı düşünce) Maarif Modeli'nin altı temasından **1. Oyun Dünyası**
+ve **3. Duygularımı Tanıyorum** hiç temsil edilmiyor, **2. Atatürk'ü Tanımak** ise yalnızca
+kısa metinle (01, 452 kr) yer alıyordu. Bu boşluk aşağıdaki üç metinle kapatıldı.
+Metinler **MEB 5. Sınıf Türkçe Ders Kitabı**'ndan (2026-2027, 1. kitap) alınmış ve
+uygulama şemasına uyarlanmıştır. Kitabın kendi etkinlik soruları **kullanılmamış**;
+beşer soru bu proje için yeniden yazılmıştır.
+
+| Dosya | Metin | Tema | Yazar | Gövde |
+| --- | --- | --- | --- | --- |
+| `okuma-anlama-16-topsuz-basketbol-oyunu.json` | Topsuz Basketbol Oyunu | 1 — Oyun Dünyası | Mert Arık | 2.425 kr |
+| `okuma-anlama-17-her-yurege-nakis-gerek.json` | Her Yüreğe Nakış Gerek | 3 — Duygularımı Tanıyorum | Mustafa Akgün | 3.200 kr |
+| `okuma-anlama-18-gazi-mustafa-kemal-ve-sigirtmac-mustafa.json` | Gazi Mustafa Kemal ve Sığırtmaç Mustafa | 2 — Atatürk'ü Tanımak | Hikmet Ulusoy | 4.688 kr |
+
+Bu üç metin kitaptaki hâlinden **kısaltılmıştır** (`sourceLabel` alanı tema bilgisini taşır).
+Uzunlukları diğerlerinden fazla olduğu için atama sırasında `minDwellSeconds` alanıyla
+okuma süresi sınırlandırılabilir; aksi hâlde süre kelime sayısından (150 wpm) türetilir.
+
+## Tema durumu (özet)
+
+| Tema | Durum |
+| --- | --- |
+| 1 — Oyun Dünyası | ✅ 16 |
+| 2 — Atatürk'ü Tanımak | ✅ 01 (kısa) + 18 (uzun) |
+| 3 — Duygularımı Tanıyorum | ✅ 17 |
+| 4 — Geleneklerimiz | ✅ 11 (Karagöz) + 03, 09 |
+| 5 — İletişim ve Sosyal İlişkiler | ✅ 14 |
+| 6 — Sağlıklı Yaşıyorum | ✅ 15 + 02, 05, 08 |
