@@ -6,6 +6,7 @@ import { computeDeficiencies, buildRuleReport } from '../src/domain/report.js'
 import { normalizeTest, validateTest, validateQuestion, normalizeReading, validateReading, requiredDwellSeconds, readingWordCount, exportPassage, importPassage, importPassages, GRADES, SUBJECTS, SUBJECT_TOPICS, subjectLabel, subjectsForGrade, DISPLAY_MODES, RSVP_QUESTION_COUNT, RSVP_DEFAULT_SECONDS_PER_WORD, RSVP_MIN_SECONDS_PER_WORD, RSVP_MAX_SECONDS_PER_WORD, normalizeSecondsPerWord } from '../src/domain/model.js'
 import { evaluateReadingGates } from '../src/domain/readingGates.js'
 import { parsePassageSource, collectPassageSources, summarizePassages } from '../src/domain/passageImport.js'
+import { buildTrackingMatrix } from '../src/domain/tracking.js'
 import { buildRsvpPlan, splitWords, wordsPerMinute, estimateRsvpSeconds, rsvpWordIndexAt, rsvpFinished, formatSecondsPerWord } from '../src/domain/rsvp.js'
 import { createAIClient, OPENROUTER_DEFAULTS, PROVIDERS } from '../src/ai/client.js'
 import { normalizeStudentPart, studentCodeBase, studentAuthEmail } from '../src/domain/studentAuth.js'
@@ -548,6 +549,58 @@ check(
   /^[\x00-\x7F]*$/.test(serverRequest?.options?.headers?.['X-OpenRouter-Title'] || '')
 )
 check('Vercel function yanıtı dönüyor', response.statusCode === 200 && serverResponse?.text === 'Backend test yanıtı')
+
+console.log('\n8) Öğrenci takibi (matris)')
+const trackStudents = [{ id: 's1', name: 'Ali' }, { id: 's2', name: 'Veli' }]
+const trackItems = [
+  { id: 'r1', title: 'Kırlangıç' },
+  { id: 'r2', title: 'Bahar', endsAt: '2020-01-01T00:00:00Z' },
+  { id: 'r3', title: 'Gelecek', startsAt: '2030-01-01T00:00:00Z' }
+]
+const trackAttempts = [
+  { studentId: 's1', itemId: 'r1', read: true, scorePercent: 90 },
+  { studentId: 's2', itemId: 'r1', read: false, scorePercent: 40 }
+]
+const trackNow = new Date('2026-10-01T00:00:00Z')
+const track = buildTrackingMatrix({ students: trackStudents, items: trackItems, attempts: trackAttempts, kind: 'reading', now: trackNow })
+check('Takip: okundu → done', track.rows[0].cells[0].status === 'done')
+check('Takip: denendi ama tamamlanmadı → incomplete', track.rows[1].cells[0].status === 'incomplete')
+check('Takip: süresi dolmuş → expired', track.rows[0].cells[1].status === 'expired' && track.rows[1].cells[1].status === 'expired')
+check('Takip: henüz başlamamış → upcoming', track.rows[0].cells[2].status === 'upcoming')
+check('Takip: satır toplamları ve yüzde', track.rows[0].done === 1 && track.rows[0].total === 3 && track.rows[0].percent === 33)
+check(
+  'Takip: sütun istatistikleri (kim yapmadı)',
+  track.itemStats[0].done === 1 &&
+    track.itemStats[0].missingStudents.length === 0 &&
+    track.itemStats[0].incompleteStudents.length === 1 &&
+    track.itemStats[0].incompleteStudents[0].name === 'Veli'
+)
+check('Takip: genel tamamlanma yüzdesi', track.totals.done === 1 && track.totals.cells === 6 && track.totals.percent === 17)
+const examTrack = buildTrackingMatrix({
+  students: trackStudents,
+  items: [{ id: 'a1', title: 'Test' }],
+  attempts: [{ studentId: 's1', itemId: 'a1', scorePercent: 80 }],
+  kind: 'exam'
+})
+check('Takip: test çözüldü/yapılmadı', examTrack.rows[0].cells[0].status === 'done' && examTrack.rows[1].cells[0].status === 'missed')
+check(
+  'Takip: en iyi deneme seçilir',
+  buildTrackingMatrix({
+    students: [{ id: 's1', name: 'Ali' }],
+    items: [{ id: 'a1', title: 'Test' }],
+    attempts: [
+      { studentId: 's1', itemId: 'a1', scorePercent: 40 },
+      { studentId: 's1', itemId: 'a1', scorePercent: 90 }
+    ],
+    kind: 'exam'
+  }).rows[0].cells[0].scorePercent === 90
+)
+check(
+  'Takip: boş girdi güvenli',
+  buildTrackingMatrix().totals.percent === 0 &&
+    buildTrackingMatrix({ students: [], items: [] }).rows.length === 0 &&
+    buildTrackingMatrix({ students: trackStudents, items: [] }).rows[0].percent === 0
+)
 
 console.log(failures === 0 ? '\nTÜM TESTLER GEÇTİ' : `\n${failures} TEST BAŞARISIZ`)
 process.exit(failures === 0 ? 0 : 1)

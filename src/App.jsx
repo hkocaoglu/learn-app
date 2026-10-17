@@ -20,6 +20,7 @@ import AssignmentsScreen from './ui/screens/AssignmentsScreen.jsx'
 import StudentPortalScreen from './ui/screens/StudentPortalScreen.jsx'
 import ReadingsScreen from './ui/screens/ReadingsScreen.jsx'
 import RewardsScreen from './ui/screens/RewardsScreen.jsx'
+import TrackingScreen from './ui/screens/TrackingScreen.jsx'
 import ErrorBoundary from './ui/components/ErrorBoundary.jsx'
 
 function Router() {
@@ -41,6 +42,8 @@ function Router() {
       return <ReadingsScreen />
     case 'oduller':
       return <RewardsScreen />
+    case 'takip':
+      return <TrackingScreen />
     case 'ogrenci':
       return <StudentDetailScreen id={param1} />
     case 'testler':
@@ -109,6 +112,7 @@ function AppShell() {
               <a href="#/oduller">🏆 Ödüller</a>
               <a href="#/ogrenciler">Öğrenciler</a>
               <a href="#/sonuclar">Sonuçlar</a>
+              <a href="#/takip">📊 Takip</a>
               <a href="#/raporlar">Raporlar</a>
               <span className="nav-disabled" title="Ayarlar yalnızca admin hesabına açıktır">
                 ⚙ Ayarlar 🔒

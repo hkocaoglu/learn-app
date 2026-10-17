@@ -2262,3 +2262,65 @@ tr:hover td {
     gap: 4px 10px;
   }
 }
+
+/* ---------- Öğrenci takip matrisi ---------- */
+.tracking-wrap {
+  overflow-x: auto;
+  background: #fff;
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius);
+}
+.tracking-table {
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: 0.85rem;
+  min-width: 100%;
+}
+.tracking-table th,
+.tracking-table td {
+  padding: 6px 8px;
+  border-bottom: 1px solid var(--gray-100);
+  white-space: nowrap;
+}
+.tracking-table thead th {
+  background: var(--gray-50);
+  text-align: center;
+  vertical-align: bottom;
+  font-weight: 600;
+}
+.tracking-sticky {
+  position: sticky;
+  left: 0;
+  z-index: 2;
+  background: #fff;
+  text-align: left;
+  min-width: 170px;
+}
+.tracking-table thead .tracking-sticky {
+  background: var(--gray-50);
+  z-index: 3;
+}
+.tracking-col-title {
+  display: block;
+  max-width: 110px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.tracking-col-sub {
+  display: block;
+  font-weight: 400;
+  font-size: 0.7rem;
+  color: var(--gray-500);
+}
+.track-cell {
+  text-align: center;
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+.track-done { color: var(--success); background: var(--success-light); }
+.track-incomplete { color: var(--warning); background: var(--warning-light); }
+.track-missed { color: var(--danger); background: var(--danger-light); }
+.track-pending { color: var(--gray-500); background: var(--gray-100); }
+.tracking-total-col { text-align: right; }
+.tracking-problems { display: flex; flex-direction: column; gap: 10px; }
+.tracking-problem { padding: 10px 14px; }
