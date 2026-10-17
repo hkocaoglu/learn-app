@@ -63,6 +63,122 @@ export const SUBJECT_TOPICS = {
   bilisim: ['bilgisayar sistemleri', 'algoritma', 'blok kodlama', 'internet güvenliği', 'dijital ürün']
 }
 
+// Sınıf düzeyine özel müfredat konuları (MEB). Buradaki ünite/alt konu listesi,
+// testlerin hangi konuyla oluşturulduğunu izlemek için kullanılır.
+// Şekil: { ders: { sınıf: [{ id, label, subtopics: [] }] } }
+export const CURRICULUM_TOPICS = {
+  turkce: {
+    5: [
+      {
+        id: 'söz varlığı',
+        label: 'Söz Varlığı',
+        subtopics: ['Sözcükte Anlam', 'Sözcükler Arası Anlam İlişkileri', 'Söz Grupları']
+      },
+      {
+        id: 'cümlede anlam',
+        label: 'Cümlede Anlam',
+        subtopics: [
+          'Cümlede Anlam İlişkileri',
+          'Cümlede Anlatım Özellikleri',
+          'Anlamlarına Göre Cümleler',
+          'Cümle Yorumu'
+        ]
+      },
+      {
+        id: 'dil yapıları',
+        label: 'Dil Yapıları',
+        subtopics: [
+          'İsimler',
+          'İsmi Niteleyen ve Belirten Sözcükler',
+          'İsmin Yerini Tutan Sözcükler',
+          'İşlev Temelli Dil Yapıları'
+        ]
+      },
+      {
+        id: 'geçiş ve bağlantı ifadeleri',
+        label: 'Geçiş ve Bağlantı İfadeleri',
+        subtopics: [
+          'Seçenek Belirtme İşlevi',
+          'Ekleme İşlevi',
+          'Zıtlık (Karşıtlık) İşlevi',
+          'Sonuç Bildirme İşlevi',
+          'Örnekleme İşlevi',
+          'Özetleme İşlevi',
+          'Vurgulama İşlevi'
+        ]
+      },
+      {
+        id: 'metinde anlam',
+        label: 'Metinde Anlam',
+        subtopics: [
+          'Metni Anlama ve Çözümleme',
+          'Metnin Yapısı ve Oluşturulması',
+          'Metin Türleri ve Anlatım Özellikleri',
+          'Metinler Arası İlişkiler ve Karşılaştırma'
+        ]
+      },
+      {
+        id: 'sözel mantık ve muhakeme',
+        label: 'Sözel Mantık ve Muhakeme',
+        subtopics: ['Tablo Oluşturma', 'Sıralama', 'Yer-Yön Belirleme']
+      },
+      {
+        id: 'yazım kuralları',
+        label: 'Yazım Kuralları',
+        subtopics: ['Büyük Harflerin Yazımı', 'Sayıların Yazımı']
+      },
+      {
+        id: 'noktalama',
+        label: 'Noktalama İşaretleri',
+        subtopics: [
+          'Nokta',
+          'Virgül',
+          'Soru İşareti',
+          'Ünlem İşareti',
+          'Üç Nokta',
+          'İki Nokta',
+          'Kesme İşareti',
+          'Uzun Çizgi',
+          'Kısa Çizgi'
+        ]
+      },
+      {
+        id: 'söz sanatları',
+        label: 'Söz Sanatları',
+        subtopics: ['Benzetme (Teşbih)', 'Kişileştirme (Teşhis)', 'Konuşturma (İntak)']
+      },
+      {
+        id: 'metin yapısı',
+        label: 'Metin Yapısı',
+        subtopics: ['Bilgilendirici Metin', 'Öyküleyici Metin', 'Şiir']
+      },
+      {
+        id: 'görsel okuma ve grafik',
+        label: 'Görsel Okuma, Grafik ve Tablo Yorumlama',
+        subtopics: ['Görsel Okuma', 'Grafik Okuma', 'Tablo Okuma', 'Kroki Okuma']
+      }
+    ]
+  }
+}
+
+// Sınıfa özel müfredat konu kimlikleri (tanımlı değilse boş liste)
+export const curriculumTopics = (subject, grade) =>
+  ((CURRICULUM_TOPICS[subject] || {})[Number(grade)] || []).map((t) => t.id)
+
+// Bir müfredat konusunun alt konuları
+export const curriculumSubtopics = (subject, grade, topicId) => {
+  const units = (CURRICULUM_TOPICS[subject] || {})[Number(grade)] || []
+  const unit = units.find((t) => t.id === topicId)
+  return unit ? unit.subtopics : []
+}
+
+// Müfredat konusunun görünen adı
+export const curriculumUnitLabel = (subject, grade, topicId) => {
+  const units = (CURRICULUM_TOPICS[subject] || {})[Number(grade)] || []
+  const unit = units.find((t) => t.id === topicId)
+  return unit ? unit.label : topicId
+}
+
 export const TOPIC_LABELS = {
   toplama: 'Toplama',
   çıkarma: 'Çıkarma',
@@ -80,17 +196,35 @@ export const TOPIC_LABELS = {
   'dil bilgisi': 'Dil Bilgisi',
   'yazım kuralları': 'Yazım Kuralları',
   'eş ve zıt anlam': 'Eş ve Zıt Anlam',
-  noktalama: 'Noktalama',
-  'hece bilgisi': 'Hece Bilgisi'
+  noktalama: 'Noktalama İşaretleri',
+  'hece bilgisi': 'Hece Bilgisi',
+  // 5. sınıf Türkçe müfredatı (MEB) ünite etiketleri
+  'söz varlığı': 'Söz Varlığı',
+  'cümlede anlam': 'Cümlede Anlam',
+  'dil yapıları': 'Dil Yapıları',
+  'geçiş ve bağlantı ifadeleri': 'Geçiş ve Bağlantı İfadeleri',
+  'metinde anlam': 'Metinde Anlam',
+  'sözel mantık ve muhakeme': 'Sözel Mantık ve Muhakeme',
+  'söz sanatları': 'Söz Sanatları',
+  'metin yapısı': 'Metin Yapısı',
+  'görsel okuma ve grafik': 'Görsel Okuma, Grafik ve Tablo Yorumlama'
 }
 
 export const topicLabel = (t) => TOPIC_LABELS[t] || t
 
-// Konu listesine kullanıcının yazdığı özel etiketleri de ekleyerek döndürür
-export const topicsForSubject = (subject, existingTopics = []) => {
-  const base = SUBJECT_TOPICS[subject] || []
-  const extra = (existingTopics || []).filter((t) => t && !base.includes(t))
-  return [...base, ...extra]
+// Konu listesine, verilen sınıfın müfredat konularını ve kullanıcının yazdığı
+// özel etiketleri de ekleyerek döndürür.
+export const topicsForSubject = (subject, existingTopics = [], grade = null) => {
+  const merged = [...(SUBJECT_TOPICS[subject] || [])]
+  if (grade) {
+    curriculumTopics(subject, grade).forEach((t) => {
+      if (!merged.includes(t)) merged.push(t)
+    })
+  }
+  ;(existingTopics || []).forEach((t) => {
+    if (t && !merged.includes(t)) merged.push(t)
+  })
+  return merged
 }
 
 let counter = 0

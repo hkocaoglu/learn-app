@@ -3,7 +3,7 @@
 import { buildSeed, exportBackup, importBackup } from '../src/db/storage.js'
 import { scoreAttempt, aggregateStudentTopics, aggregateStudentAll, attemptDurationStats } from '../src/domain/scoring.js'
 import { computeDeficiencies, buildRuleReport } from '../src/domain/report.js'
-import { normalizeTest, validateTest, validateQuestion, normalizeReading, validateReading, requiredDwellSeconds, readingWordCount, exportPassage, importPassage, importPassages, GRADES, SUBJECTS, SUBJECT_TOPICS, subjectLabel, subjectsForGrade, DISPLAY_MODES, RSVP_QUESTION_COUNT, RSVP_DEFAULT_SECONDS_PER_WORD, RSVP_MIN_SECONDS_PER_WORD, RSVP_MAX_SECONDS_PER_WORD, normalizeSecondsPerWord } from '../src/domain/model.js'
+import { normalizeTest, validateTest, validateQuestion, normalizeReading, validateReading, requiredDwellSeconds, readingWordCount, exportPassage, importPassage, importPassages, GRADES, SUBJECTS, SUBJECT_TOPICS, subjectLabel, subjectsForGrade, CURRICULUM_TOPICS, curriculumTopics, curriculumSubtopics, curriculumUnitLabel, topicsForSubject, DISPLAY_MODES, RSVP_QUESTION_COUNT, RSVP_DEFAULT_SECONDS_PER_WORD, RSVP_MIN_SECONDS_PER_WORD, RSVP_MAX_SECONDS_PER_WORD, normalizeSecondsPerWord } from '../src/domain/model.js'
 import { evaluateReadingGates } from '../src/domain/readingGates.js'
 import { parsePassageSource, collectPassageSources, summarizePassages } from '../src/domain/passageImport.js'
 import { buildTrackingMatrix, summarizeStudents } from '../src/domain/tracking.js'
@@ -365,6 +365,34 @@ check('1. sınıf dersleri', (() => {
   return list.includes('hayat-bilgisi') && !list.includes('fen-bilimleri') && !list.includes('yabanci-dil')
 })())
 check('Sınıf bilinmiyorsa tüm dersler', subjectsForGrade(0).length === SUBJECTS.length && subjectsForGrade('x').length === SUBJECTS.length)
+
+// --- 5. sınıf Türkçe müfredatı (konu takibi) ---
+const tr5 = CURRICULUM_TOPICS.turkce[5]
+check('5. sınıf Türkçe müfredatı tanımlı', Array.isArray(tr5) && tr5.length === 11)
+check('Her müfredat ünitesinin kimliği ve etiketi var', tr5.every((u) => u.id && u.label))
+check('Her müfredat ünitesinde alt konu var', tr5.every((u) => Array.isArray(u.subtopics) && u.subtopics.length > 0))
+check('Ünite kimlikleri benzersiz', new Set(tr5.map((u) => u.id)).size === tr5.length)
+check('curriculumTopics 5. sınıf için 11 konu döner', curriculumTopics('turkce', 5).length === 11)
+check('curriculumTopics tanımsız sınıf için boş döner', curriculumTopics('turkce', 4).length === 0 && curriculumTopics('matematik', 5).length === 0)
+check('curriculumSubtopics ünitenin alt konularını döner', (() => {
+  const sub = curriculumSubtopics('turkce', 5, 'söz sanatları')
+  return sub.length === 3 && sub.includes('Benzetme (Teşbih)')
+})())
+check('curriculumUnitLabel okunabilir ad döner', curriculumUnitLabel('turkce', 5, 'metin yapısı') === 'Metin Yapısı')
+check('5. sınıf Türkçe konu listesi müfredatı içerir', (() => {
+  const list = topicsForSubject('turkce', [], 5)
+  return (
+    list.includes('söz varlığı') &&
+    list.includes('görsel okuma ve grafik') &&
+    list.includes('okuma-anlama') &&
+    list.length === new Set(list).size
+  )
+})())
+check('Sınıf verilmezse müfredat konuları eklenmez', !topicsForSubject('turkce', [], 1).includes('söz varlığı'))
+check('Kullanıcı etiketleri sona eklenir', (() => {
+  const list = topicsForSubject('turkce', ['özel konu'], 5)
+  return list[list.length - 1] === 'özel konu'
+})())
 check(
   'Yeni ders doğrulamadan geçiyor',
   validateQuestion({

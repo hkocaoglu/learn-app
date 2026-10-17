@@ -4,7 +4,7 @@ import { topicsForSubject, fileToImageData } from '../../domain/model.js'
 // Tek soruyu elle düzenleme formu. Yeni soru veya mevcut soruyu düzenleme.
 export default function QuestionForm({ initial, subject, grade, onSave, onCancel }) {
   const [text, setText] = useState(initial?.text || '')
-  const [topic, setTopic] = useState(initial?.topic || (topicsForSubject(subject)[0] || 'genel'))
+  const [topic, setTopic] = useState(initial?.topic || (topicsForSubject(subject, [], grade)[0] || 'genel'))
   const [options, setOptions] = useState(initial?.options?.length ? [...initial.options] : ['', '', '', ''])
   const [correctIndex, setCorrectIndex] = useState(initial?.correctIndex ?? 0)
   const [explanation, setExplanation] = useState(initial?.explanation || '')
@@ -14,7 +14,7 @@ export default function QuestionForm({ initial, subject, grade, onSave, onCancel
   const [image, setImage] = useState(initial?.image || '')
   const [imageError, setImageError] = useState('')
 
-  const suggestions = topicsForSubject(subject)
+  const suggestions = topicsForSubject(subject, [], grade)
 
   const setOpt = (i, v) => setOptions((o) => o.map((x, j) => (j === i ? v : x)))
 
@@ -45,12 +45,12 @@ export default function QuestionForm({ initial, subject, grade, onSave, onCancel
     })
   }
 
-  // Ders değişince (yeni soruda) varsayılan konuyu sıfırla
+  // Ders/sınıf değişince (yeni soruda) varsayılan konuyu sıfırla
   useEffect(() => {
     if (!initial) {
-      setTopic(topicsForSubject(subject)[0] || 'genel')
+      setTopic(topicsForSubject(subject, [], grade)[0] || 'genel')
     }
-  }, [subject, initial])
+  }, [subject, grade, initial])
 
   return (
     <form onSubmit={submit} className="question-block" style={{ border: '2px solid var(--primary)', background: 'var(--gray-50)' }}>

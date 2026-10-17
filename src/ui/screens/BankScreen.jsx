@@ -49,11 +49,11 @@ export default function BankScreen() {
     [db.bank, grade, subject]
   )
 
-  // konu önerileri: seçili sınıf/ders için sabitler + bankada kullanılanlar
+  // konu önerileri: seçili sınıf/ders için müfredat + sabitler + bankada kullanılanlar
   const subjectTopics = useMemo(() => {
     const s = subject || (db.bank[0] && db.bank[0].subject) || 'matematik'
-    return topicsForSubject(s, availableTopics)
-  }, [subject, availableTopics, db.bank])
+    return topicsForSubject(s, availableTopics, grade)
+  }, [subject, availableTopics, grade, db.bank])
 
   const addQuestion = async (q) => {
     try {
