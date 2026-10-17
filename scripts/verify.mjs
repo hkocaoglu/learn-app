@@ -640,6 +640,17 @@ check(
   'Karşılaştırma: test ortalaması ve puan bakiyesi',
   compareRows[1].avgExamScore === 60 && compareRows[0].balance === 10 && compareRows[1].balance === 0
 )
+check(
+  'Karşılaştırma: okunan kitap listesi (hangi kitaplar)',
+  compareRows[0].readTitles.length === 1 &&
+    compareRows[0].readTitles[0].title === 'A' &&
+    compareRows[0].readTitles[0].scorePercent === 80 &&
+    compareRows[1].readTitles.length === 0
+)
+check(
+  'Karşılaştırma: okunmayan kitap listesi',
+  compareRows[1].missingTitles.length === 2 && compareRows[0].missingTitles.length === 0
+)
 check('Karşılaştırma: boş girdi güvenli', summarizeStudents().length === 0 && summarizeStudents({ students: [] }).length === 0)
 
 console.log(failures === 0 ? '\nTÜM TESTLER GEÇTİ' : `\n${failures} TEST BAŞARISIZ`)

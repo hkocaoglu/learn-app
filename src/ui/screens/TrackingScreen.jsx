@@ -364,6 +364,66 @@ function ComparisonPanel({ overview, loading, error, classFilter, onClassFilter,
           </table>
         </div>
       )}
+
+      {selected.length > 0 && (
+        <>
+          <div className="section-heading mt-16">
+            <h2>Okuduğu / okumadığı kitaplar</h2>
+            <span className="small muted">Her öğrenci kendi sınıfının okumalarına göre</span>
+          </div>
+          <div className="compare-books">
+            {selected.map((item) => (
+              <div key={item.student.id} className="card compare-book-card">
+                <div className="row-actions" style={{ justifyContent: 'space-between' }}>
+                  <strong>{item.student.name}</strong>
+                  <span className="small muted">
+                    {gradeLabel(item.grade)} · {item.className} · {item.readingDone}/{item.readingTotal} okuma
+                  </span>
+                </div>
+                <div className="mt-8">
+                  <span className="badge badge-success">✓ Okudu ({item.readTitles.length})</span>{' '}
+                  {item.readTitles.length === 0 ? (
+                    <span className="small muted">henüz yok</span>
+                  ) : (
+                    item.readTitles.map((book) => (
+                      <span
+                        key={book.id}
+                        className="badge badge-muted"
+                        title={book.scorePercent != null ? `Quiz %${book.scorePercent}` : ''}
+                      >
+                        {book.title}
+                        {book.scorePercent != null ? ` %${book.scorePercent}` : ''}
+                      </span>
+                    ))
+                  )}
+                </div>
+                <div className="mt-8">
+                  <span className="badge badge-danger">✗ Okumadı ({item.missingTitles.length})</span>{' '}
+                  {item.missingTitles.length === 0 ? (
+                    <span className="small muted">yok 🎉</span>
+                  ) : (
+                    item.missingTitles.map((book) => (
+                      <span key={book.id} className="badge badge-muted">
+                        {book.title}
+                      </span>
+                    ))
+                  )}
+                </div>
+                {item.incompleteTitles.length > 0 && (
+                  <div className="mt-8">
+                    <span className="badge badge-warning">⚠ Tamamlamadı ({item.incompleteTitles.length})</span>{' '}
+                    {item.incompleteTitles.map((book) => (
+                      <span key={book.id} className="badge badge-muted">
+                        {book.title}
+                      </span>
+                    ))}
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+        </>
+      )}
     </>
   )
 }

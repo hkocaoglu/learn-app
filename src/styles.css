@@ -2358,3 +2358,8 @@ tr:hover td {
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+
+/* ---------- Karşılaştırma: okunan/okunmayan kitap listeleri ---------- */
+.compare-books { display: flex; flex-direction: column; gap: 10px; }
+.compare-book-card { padding: 10px 14px; }
+.compare-book-card .badge { margin: 2px 4px 2px 0; white-space: normal; }

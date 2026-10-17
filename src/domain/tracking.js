@@ -145,12 +145,30 @@ export const summarizeStudents = ({
     const readingMatrix = buildTrackingMatrix({ students: [student], items: readingItems, attempts: myReadingAttempts, kind: 'reading' })
     const examMatrix = buildTrackingMatrix({ students: [student], items: examItems, attempts: myExamAttempts, kind: 'exam' })
     const scores = myExamAttempts.map((attempt) => Number(attempt.scorePercent) || 0)
+    // Hangi kitaplar okundu / okunmadı (karşılaştırma ekranındaki listeler için).
+    const cells = readingMatrix.rows[0]?.cells || []
+    const titleOf = (index) => ({ id: readingItems[index]?.id, title: readingItems[index]?.title || 'Okuma' })
+    const readTitles = cells
+      .map((cell, index) => ({ cell, index }))
+      .filter(({ cell }) => cell.status === 'done')
+      .map(({ cell, index }) => ({ ...titleOf(index), scorePercent: cell.scorePercent }))
+    const missingTitles = cells
+      .map((cell, index) => ({ cell, index }))
+      .filter(({ cell }) => cell.status === 'missed')
+      .map(({ index }) => titleOf(index))
+    const incompleteTitles = cells
+      .map((cell, index) => ({ cell, index }))
+      .filter(({ cell }) => cell.status === 'incomplete')
+      .map(({ cell, index }) => ({ ...titleOf(index), scorePercent: cell.scorePercent }))
     return {
       student,
       className: classInfo?.name || '',
       grade: classInfo?.grade ?? student.grade ?? null,
       readingDone: readingMatrix.rows[0]?.done ?? 0,
       readingTotal: readingItems.length,
+      readTitles,
+      missingTitles,
+      incompleteTitles,
       examDone: examMatrix.rows[0]?.done ?? 0,
       examTotal: examItems.length,
       avgExamScore: scores.length ? Math.round(scores.reduce((sum, value) => sum + value, 0) / scores.length) : 0,
