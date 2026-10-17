@@ -368,7 +368,7 @@ export const percent = (correct, total) => (total === 0 ? 0 : Math.round((correc
 
 // ---------- Soru görseli yardımcıları ----------
 // Kabul edilen görsel dosya türleri
-export const IMAGE_MIME_TYPES = ['image/jpeg', 'image/png', 'image/gif', 'image/webp']
+export const IMAGE_MIME_TYPES = ['image/jpeg', 'image/png', 'image/gif', 'image/webp', 'image/svg+xml']
 // Boyut sınırı: 800 KB (base64'i de veriyle birlikte saklanır)
 export const MAX_IMAGE_BYTES = 800 * 1024
 
@@ -377,7 +377,7 @@ export const fileToImageData = (file) =>
   new Promise((resolve) => {
     if (!file) return resolve({ error: 'Dosya seçilmedi' })
     if (!IMAGE_MIME_TYPES.includes(file.type))
-      return resolve({ error: 'Desteklenmeyen format. JPEG, PNG, GIF veya WebP kullanın.' })
+      return resolve({ error: 'Desteklenmeyen format. JPEG, PNG, GIF, WebP veya SVG kullanın.' })
     if (file.size > MAX_IMAGE_BYTES)
       return resolve({ error: `Görsel çok büyük (en fazla ${Math.round(MAX_IMAGE_BYTES / 1024)} KB).` })
     const reader = new FileReader()

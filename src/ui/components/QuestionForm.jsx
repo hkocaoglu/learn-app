@@ -66,7 +66,7 @@ export default function QuestionForm({ initial, subject, grade, onSave, onCancel
             <div className="row-actions">
               <label className="btn btn-sm" style={{ cursor: 'pointer', margin: 0 }}>
                 {image ? '🖼 Görseli Değiştir' : '🖼 Görsel Yükle'}
-                <input type="file" accept="image/jpeg,image/png,image/gif,image/webp" style={{ display: 'none' }} onChange={(e) => { onPickImage(e.target.files?.[0]); e.target.value = '' }} />
+                <input type="file" accept="image/jpeg,image/png,image/gif,image/webp,image/svg+xml" style={{ display: 'none' }} onChange={(e) => { onPickImage(e.target.files?.[0]); e.target.value = '' }} />
               </label>
               {image && (
                 <button type="button" className="btn btn-sm btn-danger" onClick={() => { setImage(''); setImageError('') }}>
