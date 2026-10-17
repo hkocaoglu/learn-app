@@ -1,0 +1,192 @@
+{
+  "version": 1,
+  "kind": "test",
+  "test": {
+    "title": "3. Sınıf Matematik — Toplama ve Çıkarma Problemleri (Muhakeme)",
+    "grade": 3,
+    "subject": "matematik",
+    "durationMinutes": 20,
+    "questions": [
+      {
+        "text": "Bir çiftlikte 148 tavuk ve 97 ördek vardır. Çiftlikte toplam kaç kanatlı hayvan vardır?",
+        "options": [
+          "235",
+          "245",
+          "241",
+          "255"
+        ],
+        "correctIndex": 1,
+        "topic": "problemler",
+        "explanation": "148 + 97 = 245."
+      },
+      {
+        "text": "Bir otobüste 42 yolcu vardı. İlk durakta 13 yolcu indi, 8 yolcu bindi. Otobüste kaç yolcu kaldı?",
+        "options": [
+          "47",
+          "45",
+          "37",
+          "21"
+        ],
+        "correctIndex": 2,
+        "topic": "problemler",
+        "explanation": "42 − 13 = 29; 29 + 8 = 37."
+      },
+      {
+        "text": "300 lirası olan Ayşe, 125 liralık bir kitap alırsa kaç lirası kalır?",
+        "options": [
+          "185",
+          "225",
+          "125",
+          "175"
+        ],
+        "correctIndex": 3,
+        "topic": "problemler",
+        "explanation": "300 − 125 = 175."
+      },
+      {
+        "text": "Bir sınıfta 24 kız ve 19 erkek öğrenci vardır. Kız öğrenciler erkeklerden kaç fazladır?",
+        "options": [
+          "5",
+          "43",
+          "7",
+          "24"
+        ],
+        "correctIndex": 0,
+        "topic": "problemler",
+        "explanation": "24 − 19 = 5."
+      },
+      {
+        "text": "Bir dükkânda 250 kalem vardı; gün içinde 87 kalem satıldı. Dükkânda kaç kalem kaldı?",
+        "options": [
+          "173",
+          "163",
+          "337",
+          "153"
+        ],
+        "correctIndex": 1,
+        "topic": "problemler",
+        "explanation": "250 − 87 = 163."
+      },
+      {
+        "text": "Ali 36 sayfa, Ayşe 48 sayfa kitap okudu. İkisi toplam kaç sayfa okudu?",
+        "options": [
+          "94",
+          "74",
+          "84",
+          "12"
+        ],
+        "correctIndex": 2,
+        "topic": "problemler",
+        "explanation": "36 + 48 = 84."
+      },
+      {
+        "text": "Bir kavanozda 60 şeker vardı. 15 şeker yendi, sonra kavanoza 20 şeker daha eklendi. Kavanozda kaç şeker oldu?",
+        "options": [
+          "45",
+          "55",
+          "75",
+          "65"
+        ],
+        "correctIndex": 3,
+        "topic": "problemler",
+        "explanation": "60 − 15 = 45; 45 + 20 = 65."
+      },
+      {
+        "text": "Bir çıkarma işleminde eksilen 500, çıkan 175 ise fark kaçtır?",
+        "options": [
+          "325",
+          "375",
+          "675",
+          "335"
+        ],
+        "correctIndex": 0,
+        "topic": "problemler",
+        "explanation": "500 − 175 = 325."
+      },
+      {
+        "text": "85 + 47 işleminin sonucu kaçtır?",
+        "options": [
+          "122",
+          "132",
+          "131",
+          "142"
+        ],
+        "correctIndex": 1,
+        "topic": "problemler",
+        "explanation": "85 + 47 = 132."
+      },
+      {
+        "text": "Bir okulda 320 öğrenci vardır. Bunların 145'i kız ise erkek öğrenci sayısı kaçtır?",
+        "options": [
+          "465",
+          "165",
+          "175",
+          "185"
+        ],
+        "correctIndex": 2,
+        "topic": "problemler",
+        "explanation": "320 − 145 = 175."
+      },
+      {
+        "text": "Bir kitabın 128 sayfasını okudum, geriye 72 sayfa kaldı. Kitap kaç sayfadır?",
+        "options": [
+          "56",
+          "196",
+          "206",
+          "200"
+        ],
+        "correctIndex": 3,
+        "topic": "problemler",
+        "explanation": "128 + 72 = 200."
+      },
+      {
+        "text": "40 + 40 + 40 işleminin sonucu kaçtır?",
+        "options": [
+          "120",
+          "80",
+          "160",
+          "40"
+        ],
+        "correctIndex": 0,
+        "topic": "problemler",
+        "explanation": "Üç kez 40 toplanır: 120."
+      },
+      {
+        "text": "Bir sepetteki 96 yumurtanın 38'i kırıldı. Sağlam yumurta sayısı kaçtır?",
+        "options": [
+          "68",
+          "58",
+          "48",
+          "134"
+        ],
+        "correctIndex": 1,
+        "topic": "problemler",
+        "explanation": "96 − 38 = 58."
+      },
+      {
+        "text": "700 − 250 işleminin sonucu kaçtır?",
+        "options": [
+          "350",
+          "550",
+          "450",
+          "465"
+        ],
+        "correctIndex": 2,
+        "topic": "problemler",
+        "explanation": "700 − 250 = 450."
+      },
+      {
+        "text": "Bir sayıya 68 eklenince 200 oluyor. Bu sayı kaçtır?",
+        "options": [
+          "122",
+          "142",
+          "268",
+          "132"
+        ],
+        "correctIndex": 3,
+        "topic": "problemler",
+        "explanation": "200 − 68 = 132."
+      }
+    ]
+  }
+}

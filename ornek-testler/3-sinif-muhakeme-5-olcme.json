@@ -1,0 +1,192 @@
+{
+  "version": 1,
+  "kind": "test",
+  "test": {
+    "title": "3. Sınıf Matematik — Ölçme ve Birimler (Muhakeme)",
+    "grade": 3,
+    "subject": "matematik",
+    "durationMinutes": 20,
+    "questions": [
+      {
+        "text": "1 metre kaç santimetredir?",
+        "options": [
+          "100",
+          "10",
+          "1000",
+          "50"
+        ],
+        "correctIndex": 0,
+        "topic": "olcme",
+        "explanation": "1 m = 100 cm."
+      },
+      {
+        "text": "3 metre kaç santimetredir?",
+        "options": [
+          "30",
+          "300",
+          "3000",
+          "130"
+        ],
+        "correctIndex": 1,
+        "topic": "olcme",
+        "explanation": "3 × 100 = 300 cm."
+      },
+      {
+        "text": "1 kilogram kaç gramdır?",
+        "options": [
+          "10",
+          "100",
+          "1000",
+          "500"
+        ],
+        "correctIndex": 2,
+        "topic": "olcme",
+        "explanation": "1 kg = 1000 g."
+      },
+      {
+        "text": "2 kilogram 500 gram toplam kaç gramdır?",
+        "options": [
+          "3000",
+          "250",
+          "2050",
+          "2500"
+        ],
+        "correctIndex": 3,
+        "topic": "olcme",
+        "explanation": "2 kg = 2000 g; 2000 + 500 = 2500 g."
+      },
+      {
+        "text": "Bir yıl kaç aydır?",
+        "options": [
+          "12",
+          "10",
+          "24",
+          "52"
+        ],
+        "correctIndex": 0,
+        "topic": "olcme",
+        "explanation": "Bir yıl 12 aydır."
+      },
+      {
+        "text": "Bir saat kaç dakikadır?",
+        "options": [
+          "30",
+          "60",
+          "100",
+          "24"
+        ],
+        "correctIndex": 1,
+        "topic": "olcme",
+        "explanation": "1 saat = 60 dakika."
+      },
+      {
+        "text": "2 saat 30 dakika toplam kaç dakikadır?",
+        "options": [
+          "120",
+          "230",
+          "150",
+          "90"
+        ],
+        "correctIndex": 2,
+        "topic": "olcme",
+        "explanation": "2 × 60 = 120; 120 + 30 = 150 dakika."
+      },
+      {
+        "text": "1 litre kaç mililitredir?",
+        "options": [
+          "250",
+          "100",
+          "10",
+          "1000"
+        ],
+        "correctIndex": 3,
+        "topic": "olcme",
+        "explanation": "1 L = 1000 mL."
+      },
+      {
+        "text": "Yarım litre kaç mililitredir?",
+        "options": [
+          "500",
+          "50",
+          "1000",
+          "250"
+        ],
+        "correctIndex": 0,
+        "topic": "olcme",
+        "explanation": "1000 ÷ 2 = 500 mL."
+      },
+      {
+        "text": "1 gün kaç saattir?",
+        "options": [
+          "12",
+          "24",
+          "60",
+          "48"
+        ],
+        "correctIndex": 1,
+        "topic": "olcme",
+        "explanation": "Bir gün 24 saattir."
+      },
+      {
+        "text": "Bir hafta kaç gündür?",
+        "options": [
+          "10",
+          "5",
+          "7",
+          "30"
+        ],
+        "correctIndex": 2,
+        "topic": "olcme",
+        "explanation": "Bir hafta 7 gündür."
+      },
+      {
+        "text": "450 santimetre kaç metre kaç santimetredir?",
+        "options": [
+          "450 m",
+          "45 m",
+          "4 m 5 cm",
+          "4 m 50 cm"
+        ],
+        "correctIndex": 3,
+        "topic": "olcme",
+        "explanation": "100 cm = 1 m olduğundan 450 cm = 4 m 50 cm."
+      },
+      {
+        "text": "1 kilogram elma 30 lira ise yarım kilogram elma kaç liradır?",
+        "options": [
+          "15",
+          "60",
+          "30",
+          "20"
+        ],
+        "correctIndex": 0,
+        "topic": "olcme",
+        "explanation": "Yarım kilogram, fiyatın yarısıdır: 30 ÷ 2 = 15 lira."
+      },
+      {
+        "text": "Bir sınav 45 dakika sürdü. Saat 10.00'da başladıysa saat kaçta biter?",
+        "options": [
+          "10.30",
+          "10.45",
+          "11.00",
+          "10.15"
+        ],
+        "correctIndex": 1,
+        "topic": "olcme",
+        "explanation": "10.00 + 45 dakika = 10.45."
+      },
+      {
+        "text": "3 litre su kaç mililitredir?",
+        "options": [
+          "30",
+          "300",
+          "3000",
+          "3300"
+        ],
+        "correctIndex": 2,
+        "topic": "olcme",
+        "explanation": "3 × 1000 = 3000 mL."
+      }
+    ]
+  }
+}
