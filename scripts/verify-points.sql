@@ -376,4 +376,21 @@ begin
 end $$;
 reset role;
 
+-- ============ TEST 13: müfredat dersleri ============
+do $$
+begin
+  insert into public.tests (id, teacher_id, title, grade, subject, questions)
+  values ('eeeeeeee-0000-0000-0000-0000000000f1', '11111111-1111-1111-1111-111111111111', 'Fen Testi', 5, 'fen-bilimleri',
+          '[{"id":"f1","text":"Su kaç derecede donar?","options":["0","10","50","100"],"correctIndex":0,"topic":"madde ve doğası","subject":"fen-bilimleri"}]'::jsonb);
+  raise notice 'OK: yeni müfredat dersi (fen-bilimleri) kabul edildi';
+
+  begin
+    insert into public.tests (id, teacher_id, title, grade, subject, questions)
+    values ('eeeeeeee-0000-0000-0000-0000000000f2', '11111111-1111-1111-1111-111111111111', 'Geçersiz Ders', 5, 'cografya', '[]'::jsonb);
+    raise exception 'TEST FAIL: geçersiz ders kabul edildi';
+  exception when check_violation then
+    raise notice 'OK: geçersiz ders (cografya) reddedildi';
+  end;
+end $$;
+
 select 'TÜM PG TESTLER GEÇTİ' as sonuc;

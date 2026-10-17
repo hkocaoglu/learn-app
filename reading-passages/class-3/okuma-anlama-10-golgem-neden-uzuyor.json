@@ -1,0 +1,98 @@
+{
+  "version": 1,
+  "kind": "reading-passage",
+  "exportedAt": "2026-10-17T18:35:00.000Z",
+  "passage": {
+    "title": "Gölgem Neden Uzuyor?",
+    "sourceLabel": "3. Sınıf Türkçe Okuma Parçaları (Maarif Modeli) — 6. Tema: Bilim Yolculuğu",
+    "body": "Okuldan eve dönerken gölgeme baktım. Sabah çok uzundu, öğleyin kısaldı, akşam yine uzadı. Peki neden?\n\nEve varır varmaz babama sordum:\n\n— Baba, gölgem neden değişiyor?\n\nBabam “Bilmiyorum.” demedi.\n\n— Bunu birlikte bulalım, dedi.\n\nMutfaktan bir el feneri aldı. Masaya küçük bir oyuncak koydu ve perdeyi kapattı.\n\n— Şimdi feneri oyuncağın tam üstünden tut, dedi.\n\nTuttum. Gölge, oyuncağın hemen altında küçücük kaldı.\n\n— Şimdi yandan tut.\n\nFeneri yana çevirdim. Gölge uzadı, uzadı, masanın öbür ucuna kadar gitti.\n\n— Gölgeyi uzatan şey ne? diye sordu babam.\n\n— Işık! dedim. Yani ışığın geliş yönü.\n\nBabam gülümsedi:\n\n— Gökyüzündeki ışık da gün boyunca yer değiştirir. Sabah güneş ufukta olduğu için gölgen uzun, öğleyin tepede olduğu için kısadır.\n\nO gece küçük bir deftere bir tablo çizdim: Sabah, öğle, akşam. İki gün boyunca gölgemin boyunu işaretledim. Sonuç hep aynıydı: Işık neredeyse gölge ona göre şekil alıyordu.\n\nErtesi hafta tabloyu öğretmenime gösterdim. Öğretmenim şöyle dedi:\n\n— Bilim insanları da böyle başlar: Bir soru sorar, sonra da cevabı deneyerek ararlar.\n\nO günden sonra etrafıma başka bir gözle bakmaya başladım. Dişlerimiz neden çürür, yağmur neden yağar, uçak nasıl havada kalır... Sorular hiç bitmiyor. Ama artık biliyorum: Sorusu olan ve cevabı arayan herkesin önünde koca bir bilim yolculuğu var.",
+    "grade": 3,
+    "subject": "turkce",
+    "topic": "okuma-anlama",
+    "quizThreshold": 60,
+    "showPassageDuringQuiz": true,
+    "image": "",
+    "questions": [
+      {
+        "id": "q3_golge_1",
+        "grade": 3,
+        "subject": "turkce",
+        "topic": "okuma-anlama",
+        "text": "Çocuk, gölgesinin gün içinde değiştiğini fark edince babası ne yapmıştır?",
+        "options": [
+          "Cevabı birlikte bulmayı önermiştir",
+          "Sorunun cevabını hemen söylemiştir",
+          "Çocuğa gölgeye bakmamasını söylemiştir",
+          "Konuyu değiştirmiştir"
+        ],
+        "correctIndex": 0,
+        "explanation": "Baba “Bilmiyorum.” demez; “Bunu birlikte bulalım.” diyerek deney yapmayı önerir.",
+        "image": ""
+      },
+      {
+        "id": "q3_golge_2",
+        "grade": 3,
+        "subject": "turkce",
+        "topic": "okuma-anlama",
+        "text": "Babanın perdeyi kapatıp el feneri kullanmasının nedeni nedir?",
+        "options": [
+          "Odanın karanlık olmasını istediği için",
+          "Ortamdaki diğer ışıkları engelleyip deneyi düzenli yapabilmek için",
+          "Oyuncağı saklamak istediği için",
+          "Fenerin yeni olması için"
+        ],
+        "correctIndex": 1,
+        "explanation": "Perde kapatılınca tek ışık kaynağı fener kalır; böylece gölgenin nasıl değiştiği net biçimde görülür.",
+        "image": ""
+      },
+      {
+        "id": "q3_golge_3",
+        "grade": 3,
+        "subject": "turkce",
+        "topic": "okuma-anlama",
+        "text": "Fener oyuncağın tam üstünden tutulduğunda gölgenin küçük, yandan tutulduğunda uzun olması neyi gösterir?",
+        "options": [
+          "Fenerin bozuk olduğunu",
+          "Oyuncağın yerinin değiştiğini",
+          "Gölgenin uzunluğunu ışığın geliş yönünün belirlediğini",
+          "Masaların gölgeyi büyüttüğünü"
+        ],
+        "correctIndex": 2,
+        "explanation": "Aynı oyuncak ve aynı masa; değişen tek şey ışığın yönüdür. Sonuç da gölgenin boyudur.",
+        "image": ""
+      },
+      {
+        "id": "q3_golge_4",
+        "grade": 3,
+        "subject": "turkce",
+        "topic": "okuma-anlama",
+        "text": "Çocuğun iki gün boyunca gölge boyunu tabloya işaretlemesi, bilim insanlarının hangi alışkanlığına benzer?",
+        "options": [
+          "Soruları başkalarına sormaya",
+          "Kısa yoldan sonuca varmaya",
+          "Deney yapmadan karar vermeye",
+          "Düzenli gözlem yapıp kayıt tutmaya"
+        ],
+        "correctIndex": 3,
+        "explanation": "Çocuk her gün ölçüp tabloya yazar; bilimde de gözlemlerin düzenli kaydedilmesi gerekir.",
+        "image": ""
+      },
+      {
+        "id": "q3_golge_5",
+        "grade": 3,
+        "subject": "turkce",
+        "topic": "okuma-anlama",
+        "text": "Öğretmenin “Bilim insanları da böyle başlar.” sözünden çıkarılabilecek sonuç nedir?",
+        "options": [
+          "Bilim, çevreyi merak edip soru sormakla başlar",
+          "Bilim yalnızca laboratuvarda yapılır",
+          "Bilim insanları hiç soru sormaz",
+          "Deney yapmak için büyük olmak gerekir"
+        ],
+        "correctIndex": 0,
+        "explanation": "Öğretmen “Bir soru sorar, sonra da cevabı deneyerek ararlar.” der; yani başlangıç noktası merak ve sorudur.",
+        "image": ""
+      }
+    ]
+  }
+}

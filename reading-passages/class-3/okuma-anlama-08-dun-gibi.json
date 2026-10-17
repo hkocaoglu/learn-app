@@ -1,0 +1,98 @@
+{
+  "version": 1,
+  "kind": "reading-passage",
+  "exportedAt": "2026-10-17T18:25:00.000Z",
+  "passage": {
+    "title": "Dün Gibi",
+    "sourceLabel": "3. Sınıf Türkçe Ders Kitabı (MEB) — Millî Kültürümüz",
+    "body": "Ben çocukken bayramlarımızın sevinci bayramlıklarımızda gizliydi. Coşkulu bir günde sınıfça oynanacak halk oyunu için dikilen yepyeni kıyafetler, çocukluğumun en güzel anılarında kayıtlı.\n\nParlak kırmızı ayakkabılarım, beyaz dantel işlemeli çoraplarım, fırfırlı eteğim, kırmızı beyaz gömleğim... Hayallerimin ve bayramlıklarımın bahar dalı gibi çiçeklendiği o heyecanlı akşamüstü, benim ilk bayram sevincimdi. Sınıfça sergileyeceğimiz oyunu bir ay boyunca okulda önlüklerimizle oynamıştık. Sadece biz çocuklar heyecanlı değildik. Annemiz, babamız, akrabalarımız ve komşularımız da heyecanımıza ortak olmuşlardı.\n\nOkulumuz, Cumhuriyet Bayramı’nın ahengiyle süslenmişti. Bembeyaz kasımpatılardan yapılan devasa çelenkler, bayraklar, flamalar... Bahçe, öğrencilerin sevinciyle dolup taşıyordu.\n\nHepimiz, tüm sınıf, tüm okul sıra olup uygun adımlarla merkezdeki tören yerine yürümeye başladık. Yanımızda öğretmenimiz, elimizde bayraklarla caddelerin, sokakların, geçtiğimiz tüm yolların kenarlarına dizilen insanların coşkusuyla ilerliyorduk. İnsanların ellerinde bayraklarla sevincimize ortak olduğunu gördükçe asfalta daha bir sağlam basıyordu ayaklarımız. Cumhuriyet marşları okuyarak deniz kenarındaki kutlama yerine yaklaştık.\n\nTüm okullarla birlikte kutlama meydanında oyunumuzu sergiledik. Tanımadığımız yüzlerce, binlerce insan kıvançla bizi alkışlıyordu. Cumhuriyet’i alkışlıyordu. Yarınlarımızı alkışlıyordu.\n\nHepimizin yüreği bayram yeriydi, çünkü Cumhuriyet bizim dünümüz, bugünümüz ve yarınımızdı.\n\nÖzel Eğitim Çocuk dergisi\n(Kısaltılmıştır.)",
+    "grade": 3,
+    "subject": "turkce",
+    "topic": "okuma-anlama",
+    "quizThreshold": 60,
+    "showPassageDuringQuiz": true,
+    "image": "",
+    "questions": [
+      {
+        "id": "q3_dungibi_1",
+        "grade": 3,
+        "subject": "turkce",
+        "topic": "okuma-anlama",
+        "text": "Yazarın “bayramlarımızın sevinci bayramlıklarımızda gizliydi” sözüyle anlatmak istediği nedir?",
+        "options": [
+          "Bayramda oyun oynanmadığını",
+          "Bayramlık almanın çok pahalı olduğunu",
+          "Bayram sevincinin en çok yeni kıyafetlerle yaşandığını",
+          "Kıyafetlerin bayramdan sonra giyilmediğini"
+        ],
+        "correctIndex": 2,
+        "explanation": "Yazar, parlak ayakkabılar ve fırfırlı etek gibi bayramlıklarını anlatırken sevincin orada saklı olduğunu söyler.",
+        "image": ""
+      },
+      {
+        "id": "q3_dungibi_2",
+        "grade": 3,
+        "subject": "turkce",
+        "topic": "okuma-anlama",
+        "text": "Yazarın “Sadece biz çocuklar heyecanlı değildik.” cümlesi neyi gösterir?",
+        "options": [
+          "Büyüklerin bayramı sevmediğini",
+          "Öğretmenin törene katılmadığını",
+          "Çocukların yalnız kaldığını",
+          "Bayram heyecanının aileye ve çevreye de yayıldığını"
+        ],
+        "correctIndex": 3,
+        "explanation": "Anne, baba, akrabalar ve komşular da heyecana ortak olmuştur; bu yüzden yazar “sadece biz değildik” der.",
+        "image": ""
+      },
+      {
+        "id": "q3_dungibi_3",
+        "grade": 3,
+        "subject": "turkce",
+        "topic": "okuma-anlama",
+        "text": "Yürüyüş sırasında insanların bayraklarla sevince ortak olduğunu gören çocuklarda ne olmuştur?",
+        "options": [
+          "Kendilerini daha güçlü hissedip adımlarını daha sağlam atmışlardır",
+          "Marş söylemeyi bırakmışlardır",
+          "Yorulup durmak istemişlerdir",
+          "Tören yerine geç kalmışlardır"
+        ],
+        "correctIndex": 0,
+        "explanation": "Metin, bunu gören çocukların “asfalta daha bir sağlam bas”tığını söyler; coşku onlara güç verir.",
+        "image": ""
+      },
+      {
+        "id": "q3_dungibi_4",
+        "grade": 3,
+        "subject": "turkce",
+        "topic": "okuma-anlama",
+        "text": "Oyunlarını tanımadıkları binlerce insanın alkışlaması, çocuklar için ne anlam taşır?",
+        "options": [
+          "Oyunu iyi oynamadıklarını",
+          "Bu sevinci yalnız yaşamadıklarını, bütün ülkeyle paylaştıklarını",
+          "İnsanların sadece oyunu merak ettiğini",
+          "Törenin erken bittiğini"
+        ],
+        "correctIndex": 1,
+        "explanation": "Kalabalık; oyunu, Cumhuriyet’i ve yarınları alkışlar. Yani sevinç ortaktır, ülkeye yayılmıştır.",
+        "image": ""
+      },
+      {
+        "id": "q3_dungibi_5",
+        "grade": 3,
+        "subject": "turkce",
+        "topic": "okuma-anlama",
+        "text": "“Cumhuriyet bizim dünümüz, bugünümüz ve yarınımızdı.” sözüyle anlatılmak istenen nedir?",
+        "options": [
+          "Cumhuriyet’in yalnızca geçmişte kaldığı",
+          "Cumhuriyet’in sadece bayramlarda hatırlandığı",
+          "Cumhuriyet’in geçmişi, bugünü ve geleceği birbirine bağlayan kalıcı bir değer olduğu",
+          "Cumhuriyet’in yalnızca çocuklara ait olduğu"
+        ],
+        "correctIndex": 2,
+        "explanation": "Yazar, Cumhuriyet’i zamanın üç bölümüyle birlikte anar; onun sürekli ve kuşakları birleştiren bir değer olduğunu belirtir.",
+        "image": ""
+      }
+    ]
+  }
+}

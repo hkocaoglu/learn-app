@@ -1,0 +1,117 @@
+{
+  "version": 1,
+  "kind": "test",
+  "test": {
+    "title": "3. Sınıf Matematik — Kesir Problemleri (Yarım ve Çeyrek Kadarı)",
+    "grade": 3,
+    "subject": "matematik",
+    "durationMinutes": 20,
+    "questions": [
+      {
+        "text": "12 fındığın 1/2'sini yedim. Kaç fındık yedim?",
+        "options": ["6", "3", "24", "8"],
+        "correctIndex": 0,
+        "topic": "kesirler",
+        "explanation": "12 ÷ 2 = 6"
+      },
+      {
+        "text": "40 sayfa kitabın 1/2'sini okudum. Geriye kitaptan kaç sayfa kaldı?",
+        "options": ["40", "20", "10", "30"],
+        "correctIndex": 1,
+        "topic": "kesirler",
+        "explanation": "Okunan: 40 ÷ 2 = 20; kalan: 40 − 20 = 20"
+      },
+      {
+        "text": "Halil 52 bilyesinin 1/4'ünü Hamza'ya verdi. Halil'in geriye kaç bilyesi kaldı?",
+        "options": ["13", "26", "39", "48"],
+        "correctIndex": 2,
+        "topic": "kesirler",
+        "explanation": "Verilen: 52 ÷ 4 = 13; kalan: 52 − 13 = 39"
+      },
+      {
+        "text": "48 litre suyun 1/4'ü döküldü. Kaç litre su döküldü?",
+        "options": ["24", "4", "36", "12"],
+        "correctIndex": 3,
+        "topic": "kesirler",
+        "explanation": "48 ÷ 4 = 12"
+      },
+      {
+        "text": "İlknur, içinde 36 yumurta olan bir koliyi düşürünce yumurtaların 1/4'ü kırıldı. Sağlam kaç yumurta kaldı?",
+        "options": ["27", "9", "18", "32"],
+        "correctIndex": 0,
+        "topic": "kesirler",
+        "explanation": "Kırılan: 36 ÷ 4 = 9; sağlam: 36 − 9 = 27"
+      },
+      {
+        "text": "50 parçaya bölünmüş pastanın 1/2'si yenildi. Geriye kaç dilim pasta kaldı?",
+        "options": ["50", "25", "20", "30"],
+        "correctIndex": 1,
+        "topic": "kesirler",
+        "explanation": "Yenilen: 50 ÷ 2 = 25; kalan: 50 − 25 = 25"
+      },
+      {
+        "text": "28 sayısının 1/2'si kaç eder?",
+        "options": ["7", "28", "14", "24"],
+        "correctIndex": 2,
+        "topic": "kesirler",
+        "explanation": "28 ÷ 2 = 14"
+      },
+      {
+        "text": "32 sayısının 1/4'ü kaç eder?",
+        "options": ["16", "4", "12", "8"],
+        "correctIndex": 3,
+        "topic": "kesirler",
+        "explanation": "32 ÷ 4 = 8"
+      },
+      {
+        "text": "54'ün 1/2'sinin 49 fazlası kaçtır?",
+        "options": ["76", "27", "65", "103"],
+        "correctIndex": 0,
+        "topic": "kesirler",
+        "explanation": "54 ÷ 2 = 27; 27 + 49 = 76"
+      },
+      {
+        "text": "72'nin 1/4'ünün 65 fazlası kaçtır?",
+        "options": ["18", "83", "47", "137"],
+        "correctIndex": 1,
+        "topic": "kesirler",
+        "explanation": "72 ÷ 4 = 18; 18 + 65 = 83"
+      },
+      {
+        "text": "61'in 37 eksiğinin 1/4'ü kaçtır?",
+        "options": ["24", "15", "6", "9"],
+        "correctIndex": 2,
+        "topic": "kesirler",
+        "explanation": "61 − 37 = 24; 24 ÷ 4 = 6"
+      },
+      {
+        "text": "28'in 52 fazlasının 1/2'si kaçtır?",
+        "options": ["80", "14", "26", "40"],
+        "correctIndex": 3,
+        "topic": "kesirler",
+        "explanation": "28 + 52 = 80; 80 ÷ 2 = 40"
+      },
+      {
+        "text": "Eren 76 misketinin 1/4'ünü Mert'e verdi ve 5 tanesini de kaybetti. Eren'in geriye kaç misketi kaldı?",
+        "options": ["52", "57", "19", "33"],
+        "correctIndex": 0,
+        "topic": "kesirler",
+        "explanation": "Verdiği: 76 ÷ 4 = 19; kalan: 76 − 19 − 5 = 52"
+      },
+      {
+        "text": "Sepetteki 56 elmanın 1/4'ü çürüdüğü için ağaçtan 28 elma daha topladım. Sepetimde kaç elma oldu?",
+        "options": ["42", "70", "84", "56"],
+        "correctIndex": 1,
+        "topic": "kesirler",
+        "explanation": "Çürük: 56 ÷ 4 = 14; kalan 42; 42 + 28 = 70"
+      },
+      {
+        "text": "Ali 84 cevizinin 1/4'ünü kırdı ve kalan cevizlerin de 18 tanesini Ensar'a verdi. Ali'nin kaç cevizi kaldı?",
+        "options": ["63", "21", "45", "27"],
+        "correctIndex": 2,
+        "topic": "kesirler",
+        "explanation": "Kırılan: 84 ÷ 4 = 21; kalan 63; 63 − 18 = 45"
+      }
+    ]
+  }
+}

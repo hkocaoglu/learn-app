@@ -1,0 +1,192 @@
+{
+  "version": 1,
+  "kind": "test",
+  "test": {
+    "title": "3. Sınıf Matematik — Çarpma ve Bölme İlişkisi (Muhakeme)",
+    "grade": 3,
+    "subject": "matematik",
+    "durationMinutes": 20,
+    "questions": [
+      {
+        "text": "6 × 4 işleminin sonucu kaçtır?",
+        "options": [
+          "28",
+          "20",
+          "24",
+          "10"
+        ],
+        "correctIndex": 2,
+        "topic": "carpma-bolme",
+        "explanation": "6 × 4 = 24."
+      },
+      {
+        "text": "7 × 8 işleminin sonucu kaçtır?",
+        "options": [
+          "64",
+          "54",
+          "48",
+          "56"
+        ],
+        "correctIndex": 3,
+        "topic": "carpma-bolme",
+        "explanation": "7 × 8 = 56."
+      },
+      {
+        "text": "36 ÷ 6 işleminin sonucu kaçtır?",
+        "options": [
+          "6",
+          "5",
+          "7",
+          "4"
+        ],
+        "correctIndex": 0,
+        "topic": "carpma-bolme",
+        "explanation": "6 × 6 = 36 olduğundan 36 ÷ 6 = 6."
+      },
+      {
+        "text": "48 ÷ 8 işleminin sonucu kaçtır?",
+        "options": [
+          "5",
+          "6",
+          "7",
+          "8"
+        ],
+        "correctIndex": 1,
+        "topic": "carpma-bolme",
+        "explanation": "8 × 6 = 48 olduğundan 48 ÷ 8 = 6."
+      },
+      {
+        "text": "4 × □ = 36 eşitliğinde □ yerine hangi sayı gelmelidir?",
+        "options": [
+          "8",
+          "6",
+          "9",
+          "32"
+        ],
+        "correctIndex": 2,
+        "topic": "carpma-bolme",
+        "explanation": "36 ÷ 4 = 9."
+      },
+      {
+        "text": "Bir kutuda 8 kalem vardır. 5 kutuda kaç kalem vardır?",
+        "options": [
+          "13",
+          "35",
+          "45",
+          "40"
+        ],
+        "correctIndex": 3,
+        "topic": "carpma-bolme",
+        "explanation": "8 × 5 = 40."
+      },
+      {
+        "text": "24 şeker 4 çocuğa eşit olarak paylaştırılırsa her çocuk kaç şeker alır?",
+        "options": [
+          "6",
+          "5",
+          "8",
+          "4"
+        ],
+        "correctIndex": 0,
+        "topic": "carpma-bolme",
+        "explanation": "24 ÷ 4 = 6."
+      },
+      {
+        "text": "5 × 0 işleminin sonucu kaçtır?",
+        "options": [
+          "5",
+          "0",
+          "1",
+          "50"
+        ],
+        "correctIndex": 1,
+        "topic": "carpma-bolme",
+        "explanation": "Bir sayının 0 ile çarpımı 0'dır."
+      },
+      {
+        "text": "9 × 1 işleminin sonucu kaçtır?",
+        "options": [
+          "10",
+          "1",
+          "9",
+          "0"
+        ],
+        "correctIndex": 2,
+        "topic": "carpma-bolme",
+        "explanation": "Bir sayının 1 ile çarpımı kendisidir."
+      },
+      {
+        "text": "63 ÷ 7 işleminin sonucu kaçtır?",
+        "options": [
+          "6",
+          "8",
+          "7",
+          "9"
+        ],
+        "correctIndex": 3,
+        "topic": "carpma-bolme",
+        "explanation": "7 × 9 = 63 olduğundan 63 ÷ 7 = 9."
+      },
+      {
+        "text": "Bir sınıfta sıralar 6'şar kişiliktir. 42 öğrenci için kaç sıra gerekir?",
+        "options": [
+          "7",
+          "6",
+          "8",
+          "5"
+        ],
+        "correctIndex": 0,
+        "topic": "carpma-bolme",
+        "explanation": "42 ÷ 6 = 7."
+      },
+      {
+        "text": "3 × 7 işlemi aşağıdaki işlemlerden hangisiyle aynı sonucu verir?",
+        "options": [
+          "3 + 7",
+          "7 + 7 + 7",
+          "3 + 3 + 3",
+          "7 × 7"
+        ],
+        "correctIndex": 1,
+        "topic": "carpma-bolme",
+        "explanation": "3 × 7, üç tane 7'nin toplamıdır: 7 + 7 + 7."
+      },
+      {
+        "text": "100 ÷ 10 işleminin sonucu kaçtır?",
+        "options": [
+          "100",
+          "1",
+          "10",
+          "11"
+        ],
+        "correctIndex": 2,
+        "topic": "carpma-bolme",
+        "explanation": "10 × 10 = 100 olduğundan sonuç 10'dur."
+      },
+      {
+        "text": "Bir karpuz 4 liradır. 7 karpuz kaç lira eder?",
+        "options": [
+          "11",
+          "24",
+          "32",
+          "28"
+        ],
+        "correctIndex": 3,
+        "topic": "carpma-bolme",
+        "explanation": "4 × 7 = 28."
+      },
+      {
+        "text": "8 × 5 işlemi ile 5 × 8 işleminin sonuçları için hangisi doğrudur?",
+        "options": [
+          "İkisi de 40'tır; çarpanların yeri sonucu değiştirmez",
+          "İkisi farklıdır",
+          "8 × 5 daha büyüktür",
+          "5 × 8 daha büyüktür"
+        ],
+        "correctIndex": 0,
+        "topic": "carpma-bolme",
+        "explanation": "Çarpma işleminde çarpanların yeri değişse de sonuç aynıdır: 40."
+      }
+    ]
+  }
+}

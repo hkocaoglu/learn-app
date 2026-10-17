@@ -1,0 +1,2205 @@
+{
+  "version": 1,
+  "kind": "reading-passage-collection",
+  "exportedAt": "2026-10-17T15:04:38.044Z",
+  "passages": [
+    {
+      "title": "Mustafa Kemal Atatürk",
+      "sourceLabel": "5. Sınıf Türkçe Okuma Parçaları (Maarif Modeli)",
+      "body": "Mustafa Kemal Atatürk, Türkiye Cumhuriyeti'nin kurucusudur. 1881 yılında Selanik'te doğdu. Askeri okulda okudu. Çanakkale Savaşı'nda büyük bir başarı gösterdi. Kurtuluş Savaşı'nı yönetti. 29 Ekim 1923'te Cumhuriyet'i ilan etti. Türk gençliğine şöyle seslendi: \"Ey Türk gençliği! Birinci vazifen, Türk istiklalini ve Türk Cumhuriyeti'ni ilelebet muhafaza ve müdafaa etmektir.\" 10 Kasım 1938'de vefat etti. Türk milleti onu her yıl saygı ve özlemle anar.",
+      "grade": 5,
+      "subject": "turkce",
+      "topic": "okuma-anlama",
+      "quizThreshold": 60,
+      "showPassageDuringQuiz": true,
+      "image": "",
+      "questions": [
+        {
+          "id": "q_mv42rlmi_1zdu4p",
+          "grade": 5,
+          "subject": "turkce",
+          "topic": "okuma-anlama",
+          "text": "Atatürk nerede doğdu?",
+          "options": [
+            "İstanbul",
+            "Ankara",
+            "Selanik",
+            "İzmir"
+          ],
+          "correctIndex": 2,
+          "explanation": "",
+          "image": ""
+        },
+        {
+          "id": "q_mv42rlmi_2l8vne",
+          "grade": 5,
+          "subject": "turkce",
+          "topic": "okuma-anlama",
+          "text": "Atatürk ne kurdu?",
+          "options": [
+            "Okul",
+            "Türkiye Cumhuriyeti",
+            "Ordu",
+            "Hastane"
+          ],
+          "correctIndex": 1,
+          "explanation": "",
+          "image": ""
+        },
+        {
+          "id": "q_mv42rlmi_3xflbt",
+          "grade": 5,
+          "subject": "turkce",
+          "topic": "okuma-anlama",
+          "text": "Atatürk hangi savaşı yönetti?",
+          "options": [
+            "Çanakkale",
+            "Kurtuluş Savaşı",
+            "Balkan Savaşları",
+            "I. Dünya Savaşı"
+          ],
+          "correctIndex": 1,
+          "explanation": "",
+          "image": ""
+        },
+        {
+          "id": "q_mv42rlmi_4ccqrb",
+          "grade": 5,
+          "subject": "turkce",
+          "topic": "okuma-anlama",
+          "text": "Cumhuriyet ne zaman ilan edildi?",
+          "options": [
+            "1920",
+            "1923",
+            "1938",
+            "1919"
+          ],
+          "correctIndex": 1,
+          "explanation": "",
+          "image": ""
+        },
+        {
+          "id": "q_mv42rlmi_5qked7",
+          "grade": 5,
+          "subject": "turkce",
+          "topic": "okuma-anlama",
+          "text": "Atatürk hangi tür okulda okudu?",
+          "options": [
+            "Hukuk",
+            "Askeri okul",
+            "Tıp",
+            "Mühendislik"
+          ],
+          "correctIndex": 1,
+          "explanation": "",
+          "image": ""
+        },
+        {
+          "id": "q_mv42rlmi_6curlz",
+          "grade": 5,
+          "subject": "turkce",
+          "topic": "okuma-anlama",
+          "text": "Parçaya göre Atatürk'ün en önemli başarısı nedir?",
+          "options": [
+            "Sadece savaş kazanmak",
+            "Türkiye Cumhuriyeti'ni kurmak",
+            "Sadece okul açmak",
+            "Sadece yazı yazmak"
+          ],
+          "correctIndex": 1,
+          "explanation": "",
+          "image": ""
+        }
+      ]
+    },
+    {
+      "title": "Su Kaynağı",
+      "sourceLabel": "5. Sınıf Türkçe Okuma Parçaları (Maarif Modeli)",
+      "body": "Su, yaşamın kaynağıdır. Dünya'nın yüzde yetmişini su kaplar. İnsan vücudunun yüzde yetmişi sudur. Suyu korumalıyız. Muslukları kapatmalıyız. Yağmur suyunu toplamalıyız. Nehirleri kirletmemeliyiz. Su azalan bir kaynak değildir ama temiz su azalıyor. Her damla su değerlidir.",
+      "grade": 5,
+      "subject": "turkce",
+      "topic": "okuma-anlama",
+      "quizThreshold": 60,
+      "showPassageDuringQuiz": true,
+      "image": "",
+      "questions": [
+        {
+          "id": "q_mv42rlmi_9yveff",
+          "grade": 5,
+          "subject": "turkce",
+          "topic": "okuma-anlama",
+          "text": "Dünya'nın ne kadarını su kaplar?",
+          "options": [
+            "Yüzde otuzu",
+            "Yüzde yetmişi",
+            "Yüzde doksanı",
+            "Yüzde onu"
+          ],
+          "correctIndex": 1,
+          "explanation": "",
+          "image": ""
+        },
+        {
+          "id": "q_mv42rlmi_aqk106",
+          "grade": 5,
+          "subject": "turkce",
+          "topic": "okuma-anlama",
+          "text": "İnsan vücudunun ne kadarı sudur?",
+          "options": [
+            "Yüzde ellisi",
+            "Yüzde yirmisi",
+            "Yüzde yetmişi",
+            "Yüzde kırkı"
+          ],
+          "correctIndex": 2,
+          "explanation": "",
+          "image": ""
+        },
+        {
+          "id": "q_mv42rlmi_bce2fg",
+          "grade": 5,
+          "subject": "turkce",
+          "topic": "okuma-anlama",
+          "text": "Suyu nasıl korumalıyız?",
+          "options": [
+            "Muslukları açık bırakmalıyız",
+            "Muslukları kapatmalıyız",
+            "Nehirleri kirletmeliyiz",
+            "Su israf etmeliyiz"
+          ],
+          "correctIndex": 1,
+          "explanation": "",
+          "image": ""
+        },
+        {
+          "id": "q_mv42rlmi_cmwk9c",
+          "grade": 5,
+          "subject": "turkce",
+          "topic": "okuma-anlama",
+          "text": "Nehirler konusunda hangisi doğrudur?",
+          "options": [
+            "Nehirleri kirletmemeliyiz",
+            "Nehirleri kirletmeliyiz",
+            "Nehirleri kurutmalıyız",
+            "Nehirleri doldurmalıyız"
+          ],
+          "correctIndex": 0,
+          "explanation": "",
+          "image": ""
+        },
+        {
+          "id": "q_mv42rlmi_dbh9zf",
+          "grade": 5,
+          "subject": "turkce",
+          "topic": "okuma-anlama",
+          "text": "Temiz su hakkında ne söylenebilir?",
+          "options": [
+            "Çok fazla",
+            "Azalıyor",
+            "Yok",
+            "Değişmiyor"
+          ],
+          "correctIndex": 1,
+          "explanation": "",
+          "image": ""
+        },
+        {
+          "id": "q_mv42rlmi_eplt6a",
+          "grade": 5,
+          "subject": "turkce",
+          "topic": "okuma-anlama",
+          "text": "Parçanın ana fikri nedir?",
+          "options": [
+            "Su çoktur",
+            "Suyu korumalıyız",
+            "Nehirler kirli",
+            "Musluklar bozuk"
+          ],
+          "correctIndex": 1,
+          "explanation": "",
+          "image": ""
+        }
+      ]
+    },
+    {
+      "title": "İpek Yolu",
+      "sourceLabel": "5. Sınıf Türkçe Okuma Parçaları (Maarif Modeli)",
+      "body": "İpek Yolu, antik çağlardan beri var olan bir ticaret yoluydu. Çin'den başlayıp Akdeniz'e kadar uzanıyordu. İpek, baharat, seramik ve cam taşınırdı. Bu yol sadece malları değil, kültürleri de taşıyordu. İslam, Hristiyanlık ve Budizm bu yolla yayıldı. İpek Yolu, dünya tarihini değiştirdi.",
+      "grade": 5,
+      "subject": "turkce",
+      "topic": "okuma-anlama",
+      "quizThreshold": 60,
+      "showPassageDuringQuiz": true,
+      "image": "",
+      "questions": [
+        {
+          "id": "q_mv42rlmi_h8ssu7",
+          "grade": 5,
+          "subject": "turkce",
+          "topic": "okuma-anlama",
+          "text": "İpek Yolu ne zamandan beri vardı?",
+          "options": [
+            "Günümüzde",
+            "Antik çağlardan beri",
+            "Sadece 19. yüzyılda",
+            "Sadece 20. yüzyılda"
+          ],
+          "correctIndex": 1,
+          "explanation": "",
+          "image": ""
+        },
+        {
+          "id": "q_mv42rlmi_ikb0ap",
+          "grade": 5,
+          "subject": "turkce",
+          "topic": "okuma-anlama",
+          "text": "İpek Yolu nereden nereye uzanıyordu?",
+          "options": [
+            "İstanbul'dan Ankara'ya",
+            "Çin'den Akdeniz'e",
+            "Ankara'dan İstanbul'a",
+            "Paris'ten Londra'ya"
+          ],
+          "correctIndex": 1,
+          "explanation": "",
+          "image": ""
+        },
+        {
+          "id": "q_mv42rlmi_j4pn0o",
+          "grade": 5,
+          "subject": "turkce",
+          "topic": "okuma-anlama",
+          "text": "İpek Yolu'nda ne taşınırdı?",
+          "options": [
+            "Sadece insan",
+            "İpek, baharat, seramik ve cam",
+            "Sadece altın",
+            "Sadece toprak"
+          ],
+          "correctIndex": 1,
+          "explanation": "",
+          "image": ""
+        },
+        {
+          "id": "q_mv42rlmi_kv6jdx",
+          "grade": 5,
+          "subject": "turkce",
+          "topic": "okuma-anlama",
+          "text": "İpek Yolu ne taşıyordu?",
+          "options": [
+            "Sadece malları",
+            "Malları ve kültürleri",
+            "Sadece insanları",
+            "Sadece hayvanları"
+          ],
+          "correctIndex": 1,
+          "explanation": "",
+          "image": ""
+        },
+        {
+          "id": "q_mv42rlmi_lg759w",
+          "grade": 5,
+          "subject": "turkce",
+          "topic": "okuma-anlama",
+          "text": "Hangi dinler İpek Yolu'yla yayıldı?",
+          "options": [
+            "Sadece İslam",
+            "İslam, Hristiyanlık ve Budizm",
+            "Sadece Budizm",
+            "Hiçbiri"
+          ],
+          "correctIndex": 1,
+          "explanation": "",
+          "image": ""
+        },
+        {
+          "id": "q_mv42rlmi_mndbb6",
+          "grade": 5,
+          "subject": "turkce",
+          "topic": "okuma-anlama",
+          "text": "Parçanın ana fikri nedir?",
+          "options": [
+            "İpek Yolu sadece bir ticaret yoluydu",
+            "İpek Yolu dünya tarihini değiştirdi",
+            "İpek Yolu kısa bir yoldu",
+            "İpek Yolu sadece Çin'i ilgilendiriyordu"
+          ],
+          "correctIndex": 1,
+          "explanation": "",
+          "image": ""
+        }
+      ]
+    },
+    {
+      "title": "Uzay Keşfi",
+      "sourceLabel": "5. Sınıf Türkçe Okuma Parçaları (Maarif Modeli)",
+      "body": "İnsanlar yüzyıllardır gökyüzünü izler. Ay'a gittiler. Mars'a robot gönderdiler. Uzay istasyonunda yaşarlar. Astronotlar uzayda çalışır. Bilim insanları yeni gezegenler arar. Evren sonsuz büyük ve gizemlidir. Her keşif yeni sorular doğurur. Uzay keşfi insanlığın en büyük macerasıdır.",
+      "grade": 5,
+      "subject": "turkce",
+      "topic": "okuma-anlama",
+      "quizThreshold": 60,
+      "showPassageDuringQuiz": true,
+      "image": "",
+      "questions": [
+        {
+          "id": "q_mv42rlmj_pluse0",
+          "grade": 5,
+          "subject": "turkce",
+          "topic": "okuma-anlama",
+          "text": "İnsanlar neyi yüzyıllardır izler?",
+          "options": [
+            "Deniz",
+            "Gökyüzü",
+            "Dağlar",
+            "Ormanlar"
+          ],
+          "correctIndex": 1,
+          "explanation": "",
+          "image": ""
+        },
+        {
+          "id": "q_mv42rlmj_q6u817",
+          "grade": 5,
+          "subject": "turkce",
+          "topic": "okuma-anlama",
+          "text": "Ay'a ne yapıldı?",
+          "options": [
+            "Robot gönderildi",
+            "İnsanlar gitti",
+            "Hiç kimse gitmedi",
+            "Sadece hayvanlar gitti"
+          ],
+          "correctIndex": 1,
+          "explanation": "",
+          "image": ""
+        },
+        {
+          "id": "q_mv42rlmj_rynkto",
+          "grade": 5,
+          "subject": "turkce",
+          "topic": "okuma-anlama",
+          "text": "Mars'a ne gönderildi?",
+          "options": [
+            "İnsan",
+            "Robot",
+            "Hayvan",
+            "Ağaç"
+          ],
+          "correctIndex": 1,
+          "explanation": "",
+          "image": ""
+        },
+        {
+          "id": "q_mv42rlmj_sl29bm",
+          "grade": 5,
+          "subject": "turkce",
+          "topic": "okuma-anlama",
+          "text": "Bilim insanları uzayda ne arar?",
+          "options": [
+            "Yeni gezegenler",
+            "Yeni şehirler",
+            "Yeni okullar",
+            "Yeni hastaneler"
+          ],
+          "correctIndex": 0,
+          "explanation": "",
+          "image": ""
+        },
+        {
+          "id": "q_mv42rlmj_tnz7uc",
+          "grade": 5,
+          "subject": "turkce",
+          "topic": "okuma-anlama",
+          "text": "Evren nasıl tanımlanır?",
+          "options": [
+            "Küçük",
+            "Sonsuz büyük ve gizemli",
+            "Düz",
+            "Kapalı"
+          ],
+          "correctIndex": 1,
+          "explanation": "",
+          "image": ""
+        },
+        {
+          "id": "q_mv42rlmj_urpe84",
+          "grade": 5,
+          "subject": "turkce",
+          "topic": "okuma-anlama",
+          "text": "Uzay keşfi insanlık için ne?",
+          "options": [
+            "En büyük macera",
+            "En küçük macera",
+            "Önemsiz",
+            "Tehlikeli"
+          ],
+          "correctIndex": 0,
+          "explanation": "",
+          "image": ""
+        }
+      ]
+    },
+    {
+      "title": "Ormanların Önemi",
+      "sourceLabel": "5. Sınıf Türkçe Okuma Parçaları (Maarif Modeli)",
+      "body": "Ormanlar, Dünya'nın akciğerleridir. Her ağaç oksijen üretir. Ormansızlaşma büyük bir sorundur. Ağaç kesmek doğaya zarar verir. Hayvanlar ormanda yaşar. Ormanlar toprağı korur. Su kaynaklarını besler. Her ağaç dikmek geleceğe yatırımdır.",
+      "grade": 5,
+      "subject": "turkce",
+      "topic": "okuma-anlama",
+      "quizThreshold": 60,
+      "showPassageDuringQuiz": true,
+      "image": "",
+      "questions": [
+        {
+          "id": "q_mv42rlmj_xychuy",
+          "grade": 5,
+          "subject": "turkce",
+          "topic": "okuma-anlama",
+          "text": "Ormanlar Dünya için ne gibidir?",
+          "options": [
+            "Kalp",
+            "Akciğer",
+            "Beyin",
+            "Göz"
+          ],
+          "correctIndex": 1,
+          "explanation": "",
+          "image": ""
+        },
+        {
+          "id": "q_mv42rlmj_y5slzb",
+          "grade": 5,
+          "subject": "turkce",
+          "topic": "okuma-anlama",
+          "text": "Her ağaç ne üretir?",
+          "options": [
+            "Karbondioksit",
+            "Oksijen",
+            "Su",
+            "Toprak"
+          ],
+          "correctIndex": 1,
+          "explanation": "",
+          "image": ""
+        },
+        {
+          "id": "q_mv42rlmj_zeq05v",
+          "grade": 5,
+          "subject": "turkce",
+          "topic": "okuma-anlama",
+          "text": "Ormansızlaşma ne tür bir sorundur?",
+          "options": [
+            "Küçük",
+            "Büyük",
+            "Yok",
+            "Geçici"
+          ],
+          "correctIndex": 1,
+          "explanation": "",
+          "image": ""
+        },
+        {
+          "id": "q_mv42rlmj_10997ro",
+          "grade": 5,
+          "subject": "turkce",
+          "topic": "okuma-anlama",
+          "text": "Ağaç kesmek doğaya nasıl etki eder?",
+          "options": [
+            "Yarar verir",
+            "Zarar verir",
+            "Etkilemez",
+            "Güzelleştirir"
+          ],
+          "correctIndex": 1,
+          "explanation": "",
+          "image": ""
+        },
+        {
+          "id": "q_mv42rlmj_11ewa4c",
+          "grade": 5,
+          "subject": "turkce",
+          "topic": "okuma-anlama",
+          "text": "Hayvanlar nerede yaşar?",
+          "options": [
+            "Şehirde",
+            "Ormanda",
+            "Denizde",
+            "Çölde"
+          ],
+          "correctIndex": 1,
+          "explanation": "",
+          "image": ""
+        },
+        {
+          "id": "q_mv42rlmj_12jqrqh",
+          "grade": 5,
+          "subject": "turkce",
+          "topic": "okuma-anlama",
+          "text": "Parçanın ana fikri nedir?",
+          "options": [
+            "Ormanlar gereksizdir",
+            "Ormanların önemi büyüktür",
+            "Sadece ağaç kesmek önemli",
+            "Hayvanlar ormanda yaşamaz"
+          ],
+          "correctIndex": 1,
+          "explanation": "",
+          "image": ""
+        }
+      ]
+    },
+    {
+      "title": "Mehmet'in Deneyi",
+      "sourceLabel": "5. Sınıf Türkçe Okuma Parçaları (Maarif Modeli)",
+      "body": "Mehmet bilim fuarı için bir deney hazırladı. \"Su bitkileri nasıl büyür?\" sorusunu araştırdı. Üç saksı hazırladı. Birini güneşe, birini gölgeye, birini karanlığa koydu. Her gün suladı. İki hafta sonra güneş alan bitki en iyi büyüdü. Mehmet deney raporunu yazdı. Bilim fuarında birinci oldu!",
+      "grade": 5,
+      "subject": "turkce",
+      "topic": "okuma-anlama",
+      "quizThreshold": 60,
+      "showPassageDuringQuiz": true,
+      "image": "",
+      "questions": [
+        {
+          "id": "q_mv42rlmj_15r6q79",
+          "grade": 5,
+          "subject": "turkce",
+          "topic": "okuma-anlama",
+          "text": "Mehmet bilim fuarı için ne yaptı?",
+          "options": [
+            "Yemek yaptı",
+            "Bir deney hazırladı",
+            "Ödev yazdı",
+            "Resim çizdi"
+          ],
+          "correctIndex": 1,
+          "explanation": "",
+          "image": ""
+        },
+        {
+          "id": "q_mv42rlmj_162yg3n",
+          "grade": 5,
+          "subject": "turkce",
+          "topic": "okuma-anlama",
+          "text": "Mehmet hangi soruyu araştırdı?",
+          "options": [
+            "\"Su ne işe yarar?\"",
+            "\"Su bitkileri nasıl büyür?\"",
+            "\"Güneş nasıl parlar?\"",
+            "\"Toprak ne renktir?\""
+          ],
+          "correctIndex": 1,
+          "explanation": "",
+          "image": ""
+        },
+        {
+          "id": "q_mv42rlmj_17xtjyy",
+          "grade": 5,
+          "subject": "turkce",
+          "topic": "okuma-anlama",
+          "text": "Kaç saksı hazırladı?",
+          "options": [
+            "İki",
+            "Üç",
+            "Dört",
+            "Beş"
+          ],
+          "correctIndex": 1,
+          "explanation": "",
+          "image": ""
+        },
+        {
+          "id": "q_mv42rlmj_184ecc9",
+          "grade": 5,
+          "subject": "turkce",
+          "topic": "okuma-anlama",
+          "text": "Hangi bitki en iyi büyüdü?",
+          "options": [
+            "Karanlıkta olan",
+            "Gölgede olan",
+            "Güneş alan",
+            "Sulanmayan"
+          ],
+          "correctIndex": 2,
+          "explanation": "",
+          "image": ""
+        },
+        {
+          "id": "q_mv42rlmj_19o5ogo",
+          "grade": 5,
+          "subject": "turkce",
+          "topic": "okuma-anlama",
+          "text": "Mehmet bitkileri ne sıklıkla suladı?",
+          "options": [
+            "Haftada bir",
+            "Her gün",
+            "Hiç",
+            "Yılda bir"
+          ],
+          "correctIndex": 1,
+          "explanation": "",
+          "image": ""
+        },
+        {
+          "id": "q_mv42rlmj_1aapbtn",
+          "grade": 5,
+          "subject": "turkce",
+          "topic": "okuma-anlama",
+          "text": "Mehmet bilim fuarında ne oldu?",
+          "options": [
+            "İkinci oldu",
+            "Birinci oldu",
+            "Sonuncu oldu",
+            "Ödül almadı"
+          ],
+          "correctIndex": 1,
+          "explanation": "",
+          "image": ""
+        }
+      ]
+    },
+    {
+      "title": "İstanbul'un Büyüklüğü",
+      "sourceLabel": "5. Sınıf Türkçe Okuma Parçaları (Maarif Modeli)",
+      "body": "İstanbul, Türkiye'nin en büyük şehridir. Boğaz'ın iki yakasında kuruludur. Avrupa ve Asya kıtalarını birbirine bağlar. Ayasofya'yı ziyaret ettik. Kapalıçarşı'da alışveriş yaptık. Balık yedik. Vapurda Boğaz'ı geçtik. İstanbul tarihi ve modern bir şehirdir.",
+      "grade": 5,
+      "subject": "turkce",
+      "topic": "okuma-anlama",
+      "quizThreshold": 60,
+      "showPassageDuringQuiz": true,
+      "image": "",
+      "questions": [
+        {
+          "id": "q_mv42rlmj_1dimkon",
+          "grade": 5,
+          "subject": "turkce",
+          "topic": "okuma-anlama",
+          "text": "İstanbul Türkiye'nin ne tür şehridir?",
+          "options": [
+            "En küçük",
+            "En büyük",
+            "Orta",
+            "En eski"
+          ],
+          "correctIndex": 1,
+          "explanation": "",
+          "image": ""
+        },
+        {
+          "id": "q_mv42rlmj_1egc4ir",
+          "grade": 5,
+          "subject": "turkce",
+          "topic": "okuma-anlama",
+          "text": "Boğaz'ın kaç yakasında kuruludur?",
+          "options": [
+            "Bir",
+            "İki",
+            "Üç",
+            "Dört"
+          ],
+          "correctIndex": 1,
+          "explanation": "",
+          "image": ""
+        },
+        {
+          "id": "q_mv42rlmj_1fc8o42",
+          "grade": 5,
+          "subject": "turkce",
+          "topic": "okuma-anlama",
+          "text": "Hangi iki kıtayı birbirine bağlar?",
+          "options": [
+            "Afrika ve Asya",
+            "Avrupa ve Asya",
+            "Avrupa ve Afrika",
+            "Asya ve Amerika"
+          ],
+          "correctIndex": 1,
+          "explanation": "",
+          "image": ""
+        },
+        {
+          "id": "q_mv42rlmj_1gysm9r",
+          "grade": 5,
+          "subject": "turkce",
+          "topic": "okuma-anlama",
+          "text": "Hangi tarihi yeri ziyaret ettiler?",
+          "options": [
+            "Topkapı Sarayı",
+            "Ayasofya",
+            "Galata Kulesi",
+            "Dolmabahçe"
+          ],
+          "correctIndex": 1,
+          "explanation": "",
+          "image": ""
+        },
+        {
+          "id": "q_mv42rlmj_1h2jiwb",
+          "grade": 5,
+          "subject": "turkce",
+          "topic": "okuma-anlama",
+          "text": "Nerede alışveriş yaptılar?",
+          "options": [
+            "AVM",
+            "Kapalıçarşı",
+            "Pazar",
+            "Market"
+          ],
+          "correctIndex": 1,
+          "explanation": "",
+          "image": ""
+        },
+        {
+          "id": "q_mv42rlmj_1ixodld",
+          "grade": 5,
+          "subject": "turkce",
+          "topic": "okuma-anlama",
+          "text": "İstanbul nasıl bir şehirdir?",
+          "options": [
+            "Sadece tarihi",
+            "Sadece modern",
+            "Hem tarihi hem modern",
+            "Hiçbiri"
+          ],
+          "correctIndex": 2,
+          "explanation": "",
+          "image": ""
+        }
+      ]
+    },
+    {
+      "title": "Doğal Afetler",
+      "sourceLabel": "5. Sınıf Türkçe Okuma Parçaları (Maarif Modeli)",
+      "body": "Doğal afetler insanları etkiler. Deprem, sel, fırtına ve yangın en yaygın afetlerdir. Deprem sırasında sakin kalmalıyız. Sel bölgesinde yüksek yerlere çıkmalıyız. Fırtına sırasında evde kalmalıyız. Yangın çıkarsa 112'yi aramalıyız. Afetlere hazırlıklı olmalıyız.",
+      "grade": 5,
+      "subject": "turkce",
+      "topic": "okuma-anlama",
+      "quizThreshold": 60,
+      "showPassageDuringQuiz": true,
+      "image": "",
+      "questions": [
+        {
+          "id": "q_mv42rlmj_1ltz686",
+          "grade": 5,
+          "subject": "turkce",
+          "topic": "okuma-anlama",
+          "text": "En yaygın afetler hangileridir?",
+          "options": [
+            "Sadece deprem",
+            "Deprem, sel, fırtına ve yangın",
+            "Sadece sel",
+            "Sadece fırtına"
+          ],
+          "correctIndex": 1,
+          "explanation": "",
+          "image": ""
+        },
+        {
+          "id": "q_mv42rlmj_1muzvpl",
+          "grade": 5,
+          "subject": "turkce",
+          "topic": "okuma-anlama",
+          "text": "Deprem sırasında ne yapmalıyız?",
+          "options": [
+            "Koşmalıyız",
+            "Sakin kalmalıyız",
+            "Ağlamalıyız",
+            "Uyumalıyız"
+          ],
+          "correctIndex": 1,
+          "explanation": "",
+          "image": ""
+        },
+        {
+          "id": "q_mv42rlmj_1nlbni0",
+          "grade": 5,
+          "subject": "turkce",
+          "topic": "okuma-anlama",
+          "text": "Sel bölgesinde nereye çıkmalıyız?",
+          "options": [
+            "Alçak yerlere",
+            "Yüksek yerlere",
+            "Eve",
+            "Sokaklara"
+          ],
+          "correctIndex": 1,
+          "explanation": "",
+          "image": ""
+        },
+        {
+          "id": "q_mv42rlmj_1orwu9i",
+          "grade": 5,
+          "subject": "turkce",
+          "topic": "okuma-anlama",
+          "text": "Fırtına sırasında ne yapmalıyız?",
+          "options": [
+            "Dışarı çıkmalıyız",
+            "Evde kalmalıyız",
+            "Koşmalıyız",
+            "Uyumalıyız"
+          ],
+          "correctIndex": 1,
+          "explanation": "",
+          "image": ""
+        },
+        {
+          "id": "q_mv42rlmj_1pchm1t",
+          "grade": 5,
+          "subject": "turkce",
+          "topic": "okuma-anlama",
+          "text": "Yangın çıkarsa hangi numarayı aramalıyız?",
+          "options": [
+            "110",
+            "112",
+            "155",
+            "159"
+          ],
+          "correctIndex": 1,
+          "explanation": "",
+          "image": ""
+        },
+        {
+          "id": "q_mv42rlmj_1qv1kl1",
+          "grade": 5,
+          "subject": "turkce",
+          "topic": "okuma-anlama",
+          "text": "Parçanın ana fikri nedir?",
+          "options": [
+            "Afetler yoktur",
+            "Afetlere hazırlıklı olmalıyız",
+            "Sadece deprem önemlidir",
+            "Afetler kaçınılmazdır"
+          ],
+          "correctIndex": 1,
+          "explanation": "",
+          "image": ""
+        }
+      ]
+    },
+    {
+      "title": "Türk Mutfağı",
+      "sourceLabel": "5. Sınıf Türkçe Okuma Parçaları (Maarif Modeli)",
+      "body": "Türk mutfağı dünya mutfağının en zenginlerinden biridir. Kebap, börek, pilav, baklava ve mercimek çorbası en bilinen yemeklerdir. Her bölgenin kendi lezzeti vardır. Güneyde acılı yemekler, kuzeyde balık yemekleri, batıda zeytinyağlılar, doğuda etli yemekler yaygındır. Türk mutfağı misafirperverlikle özdeşleşmiştir.",
+      "grade": 5,
+      "subject": "turkce",
+      "topic": "okuma-anlama",
+      "quizThreshold": 60,
+      "showPassageDuringQuiz": true,
+      "image": "",
+      "questions": [
+        {
+          "id": "q_mv42rlmj_1ta61o2",
+          "grade": 5,
+          "subject": "turkce",
+          "topic": "okuma-anlama",
+          "text": "Türk mutfağı dünya mutfağında nasıl bir yer tutar?",
+          "options": [
+            "En fakir",
+            "En zenginlerinden biridir",
+            "Orta",
+            "En yeni"
+          ],
+          "correctIndex": 1,
+          "explanation": "",
+          "image": ""
+        },
+        {
+          "id": "q_mv42rlmj_1u936be",
+          "grade": 5,
+          "subject": "turkce",
+          "topic": "okuma-anlama",
+          "text": "En bilinen yemekler hangileridir?",
+          "options": [
+            "Sadece kebap",
+            "Kebap, börek, pilav, baklava ve mercimek çorbası",
+            "Sadece pilav",
+            "Sadece çorba"
+          ],
+          "correctIndex": 1,
+          "explanation": "",
+          "image": ""
+        },
+        {
+          "id": "q_mv42rlmj_1vrt9wc",
+          "grade": 5,
+          "subject": "turkce",
+          "topic": "okuma-anlama",
+          "text": "Her bölgenin neyi vardır?",
+          "options": [
+            "Kendi lezzeti",
+            "Aynı yemeği",
+            "Hiçbir şeyi",
+            "Yalnız eti"
+          ],
+          "correctIndex": 0,
+          "explanation": "",
+          "image": ""
+        },
+        {
+          "id": "q_mv42rlmj_1w82dne",
+          "grade": 5,
+          "subject": "turkce",
+          "topic": "okuma-anlama",
+          "text": "Güneyde ne tür yemekler yaygındır?",
+          "options": [
+            "Balık",
+            "Acılı yemekler",
+            "Zeytinyağlılar",
+            "Etli yemekler"
+          ],
+          "correctIndex": 1,
+          "explanation": "",
+          "image": ""
+        },
+        {
+          "id": "q_mv42rlmj_1x2as3d",
+          "grade": 5,
+          "subject": "turkce",
+          "topic": "okuma-anlama",
+          "text": "Kuzeyde ne yemekleri yaygındır?",
+          "options": [
+            "Etli",
+            "Balık",
+            "Acılı",
+            "Tatlı"
+          ],
+          "correctIndex": 1,
+          "explanation": "",
+          "image": ""
+        },
+        {
+          "id": "q_mv42rlmj_1yqptun",
+          "grade": 5,
+          "subject": "turkce",
+          "topic": "okuma-anlama",
+          "text": "Parçaya göre hangisi doğrudur?",
+          "options": [
+            "Türk mutfağı fakirdir",
+            "Her bölgenin kendi lezzeti vardır",
+            "Sadece kebap vardır",
+            "Türk mutfağı bilinmez"
+          ],
+          "correctIndex": 1,
+          "explanation": "",
+          "image": ""
+        }
+      ]
+    },
+    {
+      "title": "Teknoloji ve Hayatımız",
+      "sourceLabel": "5. Sınıf Türkçe Okuma Parçaları (Maarif Modeli)",
+      "body": "Teknoloji hayatımızı kolaylaştırır. Telefon, bilgisayar ve internet günlük hayatımızın parçasıdır. Teknoloji sayesinde uzaktan çalışabiliriz. Online eğitim alabiliriz. Hastaneler daha iyi cihazlara sahiptir. Ama teknoloji bağımlılık yaratabilir. Dengeli kullanmalıyız.",
+      "grade": 5,
+      "subject": "turkce",
+      "topic": "okuma-anlama",
+      "quizThreshold": 60,
+      "showPassageDuringQuiz": true,
+      "image": "",
+      "questions": [
+        {
+          "id": "q_mv42rlmj_21ahew8",
+          "grade": 5,
+          "subject": "turkce",
+          "topic": "okuma-anlama",
+          "text": "Teknoloji hayatımıza nasıl etki eder?",
+          "options": [
+            "Zorlaştırır",
+            "Kolaylaştırır",
+            "Etkilemez",
+            "Yavaşlatır"
+          ],
+          "correctIndex": 1,
+          "explanation": "",
+          "image": ""
+        },
+        {
+          "id": "q_mv42rlmj_22ysid6",
+          "grade": 5,
+          "subject": "turkce",
+          "topic": "okuma-anlama",
+          "text": "Hangi teknolojiler günlük hayatımızın parçasıdır?",
+          "options": [
+            "Sadece telefon",
+            "Telefon, bilgisayar ve internet",
+            "Sadece bilgisayar",
+            "Hiçbiri"
+          ],
+          "correctIndex": 1,
+          "explanation": "",
+          "image": ""
+        },
+        {
+          "id": "q_mv42rlmj_235gzwh",
+          "grade": 5,
+          "subject": "turkce",
+          "topic": "okuma-anlama",
+          "text": "Teknoloji sayesinde ne yapabiliriz?",
+          "options": [
+            "Uzaktan çalışabiliriz",
+            "Yürüyebiliriz",
+            "Uçabiliriz",
+            "Yüzebiliriz"
+          ],
+          "correctIndex": 0,
+          "explanation": "",
+          "image": ""
+        },
+        {
+          "id": "q_mv42rlmj_24sktxh",
+          "grade": 5,
+          "subject": "turkce",
+          "topic": "okuma-anlama",
+          "text": "Online olarak ne alabiliriz?",
+          "options": [
+            "Yemek",
+            "Eğitim",
+            "Kitap",
+            "Sinema"
+          ],
+          "correctIndex": 1,
+          "explanation": "",
+          "image": ""
+        },
+        {
+          "id": "q_mv42rlmj_25egln3",
+          "grade": 5,
+          "subject": "turkce",
+          "topic": "okuma-anlama",
+          "text": "Hastaneler neye sahiptir?",
+          "options": [
+            "Eski cihazlar",
+            "Daha iyi cihazlar",
+            "Hiçbir şey",
+            "Sadece doktor"
+          ],
+          "correctIndex": 1,
+          "explanation": "",
+          "image": ""
+        },
+        {
+          "id": "q_mv42rlmj_26r7w4m",
+          "grade": 5,
+          "subject": "turkce",
+          "topic": "okuma-anlama",
+          "text": "Parçanın ana fikri nedir?",
+          "options": [
+            "Teknoloji kötüdür",
+            "Teknoloji faydalıdır ama dengeli kullanılmalıdır",
+            "Teknoloji gereksizdir",
+            "Teknoloji sadece çocuklar içindir"
+          ],
+          "correctIndex": 1,
+          "explanation": "",
+          "image": ""
+        }
+      ]
+    },
+    {
+      "title": "Karagöz ve Gölge Oyunu",
+      "sourceLabel": "5. Sınıf Türkçe Okuma Parçaları (Maarif Modeli)",
+      "body": "Sınıfımızın Türkçe öğretmeni, cuma günü bizi kasabadaki eski kültür evine götüreceğini söylediğinde hepimiz çok heyecanlandık. Öğretmenimiz gölge oyunu izleyeceğimizi, üstelik oyunu perde arkasından da görebileceğimizi anlattı. Karagöz'ün ne olduğunu tam olarak bilmiyordum; yalnızca büyükbabamın \"beyaz perdede doğan gölgeler\" diye bahsettiği bir şey olduğunu hatırlıyordum.\n\nKültür evine vardığımızda içeride loş bir salon, salonun ucunda gergin beyaz bir perde vardı. Perdenin arkasına geçtiğimizde, hayalî adı verilen sanatkârın neler hazırladığını görünce şaşkına döndüm. Deve derisinden yapılmış, boyanmış ve sayısız eklem yerinden kesilmiş figürler ince çubuklara tutturulmuştu. Hayalî, elindeki çubuğu hafifçe oynattığında figür hayat buluyor; küçük bir kukla, perdede kocaman bir Karagöz'e dönüşüyordu. Işık perdenin arkasından geldiği için seyirci, figürün yalnızca gölgesini görüyordu. Perdeye yansıyan gölge, kuklanın kendisinden çok daha canlı ve büyük görünüyordu.\n\nOyun başlamadan önce hayalî perdenin önüne çıktı ve ağır ağır bir bölüm okudu. \"Perde gazeli\" denilen bu bölümde, gösterinin yalnızca bir eğlence değil, insanı düşündüren bir ders olduğu anlatılıyordu. Sonra Karagöz ile Hacivat perdeye geldi. Hacivat ağdalı bir dille konuşuyor, Karagöz ise söylenenleri yanlış anlıyordu. Bir sözcüğü duyduğunda kendi aklınca bambaşka bir anlam çıkarıyor, bu yüzden ikisi sürekli tartışıyordu. Salondaki çocuklar kahkahalarla gülerken ben, bu tartışmaların hep bir ders taşıdığını fark ettim: Karagöz, sözün arkasındaki anlamı düşünmeden konuşan kişiyi temsil ediyordu.\n\nOyunun sonunda hayalî hepimizi perdenin arkasına davet etti. Figürleri elimize aldığımızda ne kadar hafif ve narin olduklarını gördük. Boyamalar yıllar içinde solmuş, bazı eklemler yıpranmıştı. Hayalî, \"Bunları yaşatan seyircidir. Siz seyretmeyi bırakırsanız perde boş kalır,\" dedi. Bu söz aklıma takıldı.\n\nErtesi hafta arkadaşlarımla karton, makas ve çubuklardan kendi gölge oyunumuzu hazırladık. Okul koridorunda küçük bir perde kurup oynattık. Kardeşim perdenin arkasına geçip figürü oynattığında, gölgenin duvara düştüğünü görünce çok sevindi. O akşam büyükbabam oyunumuzu izlerken gözlerinin dolduğunu gördüm. Meğer çocukluğunda bu oyunları defalarca izlemiş, hatta kendi figürlerini yapmış. Bir geleneğin benden sonra da yaşayacağını bilmek, o gün beni en çok mutlu eden şey oldu.",
+      "grade": 5,
+      "subject": "turkce",
+      "topic": "okuma-anlama",
+      "quizThreshold": 60,
+      "showPassageDuringQuiz": true,
+      "image": "",
+      "questions": [
+        {
+          "id": "q_karagoz_1",
+          "grade": 5,
+          "subject": "turkce",
+          "topic": "okuma-anlama",
+          "text": "Perdede görünen gölge, kuklanın kendisinden neden daha canlı ve büyük görünüyordu?",
+          "options": [
+            "Işık arkadan geldiği ve gölge perdeye yansıdığı için",
+            "Kuklalar gerçekten canlı varlıklardan yapıldığı için",
+            "Hayalî gölgeleri elle boyadığı için",
+            "Seyirciler perdeye çok yakın oturduğu için"
+          ],
+          "correctIndex": 0,
+          "explanation": "Metinde ışığın perdenin arkasından geldiği ve seyircinin yalnızca gölgeyi gördüğü belirtiliyor; gölge bu yüzden büyük ve canlı görünür.",
+          "image": ""
+        },
+        {
+          "id": "q_karagoz_2",
+          "grade": 5,
+          "subject": "turkce",
+          "topic": "okuma-anlama",
+          "text": "Yazar, Karagöz ile Hacivat'ın tartışmalarını izlerken hangi sonuca varmıştır?",
+          "options": [
+            "Tartışmalar yalnızca güldürmek için yazılmıştır.",
+            "Karagöz, söyleneni düşünmeden anlayan kişiyi temsil ettiği için oyun ders verir.",
+            "Hacivat'ın konuşmaları gereksiz yere uzundur.",
+            "Oyun sırasında gerçek bir kavga çıkmıştır."
+          ],
+          "correctIndex": 1,
+          "explanation": "Yazar, kahkahaların arkasında bir ders olduğunu ve Karagöz'ün anlamı düşünmeden konuşan kişiyi temsil ettiğini fark eder.",
+          "image": ""
+        },
+        {
+          "id": "q_karagoz_3",
+          "grade": 5,
+          "subject": "turkce",
+          "topic": "okuma-anlama",
+          "text": "Metne göre \"perde gazeli\" bölümünün oyundaki işlevi nedir?",
+          "options": [
+            "Oyunu bir anda bitirmek",
+            "Figürlerin nasıl yapıldığını anlatmak",
+            "Gösterinin bir eğlence değil, düşündüren bir ders olduğunu duyurmak",
+            "Seyirciden alkış istemek"
+          ],
+          "correctIndex": 2,
+          "explanation": "Perde gazelinde gösterinin sadece eğlence değil, insanı düşündüren bir ders olduğu anlatılıyordu.",
+          "image": ""
+        },
+        {
+          "id": "q_karagoz_4",
+          "grade": 5,
+          "subject": "turkce",
+          "topic": "okuma-anlama",
+          "text": "Hayalî'nin \"Bunları yaşatan seyircidir. Siz seyretmeyi bırakırsanız perde boş kalır.\" sözüyle anlatmak istediği nedir?",
+          "options": [
+            "Figürlerin çok dayanıksız olduğu",
+            "Perdenin sık sık değiştirilmesi gerektiği",
+            "Oyunu yalnızca çocukların sevdiği",
+            "Seyirci ilgi göstermezse geleneğin süremeyeceği"
+          ],
+          "correctIndex": 3,
+          "explanation": "Sanatkâr, geleneğin yaşamasını seyircinin ilgisine bağlıyor; ilgi biterse oyun da biter.",
+          "image": ""
+        },
+        {
+          "id": "q_karagoz_5",
+          "grade": 5,
+          "subject": "turkce",
+          "topic": "okuma-anlama",
+          "text": "Metnin bütünü dikkate alındığında asıl anlatılmak istenen nedir?",
+          "options": [
+            "Geleneğin ancak paylaşılarak ve yaşatılarak süreceği",
+            "Eski eşyaların artık değersiz olduğu",
+            "Büyüklerin çocuklardan farklı düşündüğü",
+            "Her oyunun mutlaka bir kazananı olması gerektiği"
+          ],
+          "correctIndex": 0,
+          "explanation": "Yazar oyunu kendi hazırlayıp kardeşine ve büyükbabasına göstererek geleneği sürdürür; ana düşünce paylaşarak yaşatmaktır.",
+          "image": ""
+        }
+      ]
+    },
+    {
+      "title": "Kırlangıcın Yuvasına Dönüşü",
+      "sourceLabel": "5. Sınıf Türkçe Okuma Parçaları (Maarif Modeli)",
+      "body": "Nisanın ilk günleriydi. Sabah okula giderken kaldırımın üzerinde küçük bir kırlangıç gördüm. Kanadının ucu çamurlanmış, karnı beyaz, sırtı ise maviye çalan parlak bir siyahtı. Yürümeye çalışıyor ama havalanamıyordu. Eğilip baktığımda ayağının incindiğini fark ettim. Onu ceketimin içine alıp veterinere götürdüm. Veteriner hanım, kırlangıçların her yıl binlerce kilometre yol kat ettiğini söyledi. \"Bunlar göçmen kuşlardır. Kışın sıcak ülkelere giderler, baharda yuvalarına dönerler. Bu yavru, belki de yolculuğun sonunda yoruldu,\" dedi.\n\nKırlangıcı üç gün boyunca süt kutusundan yaptığım küçük bir evde besledim. Dördüncü gün kanatlarını açtı, odanın içinde iki tur attı ve umut verici bir ses çıkardı. Büyükbabam, \"Bırakabileceğimiz kadar güçlendi. Ama onu nereye bırakacağımızı iyi seçmeliyiz,\" dedi. Bahçemizdeki eski ahırın saçağında yıllardır boş duran bir kırlangıç yuvası vardı. Meğer o yuva, her bahar geri gelen aynı çiftin yuvasıymış. Büyükbabam babasından, babası dedesinden duymuş; yıllar boyunca kuşlar bu saçağın altına yuva yapmış.\n\nKırlangıcı bahçede özgür bıraktığımızda bir ağacın dalına kondu, oradan saçağın altındaki boş yuvaya baktı ve sonra uçup gitti. Üzüldüm; geri gelmeyeceğini düşündüm. Bir hafta sonra sabah kahvaltıda cıvıltılar duyduk. Yuvanın kenarına konmuş iki kırlangıç, gagalarında çamur taşıyordu. Yuvayı onarıyorlardı. Büyükbabam gülümsedi: \"Bak, yuvasını unutmamış. Bazen yolunu kaybetmiş gibi görünürler ama gökyüzünde güneşe ve yıldızlara bakarak, kimi zaman da toprağın kokusunu izleyerek binlerce kilometre sonra bu saçağı bulurlar.\"\n\nO gün pencerenin önünde uzun süre oturup onları izledim. Küçücük bir kuşun, insanların yaptığı koca gemilerin ve uçakların rotasından daha şaşmaz bir yol bulması bana inanılmaz geldi. Bilim dergisinde okuduğum bir yazıyı hatırladım: Kırlangıçlar, göç yollarını yalnızca içgüdüleriyle değil, öğrenerek ve deneyimleyerek de bulurlar. Genç kuşlar, ilk yolculuklarında sürünün gerisinden gider; ikinci yılda rotayı neredeyse kusursuz izlerler.\n\nYuvanın onarılması, bahçemizin sessiz bir sabahına bambaşka bir anlam kattı. Bir kuşun yuvasına dönmesi, bana sadakati ve kararlılığı düşündürdü. Şimdi her nisan ayında pencereden gökyüzünü tarıyorum. Karşıdan gelen küçük siyah lekeleri gördüğümde içim rahatlıyor: Belki binlerce kilometre öteden gelen konuklarımız, yine aynı saçağın altında çamur taşıyor.",
+      "grade": 5,
+      "subject": "turkce",
+      "topic": "okuma-anlama",
+      "quizThreshold": 60,
+      "showPassageDuringQuiz": true,
+      "image": "",
+      "questions": [
+        {
+          "id": "q_kirlangic_1",
+          "grade": 5,
+          "subject": "turkce",
+          "topic": "okuma-anlama",
+          "text": "Metne göre büyükbabamın \"Bırakabileceğimiz kadar güçlendi ama nereye bırakacağımızı iyi seçmeliyiz.\" demesinin nedeni nedir?",
+          "options": [
+            "Kırlangıcın eve alışmasından korktuğu için",
+            "Kuşun kendi yuvasını tanıdığını ve oraya daha kolay uyum sağlayacağını düşündüğü için",
+            "Bahçede kedi bulunduğu için",
+            "Veterinerin kuşu geri istemesinden çekindiği için"
+          ],
+          "correctIndex": 1,
+          "explanation": "Metinde saçaktaki yuvanın her bahar dönen aynı çifte ait olduğu ve kuşun yuvasını unutmadığı anlatılıyor; büyükbaba doğru yeri yani kuşun kendi yuvasını seçer.",
+          "image": ""
+        },
+        {
+          "id": "q_kirlangic_2",
+          "grade": 5,
+          "subject": "turkce",
+          "topic": "okuma-anlama",
+          "text": "Kırlangıç serbest bırakıldıktan sonra yazar neden üzülmüştür?",
+          "options": [
+            "Kuşun kanadını yeniden incitmesinden korktuğu için",
+            "Yuvayı onarmak zorunda kaldığı için",
+            "Kuşun bir daha geri dönmeyeceğini düşündüğü için",
+            "Büyükbabasına söz verdiğini yerine getiremediği için"
+          ],
+          "correctIndex": 2,
+          "explanation": "Yazar, kuş uçup gittiğinde \"geri gelmeyeceğini düşündüm\" diyerek üzüldüğünü belirtiyor; bir hafta sonra kuşlar yuvaya döner.",
+          "image": ""
+        },
+        {
+          "id": "q_kirlangic_3",
+          "grade": 5,
+          "subject": "turkce",
+          "topic": "okuma-anlama",
+          "text": "Büyükbabanın anlattıklarına göre kırlangıçlar göç yolunu bulmak için yalnızca içgüdülerine mi güvenir?",
+          "options": [
+            "Evet, yalnızca doğuştan gelen içgüdüleriyle hareket ederler.",
+            "Evet, ama yalnızca yetişkin kuşlar yolunu bulabilir.",
+            "Hayır; yollarını insanların yaptığı gemilerden öğrenirler.",
+            "Hayır; güneşe, yıldızlara ve kokulara bakmanın yanı sıra öğrenerek ve deneyimleyerek de yollarını bulurlar."
+          ],
+          "correctIndex": 3,
+          "explanation": "Büyükbaba güneş, yıldız ve koku ipuçlarından; dergi yazısı ise genç kuşların deneyimleyerek öğrendiğinden söz ediyor.",
+          "image": ""
+        },
+        {
+          "id": "q_kirlangic_4",
+          "grade": 5,
+          "subject": "turkce",
+          "topic": "okuma-anlama",
+          "text": "Yazar, küçük kuşun yol bulmasını neden \"inanılmaz\" bulmuştur?",
+          "options": [
+            "Küçücük bir kuşun, insanların koca gemilerle uçaklarla bulduğu rotadan daha şaşmaz bir yol izlemesinden dolayı",
+            "Kuşun uçmayı çok kısa sürede öğrenmesinden dolayı",
+            "Kuşun yuvasını kendi elleriyle yapmasından dolayı",
+            "Kuşların yalnızca gündüzleri uçmasından dolayı"
+          ],
+          "correctIndex": 0,
+          "explanation": "Yazar, insanların araçlarla bulduğu rotayla kuşun doğal yön bulma becerisini karşılaştırarak bunu şaşırtıcı bulur.",
+          "image": ""
+        },
+        {
+          "id": "q_kirlangic_5",
+          "grade": 5,
+          "subject": "turkce",
+          "topic": "okuma-anlama",
+          "text": "Metnin sonunda yazarın duygularında görülen değişim hangisidir?",
+          "options": [
+            "Üzüntüden kızgınlığa",
+            "Kuşun dönmeyeceği endişesinden, onun yuvasına dönüşünü görünce duyduğu güvene ve huzura",
+            "Meraktan korkuya",
+            "Sevinçten umutsuzluğa"
+          ],
+          "correctIndex": 1,
+          "explanation": "Başta \"geri gelmeyecek\" diye üzülen yazar, kuşların yuvayı onardığını görünce rahatlar; sonunda her nisanda gökyüzünü güvenle tarar.",
+          "image": ""
+        }
+      ]
+    },
+    {
+      "title": "Sıfır Atık Kahramanları",
+      "sourceLabel": "5. Sınıf Türkçe Okuma Parçaları (Maarif Modeli)",
+      "body": "Elif, okulun yemekhanesinde tabağını bıraktığı sırada bir şey dikkatini çekti. Çöp kutusunun yanındaki büyük kapta, yarısı yenmiş ekmekler, hiç dokunulmamış meyveler ve poşetlerle dolu bir yığın yiyecek vardı. Elif o gün yemeğini bitirmiş olmasına rağmen içi rahat etmedi. Eve döndüğünde annesine, \"Bir günde bu kadar yemek çöpe gidiyorsa bir yılda neler olur?\" diye sordu. Annesi cevap vermedi; sadece mutfak tartısını çıkarıp hafta boyunca evlerinde çöpe giden yiyeceği tartmayı önerdi.\n\nErtesi hafta Elif, öğretmenine bir fikir anlattı: Okulda \"sıfır atık\" projesi başlatmak istiyordu. Öğretmeni çok sevindi ama küçük bir uyarı yaptı: \"Fikir güzel; ancak insanların alışkanlıklarını değiştirmek, tabela asmaktan çok daha zordur.\" Elif bunu o gün tam anlamadı. Sınıfta projeyi duyurduğunda bazı arkadaşları güldü. \"Bir tabak yemekle dünyayı mı kurtaracağız?\" dediler. Elif üzüldü ama vazgeçmedi.\n\nSınıfça üç şey yapmaya karar verdiler: Yemekhaneye \"istediğin kadar al, aldığını bitir\" yazan bir köşe kurdular; meyve ve ekmek artıkları için bir paylaşım rafı oluşturdular; sebze kabuklarını da okul bahçesindeki kompost kutusunda toprağa dönüştürmeye başladılar. İlk hafta raf boş kaldı, kompost kutusuna neredeyse hiçbir şey atılmadı. İkinci hafta birkaç öğrenci rafa meyve koydu. Üçüncü hafta yemekhanedeki atık tartıldı: Başlangıçta günde dört kilogram olan yiyecek atığı, iki kilograma düşmüştü.\n\nEn büyük değişim ise sayılarda değil, davranışlarda görüldü. Yemeğini yarıda bırakan bir arkadaşları, tabağını götürmeden önce bir an durup düşünmeye başladı. Kimi öğrenciler evdeki ekmek artıklarını okula getirip rafa koydu. Nisan ayında okullar arası bir çevre yarışması düzenlendi ve sınıfları ödül kazandı. Elif törene giderken sevinçliydi ama kafasında başka bir soru vardı: Ödül olmasaydı bu kadar kişi katılır mıydı?\n\nYıl sonunda öğretmenleri, panoya büyük harflerle bir cümle yazdı: \"Sıfır atık, çöpü azaltmakla değil, düşünmeyi öğrenmekle başlar.\" Elif o gün anladı: Asıl başarı, kimsenin görmediği anlarda bile aynı özeni göstermekti. Tabelalar sökülse, yarışma bitse de o sınıfın alışkanlığı artık değişmişti.",
+      "grade": 5,
+      "subject": "turkce",
+      "topic": "okuma-anlama",
+      "quizThreshold": 60,
+      "showPassageDuringQuiz": true,
+      "image": "",
+      "questions": [
+        {
+          "id": "q_sifiratik_1",
+          "grade": 5,
+          "subject": "turkce",
+          "topic": "okuma-anlama",
+          "text": "Öğretmenin \"İnsanların alışkanlıklarını değiştirmek, tabela asmaktan çok daha zordur.\" sözü, projenin hangi yönüne işaret eder?",
+          "options": [
+            "Projenin çok pahalı olduğuna",
+            "Yemekhanenin çok küçük olduğuna",
+            "İkna etmenin ve davranış değiştirmenin, duyuru yapmaktan zor olduğuna",
+            "Öğretmenlerin projeye inanmadığına"
+          ],
+          "correctIndex": 2,
+          "explanation": "Metinde ilk hafta rafın boş kalması ve bazı arkadaşların gülmesi, duyurunun yetmediğini; asıl zorluğun alışkanlık değişimi olduğunu gösterir.",
+          "image": ""
+        },
+        {
+          "id": "q_sifiratik_2",
+          "grade": 5,
+          "subject": "turkce",
+          "topic": "okuma-anlama",
+          "text": "Elif'in annesinin mutfak tartısını çıkarmasının amacı ne olabilir?",
+          "options": [
+            "Elif'i cezalandırmak",
+            "Tartıyı okula götürmek",
+            "Yeni bir yemek tarifi denemek",
+            "Sorunu görünür ve ölçülebilir hâle getirmek"
+          ],
+          "correctIndex": 3,
+          "explanation": "Anne tartıyla atığı ölçmeyi önererek sorunun boyutunu somut biçimde göstermek ister; Elif de okulda aynı ölçme yöntemini kullanır.",
+          "image": ""
+        },
+        {
+          "id": "q_sifiratik_3",
+          "grade": 5,
+          "subject": "turkce",
+          "topic": "okuma-anlama",
+          "text": "Metne göre projenin ilk haftalarında katılım az olmasının nedeni nedir?",
+          "options": [
+            "Alışkanlıkların hemen değişmemesi ve öğrencilerin konuyu önemsememesi",
+            "Projenin yalnızca bir ders saatinde yapılması",
+            "Öğrencilerin projeyi hiç duymaması",
+            "Yemekhanenin kapalı olması"
+          ],
+          "correctIndex": 0,
+          "explanation": "İlk hafta raf boş kalır ve komposta neredeyse hiçbir şey atılmaz; katılım ancak haftalar içinde, alışkanlıklar değiştikçe artar.",
+          "image": ""
+        },
+        {
+          "id": "q_sifiratik_4",
+          "grade": 5,
+          "subject": "turkce",
+          "topic": "okuma-anlama",
+          "text": "Elif'in ödül töreninde kendine sorduğu \"Ödül olmasaydı bu kadar kişi katılır mıydı?\" sorusu, onun hangi kaygısını gösterir?",
+          "options": [
+            "Ödülü kazanamayacaklarını düşündüğünü",
+            "Davranışların yarışma bitince sürüp sürmeyeceğini merak ettiğini",
+            "Yarışmanın kurallarının adaletsiz olduğunu",
+            "Öğretmeninin kendisini ödüllendirmediğini"
+          ],
+          "correctIndex": 1,
+          "explanation": "Elif, kazandıkları ödülden çok katılımın geçici olup olmadığını sorgular; bu, metnin sonundaki kalıcı alışkanlık vurgusuna bağlanır.",
+          "image": ""
+        },
+        {
+          "id": "q_sifiratik_5",
+          "grade": 5,
+          "subject": "turkce",
+          "topic": "okuma-anlama",
+          "text": "\"Sıfır atık, çöpü azaltmakla değil, düşünmeyi öğrenmekle başlar.\" cümlesiyle asıl vurgulanan nedir?",
+          "options": [
+            "Yalnızca yemekhanedeki çöpleri azaltmanın yeterli olduğu",
+            "Yarışmaların gereksiz olduğu",
+            "Kalıcı değişimin, kimse görmese de aynı özeni gösteren bir düşünme biçimi kazanmakla olacağı",
+            "Kompost yapmanın çok zor bir iş olduğu"
+          ],
+          "correctIndex": 2,
+          "explanation": "Metnin sonunda Elif, asıl başarının görülmediği anlarda da aynı özeni sürdürmek olduğunu anlar.",
+          "image": ""
+        }
+      ]
+    },
+    {
+      "title": "Parktaki Yeni Arkadaş",
+      "sourceLabel": "5. Sınıf Türkçe Okuma Parçaları (Maarif Modeli)",
+      "body": "Deniz, kasabamıza taşınalı iki hafta olmuştu. Babasının işi nedeniyle şehir değiştirmişlerdi ve Deniz, sınıfta en arka sırada, kimseyle konuşmadan oturuyordu. Teneffüslerde pencere kenarına geçip dışarıyı seyrediyor, soru sorulduğunda sesini duyurmamak için neredeyse fısıldıyordu. Öğretmenimiz onun sessizliğini \"utangaçlık\" diye açıkladı ama ben başka bir şey olduğunu düşünüyordum.\n\nBen Mert. Sınıfın en hareketli öğrencisiyim ve herkesle kolayca arkadaş olurum. Deniz'e yardım etmeyi kafaya koydum. Teneffüste yanına gidip \"Hadi futbol oynayalım, takıma seni alacağım,\" dedim. Deniz başını iki yana salladı. Israr ettim; \"Yoksa futboldan mı hoşlanmıyorsun? Basket oynayalım, koşalım, bir şey yapalım,\" diye üsteledim. Deniz omuzlarını kaldırdı, defterini çantasına koyup uzaklaştı. O gün ilk kez onun benden kaçtığını fark ettim ve açıkçası biraz bozuldum. İyilik yapmak istemiştim, neden geri çevriliyordu?\n\nBir hafta sonra resim dersinde yan yana oturduk. Öğretmenimiz \"Hayalindeki yeri çizin,\" dedi. Ben kaleyi, kaleyi, daha çok kaleyi çizdim. Deniz ise kâğıdın ortasına, incecik çizgilerle bir vapur resmi yaptı. Vapurun güvertesinde tek başına duran bir çocuk vardı; arka planda ise gri bulutlar, denizde küçük dalgalar. Resim, sınıfın en güzel resmi değildi belki ama en çok konuşan resmiydi. Sanki Deniz, kâğıda söyleyemediği şeyleri yazmıştı.\n\nO gün ona yaklaşımımı değiştirdim. Ertesi gün çantama iki resim defteri koydum ve teneffüste yanına oturup kendi defterimi açtım. Hiçbir şey söylemedim; sadece çizmeye başladım. Bir süre sonra Deniz kendi defterini çıkardı. İkimiz de konuşmadık ama yarım saat boyunca yan yana çizdik. Ders zili çaldığında Deniz, ilk kez bana kendiliğinden bir şey söyledi: \"Vapurları severim. Eski şehrimizde evimizin önünden her sabah bir vapur geçerdi.\" O cümle, haftalarca süren boş sohbetlerden daha çok şey anlatmıştı.\n\nO günden sonra Deniz'le resim yapmaya devam ettik. Zamanla sınıftaki diğer arkadaşlar da yanımıza gelmeye başladı; birkaç hafta içinde Deniz, kendi resimlerini panoya asan, sorulara gönüllü cevap veren bir öğrenci oldu. Öğretmenimiz bir gün bana, \"İyilik, karşıdakine kendi sevdiğini vermek değil, onun dilinden konuşmaktır,\" dedi. Ben o cümleyi çok sonra, o vapurlu resme her baktığımda daha iyi anladım.",
+      "grade": 5,
+      "subject": "turkce",
+      "topic": "okuma-anlama",
+      "quizThreshold": 60,
+      "showPassageDuringQuiz": true,
+      "image": "",
+      "questions": [
+        {
+          "id": "q_park_1",
+          "grade": 5,
+          "subject": "turkce",
+          "topic": "okuma-anlama",
+          "text": "Mert, Deniz'e futbol ve basketbol önerdiğinde neden geri çevrildi?",
+          "options": [
+            "Deniz spor yapmayı hiç sevmediği için",
+            "Öğretmen oyun oynamayı yasakladığı için",
+            "Deniz o gün hasta olduğu için",
+            "Mert, kendi sevdiği şeyleri önerdiği ve Deniz'i dinlemediği için"
+          ],
+          "correctIndex": 3,
+          "explanation": "Mert kendi sevdiği etkinlikleri ısrarla önerir; Deniz'in neyi sevdiğini hiç sormaz. Bu yüzden yaklaşımı işe yaramaz.",
+          "image": ""
+        },
+        {
+          "id": "q_park_2",
+          "grade": 5,
+          "subject": "turkce",
+          "topic": "okuma-anlama",
+          "text": "Yazar, Deniz'in çizdiği resmi neden \"en çok konuşan resim\" olarak nitelendirmiştir?",
+          "options": [
+            "Deniz'in söyleyemediği duyguların o resimde görünmesi, çok şey anlatması nedeniyle",
+            "Resim sınıfta yapılan ilk vapur resmi olduğu için",
+            "Resimdeki renkler en canlı olduğu için",
+            "Öğretmen o resmi panoya astığı için"
+          ],
+          "correctIndex": 0,
+          "explanation": "Resimde yalnız bir çocuk, gri bulutlar ve dalgalar vardır; yazar bunun Deniz'in anlatamadığı yalnızlığı ve özlemi yansıttığını sezer.",
+          "image": ""
+        },
+        {
+          "id": "q_park_3",
+          "grade": 5,
+          "subject": "turkce",
+          "topic": "okuma-anlama",
+          "text": "Deniz'in Mert'e kendiliğinden ilk cümlesini söylemesini sağlayan şey nedir?",
+          "options": [
+            "Mert'in ona yeni bir oyun öğretmesi",
+            "Mert'in hiç konuşmadan yanında oturup aynı şeyi yapması, yani ortak ve baskısız bir paylaşım kurması",
+            "Öğretmenin ikisini yan yana oturtması",
+            "Sınıfın Deniz'e hediye alması"
+          ],
+          "correctIndex": 1,
+          "explanation": "Mert bu kez hiçbir şey söylemeden çizmeye başlar; Deniz de defterini çıkarır. Baskı olmadan kurulan ortak uğraş, iletişimi başlatır.",
+          "image": ""
+        },
+        {
+          "id": "q_park_4",
+          "grade": 5,
+          "subject": "turkce",
+          "topic": "okuma-anlama",
+          "text": "Öğretmenin \"İyilik, karşıdakine kendi sevdiğini vermek değil, onun dilinden konuşmaktır.\" sözü metindeki hangi olaya dayanarak söylenmiştir?",
+          "options": [
+            "Mert'in resim dersinde kaleyi çizmesine",
+            "Deniz'in sınıfa geç gelmesine",
+            "Mert'in Deniz'e futbolda ısrar edip başarısız olmasına, sonra resim yoluyla onu kazanmasına",
+            "Öğretmenin panoyu sık sık değiştirmesine"
+          ],
+          "correctIndex": 2,
+          "explanation": "Öğretmen, Mert'in ısrarla kendi sevdiği oyunu önerdiği dönemle, Deniz'in dilinden (resimden) konuştuğu dönemi karşılaştırır.",
+          "image": ""
+        },
+        {
+          "id": "q_park_5",
+          "grade": 5,
+          "subject": "turkce",
+          "topic": "okuma-anlama",
+          "text": "Metnin başında Deniz'in sessizliğini yazar neden \"utangaçlık\" diye açıklanan durumdan farklı görüyordu?",
+          "options": [
+            "Deniz'in yabancı bir ülkeden geldiğini bildiği için",
+            "Deniz'in çok konuşkan olmadığını düşündüğü için",
+            "Öğretmenin onu yanlış tanıdığını kanıtlamak istediği için",
+            "Sessizliğin arkasında alışamama ve özlem gibi başka duygular olabileceğini sezdiği için"
+          ],
+          "correctIndex": 3,
+          "explanation": "Yazar \"başka bir şey olduğunu düşünüyordum\" der ve resimdeki vapur–çocuk ayrıntısı bunu doğrular: Deniz'in sessizliği özlem ve yabancılıktır.",
+          "image": ""
+        }
+      ]
+    },
+    {
+      "title": "Sabah Yürüyüşünün Sırrı",
+      "sourceLabel": "5. Sınıf Türkçe Okuma Parçaları (Maarif Modeli)",
+      "body": "Anneannem, geçen yıl merdivenleri çıkarken sık sık durup nefes alırdı. Doktoru ona ilaç yazmadan önce basit bir öneri yaptı: Her sabah yarım saat yürüyüş. Anneannem önce güldü; \"Yarım saat yürümekle ne değişir?\" dedi. Ama doktor ısrar etti ve annem de ona eşlik etmeye karar verdi. İlk haftalarda anneannem yürüyüşten döndüğünde yorgun oluyor, \"Bugünlük yeter,\" diyordu. Bir ay sonra ise sabah yürüyüşünü hiç kaçırmaz olmuştu.\n\nBen bu değişimi merak ettim ve bir cumartesi onlara katıldım. Açıkçası ilk yarım saat bana çok sıkıcı geldi. Sürekli aynı sokakları, aynı ağaçları, aynı evleri görüyorduk. Anneanneme bunu söylediğimde bana gülümsedi: \"Sen yalnızca yolu görüyorsun. Ben ise her gün başka bir şey görüyorum,\" dedi. Gerçekten de öyleydi: Kavak ağacının tomurcukları haftalar içinde açmış, kaldırımın kenarındaki karınca yuvası her gün biraz daha büyümüştü. Ben o güne kadar bu ağaca hiç dikkat etmemiştim.\n\nYürüyüşün bana asıl etkisi ertesi hafta belli oldu. Sabah yürüdüğüm günlerde derste daha kolay odaklanıyor, akşam daha erken uykum geliyordu. Fen bilgisi öğretmenimize bunun nedenini sordum. Öğretmenimiz, düzenli yürüyüşün kalbi güçlendirdiğini, kasları çalıştırdığını ve beynin daha iyi çalışması için gereken oksijeni artırdığını anlattı. Sonra da ekledi: \"En önemlisi, bu bir yarış değil. Maraton koşan değil, her gün yürümeye devam eden kazanır.\"\n\nAnneannem bana kendi sırrını daha sonra söyledi. Yürüyüşün asıl faydasını yalnızca bedeninde değil, komşularıyla kurduğu ilişkide görmüştü. Her sabah aynı saatte yürüyen birkaç kişi vardı; zamanla selamlaşmaya, sonra birkaç dakika sohbet etmeye başlamışlardı. Anneannem, \"Yürümek bahaneydi,\" dedi, \"aslında her sabah birilerini gördüğümü bilmek beni yerimden kaldırıyordu.\"\n\nMayıs ayında arkadaşlarımla bir \"sabah yürüyüşü kulübü\" kurduk. Beş kişiyle başladık. Bugün on dört kişiyiz ve her cumartesi yürüyoruz. Dönüşte kimse yorgun görünmüyor; çünkü hiçbirimiz yürüyüşü bir görev olarak görmüyor, sadece sohbet ederek yürüyoruz. Anneannemin merdivenlerdeki nefes nefese hâlini hatırladığımda, iyi bir alışkanlığın nasıl sessizce hayatı değiştirdiğini daha iyi anlıyorum. Bir ilaç kutusu değil, her sabah tekrarlanan küçük bir adım…",
+      "grade": 5,
+      "subject": "turkce",
+      "topic": "okuma-anlama",
+      "quizThreshold": 60,
+      "showPassageDuringQuiz": true,
+      "image": "",
+      "questions": [
+        {
+          "id": "q_yuruyus_1",
+          "grade": 5,
+          "subject": "turkce",
+          "topic": "okuma-anlama",
+          "text": "Anneannemin \"Sen yalnızca yolu görüyorsun, ben ise her gün başka bir şey görüyorum.\" sözüyle anlatılmak istenen nedir?",
+          "options": [
+            "Aynı yerin, dikkatle bakıldığında her gün değişen ayrıntılar barındırdığı",
+            "Yolun aslında çok kısa olduğu",
+            "Anneannemin gözlerinin daha iyi gördüğü",
+            "Yürüyüşün yalnızca yaşlılar için faydalı olduğu"
+          ],
+          "correctIndex": 0,
+          "explanation": "Metinde kavak tomurcuklarının açması ve karınca yuvasının büyümesi örnek verilir; dikkatli bakan için aynı yol her gün yenidir.",
+          "image": ""
+        },
+        {
+          "id": "q_yuruyus_2",
+          "grade": 5,
+          "subject": "turkce",
+          "topic": "okuma-anlama",
+          "text": "Fen bilgisi öğretmeninin \"Maraton koşan değil, her gün yürümeye devam eden kazanır.\" sözü hangi düşünceyi vurgular?",
+          "options": [
+            "Yürüyüşte hızın en önemli ölçüt olduğunu",
+            "Sağlıkta sürekliliğin ve düzenliliğin, tek seferlik büyük çabadan daha değerli olduğunu",
+            "Kısa süreli yoğun çabanın uzun süreli düzenlilikten üstün olduğunu",
+            "Yalnızca sporcuların sağlıklı olabileceğini"
+          ],
+          "correctIndex": 1,
+          "explanation": "Öğretmen, düzenli ve sürdürülebilir alışkanlığın, bir kez yapılan büyük çabadan daha etkili olduğunu anlatır.",
+          "image": ""
+        },
+        {
+          "id": "q_yuruyus_3",
+          "grade": 5,
+          "subject": "turkce",
+          "topic": "okuma-anlama",
+          "text": "Anneannemin yürüyüşü sürdürmesinde hangi etken daha belirleyici olmuştur?",
+          "options": [
+            "Yürüyüş yolunun çok güzel olması",
+            "Doktorun onu sürekli kontrol etmesi",
+            "Her sabah komşularını görüyor olmanın ona iyi gelmesi",
+            "Yeni ayakkabılar alması"
+          ],
+          "correctIndex": 2,
+          "explanation": "Anneannem \"Yürümek bahaneydi, asıl beni yerimden kaldıran her sabah birilerini göreceğimi bilmekti\" der; sosyal bağ, sürekliliği sağlar.",
+          "image": ""
+        },
+        {
+          "id": "q_yuruyus_4",
+          "grade": 5,
+          "subject": "turkce",
+          "topic": "okuma-anlama",
+          "text": "Yazar, yürüyüş kulübünde kimsenin yorgun görünmemesini neye bağlıyor?",
+          "options": [
+            "Yürüyüş mesafesinin çok kısa tutulmasına",
+            "Herkesin çok iyi sporcu olmasına",
+            "Kulübün yalnızca cumartesileri toplanmasına",
+            "Yürüyüşü bir görev değil, sohbet ederek yapılan bir etkinlik olarak görmelerine"
+          ],
+          "correctIndex": 3,
+          "explanation": "Metinde \"hiçbirimiz yürüyüşü görev olarak görmüyor, sadece sohbet ederek yürüyoruz\" denir; bu da zorlanma duygusunu azaltır.",
+          "image": ""
+        },
+        {
+          "id": "q_yuruyus_5",
+          "grade": 5,
+          "subject": "turkce",
+          "topic": "okuma-anlama",
+          "text": "Metnin son cümlesindeki \"Bir ilaç kutusu değil, her sabah tekrarlanan küçük bir adım…\" ifadesi neyi anlatır?",
+          "options": [
+            "Büyük ve ani çözümler yerine küçük ama sürekli davranışların iyileştirici gücünü",
+            "İlaçların hiçbir zaman işe yaramadığını",
+            "Anneannemin artık ilaç kullanmadığını",
+            "Sabah yürüyüşünün yalnızca yaşlılar için gerekli olduğunu"
+          ],
+          "correctIndex": 0,
+          "explanation": "Yazar, alışkanlığın sessizce hayatı değiştirmesini vurgular: küçük ama her gün tekrarlanan bir adım, kalıcı iyileşme sağlar.",
+          "image": ""
+        }
+      ]
+    },
+    {
+      "title": "Topsuz Basketbol Oyunu",
+      "sourceLabel": "5. Sınıf Türkçe Ders Kitabı (MEB) — 1. Tema: Oyun Dünyası",
+      "body": "Bir gün, kasabada basketbol maçı yaparken çocukların topları patladı. Oynayan herkes çok üzülmüştü. Moni o esnada “Ne yapabilirim acaba?” diye düşünüyordu. Maçın en heyecanlı anında top patladı diye maçı bitiremezlerdi. Ona göre oyunda bir sorun varsa bir öğrenme fırsatı da vardı. Problemler onu yıldıramazdı; her zaman, her yerde bir çözüm üretebileceğine inanıyordu. Bu oyunun devam etmesi için bir çözüm bulmaları gerekiyordu. Aklına parlak bir fikir geldi.\n\n— Topsuz basketbol maçı yapabiliriz, dedi Moni. Basketbol oynamak için bir topa ihtiyacımız yok.\n\nÇocuklar arasından fısıltılar yükseldi.\n\n— İnanılmaaaaaz!\n\nBu ilginç fikri duyan herkes şoke olmuştu. Hayalimizde istediğimiz her şeye sahip olabiliriz. Oyunda neye ihtiyacımız varsa çantamızdan onu çıkarabiliriz.\n\nMoni, sahanın ortasına geçip bağırdı.\n\n— Çantamdan Top Çıktıııı!\n\nÇocuklar arasında neşeli bir koşturmaca başladı. Topu sektirdiler. Birbirlerine pas attılar. Şık bir sayı yaptılar. Hatta Mete kendini o kadar oyuna kaptırdı ki bir anda acı içerisinde yerde kıvranmaya başladı.\n\nİnci, panikle bağırdı:\n\n— Ahhh! Hayır! Mete topa bastı. Acil durum! Sağlık görevlileri, buraya lütfen!\n\nMete, yerde o kadar inandırıcı bir şekilde kıvranıyordu ki görenler gerçekten de topa basıp düştüğünü zannedebilirdi. Oyunu çok iyi oynuyordu, hatta biraz abartıyordu. Bir ara Moni, “Mete, gerçekten topa mı bastı acaba?” diye şüpheye düştü.\n\nBir siren sesi duyuldu. Moni, İnci ve Taci sağlık görevlisi olup ambulansla olay yerine geldi. Mete’nin ayağına buz tuttular. İncinen bileğini sargı beziyle titizlikle sardılar. Mete’yi sedyeyle saha kenarına aldılar.\n\nElbette ortada bir buz, sargı bezi, sedye, ambulans falan yoktu. Siren sesini de Moni çıkarmıştı. Bu bir oyundu. Oyun oynamanın en keyifli yanı da sanki gerçekten varmış gibi yapmaktan geçiyordu. Bu, altın kuraldı.\n\nMete, gökyüzüne baktı.\n\n— İstersem şimdi Satürn gezegeninde bir hastaneye gidip orada da tedavi olabilirim, dedi.\n\nHayal etsenize; gezegenler arası yolculuk... Oyun oynamak muhteşem bir şey yahu!\n\nMete, saha kenarında keyifle gülümsüyordu. Oyun oynarken özgürdü çünkü. Çantasından bir gezegen çıkarabilir, ya da okyanusun derinliklerinde tam teşekküllü bir Denizaltı Hastanesine gidebilirdi.\n\nMete, Satürn Devlet Hastanesi’nde tedavi olmayı seçti. Satürn gezegeninde tıp çok gelişmiş olacak ki hemencecik iyileşiverdi. Tedavisini olduktan sonra maça geri döndü.\n\nMert ARIK\n(Kısaltılmıştır.)",
+      "grade": 5,
+      "subject": "turkce",
+      "topic": "okuma-anlama",
+      "quizThreshold": 60,
+      "showPassageDuringQuiz": true,
+      "image": "",
+      "questions": [
+        {
+          "id": "q5_topsuz_1",
+          "grade": 5,
+          "subject": "turkce",
+          "topic": "okuma-anlama",
+          "text": "Moni’nin “Oyunlarda bir sorun varsa bir öğrenme fırsatı da vardı.” sözü, onun hangi yönünü ortaya koyar?",
+          "options": [
+            "Oyunlarda hiç hata yapmadığını",
+            "Karşılaştığı sorunları çözülecek bir fırsat olarak gören yapısını",
+            "Yalnızca kazandığında mutlu olduğunu",
+            "Kurallara uymayı gereksiz bulduğunu"
+          ],
+          "correctIndex": 1,
+          "explanation": "Moni için sorun, pes etmeyi gerektiren değil çözüm üretmeyi gerektiren bir fırsattır; metin bu yönünü vurgular.",
+          "image": ""
+        },
+        {
+          "id": "q5_topsuz_2",
+          "grade": 5,
+          "subject": "turkce",
+          "topic": "okuma-anlama",
+          "text": "Top patladığında arkadaşları “Keşke patlamasaydı.” derken Moni ne yapmıştır?",
+          "options": [
+            "Maçı bitirip herkesi evine göndermiştir",
+            "Yeni bir top almak için kasabaya gitmiştir",
+            "Oyunun sürmesi için bir çözüm yolu düşünmüştür",
+            "Topu tamir etmeye çalışmıştır"
+          ],
+          "correctIndex": 2,
+          "explanation": "Diğerleri üzülüp yakınırken Moni “Ne yapabilirim acaba?” diye düşünerek çözüm arayışına girer.",
+          "image": ""
+        },
+        {
+          "id": "q5_topsuz_3",
+          "grade": 5,
+          "subject": "turkce",
+          "topic": "okuma-anlama",
+          "text": "Mete’nin yerde kıvranmasına bakıp gerçekten topa bastığını düşünenlerin olması, Mete hakkında ne gösterir?",
+          "options": [
+            "Gerçekten ağır yaralandığını",
+            "Moni’ye kızdığını",
+            "Oyunu sevmediğini",
+            "Oyunu çok inandırıcı biçimde oynadığını"
+          ],
+          "correctIndex": 3,
+          "explanation": "Metin, Mete’nin “o kadar inandırıcı” kıvrandığını ve Moni’nin bile şüpheye düştüğünü söyler.",
+          "image": ""
+        },
+        {
+          "id": "q5_topsuz_4",
+          "grade": 5,
+          "subject": "turkce",
+          "topic": "okuma-anlama",
+          "text": "Parçada geçen “Bu, altın kuraldı.” sözüyle oyunun hangi özelliği anlatılmak istenmiştir?",
+          "options": [
+            "Gerçekte olmayan şeyleri varmış gibi yapmanın oyunun özü olduğu",
+            "Her oyuncunun kendi malzemesini getirmesi",
+            "Sedyenin nasıl taşınacağı",
+            "Oyunda hiç kaybetmemek gerektiği"
+          ],
+          "correctIndex": 0,
+          "explanation": "Buz, sedye ve ambulans yoktu; hepsi hayal edildi. Metin bunu “altın kural” olarak adlandırır.",
+          "image": ""
+        },
+        {
+          "id": "q5_topsuz_5",
+          "grade": 5,
+          "subject": "turkce",
+          "topic": "okuma-anlama",
+          "text": "Mete’nin Satürn’deki hastaneyi seçmesi ve “Oyun oynarken özgürdü çünkü.” denmesi, hayal gücünün hangi yönünü gösterir?",
+          "options": [
+            "Yalnızca küçük çocuklarda bulunduğunu",
+            "Sınır tanımadığını ve kişiyi özgürleştirdiğini",
+            "Gerçeklerden tamamen kopmayı gerektirdiğini",
+            "Zamanla azalan bir yetenek olduğunu"
+          ],
+          "correctIndex": 1,
+          "explanation": "Mete bir çantadan gezegen çıkarır, uzay korsanlarıyla maceraya atılır; metin bunu özgürlük olarak açıklar.",
+          "image": ""
+        }
+      ]
+    },
+    {
+      "title": "Her Yüreğe Nakış Gerek",
+      "sourceLabel": "5. Sınıf Türkçe Ders Kitabı (MEB) — 3. Tema: Duygularımı Tanıyorum",
+      "body": "Ayşenur’ların evlerinin bahçesinde çok büyük bir ıhlamur ağacı vardı. Öylesine büyüktü ki, babası ve hatta dedesi bu ağacın ne zaman dikildiğini bilmediklerini söylerlerdi. Yazın sıcak günlerinde onun serin gölgesinde oturmak çok hoş oluyordu. Hele bir de ıhlamur ağacının çiçek açtığı günlere denk gelirse bambaşka bir güzellik ortaya çıkıyordu.\n\nBöyle bir yaz günü küçük Ayşenur ıhlamur ağacının altına oturmuştu. Elinde nakış işlenen bezin gerildiği bir kasnak vardı. Kullandığı iplikler kırmızı, mavi, sarı; hepsi birbirinden güzel renklerdi.\n\nAyşenur dalmış nakış işlerken dedesi içeri girdi. Onu ağacın altında görünce yanına gelip siyah saçlarından okşadı.\n\n— Benim küçücük kızım... Ne yapıyorsun bakayım?\n\nBunu söylerken yanına o da oturdu. Ayşenur bakışlarını dedesine çevirdi ve cıvıl cıvıl sesiyle cevap verdi:\n\n— Nakış işliyorum dedeciğim.\n\nDedesi de Ayşenur’a bakıyordu. Yaşına rağmen güçlü bakışları vardı.\n\n— Nakış işlemeyi nereden öğrendin? Senin yapabileceğin bir iş değil ki bu!\n\nAyşenur, dedesinin yüzüne bakmaya devam ediyordu.\n\n— Ablam öğretti dedeciğim. Zor bir şey değil ki...\n\nAyşenur ayağa kalkıp yaptığı nakışı dedesine gösterdi. Yüzünde, bir iş yapmanın verdiği sevinç ve mutluluk okunuyordu.\n\n— Bak dedeciğim! Yaptığım nakışlar bunlar.\n\nAyşenur bezi sehpanın üzerine bıraktı. Dedesi merakla işlemeye baktı.\n\n— Nedir bu yaptığın Ayşenur? Bana anlat bakalım.\n\nAyşenur, beze işlemekte olduğu tomurcukları gösterdi:\n\n— Bak bunlar gül tomurcukları dedeciğim! Henüz daha açmamışlar! Açacaklar!\n\n— Kendin gibi gül tomurcuğu!\n\nAyşenur, dedesinin anlattıklarını dinliyordu. Dedesinin sesi çok duygulu idi.\n\n— Ama daha başka güzel şeyler de işle! Bugün insanoğlu güzel duygulara muhtaç... Güzel hasletlere muhtaç... Elindeki beze bu tomurcukları, goncaları, gülleri işlerken o küçücük yüreğine de bazı güzel duygu ve hasletleri işle...\n\nAyşenur, dedesinin anlattıklarından etkilenmişti.\n\n— Ne gibi dedeciğim?\n\n— İnsanın muhtaç olduğu, hasret kaldığı pek çok güzel duygu ve haslet var kızım. Bunları da yüreğine işle. Geleceğin toplumunu sizler oluşturacaksınız.\n\nDedesi konuşmasını yavaşlattı. Yüzündeki gülümseme gitmiş, yerini derin bir düşünce almıştı. Ayşenur’un yüzüne daha bir yoğun baktı.\n\n— O güzel duygu ve hasletlerin bazılarını söyleyeyim sana kızım. Sevgi onların en başta gelenidir. İnsanları sevmek çok büyük bir meziyettir. Hatta hayvanları bile sevmek gerekir kızım. Bundan başka daha birçok güzel duygu vardır. Saygı, vefa, merhamet, yardımseverlik, alçak gönüllülük, etrafına ikramda bulunmak, hediyeleşmek bunlardan sadece birkaçıdır. Temizliği sevmek ve temiz olmak, çevrenin güzelliğini korumak duygusu da bunlar arasındadır. Bu duygularla bezenmiş yüreklere sahip bir toplum düşün çocuğum!\n\nAyşenur’un yüzünde imrenme duyguları belirmişti.\n\n— Böyle bir toplum ne kadar güzel olur değil mi dedeciğim?!\n\n— Elbette... Birbirini seven insanlardan meydana gelmiş bir toplum düşün. İnsan olarak bu duygu ve davranışlara ne kadar muhtaç olduğumuz ortadadır! Onun için bezine gül tomurcuğunu, gül goncasını, açılmış gülleri işlerken yüreğine de bu duyguları işle. Her çocuk yüreğine bu duyguları işlemeli. Çünkü her yüreğe nakış gerek.\n\nMustafa AKGÜN\n(Kısaltılmıştır.)",
+      "grade": 5,
+      "subject": "turkce",
+      "topic": "okuma-anlama",
+      "quizThreshold": 60,
+      "showPassageDuringQuiz": true,
+      "image": "",
+      "questions": [
+        {
+          "id": "q5_nakis_1",
+          "grade": 5,
+          "subject": "turkce",
+          "topic": "okuma-anlama",
+          "text": "Dedesi, Ayşenur’un nakış yaptığını öğrenince ona neden şaşırmıştır?",
+          "options": [
+            "Ayşenur’un bahçede oynamasını istediği için",
+            "Nakışın satılacak bir iş olduğunu düşündüğü için",
+            "Ayşenur’un elinde iğne tutamayacak kadar küçük olduğunu düşündüğü için",
+            "Nakış ipliklerinin çok pahalı olduğunu bildiği için"
+          ],
+          "correctIndex": 2,
+          "explanation": "Dede, “Senin yapabileceğin bir iş değil ki bu!” diyerek onu bu iş için küçük gördüğünü belli eder; Ayşenur ise bunu zor bulmadığını söyler.",
+          "image": ""
+        },
+        {
+          "id": "q5_nakis_2",
+          "grade": 5,
+          "subject": "turkce",
+          "topic": "okuma-anlama",
+          "text": "Ayşenur’un nakışı dedesine gösterirken yüzünde sevinç ve mutluluk olmasının nedeni nedir?",
+          "options": [
+            "Dedesinden hediye alacağını bilmesi",
+            "Bahçede yalnız kalmaktan hoşlanması",
+            "Nakışı ablasından gizli yapması",
+            "Yaptığı işi başarmış ve ortaya bir şey koymuş olması"
+          ],
+          "correctIndex": 3,
+          "explanation": "Metin, yüzünde “bir iş yapmanın verdiği sevinç ve mutluluk” bulunduğunu söyler; kaynağı başarmış olmaktır.",
+          "image": ""
+        },
+        {
+          "id": "q5_nakis_3",
+          "grade": 5,
+          "subject": "turkce",
+          "topic": "okuma-anlama",
+          "text": "Dedesinin, Ayşenur’a “Kendin gibi gül tomurcuğu!” demesiyle ne anlatılmak istenmiştir?",
+          "options": [
+            "Ayşenur’un da tıpkı bir tomurcuk gibi büyüyüp gelişeceğini",
+            "Gül tomurcuğunun çabuk solduğunu",
+            "Ayşenur’un işlediği naklı hatalı bulduğunu",
+            "Bahçedeki ağacın kesileceğini"
+          ],
+          "correctIndex": 0,
+          "explanation": "Dede, torununu henüz açmamış bir tomurcuğa benzetir; ikisi de büyüyüp güzelleşecektir.",
+          "image": ""
+        },
+        {
+          "id": "q5_nakis_4",
+          "grade": 5,
+          "subject": "turkce",
+          "topic": "okuma-anlama",
+          "text": "Dedesinin yüzündeki gülümsemenin yerini “derin bir düşünce”ye bırakması, onun hangi duygusunu gösterir?",
+          "options": [
+            "Ayşenur’a kızdığını",
+            "Anlatacağı konunun önemini derinden hissettiğini",
+            "Nakıştan sıkıldığını",
+            "Bahçede yalnız kalmak istediğini"
+          ],
+          "correctIndex": 1,
+          "explanation": "Dede, insanların güzel duygulara olan ihtiyacını anlatmaya geçerken ciddileşir; bu, konuya verdiği önemi gösterir.",
+          "image": ""
+        },
+        {
+          "id": "q5_nakis_5",
+          "grade": 5,
+          "subject": "turkce",
+          "topic": "okuma-anlama",
+          "text": "Parçanın ana fikri aşağıdakilerden hangisidir?",
+          "options": [
+            "Elde edilen bir beceriyi başkalarına öğretmek gerekir",
+            "Yaşlılar torunlarına her konuda öğüt vermelidir",
+            "İnsanın yalnızca yaptığı işi değil, yüreğini de güzel duygularla işlemesi gerekir",
+            "Nakış gibi el işleri sabır isteyen zor uğraşlardır"
+          ],
+          "correctIndex": 2,
+          "explanation": "Dede, bez işlenirken sevgi, saygı, merhamet gibi duyguların da yüreğe işlenmesini ister; başlık da bunu özetler.",
+          "image": ""
+        }
+      ]
+    },
+    {
+      "title": "Gazi Mustafa Kemal ve Sığırtmaç Mustafa",
+      "sourceLabel": "5. Sınıf Türkçe Ders Kitabı (MEB) — 2. Tema: Atatürk’ü Tanımak",
+      "body": "Yıl 1929’du. Güzel bir eylül sabahında Mustafa erkenden uyandı. Sığırları otlatması gerekiyordu. Hemen elini yüzünü yıkayıp iş kıyafetlerini giydi. Bir parça kuru ekmekle açlığını giderdikten sonra yola koyuldu. Sığırları önde, kendisi arkada, dağa doğru ilerliyordu. Gökyüzünde pırıl pırıl bir güneş, yeryüzünde yemyeşil bir doğa vardı. Ama Mustafa, bu güzellikleri fark edemeyecek kadar yorgundu. Çünkü o hastaydı. Sıtma olmuştu. Üstelik bugün kendini her zamankinden daha halsiz hissediyordu. Tek isteği bir an önce sığırlarını otlatıp evine dönmekti.\n\nBu arada Gazi Mustafa Kemal Yalova’daydı. Çalışmalarını bitirdikten sonra yöreyi daha iyi tanımak için kurmaylarıyla gezintiye çıkmıştı. Hava kararınca çiftliğe dönmek üzere yola koyuldular. Fakat hiçbir yol onları çiftliğe götürmüyordu; kaybolmuşlardı. Gazi ve yanındakiler farklı bir yolu denemeye karar verip atlarını oraya sürdüler.\n\nDerken atlılar Mustafa’nın yanına ulaştılar. Hepsi iyi giyimli ve önemli insanlara benziyordu. En öndeki atlı Mustafa Kemal’di. Gazi atından inip Mustafa’nın yanına yaklaşarak, “Çocuğum, çiftliğe nasıl gidilir?” diye sordu.\n\nMustafa, yolu elindeki sopayla göstererek “Yanlış yoldan gelmişsiniz. Çiftliğe şu gördüğünüz yoldan gidilir.” dedi.\n\nGazi, çocuğa teşekkür ettikten sonra sevgiyle, “Senin adın ne?” diye sordu.\n\n“Mustafa!” dedi çocuk. Sonra, “Ama burada bana Sığırtmaç Mustafa derler.” diye ekledi.\n\nGazi, “Mustafa” ismini duyunca gülümsedi. Fakir olduğu her hâlinden belli olan çocuğa sevgi ve şefkatle bakıyordu. Bu arada onun sararmış benzi ve şiş karnı dikkatini çekmişti. Çocuğun hasta olabileceğini düşündü.\n\n“Öyle mi? Benim adım da Mustafa. Demek ki seninle adaşız. Ama adımın yanında bir de Kemal var.” dedi. Sonra çocuğun omzuna sevgiyle dokunup, “Gazi Mustafa Kemal’i tanır mısın?” diye sordu.\n\nSığırtmaç Mustafa, gün boyu dağlarda sığırlarını otlatan gariban bir çocuktu. Gazi’nin ismini büyüklerinden duymuştu ama kendisini nereden bilebilirdi ki?\n\nGazi, sohbet ederken çocuğun her hareketini dikkatle inceliyordu. Konuşmasını, davranışını ve samimiyetini çok beğenmişti. Öyle ki onunla karşılaştığı için yolu kaybetmesine bile seviniyordu. Amacı onu daha iyi tanıyarak yardımcı olmaktı.\n\n“Sığırtmaçlık yaparak ayda ne kadar para kazanıyorsun?”\n\n“Üç lira.”\n\n“Aylık üç lira olunca yıllık kazancın ne oluyor?”\n\nSekiz yaşındaki Sığırtmaç Mustafa bir an durakladı. Okuryazarlığı olmadığı için nasıl hesaplayacağını şaşırmıştı. O anda Mustafa Kemal, çocuğun okuma yazma bilmediğini anladı. Yanındakilerin yardımıyla çocuk, yıllık kazancının 36 lira olduğunu hesaplayıp söyledi.\n\nGazi, çocuğa sevgiyle gülümseyerek yaklaştı ve cebinden bir miktar para çıkarttı. Çocuğun bir yıllık ücreti olan 36 lirayı hesaplayıp ona uzattı.\n\nSığırtmaç Mustafa ilk kez böyle bir şeyle karşılaşıyordu. Daha önce kimse onunla böyle içten ilgilenmemişti. Çok şaşkın ve mutluydu ama hak etmediği parayı alamazdı. Almadı da. Mustafa Kemal’in “Neden almıyorsun?” sorusu üzerine, “Bu para çok. Üstelik nereden aldın diye bana hesap sorarlar.” dedi.\n\nGazi, “Bu parayı ben sana bize yol gösterdiğin için veriyorum. Alacaksın!” deyince çocuk düşündü. Sonra, “Yol göstermenin bedeli bu kadar çok olamaz. Fakat yanımda bir miktar cevizim var. Eğer siz onu alırsanız ben de cevizin karşılığı olarak bu parayı almayı kabul ederim.” dedi.\n\nBunun üzerine Mustafa Kemal, cevizleri almak zorunda kaldı. Çocukla vedalaşıp atını çiftliğe doğru sürerken çocuğun bu onurlu davranışından etkilenmiş bir hâli vardı.\n\nGazi, çiftliğe gelmişti ama aklı Sığırtmaç Mustafa’da kalmıştı. Kısa sürede onunla ilgili çok şey öğrendi ve ertesi gün çocuğu yanına çağırtmaya karar verdi.\n\nBu arada Sığırtmaç Mustafa mutluluktan sabaha kadar uyuyamamıştı. Gazi Mustafa Kemal tarafından çağırıldığını öğrenince küçücük kalbi duracak gibi oldu. Çocukcağız güzel bir düş gördüğünü düşünüyor, uyanmak istemiyordu. İçinde, hayatının birden değişeceği hissi vardı. Bayramlık giysileri içinde çiftliğin kapısını çaldı.\n\nGazi onu bekliyordu; çocuğu sevgiyle karşıladı. Bir süre sohbet ettiler. Daha sonra Mustafa Kemal, çocuğun bir an önce tedavi edilmesi için onu Şişli’deki Himaye-i Etfal Hastanesi’ne yolladı. Hemen tedaviye alındı.\n\nUzun bir tedavi sonrasında sağlığına kavuşan Sığırtmaç Mustafa için güzel günler başladı. Yıllardır özlemini çektiği okuma yazma isteğini Mustafa Kemal yerine getirecekti. Ailesinin onayını aldıktan sonra onu Beşiktaş’taki 19. İlk Mektep’e yolladı. Mustafa başarılı bir öğrenciydi. Sonra Fevziye Lisesi ve Kuleli Askeri Lisesi’nde okudu. Kara Harp Okulu’ndan Tankçı Teğmen rütbesiyle mezun olup Türk Silahlı Kuvvetleri’ne katıldı. Orada başarılı ve mutlu bir yaşam sürdü...\n\nHikmet ULUSOY\n(Kısaltılmıştır.)",
+      "grade": 5,
+      "subject": "turkce",
+      "topic": "okuma-anlama",
+      "quizThreshold": 60,
+      "showPassageDuringQuiz": true,
+      "image": "",
+      "questions": [
+        {
+          "id": "q5_sigirtmac_1",
+          "grade": 5,
+          "subject": "turkce",
+          "topic": "okuma-anlama",
+          "text": "Gazi Mustafa Kemal, çiftliğe giden yolu kaybetmesine neden sevinmiştir?",
+          "options": [
+            "Yol boyunca dinlenme fırsatı bulduğu için",
+            "Yanındakilerle baş başa kalmak istediği için",
+            "Çiftliğe erken dönmek istemediği için",
+            "Karşılaştığı çocuğu tanıyıp ona yardım edebileceğini düşündüğü için"
+          ],
+          "correctIndex": 3,
+          "explanation": "Metin, “onunla karşılaştığı için çiftliğe giden yolu kaybetmesine bile seviniyordu” der; amacı çocuğa yardımcı olmaktı.",
+          "image": ""
+        },
+        {
+          "id": "q5_sigirtmac_2",
+          "grade": 5,
+          "subject": "turkce",
+          "topic": "okuma-anlama",
+          "text": "Mustafa Kemal, Sığırtmaç Mustafa’nın okuma yazma bilmediğini nasıl anlamıştır?",
+          "options": [
+            "Çocuk, yıllık kazancını hesaplayamayıp durakladığı için",
+            "Çocuk yolu gösteremediği için",
+            "Çocuk ona adını söyleyemediği için",
+            "Çocuk cevizlerini sayamadığı için"
+          ],
+          "correctIndex": 0,
+          "explanation": "Gazi, “yıllık kazancın ne oluyor?” diye sorunca çocuk duraklar; Gazi tam o anda okuryazar olmadığını anlar.",
+          "image": ""
+        },
+        {
+          "id": "q5_sigirtmac_3",
+          "grade": 5,
+          "subject": "turkce",
+          "topic": "okuma-anlama",
+          "text": "Sığırtmaç Mustafa’nın parayı doğrudan almayıp cevizini karşılık olarak önermesi, onun hangi özelliğini gösterir?",
+          "options": [
+            "Parayı gereksiz bulduğunu",
+            "Hak etmediği şeyi almamaya özen gösteren onurlu bir çocuk olduğunu",
+            "Gazi’ye güvenmediğini",
+            "Cevizleri satmak istediğini"
+          ],
+          "correctIndex": 1,
+          "explanation": "“Hak etmediği parayı alamazdı.” cümlesi ve ceviz önerisi, onun onurlu tutumunu ortaya koyar.",
+          "image": ""
+        },
+        {
+          "id": "q5_sigirtmac_4",
+          "grade": 5,
+          "subject": "turkce",
+          "topic": "okuma-anlama",
+          "text": "Gazi’nin çocuğun “sararmış benzi ve şiş karnı”nı fark etmesi, metnin devamında neye yol açmıştır?",
+          "options": [
+            "Gazi’nin çiftlikten ayrılmasına",
+            "Çocuğun sığırtmaçlık yapmaya devam etmesine",
+            "Çocuğun tedavi ettirilmesine ve okula gönderilmesine",
+            "Çocuğun ailesinin köyü terk etmesine"
+          ],
+          "correctIndex": 2,
+          "explanation": "Gazi, çocuğun hasta olabileceğini düşünür; sonrasında onu hastaneye yollatır ve okumasını sağlar.",
+          "image": ""
+        },
+        {
+          "id": "q5_sigirtmac_5",
+          "grade": 5,
+          "subject": "turkce",
+          "topic": "okuma-anlama",
+          "text": "Parçadan çıkarılabilecek en kapsamlı yargı hangisidir?",
+          "options": [
+            "Sığırtmaçlık yapan çocukların eğitim alması çok zordur",
+            "Hasta çocuklar hiçbir zaman çalışmamalıdır",
+            "Yol sormak için doğru kişiyi seçmek gerekir",
+            "Küçük bir karşılaşma bir çocuğun hayatını tümüyle değiştirebilir"
+          ],
+          "correctIndex": 3,
+          "explanation": "Bir yol sorusuyla başlayan karşılaşma; tedavi, okul ve yeni bir meslek hayatıyla sonuçlanır — hayatı bütünüyle değişir.",
+          "image": ""
+        }
+      ]
+    },
+    {
+      "title": "Bitkiler ve Fotosentez",
+      "sourceLabel": "turkceciyiz.com — Bilal Kış | 5. Sınıf Maarif Modeli",
+      "body": "Bitkiler, güneşten aldıkları enerji sayesinde karbondioksit ve suyu birleştirerek kendi besinlerini üretir. Bu büyüleyici süreç sırasında atmosfere yaşam kaynağımız olan oksijeni salarlar. Ormanların dünyamızın akciğerleri olarak adlandırılmasının temel sebebi bitkilerin gerçekleştirdiği bu hayati kimyasal döngüdür.",
+      "grade": 5,
+      "subject": "turkce",
+      "topic": "yardimci-dusunce",
+      "quizThreshold": 60,
+      "showPassageDuringQuiz": true,
+      "image": "",
+      "questions": [
+        {
+          "id": "q_mv42rlmj_29iqnys",
+          "grade": 5,
+          "subject": "turkce",
+          "topic": "yardimci-dusunce",
+          "text": "Aşağıdaki yargılardan hangisine bu metinden ulaşılamaz?",
+          "options": [
+            "Üretilen oksijenin çoğu ormanlar tarafından tüketilmektedir.",
+            "Bitkiler, dışarıdan besin almadan kendi ihtiyaçlarını karşılayabilirler.",
+            "Bitkiler atmosfere insanların yaşam kaynağı olan oksijeni sağlar."
+          ],
+          "correctIndex": 0,
+          "explanation": "",
+          "image": ""
+        }
+      ]
+    },
+    {
+      "title": "Kutup Ayıları",
+      "sourceLabel": "turkceciyiz.com — Bilal Kış | 5. Sınıf Maarif Modeli",
+      "body": "Kutup ayıları, dondurucu soğuklarda hayatta kalabilmek için benzersiz bir fiziksel yapıya sahiptir. Beyaz görünen kürklerinin altındaki siyah deri, güneş ışığını emerek ısı kaybını önler. Ayrıca kalın yağ tabakası, onları hem soğuktan korur hem de yiyecek bulamadıkları dönemlerde enerji kaynağı sağlar.",
+      "grade": 5,
+      "subject": "turkce",
+      "topic": "yardimci-dusunce",
+      "quizThreshold": 60,
+      "showPassageDuringQuiz": true,
+      "image": "",
+      "questions": [
+        {
+          "id": "q_mv42rlmj_2cy4lxx",
+          "grade": 5,
+          "subject": "turkce",
+          "topic": "yardimci-dusunce",
+          "text": "Aşağıdaki yargılardan hangisine bu metinden ulaşılamaz?",
+          "options": [
+            "Kutup ayılarının fiziksel özellikleri, yaşadıkları iklimle tam bir uyum içindedir.",
+            "Kürk rengi ve deri yapısı, vücut ısısını korumada stratejik bir rol oynar.",
+            "Kutup ayıları, beyaz derileri nedeniyle sıcak iklimde yaşayamaz."
+          ],
+          "correctIndex": 2,
+          "explanation": "",
+          "image": ""
+        }
+      ]
+    },
+    {
+      "title": "Arılar ve Tozlaşma",
+      "sourceLabel": "turkceciyiz.com — Bilal Kış | 5. Sınıf Maarif Modeli",
+      "body": "Arılar, çiçekler arasında polen taşıyarak bitkilerin çoğalmasını ve tarımsal verimliliğin artmasını sağlayan en önemli canlılardır. Dünyadaki gıda üretiminin büyük bir kısmı arıların bu tozlaşma faaliyetine bağlıdır. Onların yokluğu, sadece bal üretimini değil tüm dünya gıda zincirini büyük bir tehlikeye sokar.",
+      "grade": 5,
+      "subject": "turkce",
+      "topic": "yardimci-dusunce",
+      "quizThreshold": 60,
+      "showPassageDuringQuiz": true,
+      "image": "",
+      "questions": [
+        {
+          "id": "q_mv42rlmj_2fvejh7",
+          "grade": 5,
+          "subject": "turkce",
+          "topic": "yardimci-dusunce",
+          "text": "Aşağıdaki yargılardan hangisine bu metinden ulaşılamaz?",
+          "options": [
+            "Arılar, tarımsal süreklilik ve biyoçeşitlilik için vazgeçilmez bir unsurdur.",
+            "Arılar dışındaki bazı hayvanlar da polen taşıyarak bitkilerin çoğalmasını sağlar.",
+            "Doğadaki pek çok bitkinin neslini devam ettirmesi arılara bağlıdır."
+          ],
+          "correctIndex": 1,
+          "explanation": "",
+          "image": ""
+        }
+      ]
+    },
+    {
+      "title": "Geri Dönüşüm",
+      "sourceLabel": "turkceciyiz.com — Bilal Kış | 5. Sınıf Maarif Modeli",
+      "body": "Plastik ve cam gibi atıkların doğada yok olması yüzyıllar sürmektedir. Bu maddelerin geri dönüşüm yoluyla yeniden ekonomiye kazandırılması hem doğal kaynakların hızla tükenmesini engeller hem de çevre kirliliğini azaltır. Bilinçli bir geri dönüşüm politikası, geleceğe daha yaşanabilir bir dünya bırakmanın anahtarıdır.",
+      "grade": 5,
+      "subject": "turkce",
+      "topic": "yardimci-dusunce",
+      "quizThreshold": 60,
+      "showPassageDuringQuiz": true,
+      "image": "",
+      "questions": [
+        {
+          "id": "q_mv42rlmj_2i20g0e",
+          "grade": 5,
+          "subject": "turkce",
+          "topic": "yardimci-dusunce",
+          "text": "Aşağıdaki yargılardan hangisine bu metinden ulaşılamaz?",
+          "options": [
+            "Atıkların geri dönüştürülmesi, hammadde kaynaklarının tasarruflu kullanılmasını sağlar.",
+            "Geri dönüşüm, çevre kirliliğiyle mücadelede en etkili yöntemlerden biridir.",
+            "Doğada yok olma süresi en çok olan maddeler plastik ve cam atıklardır."
+          ],
+          "correctIndex": 2,
+          "explanation": "",
+          "image": ""
+        }
+      ]
+    },
+    {
+      "title": "Uzay ve Ses",
+      "sourceLabel": "turkceciyiz.com — Bilal Kış | 5. Sınıf Maarif Modeli",
+      "body": "Dünyada ses dalgalarının iletilmesi için hava gibi bir ortama ihtiyaç vardır. Ancak uzay boşluğunda hava molekülleri bulunmadığı için ses dalgaları yayılmaz. Bu nedenle yıldız patlamaları bile uzayda mutlak bir sessizlik içinde gerçekleşir. Astronotlar birbirleriyle haberleşmek için radyo dalgalarını kullanmak zorundadır.",
+      "grade": 5,
+      "subject": "turkce",
+      "topic": "yardimci-dusunce",
+      "quizThreshold": 60,
+      "showPassageDuringQuiz": true,
+      "image": "",
+      "questions": [
+        {
+          "id": "q_mv42rlmk_2lggzrq",
+          "grade": 5,
+          "subject": "turkce",
+          "topic": "yardimci-dusunce",
+          "text": "Aşağıdaki yargılardan hangisine bu metinden ulaşılamaz?",
+          "options": [
+            "İnsanların uzaydaki yıldız patlamalarıyla ilgili bilgisi yoktur.",
+            "Hava, dünyadaki ses dalgalarının iletilmesini sağlar.",
+            "Uzaydaki iletişim, radyo dalgaları kullanılarak yapılır."
+          ],
+          "correctIndex": 0,
+          "explanation": "",
+          "image": ""
+        }
+      ]
+    },
+    {
+      "title": "Göbeklitepe",
+      "sourceLabel": "turkceciyiz.com — Bilal Kış | 5. Sınıf Maarif Modeli",
+      "body": "Göbeklitepe, tarihin bilinen en eski tapınak kompleksidir. Yaklaşık 12 bin yıl öncesine dayanan bu yapı, yerleşik hayata geçilmeden önce de insanların büyük inanç sistemlerine sahip olduğunu kanıtlamıştır. Bu keşif, insanlık tarihine dair bildiğimiz pek çok teorinin yeniden yazılmasına yol açmıştır.",
+      "grade": 5,
+      "subject": "turkce",
+      "topic": "yardimci-dusunce",
+      "quizThreshold": 60,
+      "showPassageDuringQuiz": true,
+      "image": "",
+      "questions": [
+        {
+          "id": "q_mv42rlmk_2orn87w",
+          "grade": 5,
+          "subject": "turkce",
+          "topic": "yardimci-dusunce",
+          "text": "Aşağıdaki yargılardan hangisine bu metinden ulaşılamaz?",
+          "options": [
+            "Göbeklitepe, eski insanların inanç sahibi olduğuyla ilgili ipuçları verir.",
+            "İnsanlar Göbeklitepe sayesinde yerleşik hayata geçmiştir.",
+            "Göbeklitepe, tarihteki bilinen en eski tapınaktır."
+          ],
+          "correctIndex": 1,
+          "explanation": "",
+          "image": ""
+        }
+      ]
+    },
+    {
+      "title": "Okyanusların Derinlikleri",
+      "sourceLabel": "turkceciyiz.com — Bilal Kış | 5. Sınıf Maarif Modeli",
+      "body": "Dünya yüzeyinin yüzde yetmişinden fazlasını kaplayan okyanusların derinlikleri, hâlâ gizemini korumaktadır. Işığın ulaşamadığı karanlık bölgelerde aşırı basınca ve soğuğa dayanıklı çok ilginç canlı türleri yaşamaktadır. Bilim insanları, Mars yüzeyi hakkında okyanus tabanlarından daha çok bilgiye sahip olduğumuzu söyler.",
+      "grade": 5,
+      "subject": "turkce",
+      "topic": "yardimci-dusunce",
+      "quizThreshold": 60,
+      "showPassageDuringQuiz": true,
+      "image": "",
+      "questions": [
+        {
+          "id": "q_mv42rlmk_2rs2bor",
+          "grade": 5,
+          "subject": "turkce",
+          "topic": "yardimci-dusunce",
+          "text": "Aşağıdaki yargılardan hangisine bu metinden ulaşılamaz?",
+          "options": [
+            "Okyanus tabanları hakkındaki bilgimiz, Mars yüzeyi hakkındaki bilgimizden azdır.",
+            "Okyanusların karanlık bölgelerinde zor koşullara dayanıklı canlılar yaşar.",
+            "Okyanusların derinliklerindeki bütün canlı türleri keşfedilmiştir."
+          ],
+          "correctIndex": 2,
+          "explanation": "",
+          "image": ""
+        }
+      ]
+    },
+    {
+      "title": "Kitap Okumanın Faydaları",
+      "sourceLabel": "turkceciyiz.com — Bilal Kış | 5. Sınıf Maarif Modeli",
+      "body": "Düzenli kitap okumak, beyindeki nöronlar arasındaki bağları güçlendirerek zihinsel kapasiteyi artırır. Okuma sırasında hayal gücü aktifleşir, kelime dağarcığı gelişir ve empati yeteneği güçlenir. Bilimsel araştırmalar, kitap okuyan bireylerin stres seviyelerinin düştüğünü göstermektedir.",
+      "grade": 5,
+      "subject": "turkce",
+      "topic": "yardimci-dusunce",
+      "quizThreshold": 60,
+      "showPassageDuringQuiz": true,
+      "image": "",
+      "questions": [
+        {
+          "id": "q_mv42rlmk_2u5s4bk",
+          "grade": 5,
+          "subject": "turkce",
+          "topic": "yardimci-dusunce",
+          "text": "Aşağıdaki yargılardan hangisine bu metinden ulaşılamaz?",
+          "options": [
+            "Kitap okumak kelime dağarcığını geliştirir.",
+            "Kitap okumak yalnızca çocukların zihinsel kapasitesini artırır.",
+            "Kitap okumak stres seviyesini düşürür."
+          ],
+          "correctIndex": 1,
+          "explanation": "",
+          "image": ""
+        }
+      ]
+    },
+    {
+      "title": "Yenilenebilir Enerji Kaynakları",
+      "sourceLabel": "turkceciyiz.com — Bilal Kış | 5. Sınıf Maarif Modeli",
+      "body": "Güneş, rüzgâr ve jeotermal gibi enerji kaynakları doğada sürekli var olan ve tükenmeyen kaynaklardır. Fosil yakıtların aksine bu kaynaklar karbondioksit salınımı yapmadığı için küresel ısınmayla mücadelede hayati önem taşır. Ülkelerin enerji bağımsızlığını kazanması için yenilenebilir enerji yatırımlarına ağırlık vermesi stratejik bir önem taşır.",
+      "grade": 5,
+      "subject": "turkce",
+      "topic": "yardimci-dusunce",
+      "quizThreshold": 60,
+      "showPassageDuringQuiz": true,
+      "image": "",
+      "questions": [
+        {
+          "id": "q_mv42rlmk_2xxqz1m",
+          "grade": 5,
+          "subject": "turkce",
+          "topic": "yardimci-dusunce",
+          "text": "Aşağıdaki yargılardan hangisine bu metinden ulaşılamaz?",
+          "options": [
+            "Fosil yakıtlar, ülkelerin enerji bağımsızlığını kazanmasını sağlar.",
+            "Güneş ve rüzgâr, doğada tükenmeyen enerji kaynaklarıdır.",
+            "Yenilenebilir enerji kaynakları karbondioksit salınımı yapmaz."
+          ],
+          "correctIndex": 0,
+          "explanation": "",
+          "image": ""
+        }
+      ]
+    },
+    {
+      "title": "Karıncalar",
+      "sourceLabel": "turkceciyiz.com — Bilal Kış | 5. Sınıf Maarif Modeli",
+      "body": "Karıncalar, muazzam bir iş birliği ve hiyerarşi içinde yaşayan sosyal böceklerdir. Her kolonide kraliçe, işçi ve asker karıncaların görevleri kesin çizgilerle belirlenmiştir. Kimyasal izler bırakarak haberleşen bu canlılar, kendi ağırlıklarının elli katını taşıyabilir. Bu yapıları, onları doğanın en başarılı topluluklarından biri yapar.",
+      "grade": 5,
+      "subject": "turkce",
+      "topic": "yardimci-dusunce",
+      "quizThreshold": 60,
+      "showPassageDuringQuiz": true,
+      "image": "",
+      "questions": [
+        {
+          "id": "q_mv42rlmk_30jufk4",
+          "grade": 5,
+          "subject": "turkce",
+          "topic": "yardimci-dusunce",
+          "text": "Aşağıdaki yargılardan hangisine bu metinden ulaşılamaz?",
+          "options": [
+            "Karıncalar kendi ağırlıklarının elli katını taşıyabilir.",
+            "Karıncalar kimyasal izler bırakarak haberleşir.",
+            "Karınca kolonilerinde görev paylaşımı ve hiyerarşi bulunmaz."
+          ],
+          "correctIndex": 2,
+          "explanation": "",
+          "image": ""
+        }
+      ]
+    },
+    {
+      "title": "Mercan Resifleri",
+      "sourceLabel": "turkceciyiz.com — Bilal Kış | 5. Sınıf Maarif Modeli",
+      "body": "Denizin yağmur ormanları olarak bilinen mercan resifleri, okyanus yaşamının dörtte birine ev sahipliği yapar. Bu renkli yapılar, kıyıları fırtınaların ve dalgaların yıkıcı etkisinden koruyan doğal bir bariyer görevi görür. Ancak küresel ısınma nedeniyle artan su sıcaklıkları, bu ekosistemlerin yok olmasına yol açmaktadır.",
+      "grade": 5,
+      "subject": "turkce",
+      "topic": "yardimci-dusunce",
+      "quizThreshold": 60,
+      "showPassageDuringQuiz": true,
+      "image": "",
+      "questions": [
+        {
+          "id": "q_mv42rlmk_33mf5da",
+          "grade": 5,
+          "subject": "turkce",
+          "topic": "yardimci-dusunce",
+          "text": "Aşağıdaki yargılardan hangisine bu metinden ulaşılamaz?",
+          "options": [
+            "Mercan resifleri küresel ısınmadan hiç etkilenmez.",
+            "Mercan resifleri okyanus yaşamının dörtte birine ev sahipliği yapar.",
+            "Mercan resifleri kıyıları dalgaların etkisinden korur."
+          ],
+          "correctIndex": 0,
+          "explanation": "",
+          "image": ""
+        }
+      ]
+    },
+    {
+      "title": "Yapay Zekâ",
+      "sourceLabel": "turkceciyiz.com — Bilal Kış | 5. Sınıf Maarif Modeli",
+      "body": "Yapay zekâ teknolojisi, insan zekâsını taklit ederek karmaşık verileri saniyeler içinde analiz edebilen sistemler bütünüdür. Günümüzde tıptan eğitime, sanattan sanayiye kadar pek çok alanda hata payını en aza indirmek için kullanılmaktadır. Bu teknolojinin doğru yönetilmesi, insanlığın karşılaştığı küresel sorunların çözümünde hız kazandırıcı bir rol üstlenmektedir.",
+      "grade": 5,
+      "subject": "turkce",
+      "topic": "yardimci-dusunce",
+      "quizThreshold": 60,
+      "showPassageDuringQuiz": true,
+      "image": "",
+      "questions": [
+        {
+          "id": "q_mv42rlmk_36m50u9",
+          "grade": 5,
+          "subject": "turkce",
+          "topic": "yardimci-dusunce",
+          "text": "Aşağıdaki yargılardan hangisine bu metinden ulaşılamaz?",
+          "options": [
+            "Yapay zekâ, karmaşık verileri saniyeler içinde analiz edebilir.",
+            "Yapay zekâ, insanların yerini tamamen almıştır.",
+            "Yapay zekâ, birçok alanda hata payını azaltmak için kullanılır."
+          ],
+          "correctIndex": 1,
+          "explanation": "",
+          "image": ""
+        }
+      ]
+    },
+    {
+      "title": "Göçmen Kuşlar",
+      "sourceLabel": "turkceciyiz.com — Bilal Kış | 5. Sınıf Maarif Modeli",
+      "body": "Göçmen kuşlar, her yıl binlerce kilometrelik mesafeleri hiçbir harita kullanmadan geçerek dünyanın manyetik alanından faydalanır. Yıldızların konumunu ve güneşin açısı gibi doğal ipuçlarını takip ederek yollarını şaşırmadan aynı noktaya geri dönebilir. Bu biyolojik pusula sistemi, doğanın en karmaşık ve kusursuz mühendislik harikalarından biri kabul edilir.",
+      "grade": 5,
+      "subject": "turkce",
+      "topic": "yardimci-dusunce",
+      "quizThreshold": 60,
+      "showPassageDuringQuiz": true,
+      "image": "",
+      "questions": [
+        {
+          "id": "q_mv42rlmk_395dn1w",
+          "grade": 5,
+          "subject": "turkce",
+          "topic": "yardimci-dusunce",
+          "text": "Aşağıdaki yargılardan hangisine bu metinden ulaşılamaz?",
+          "options": [
+            "Göçmen kuşlar dünyanın manyetik alanından faydalanır.",
+            "Göçmen kuşlar, yıldızların konumunu ve güneşin açısını kullanır.",
+            "Göçmen kuşlar yollarını bulmak için harita kullanır."
+          ],
+          "correctIndex": 2,
+          "explanation": "",
+          "image": ""
+        }
+      ]
+    }
+  ]
+}

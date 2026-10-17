@@ -60,8 +60,8 @@ export default function TestEditorScreen({ id }) {
   )
 
   const topicsInBank = useMemo(
-    () => topicsForSubject(active?.subject || 'matematik', bankQuestions.map((q) => q.topic)),
-    [active?.subject, bankQuestions]
+    () => topicsForSubject(active?.subject || 'matematik', bankQuestions.map((q) => q.topic), active?.grade),
+    [active?.subject, active?.grade, bankQuestions]
   )
 
   const filteredBank = bankQuestions.filter((q) => !bankFilter || q.topic === bankFilter)

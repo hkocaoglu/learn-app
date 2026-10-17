@@ -8,10 +8,11 @@ import {
   fetchTeacherReadings,
   updateReading
 } from '../../cloud/readings.js'
-import { GRADES, SUBJECTS, gradeLabel, subjectLabel, formatDate, formatSeconds, validateReading, exportPassage, fileToImageData, displayModeLabel, normalizeSecondsPerWord, RSVP_DEFAULT_SECONDS_PER_WORD, RSVP_MAX_SECONDS_PER_WORD, RSVP_MIN_SECONDS_PER_WORD, RSVP_QUESTION_COUNT } from '../../domain/model.js'
+import { GRADES, SUBJECTS, subjectsForGrade, gradeLabel, subjectLabel, formatDate, formatSeconds, validateReading, exportPassage, fileToImageData, displayModeLabel, normalizeSecondsPerWord, RSVP_DEFAULT_SECONDS_PER_WORD, RSVP_MAX_SECONDS_PER_WORD, RSVP_MIN_SECONDS_PER_WORD, RSVP_QUESTION_COUNT } from '../../domain/model.js'
 import { buildRsvpPlan, describeRsvpPlan, formatSecondsPerWord, formatWordSpeed } from '../../domain/rsvp.js'
 import { downloadJSON } from '../../db/storage.js'
 import { createPassage, deletePassage, fetchTeacherPassages } from '../../cloud/passages.js'
+import { fetchStudents } from '../../cloud/students.js'
 import QuestionForm from '../components/QuestionForm.jsx'
 import PassageImportDialog from '../components/PassageImportDialog.jsx'
 
@@ -51,6 +52,7 @@ export default function ReadingsScreen() {
   const [readings, setReadings] = useState([])
   const [form, setForm] = useState(initialForm)
   const [passages, setPassages] = useState([])
+  const [studentsById, setStudentsById] = useState({})
   const [showImport, setShowImport] = useState(false)
   const [questions, setQuestions] = useState([])
   const [addingQuestion, setAddingQuestion] = useState(false)
@@ -68,10 +70,11 @@ export default function ReadingsScreen() {
   const load = useCallback(async () => {
     setLoading(true)
     setError('')
-    const [classOutcome, readingOutcome, passageOutcome] = await Promise.allSettled([
+    const [classOutcome, readingOutcome, passageOutcome, studentOutcome] = await Promise.allSettled([
       fetchClasses(),
       fetchTeacherReadings(),
-      fetchTeacherPassages().catch(() => [])
+      fetchTeacherPassages().catch(() => []),
+      fetchStudents()
     ])
     if (classOutcome.status === 'fulfilled') {
       setClasses(classOutcome.value || [])
@@ -88,6 +91,13 @@ export default function ReadingsScreen() {
     if (passageOutcome.status === 'fulfilled') {
       setPassages(passageOutcome.value.passages || [])
       setMissingPassageColumns(passageOutcome.value.missingColumns || [])
+    }
+    if (studentOutcome.status === 'fulfilled') {
+      const map = {}
+      ;(studentOutcome.value || []).forEach((student) => {
+        map[student.id] = student
+      })
+      setStudentsById(map)
     }
     const firstError =
       classOutcome.status === 'rejected'
@@ -555,7 +565,7 @@ export default function ReadingsScreen() {
                 value={form.subject}
                 onChange={(event) => setForm((current) => ({ ...current, subject: event.target.value }))}
               >
-                {SUBJECTS.map((s) => (
+                {subjectsForGrade(form.grade).map((s) => (
                   <option key={s} value={s}>
                     {subjectLabel(s)}
                   </option>
@@ -856,7 +866,7 @@ export default function ReadingsScreen() {
                   {openDetailId === reading.id && (
                     <tr>
                       <td colSpan={6}>
-                        <ReadingAttemptTable rows={attemptsById[reading.id] || []} />
+                        <ReadingAttemptTable rows={attemptsById[reading.id] || []} studentsById={studentsById} />
                       </td>
                     </tr>
                   )}
@@ -874,7 +884,7 @@ export default function ReadingsScreen() {
   )
 }
 
-function ReadingAttemptTable({ rows }) {
+function ReadingAttemptTable({ rows, studentsById = {} }) {
   if (rows.length === 0) return <p className="small muted">Henüz sonuç yok veya yükleniyor…</p>
   return (
     <table>
@@ -889,18 +899,25 @@ function ReadingAttemptTable({ rows }) {
         </tr>
       </thead>
       <tbody>
-        {rows.map((row) => (
-          <tr key={row.id}>
-            <td className="small">{row.student_id.slice(0, 8)}…</td>
-            <td>
-              {row.read ? <span className="badge badge-success">✓ Okundu</span> : <span>—</span>}
-            </td>
-            <td>%{row.score_percent}</td>
-            <td>{formatSeconds(row.total_seconds)}</td>
-            <td>{row.scrolled_bottom ? '✓' : '—'}</td>
-            <td className="small muted">{row.rsvp_plays ? `${row.rsvp_plays} kez` : '—'}</td>
-          </tr>
-        ))}
+        {rows.map((row) => {
+          const student = studentsById[row.student_id]
+          return (
+            <tr key={row.id}>
+              <td className="small">{student ? `${student.name} (${student.schoolNumber})` : `${row.student_id.slice(0, 8)}…`}</td>
+              <td>
+                {row.read ? (
+                  <span className="badge badge-success">✓ Okundu</span>
+                ) : (
+                  <span className="badge badge-warning">✗ Okunmadı</span>
+                )}
+              </td>
+              <td>%{row.score_percent}</td>
+              <td>{formatSeconds(row.total_seconds)}</td>
+              <td>{row.scrolled_bottom ? '✓' : '—'}</td>
+              <td className="small muted">{row.rsvp_plays ? `${row.rsvp_plays} kez` : '—'}</td>
+            </tr>
+          )
+        })}
       </tbody>
     </table>
   )

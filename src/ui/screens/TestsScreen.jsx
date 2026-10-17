@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
 import { useStore, go } from '../../state/store.jsx'
-import { GRADES, SUBJECTS, gradeLabel, subjectLabel, uid, nowIso, formatMinutesShort } from '../../domain/model.js'
+import { GRADES, SUBJECTS, subjectsForGrade, gradeLabel, subjectLabel, uid, nowIso, formatMinutesShort } from '../../domain/model.js'
 import { downloadJSON } from '../../db/storage.js'
 import JsonImportDialog from '../components/JsonImportDialog.jsx'
 
@@ -174,7 +174,7 @@ export default function TestsScreen() {
           <label>Ders Filtresi</label>
           <select value={subject} onChange={(e) => setSubject(e.target.value)}>
             <option value="">Tüm Dersler</option>
-            {SUBJECTS.map((s) => (
+            {(grade ? subjectsForGrade(grade) : SUBJECTS).map((s) => (
               <option key={s} value={s}>
                 {subjectLabel(s)}
               </option>
@@ -203,7 +203,7 @@ export default function TestsScreen() {
             <div>
               <label>Ders</label>
               <select value={subject} onChange={(e) => setSubject(e.target.value)}>
-                {SUBJECTS.map((s) => (
+                {(grade ? subjectsForGrade(grade) : SUBJECTS).map((s) => (
                   <option key={s} value={s}>
                     {subjectLabel(s)}
                   </option>

@@ -1,0 +1,116 @@
+{
+  "version": 1,
+  "kind": "test",
+  "test": {
+    "title": "3. Sınıf Matematik — Kesirler (Görselli Sorular)",
+    "grade": 3,
+    "subject": "matematik",
+    "durationMinutes": 15,
+    "questions": [
+      {
+        "text": "Şekildeki dairenin taralı bölgesi hangi kesirle ifade edilir?",
+        "image": "data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20100%20100%22%20width%3D%22150%22%20height%3D%22150%22%20role%3D%22img%22%3E%3Cpath%20d%3D%22M%2050%2050%20L%2050.00%206.00%20A%2044%2044%200%200%201%2094.00%2050.00%20Z%22%20fill%3D%22%233b82f6%22%20stroke%3D%22%23334155%22%20stroke-width%3D%221.6%22%2F%3E%3Cpath%20d%3D%22M%2050%2050%20L%2094.00%2050.00%20A%2044%2044%200%200%201%2050.00%2094.00%20Z%22%20fill%3D%22%233b82f6%22%20stroke%3D%22%23334155%22%20stroke-width%3D%221.6%22%2F%3E%3Cpath%20d%3D%22M%2050%2050%20L%2050.00%2094.00%20A%2044%2044%200%200%201%206.00%2050.00%20Z%22%20fill%3D%22%233b82f6%22%20stroke%3D%22%23334155%22%20stroke-width%3D%221.6%22%2F%3E%3Cpath%20d%3D%22M%2050%2050%20L%206.00%2050.00%20A%2044%2044%200%200%201%2050.00%206.00%20Z%22%20fill%3D%22%23ffffff%22%20stroke%3D%22%23334155%22%20stroke-width%3D%221.6%22%2F%3E%3C%2Fsvg%3E",
+        "options": [
+          "1/4",
+          "3/4",
+          "4/3",
+          "2/4"
+        ],
+        "correctIndex": 1,
+        "topic": "kesirler",
+        "explanation": "Daire 4 eşit parçaya bölünmüş, 3 parçası taranmıştır: 3/4."
+      },
+      {
+        "text": "Şekildeki dairede taralı kısım hangi kesri gösterir?",
+        "image": "data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20100%20100%22%20width%3D%22150%22%20height%3D%22150%22%20role%3D%22img%22%3E%3Cpath%20d%3D%22M%2050%2050%20L%2050.00%206.00%20A%2044%2044%200%200%201%2050.00%2094.00%20Z%22%20fill%3D%22%233b82f6%22%20stroke%3D%22%23334155%22%20stroke-width%3D%221.6%22%2F%3E%3Cpath%20d%3D%22M%2050%2050%20L%2050.00%2094.00%20A%2044%2044%200%200%201%2050.00%206.00%20Z%22%20fill%3D%22%23ffffff%22%20stroke%3D%22%23334155%22%20stroke-width%3D%221.6%22%2F%3E%3C%2Fsvg%3E",
+        "options": [
+          "1/2",
+          "2/1",
+          "1/3",
+          "2/3"
+        ],
+        "correctIndex": 0,
+        "topic": "kesirler",
+        "explanation": "Daire iki eşit parçaya bölünüp biri taranmıştır: 1/2."
+      },
+      {
+        "text": "Şekildeki dairenin boyalı kısmı hangi kesirdir?",
+        "image": "data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20100%20100%22%20width%3D%22150%22%20height%3D%22150%22%20role%3D%22img%22%3E%3Cpath%20d%3D%22M%2050%2050%20L%2050.00%206.00%20A%2044%2044%200%200%201%2088.11%2072.00%20Z%22%20fill%3D%22%233b82f6%22%20stroke%3D%22%23334155%22%20stroke-width%3D%221.6%22%2F%3E%3Cpath%20d%3D%22M%2050%2050%20L%2088.11%2072.00%20A%2044%2044%200%200%201%2011.89%2072.00%20Z%22%20fill%3D%22%233b82f6%22%20stroke%3D%22%23334155%22%20stroke-width%3D%221.6%22%2F%3E%3Cpath%20d%3D%22M%2050%2050%20L%2011.89%2072.00%20A%2044%2044%200%200%201%2050.00%206.00%20Z%22%20fill%3D%22%23ffffff%22%20stroke%3D%22%23334155%22%20stroke-width%3D%221.6%22%2F%3E%3C%2Fsvg%3E",
+        "options": [
+          "1/3",
+          "3/2",
+          "2/3",
+          "1/2"
+        ],
+        "correctIndex": 2,
+        "topic": "kesirler",
+        "explanation": "Daire 3 eşit parçaya bölünmüş, 2 parçası taranmıştır: 2/3."
+      },
+      {
+        "text": "Şekildeki dairede taralı bölgenin kesri hangisidir?",
+        "image": "data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20100%20100%22%20width%3D%22150%22%20height%3D%22150%22%20role%3D%22img%22%3E%3Cpath%20d%3D%22M%2050%2050%20L%2050.00%206.00%20A%2044%2044%200%200%201%2088.11%2028.00%20Z%22%20fill%3D%22%233b82f6%22%20stroke%3D%22%23334155%22%20stroke-width%3D%221.6%22%2F%3E%3Cpath%20d%3D%22M%2050%2050%20L%2088.11%2028.00%20A%2044%2044%200%200%201%2088.11%2072.00%20Z%22%20fill%3D%22%233b82f6%22%20stroke%3D%22%23334155%22%20stroke-width%3D%221.6%22%2F%3E%3Cpath%20d%3D%22M%2050%2050%20L%2088.11%2072.00%20A%2044%2044%200%200%201%2050.00%2094.00%20Z%22%20fill%3D%22%233b82f6%22%20stroke%3D%22%23334155%22%20stroke-width%3D%221.6%22%2F%3E%3Cpath%20d%3D%22M%2050%2050%20L%2050.00%2094.00%20A%2044%2044%200%200%201%2011.89%2072.00%20Z%22%20fill%3D%22%233b82f6%22%20stroke%3D%22%23334155%22%20stroke-width%3D%221.6%22%2F%3E%3Cpath%20d%3D%22M%2050%2050%20L%2011.89%2072.00%20A%2044%2044%200%200%201%2011.89%2028.00%20Z%22%20fill%3D%22%233b82f6%22%20stroke%3D%22%23334155%22%20stroke-width%3D%221.6%22%2F%3E%3Cpath%20d%3D%22M%2050%2050%20L%2011.89%2028.00%20A%2044%2044%200%200%201%2050.00%206.00%20Z%22%20fill%3D%22%23ffffff%22%20stroke%3D%22%23334155%22%20stroke-width%3D%221.6%22%2F%3E%3C%2Fsvg%3E",
+        "options": [
+          "1/6",
+          "6/5",
+          "3/6",
+          "5/6"
+        ],
+        "correctIndex": 3,
+        "topic": "kesirler",
+        "explanation": "Daire 6 eşit parçaya bölünmüş, 5 parçası taranmıştır: 5/6."
+      },
+      {
+        "text": "Şekildeki şeridin taralı kısmı hangi kesirle gösterilir?",
+        "image": "data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20240%2056%22%20width%3D%22240%22%20height%3D%2256%22%20role%3D%22img%22%3E%3Crect%20x%3D%220.00%22%20y%3D%222%22%20width%3D%2230.00%22%20height%3D%2252%22%20fill%3D%22%233b82f6%22%20stroke%3D%22%23334155%22%20stroke-width%3D%221.6%22%2F%3E%3Crect%20x%3D%2230.00%22%20y%3D%222%22%20width%3D%2230.00%22%20height%3D%2252%22%20fill%3D%22%233b82f6%22%20stroke%3D%22%23334155%22%20stroke-width%3D%221.6%22%2F%3E%3Crect%20x%3D%2260.00%22%20y%3D%222%22%20width%3D%2230.00%22%20height%3D%2252%22%20fill%3D%22%233b82f6%22%20stroke%3D%22%23334155%22%20stroke-width%3D%221.6%22%2F%3E%3Crect%20x%3D%2290.00%22%20y%3D%222%22%20width%3D%2230.00%22%20height%3D%2252%22%20fill%3D%22%23ffffff%22%20stroke%3D%22%23334155%22%20stroke-width%3D%221.6%22%2F%3E%3Crect%20x%3D%22120.00%22%20y%3D%222%22%20width%3D%2230.00%22%20height%3D%2252%22%20fill%3D%22%23ffffff%22%20stroke%3D%22%23334155%22%20stroke-width%3D%221.6%22%2F%3E%3Crect%20x%3D%22150.00%22%20y%3D%222%22%20width%3D%2230.00%22%20height%3D%2252%22%20fill%3D%22%23ffffff%22%20stroke%3D%22%23334155%22%20stroke-width%3D%221.6%22%2F%3E%3Crect%20x%3D%22180.00%22%20y%3D%222%22%20width%3D%2230.00%22%20height%3D%2252%22%20fill%3D%22%23ffffff%22%20stroke%3D%22%23334155%22%20stroke-width%3D%221.6%22%2F%3E%3Crect%20x%3D%22210.00%22%20y%3D%222%22%20width%3D%2230.00%22%20height%3D%2252%22%20fill%3D%22%23ffffff%22%20stroke%3D%22%23334155%22%20stroke-width%3D%221.6%22%2F%3E%3C%2Fsvg%3E",
+        "options": [
+          "3/8",
+          "8/3",
+          "5/8",
+          "1/8"
+        ],
+        "correctIndex": 0,
+        "topic": "kesirler",
+        "explanation": "Şerit 8 eşit parçaya ayrılmış, 3 parçası taranmıştır: 3/8."
+      },
+      {
+        "text": "Şekildeki çikolatanın boyalı parçaları hangi kesri gösterir?",
+        "image": "data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20240%2056%22%20width%3D%22240%22%20height%3D%2256%22%20role%3D%22img%22%3E%3Crect%20x%3D%220.00%22%20y%3D%222%22%20width%3D%2248.00%22%20height%3D%2252%22%20fill%3D%22%233b82f6%22%20stroke%3D%22%23334155%22%20stroke-width%3D%221.6%22%2F%3E%3Crect%20x%3D%2248.00%22%20y%3D%222%22%20width%3D%2248.00%22%20height%3D%2252%22%20fill%3D%22%233b82f6%22%20stroke%3D%22%23334155%22%20stroke-width%3D%221.6%22%2F%3E%3Crect%20x%3D%2296.00%22%20y%3D%222%22%20width%3D%2248.00%22%20height%3D%2252%22%20fill%3D%22%233b82f6%22%20stroke%3D%22%23334155%22%20stroke-width%3D%221.6%22%2F%3E%3Crect%20x%3D%22144.00%22%20y%3D%222%22%20width%3D%2248.00%22%20height%3D%2252%22%20fill%3D%22%233b82f6%22%20stroke%3D%22%23334155%22%20stroke-width%3D%221.6%22%2F%3E%3Crect%20x%3D%22192.00%22%20y%3D%222%22%20width%3D%2248.00%22%20height%3D%2252%22%20fill%3D%22%23ffffff%22%20stroke%3D%22%23334155%22%20stroke-width%3D%221.6%22%2F%3E%3C%2Fsvg%3E",
+        "options": [
+          "1/5",
+          "5/4",
+          "3/5",
+          "4/5"
+        ],
+        "correctIndex": 3,
+        "topic": "kesirler",
+        "explanation": "Çikolata 5 eşit parçaya ayrılmış, 4 parçası taranmıştır: 4/5."
+      },
+      {
+        "text": "Pizza 8 eşit dilime bölünüp 3 dilimi yenmiştir. Kalan pizzanın kesri hangisidir?",
+        "image": "data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20100%20100%22%20width%3D%22150%22%20height%3D%22150%22%20role%3D%22img%22%3E%3Cpath%20d%3D%22M%2050%2050%20L%2050.00%206.00%20A%2044%2044%200%200%201%2081.11%2018.89%20Z%22%20fill%3D%22%233b82f6%22%20stroke%3D%22%23334155%22%20stroke-width%3D%221.6%22%2F%3E%3Cpath%20d%3D%22M%2050%2050%20L%2081.11%2018.89%20A%2044%2044%200%200%201%2094.00%2050.00%20Z%22%20fill%3D%22%233b82f6%22%20stroke%3D%22%23334155%22%20stroke-width%3D%221.6%22%2F%3E%3Cpath%20d%3D%22M%2050%2050%20L%2094.00%2050.00%20A%2044%2044%200%200%201%2081.11%2081.11%20Z%22%20fill%3D%22%233b82f6%22%20stroke%3D%22%23334155%22%20stroke-width%3D%221.6%22%2F%3E%3Cpath%20d%3D%22M%2050%2050%20L%2081.11%2081.11%20A%2044%2044%200%200%201%2050.00%2094.00%20Z%22%20fill%3D%22%23ffffff%22%20stroke%3D%22%23334155%22%20stroke-width%3D%221.6%22%2F%3E%3Cpath%20d%3D%22M%2050%2050%20L%2050.00%2094.00%20A%2044%2044%200%200%201%2018.89%2081.11%20Z%22%20fill%3D%22%23ffffff%22%20stroke%3D%22%23334155%22%20stroke-width%3D%221.6%22%2F%3E%3Cpath%20d%3D%22M%2050%2050%20L%2018.89%2081.11%20A%2044%2044%200%200%201%206.00%2050.00%20Z%22%20fill%3D%22%23ffffff%22%20stroke%3D%22%23334155%22%20stroke-width%3D%221.6%22%2F%3E%3Cpath%20d%3D%22M%2050%2050%20L%206.00%2050.00%20A%2044%2044%200%200%201%2018.89%2018.89%20Z%22%20fill%3D%22%23ffffff%22%20stroke%3D%22%23334155%22%20stroke-width%3D%221.6%22%2F%3E%3Cpath%20d%3D%22M%2050%2050%20L%2018.89%2018.89%20A%2044%2044%200%200%201%2050.00%206.00%20Z%22%20fill%3D%22%23ffffff%22%20stroke%3D%22%23334155%22%20stroke-width%3D%221.6%22%2F%3E%3C%2Fsvg%3E",
+        "options": [
+          "3/8",
+          "5/8",
+          "8/5",
+          "2/8"
+        ],
+        "correctIndex": 1,
+        "topic": "kesirler",
+        "explanation": "Yenen 3 dilimdir; kalan 8 − 3 = 5 dilimdir: 5/8."
+      },
+      {
+        "text": "Bir pasta 6 eşit dilime bölünmüştür. Şekilde taralı gösterilen dilimler yenmiştir. Yenen kısmın kesri hangisidir?",
+        "image": "data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20100%20100%22%20width%3D%22150%22%20height%3D%22150%22%20role%3D%22img%22%3E%3Cpath%20d%3D%22M%2050%2050%20L%2050.00%206.00%20A%2044%2044%200%200%201%2088.11%2028.00%20Z%22%20fill%3D%22%233b82f6%22%20stroke%3D%22%23334155%22%20stroke-width%3D%221.6%22%2F%3E%3Cpath%20d%3D%22M%2050%2050%20L%2088.11%2028.00%20A%2044%2044%200%200%201%2088.11%2072.00%20Z%22%20fill%3D%22%233b82f6%22%20stroke%3D%22%23334155%22%20stroke-width%3D%221.6%22%2F%3E%3Cpath%20d%3D%22M%2050%2050%20L%2088.11%2072.00%20A%2044%2044%200%200%201%2050.00%2094.00%20Z%22%20fill%3D%22%23ffffff%22%20stroke%3D%22%23334155%22%20stroke-width%3D%221.6%22%2F%3E%3Cpath%20d%3D%22M%2050%2050%20L%2050.00%2094.00%20A%2044%2044%200%200%201%2011.89%2072.00%20Z%22%20fill%3D%22%23ffffff%22%20stroke%3D%22%23334155%22%20stroke-width%3D%221.6%22%2F%3E%3Cpath%20d%3D%22M%2050%2050%20L%2011.89%2072.00%20A%2044%2044%200%200%201%2011.89%2028.00%20Z%22%20fill%3D%22%23ffffff%22%20stroke%3D%22%23334155%22%20stroke-width%3D%221.6%22%2F%3E%3Cpath%20d%3D%22M%2050%2050%20L%2011.89%2028.00%20A%2044%2044%200%200%201%2050.00%206.00%20Z%22%20fill%3D%22%23ffffff%22%20stroke%3D%22%23334155%22%20stroke-width%3D%221.6%22%2F%3E%3C%2Fsvg%3E",
+        "options": [
+          "4/6",
+          "2/4",
+          "2/6",
+          "1/6"
+        ],
+        "correctIndex": 2,
+        "topic": "kesirler",
+        "explanation": "Pasta 6 eşit dilime bölünmüş, 2 dilimi taranmıştır: 2/6."
+      }
+    ]
+  }
+}

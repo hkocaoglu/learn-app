@@ -1,0 +1,192 @@
+{
+  "version": 1,
+  "kind": "test",
+  "test": {
+    "title": "3. Sınıf Matematik — Mantık, Örüntü ve Sıralama (Muhakeme)",
+    "grade": 3,
+    "subject": "matematik",
+    "durationMinutes": 20,
+    "questions": [
+      {
+        "text": "2, 4, 6, 8, ... örüntüsünde sıradaki sayı kaçtır?",
+        "options": [
+          "12",
+          "9",
+          "10",
+          "14"
+        ],
+        "correctIndex": 2,
+        "topic": "mantik",
+        "explanation": "Her adımda 2 artıyor: 8 + 2 = 10."
+      },
+      {
+        "text": "5, 10, 15, 20, ... örüntüsünde sıradaki sayı kaçtır?",
+        "options": [
+          "24",
+          "22",
+          "30",
+          "25"
+        ],
+        "correctIndex": 3,
+        "topic": "mantik",
+        "explanation": "Her adımda 5 artıyor: 20 + 5 = 25."
+      },
+      {
+        "text": "3, 6, 12, 24, ... örüntüsünde sıradaki sayı kaçtır?",
+        "options": [
+          "48",
+          "36",
+          "30",
+          "42"
+        ],
+        "correctIndex": 0,
+        "topic": "mantik",
+        "explanation": "Her adımda sayı ikiye katlanıyor: 24 × 2 = 48."
+      },
+      {
+        "text": "100, 90, 80, ... örüntüsünde sıradaki sayı kaçtır?",
+        "options": [
+          "60",
+          "70",
+          "75",
+          "85"
+        ],
+        "correctIndex": 1,
+        "topic": "mantik",
+        "explanation": "Her adımda 10 azalıyor: 80 − 10 = 70."
+      },
+      {
+        "text": "1, 1, 2, 3, 5, 8, ... örüntüsünde sıradaki sayı kaçtır?",
+        "options": [
+          "10",
+          "11",
+          "13",
+          "12"
+        ],
+        "correctIndex": 2,
+        "topic": "mantik",
+        "explanation": "Her sayı kendinden önceki iki sayının toplamıdır: 5 + 8 = 13."
+      },
+      {
+        "text": "1/4, 1/2 ve 3/4 kesirlerinin küçükten büyüğe sıralaması hangisidir?",
+        "options": [
+          "1/4 < 3/4 < 1/2",
+          "3/4 < 1/2 < 1/4",
+          "1/2 < 1/4 < 3/4",
+          "1/4 < 1/2 < 3/4"
+        ],
+        "correctIndex": 3,
+        "topic": "mantik",
+        "explanation": "Aynı bütünde paydası küçük olan kesir daha büyüktür."
+      },
+      {
+        "text": "Ali, Ayşe'den uzundur. Ayşe, Mehmet'ten uzundur. Buna göre en uzun kimdir?",
+        "options": [
+          "Ali",
+          "Ayşe",
+          "Mehmet",
+          "Bilinemez"
+        ],
+        "correctIndex": 0,
+        "topic": "mantik",
+        "explanation": "Ali > Ayşe > Mehmet sıralaması vardır."
+      },
+      {
+        "text": "Bir sepette elma ve armut vardır. Elmaların sayısı armutlardan fazladır. Buna göre hangisi kesinlikle doğrudur?",
+        "options": [
+          "Sepette hiç armut yoktur",
+          "Sepette en az bir elma vardır",
+          "Elma sayısı 10'dur",
+          "Sepet boştur"
+        ],
+        "correctIndex": 1,
+        "topic": "mantik",
+        "explanation": "Elma sayısı armuttan fazla olduğuna göre en az bir elma bulunmalıdır."
+      },
+      {
+        "text": "Bugün salı ise 3 gün sonra hangi gündür?",
+        "options": [
+          "Cumartesi",
+          "Perşembe",
+          "Cuma",
+          "Pazartesi"
+        ],
+        "correctIndex": 2,
+        "topic": "mantik",
+        "explanation": "Salı + 1 çarşamba, + 2 perşembe, + 3 cuma."
+      },
+      {
+        "text": "Bir kutuda 3 kırmızı ve 5 mavi top vardır. Kutudan bakmadan en az kaç top alırsak kesinlikle 1 mavi top almış oluruz?",
+        "options": [
+          "9",
+          "1",
+          "3",
+          "4"
+        ],
+        "correctIndex": 3,
+        "topic": "mantik",
+        "explanation": "En kötü durumda önce 3 kırmızı gelebilir; 4. top kesinlikle mavidir."
+      },
+      {
+        "text": "Saat 14.00, saat 13.00'ten kaç saat sonradır?",
+        "options": [
+          "1",
+          "2",
+          "13",
+          "27"
+        ],
+        "correctIndex": 0,
+        "topic": "mantik",
+        "explanation": "14 − 13 = 1 saat."
+      },
+      {
+        "text": "Aşağıdaki sayılardan hangisi hem çift hem 5'ten büyüktür?",
+        "options": [
+          "5",
+          "6",
+          "3",
+          "4"
+        ],
+        "correctIndex": 1,
+        "topic": "mantik",
+        "explanation": "6 çifttir ve 5'ten büyüktür."
+      },
+      {
+        "text": "Beş kişilik bir sırada Ali baştan ikincidir. Ali sondan kaçıncıdır?",
+        "options": [
+          "5",
+          "3",
+          "4",
+          "2"
+        ],
+        "correctIndex": 2,
+        "topic": "mantik",
+        "explanation": "Baştan 2. olan, 5 kişilik sırada sondan 4.'dür (5 − 2 + 1)."
+      },
+      {
+        "text": "10'dan küçük, 7'den büyük ve tek olan sayı hangisidir?",
+        "options": [
+          "10",
+          "8",
+          "7",
+          "9"
+        ],
+        "correctIndex": 3,
+        "topic": "mantik",
+        "explanation": "7 ile 10 arasındaki tek sayı 9'dur."
+      },
+      {
+        "text": "Bir örüntüde her adımda sayı 3 artmaktadır. 4. adım 13 ise 1. adım kaçtır?",
+        "options": [
+          "4",
+          "10",
+          "7",
+          "3"
+        ],
+        "correctIndex": 0,
+        "topic": "mantik",
+        "explanation": "13 − 3 − 3 − 3 = 4."
+      }
+    ]
+  }
+}

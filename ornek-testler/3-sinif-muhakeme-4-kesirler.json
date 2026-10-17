@@ -1,0 +1,192 @@
+{
+  "version": 1,
+  "kind": "test",
+  "test": {
+    "title": "3. Sınıf Matematik — Kesirler: Anlam ve Karşılaştırma (Muhakeme)",
+    "grade": 3,
+    "subject": "matematik",
+    "durationMinutes": 20,
+    "questions": [
+      {
+        "text": "12'nin 1/2'si kaçtır?",
+        "options": [
+          "2",
+          "24",
+          "4",
+          "6"
+        ],
+        "correctIndex": 3,
+        "topic": "kesirler",
+        "explanation": "12 ÷ 2 = 6."
+      },
+      {
+        "text": "20'nin 1/4'ü kaçtır?",
+        "options": [
+          "5",
+          "4",
+          "10",
+          "80"
+        ],
+        "correctIndex": 0,
+        "topic": "kesirler",
+        "explanation": "20 ÷ 4 = 5."
+      },
+      {
+        "text": "Bir bütünü 4 eşit parçaya ayırırsak her parça bütünün kaçta kaçıdır?",
+        "options": [
+          "1/2",
+          "1/4",
+          "1/3",
+          "4/1"
+        ],
+        "correctIndex": 1,
+        "topic": "kesirler",
+        "explanation": "4 eşit parçadan biri 1/4'tür."
+      },
+      {
+        "text": "3/4 kesrinde pay kaçtır?",
+        "options": [
+          "7",
+          "4",
+          "3",
+          "1"
+        ],
+        "correctIndex": 2,
+        "topic": "kesirler",
+        "explanation": "Kesir çizgisinin üstündeki sayı paydır: 3."
+      },
+      {
+        "text": "3/4 kesrinde payda kaçtır?",
+        "options": [
+          "1",
+          "3",
+          "7",
+          "4"
+        ],
+        "correctIndex": 3,
+        "topic": "kesirler",
+        "explanation": "Kesir çizgisinin altındaki sayı paydadır: 4."
+      },
+      {
+        "text": "Aşağıdaki kesirlerden hangisi 1/2'ye eşittir?",
+        "options": [
+          "2/4",
+          "1/3",
+          "3/4",
+          "4/5"
+        ],
+        "correctIndex": 0,
+        "topic": "kesirler",
+        "explanation": "2/4, 1/2 ile aynı büyüklüktedir."
+      },
+      {
+        "text": "16'nın 1/4'ü kaçtır?",
+        "options": [
+          "8",
+          "4",
+          "2",
+          "64"
+        ],
+        "correctIndex": 1,
+        "topic": "kesirler",
+        "explanation": "16 ÷ 4 = 4."
+      },
+      {
+        "text": "30'un 1/2'si kaçtır?",
+        "options": [
+          "10",
+          "60",
+          "15",
+          "20"
+        ],
+        "correctIndex": 2,
+        "topic": "kesirler",
+        "explanation": "30 ÷ 2 = 15."
+      },
+      {
+        "text": "Hangi kesir daha büyüktür: 1/2 mi, 1/4 mü?",
+        "options": [
+          "Karşılaştırılamaz",
+          "1/4",
+          "Eşittir",
+          "1/2"
+        ],
+        "correctIndex": 3,
+        "topic": "kesirler",
+        "explanation": "Aynı bütünde daha az parçaya bölmek daha büyük parça verir: 1/2 > 1/4."
+      },
+      {
+        "text": "8 elmanın 1/2'si kaç elmadır?",
+        "options": [
+          "4",
+          "2",
+          "8",
+          "16"
+        ],
+        "correctIndex": 0,
+        "topic": "kesirler",
+        "explanation": "8 ÷ 2 = 4."
+      },
+      {
+        "text": "Bir bütünün 3/4'ü yenildi. Geriye bütünün kaçta kaçı kaldı?",
+        "options": [
+          "3/4",
+          "1/4",
+          "1/2",
+          "2/4"
+        ],
+        "correctIndex": 1,
+        "topic": "kesirler",
+        "explanation": "Bütün 4/4'tür; 4/4 − 3/4 = 1/4."
+      },
+      {
+        "text": "24 sayısının 1/3'ü kaçtır?",
+        "options": [
+          "6",
+          "12",
+          "8",
+          "72"
+        ],
+        "correctIndex": 2,
+        "topic": "kesirler",
+        "explanation": "24 ÷ 3 = 8."
+      },
+      {
+        "text": "1/2 + 1/2 işleminin sonucu kaçtır?",
+        "options": [
+          "1/3",
+          "1/4",
+          "3/4",
+          "1 bütün"
+        ],
+        "correctIndex": 3,
+        "topic": "kesirler",
+        "explanation": "İki yarım bir bütün eder."
+      },
+      {
+        "text": "18'in 1/2'si ile 12'nin 1/4'ünün toplamı kaçtır?",
+        "options": [
+          "12",
+          "13",
+          "9",
+          "30"
+        ],
+        "correctIndex": 0,
+        "topic": "kesirler",
+        "explanation": "18 ÷ 2 = 9; 12 ÷ 4 = 3; 9 + 3 = 12."
+      },
+      {
+        "text": "1 litre su alan bir sürahinin 1/4'ü doluysa sürahide kaç litre su vardır?",
+        "options": [
+          "1/2 litre",
+          "1/4 litre",
+          "1 litre",
+          "3/4 litre"
+        ],
+        "correctIndex": 1,
+        "topic": "kesirler",
+        "explanation": "1 litrenin 1/4'ü 1/4 litredir."
+      }
+    ]
+  }
+}

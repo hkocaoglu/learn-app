@@ -1,0 +1,98 @@
+{
+  "version": 1,
+  "kind": "reading-passage",
+  "exportedAt": "2026-10-17T18:30:00.000Z",
+  "passage": {
+    "title": "Benim Yeteneğim Hangisi?",
+    "sourceLabel": "3. Sınıf Türkçe Okuma Parçaları (Maarif Modeli) — 5. Tema: Yeteneklerimizi Kullanıyoruz",
+    "body": "Sınıfımızda “Yetenek Günü” diye bir gün vardı. Herkes o gün bir şey yapardı. Elif keman çalardı, Mert karikatür çizerdi, Ada ise şiir okurdu. Ben ise sahnede ne yapacağımı bilmiyordum.\n\nAkşam anneme sordum:\n\n— Anne, benim yeteneğim ne?\n\nAnnem güldü.\n\n— Yetenek dediğin yalnızca çalgı çalmak ya da resim yapmak değildir. Sen insanları dinliyorsun. Arkadaşların kavga ettiğinde ortada durup ikisini de dinlersin. Kimse bunu sana öğretmedi.\n\nYine de inanmadım. Yetenek Günü geldiğinde herkes çok heyecanlıydı. Ben ise kenarda oturup izliyordum. Derken kartonlardan yaptığımız dekor bir anda yıkıldı. Elif’in kemanı yere düşecekti.\n\n— Durun! dedim.\n\nHerkes durdu. O telaşın içinde ne yapacağımı biliyordum. Önce Elif’i sahnenin ortasından çektim. Sonra Mert’e kartonları tutmasını söyledim. Ada’ya da perdenin önüne geçmesini söyledim. Öğretmenimiz gelene kadar dekoru yeniden ayakta tuttuk. Herkes bir iş yaptı; kimse birbirine bağırmadı.\n\nTören başladığında öğretmenim yanıma geldi.\n\n— Gördün mü? dedi. Senin yeteneğin insanları bir arada tutmak. Bugün bunu bir kez daha gösterdin.\n\nO akşam anneme tek bir şey söyledim:\n\n— Anne, benim de bir yeteneğim varmış. Hem de yalnızca o gün değil, her gün kullanabileceğim bir yetenek.\n\nAnnem başını salladı:\n\n— En güzel yetenek, başkalarına iyi gelen yetenektir.",
+    "grade": 3,
+    "subject": "turkce",
+    "topic": "okuma-anlama",
+    "quizThreshold": 60,
+    "showPassageDuringQuiz": true,
+    "image": "",
+    "questions": [
+      {
+        "id": "q3_yetenek_1",
+        "grade": 3,
+        "subject": "turkce",
+        "topic": "okuma-anlama",
+        "text": "Anlatıcı, Yetenek Günü yaklaşırken kendini neden kötü hissetmiştir?",
+        "options": [
+          "Arkadaşlarıyla kavga ettiği için",
+          "Sahneye çıkmaktan korktuğu için",
+          "Öğretmeni onu törende görevlendirmediği için",
+          "Kendisinin gösterebileceği özel bir yeteneği olduğuna inanmadığı için"
+        ],
+        "correctIndex": 3,
+        "explanation": "Anlatıcı, arkadaşlarının yaptıklarını sayıp “Ben ise sahnede ne yapacağımı bilmiyordum.” der; kendi yeteneğine inanmaz.",
+        "image": ""
+      },
+      {
+        "id": "q3_yetenek_2",
+        "grade": 3,
+        "subject": "turkce",
+        "topic": "okuma-anlama",
+        "text": "Annesinin “Yetenek dediğin yalnızca çalgı çalmak ya da resim yapmak değildir.” sözüyle anlatmak istediği nedir?",
+        "options": [
+          "Yeteneklerin çok çeşitli olabileceğini",
+          "Resim yapmanın gereksiz olduğunu",
+          "Yetenekli olmanın şans işi olduğunu",
+          "Herkesin keman çalması gerektiğini"
+        ],
+        "correctIndex": 0,
+        "explanation": "Anne, yeteneğin yalnızca sanatla sınırlı olmadığını söyleyip anlatıcının insanları dinleme özelliğini örnek verir.",
+        "image": ""
+      },
+      {
+        "id": "q3_yetenek_3",
+        "grade": 3,
+        "subject": "turkce",
+        "topic": "okuma-anlama",
+        "text": "Dekor yıkıldığı anda anlatıcının yaptıkları, onun hangi özelliğini ortaya koyar?",
+        "options": [
+          "Çok yüksek sesle konuştuğunu",
+          "Panik yapmadan herkese görev verip işleri düzene koyabildiğini",
+          "Keman çalmayı bildiğini",
+          "Telaşa kapılıp kaçtığını"
+        ],
+        "correctIndex": 1,
+        "explanation": "Anlatıcı önce Elif’i çeker, sonra Mert ve Ada’ya görev verir; “kimse birbirine bağırmadı” der.",
+        "image": ""
+      },
+      {
+        "id": "q3_yetenek_4",
+        "grade": 3,
+        "subject": "turkce",
+        "topic": "okuma-anlama",
+        "text": "Öğretmenin “Bugün bunu bir kez daha gösterdin.” demesi neyi gösterir?",
+        "options": [
+          "Anlatıcının bu özelliğini ilk kez bugün sergilediğini",
+          "Bugünkü olayın önemsiz olduğunu",
+          "Anlatıcının bu özelliğini daha önce de sergilediğini",
+          "Öğretmenin töreni izlemediğini"
+        ],
+        "correctIndex": 2,
+        "explanation": "“Bir kez daha” ifadesi tekrar anlamı taşır; anlatıcı bu davranışı daha önce de göstermiştir.",
+        "image": ""
+      },
+      {
+        "id": "q3_yetenek_5",
+        "grade": 3,
+        "subject": "turkce",
+        "topic": "okuma-anlama",
+        "text": "Annesinin son sözü olan “En güzel yetenek, başkalarına iyi gelen yetenektir.” cümlesiyle anlatılmak istenen nedir?",
+        "options": [
+          "Yeteneklerin gizli tutulması gerektiği",
+          "Yalnızca gösteri yapılan yeteneklerin değerli olduğu",
+          "Herkesin aynı yeteneğe sahip olması gerektiği",
+          "Bir yeteneğin değerinin, başkalarına sağladığı yararla ölçüldüğü"
+        ],
+        "correctIndex": 3,
+        "explanation": "Anlatıcı insanları bir arada tutarak arkadaşlarına yardım eder; anne bu yönü “başkalarına iyi gelmek” olarak tanımlar.",
+        "image": ""
+      }
+    ]
+  }
+}

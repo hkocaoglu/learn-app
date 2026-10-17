@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react'
 import { useAuth } from '../../auth/AuthProvider.jsx'
 import { useStore, go } from '../../state/store.jsx'
-import { GRADES, SUBJECTS, gradeLabel, subjectLabel, topicLabel, uid, topicsForSubject } from '../../domain/model.js'
+import { GRADES, SUBJECTS, subjectsForGrade, gradeLabel, subjectLabel, topicLabel, uid, topicsForSubject, isValidSubject } from '../../domain/model.js'
 import { GradeBadge, SubjectBadge } from '../components/Badges.jsx'
 import QuestionForm from '../components/QuestionForm.jsx'
 import QuestionImage from '../components/QuestionImage.jsx'
@@ -49,11 +49,11 @@ export default function BankScreen() {
     [db.bank, grade, subject]
   )
 
-  // konu önerileri: seçili sınıf/ders için sabitler + bankada kullanılanlar
+  // konu önerileri: seçili sınıf/ders için müfredat + sabitler + bankada kullanılanlar
   const subjectTopics = useMemo(() => {
     const s = subject || (db.bank[0] && db.bank[0].subject) || 'matematik'
-    return topicsForSubject(s, availableTopics)
-  }, [subject, availableTopics, db.bank])
+    return topicsForSubject(s, availableTopics, grade)
+  }, [subject, availableTopics, grade, db.bank])
 
   const addQuestion = async (q) => {
     try {
@@ -112,7 +112,7 @@ export default function BankScreen() {
       arr.forEach((q, i) => {
         if (!q || !q.text || !Array.isArray(q.options) || q.options.length < 2) return
         const gi = GRADES.includes(Number(q.grade)) ? Number(q.grade) : fixedGrade
-        const si = ['matematik', 'geometri', 'turkce'].includes(q.subject) ? q.subject : fixedSubject
+        const si = isValidSubject(q.subject) ? q.subject : fixedSubject
         questions.push({
           id: uid('q'),
           grade: gi,
@@ -186,7 +186,7 @@ export default function BankScreen() {
           <label>Ders</label>
           <select value={subject} onChange={(e) => setSubject(e.target.value)}>
             <option value="">Tüm Dersler</option>
-            {SUBJECTS.map((s) => (
+            {(grade ? subjectsForGrade(grade) : SUBJECTS).map((s) => (
               <option key={s} value={s}>
                 {subjectLabel(s)}
               </option>

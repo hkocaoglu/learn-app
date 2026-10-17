@@ -1,0 +1,192 @@
+{
+  "version": 1,
+  "kind": "test",
+  "test": {
+    "title": "3. Sınıf Matematik — Veri, Tablo ve Yorumlama (Muhakeme)",
+    "grade": 3,
+    "subject": "matematik",
+    "durationMinutes": 20,
+    "questions": [
+      {
+        "text": "Bir sınıfta en sevilen meyve anketi: Elma 12, Muz 8, Çilek 15, Portakal 5 oy aldı. En çok sevilen meyve hangisidir?",
+        "options": [
+          "Elma",
+          "Çilek",
+          "Muz",
+          "Portakal"
+        ],
+        "correctIndex": 1,
+        "topic": "veri",
+        "explanation": "En yüksek oy 15 ile çilektir."
+      },
+      {
+        "text": "Aynı ankette (Elma 12, Muz 8, Çilek 15, Portakal 5) en az sevilen meyve hangisidir?",
+        "options": [
+          "Elma",
+          "Muz",
+          "Portakal",
+          "Çilek"
+        ],
+        "correctIndex": 2,
+        "topic": "veri",
+        "explanation": "En düşük oy 5 ile portakaldır."
+      },
+      {
+        "text": "Aynı ankette elma sevenler, muz sevenlerden kaç fazladır?",
+        "options": [
+          "5",
+          "20",
+          "3",
+          "4"
+        ],
+        "correctIndex": 3,
+        "topic": "veri",
+        "explanation": "12 − 8 = 4."
+      },
+      {
+        "text": "Aynı ankete toplam kaç öğrenci katılmıştır?",
+        "options": [
+          "40",
+          "35",
+          "45",
+          "30"
+        ],
+        "correctIndex": 0,
+        "topic": "veri",
+        "explanation": "12 + 8 + 15 + 5 = 40."
+      },
+      {
+        "text": "Bir öğrenci pazartesi 8, salı 12, çarşamba 10, perşembe 15 sayfa kitap okudu. En çok hangi gün okudu?",
+        "options": [
+          "Salı",
+          "Perşembe",
+          "Çarşamba",
+          "Pazartesi"
+        ],
+        "correctIndex": 1,
+        "topic": "veri",
+        "explanation": "En yüksek sayfa sayısı 15 ile perşembedir."
+      },
+      {
+        "text": "Aynı verilere göre (8, 12, 10, 15) dört günde toplam kaç sayfa okumuştur?",
+        "options": [
+          "50",
+          "40",
+          "45",
+          "35"
+        ],
+        "correctIndex": 2,
+        "topic": "veri",
+        "explanation": "8 + 12 + 10 + 15 = 45."
+      },
+      {
+        "text": "Aynı verilere göre salı günü, pazartesi gününden kaç sayfa fazla okunmuştur?",
+        "options": [
+          "8",
+          "2",
+          "12",
+          "4"
+        ],
+        "correctIndex": 3,
+        "topic": "veri",
+        "explanation": "12 − 8 = 4."
+      },
+      {
+        "text": "Bir sınıfta 12 kız ve 13 erkek öğrenci vardır. Sınıf mevcudu kaçtır?",
+        "options": [
+          "25",
+          "23",
+          "12",
+          "13"
+        ],
+        "correctIndex": 0,
+        "topic": "veri",
+        "explanation": "12 + 13 = 25."
+      },
+      {
+        "text": "Bir dükkânın günlük satışı: pazartesi 20, salı 25, çarşamba 15 üründür. Üç günde toplam kaç ürün satılmıştır?",
+        "options": [
+          "55",
+          "60",
+          "50",
+          "65"
+        ],
+        "correctIndex": 1,
+        "topic": "veri",
+        "explanation": "20 + 25 + 15 = 60."
+      },
+      {
+        "text": "Aynı satış verisine göre (20, 25, 15) en az satış hangi gün olmuştur?",
+        "options": [
+          "Salı",
+          "Pazartesi",
+          "Çarşamba",
+          "Hepsi eşittir"
+        ],
+        "correctIndex": 2,
+        "topic": "veri",
+        "explanation": "En düşük satış 15 ile çarşambadır."
+      },
+      {
+        "text": "Bir tabloda 4-A sınıfı 28, 4-B sınıfı 30, 4-C sınıfı 26 öğrenci vardır. En kalabalık sınıf hangisidir?",
+        "options": [
+          "Eşittir",
+          "4-A",
+          "4-C",
+          "4-B"
+        ],
+        "correctIndex": 3,
+        "topic": "veri",
+        "explanation": "En yüksek sayı 30 ile 4-B'dir."
+      },
+      {
+        "text": "Aynı tabloya göre (28, 30, 26) üç sınıfın toplam öğrenci sayısı kaçtır?",
+        "options": [
+          "84",
+          "82",
+          "80",
+          "86"
+        ],
+        "correctIndex": 0,
+        "topic": "veri",
+        "explanation": "28 + 30 + 26 = 84."
+      },
+      {
+        "text": "Bir öğrenci haftada 3 gün 2'şer saat, 2 gün 1'er saat ders çalıştı. Toplam kaç saat çalıştı?",
+        "options": [
+          "7",
+          "8",
+          "9",
+          "6"
+        ],
+        "correctIndex": 1,
+        "topic": "veri",
+        "explanation": "3 × 2 = 6; 2 × 1 = 2; 6 + 2 = 8 saat."
+      },
+      {
+        "text": "Bir tabloda kalem 15, silgi 10, defter 5 adet satıldı. En çok ve en az satılan ürün arasındaki fark kaçtır?",
+        "options": [
+          "15",
+          "5",
+          "10",
+          "20"
+        ],
+        "correctIndex": 2,
+        "topic": "veri",
+        "explanation": "15 − 5 = 10."
+      },
+      {
+        "text": "Bir ankette A şıkkı 18, B şıkkı 12 oy aldı. Toplam 40 oy kullanıldıysa C şıkkı kaç oy almıştır?",
+        "options": [
+          "30",
+          "12",
+          "8",
+          "10"
+        ],
+        "correctIndex": 3,
+        "topic": "veri",
+        "explanation": "18 + 12 = 30; 40 − 30 = 10."
+      }
+    ]
+  }
+}

@@ -3,9 +3,10 @@
 import { buildSeed, exportBackup, importBackup } from '../src/db/storage.js'
 import { scoreAttempt, aggregateStudentTopics, aggregateStudentAll, attemptDurationStats } from '../src/domain/scoring.js'
 import { computeDeficiencies, buildRuleReport } from '../src/domain/report.js'
-import { normalizeTest, validateTest, validateQuestion, normalizeReading, validateReading, requiredDwellSeconds, readingWordCount, exportPassage, importPassage, importPassages, GRADES, DISPLAY_MODES, RSVP_QUESTION_COUNT, RSVP_DEFAULT_SECONDS_PER_WORD, RSVP_MIN_SECONDS_PER_WORD, RSVP_MAX_SECONDS_PER_WORD, normalizeSecondsPerWord } from '../src/domain/model.js'
+import { normalizeTest, validateTest, validateQuestion, normalizeReading, validateReading, requiredDwellSeconds, readingWordCount, exportPassage, importPassage, importPassages, GRADES, SUBJECTS, SUBJECT_TOPICS, subjectLabel, subjectsForGrade, CURRICULUM_TOPICS, curriculumTopics, curriculumSubtopics, curriculumUnitLabel, topicsForSubject, DISPLAY_MODES, RSVP_QUESTION_COUNT, RSVP_DEFAULT_SECONDS_PER_WORD, RSVP_MIN_SECONDS_PER_WORD, RSVP_MAX_SECONDS_PER_WORD, normalizeSecondsPerWord } from '../src/domain/model.js'
 import { evaluateReadingGates } from '../src/domain/readingGates.js'
 import { parsePassageSource, collectPassageSources, summarizePassages } from '../src/domain/passageImport.js'
+import { buildTrackingMatrix, summarizeStudents } from '../src/domain/tracking.js'
 import { buildRsvpPlan, splitWords, wordsPerMinute, estimateRsvpSeconds, rsvpWordIndexAt, rsvpFinished, formatSecondsPerWord } from '../src/domain/rsvp.js'
 import { createAIClient, OPENROUTER_DEFAULTS, PROVIDERS } from '../src/ai/client.js'
 import { normalizeStudentPart, studentCodeBase, studentAuthEmail } from '../src/domain/studentAuth.js'
@@ -338,6 +339,76 @@ check('Öğrenci kodu okul no ve baş harflerden oluşuyor', studentCodeBase('12
 check('Kısa öğrenci kodu destekleniyor', studentCodeBase('1', 'A', 'B') === '1ab')
 check('Öğrenci Auth e-postası deterministik', studentAuthEmail('12ac') === '12ac@students.sinif-test.local')
 
+console.log('\n5c) Müfredat dersleri (MEB)')
+check(
+  'Yeni dersler listede',
+  ['hayat-bilgisi', 'fen-bilimleri', 'sosyal-bilgiler', 'din-kulturu', 'yabanci-dil', 'bilisim'].every((s) => SUBJECTS.includes(s))
+)
+check(
+  'Ders etiketleri Türkçe',
+  subjectLabel('hayat-bilgisi') === 'Hayat Bilgisi' &&
+    subjectLabel('fen-bilimleri') === 'Fen Bilimleri' &&
+    subjectLabel('sosyal-bilgiler') === 'Sosyal Bilgiler' &&
+    subjectLabel('bilisim') === 'Bilişim Teknolojileri ve Yazılım'
+)
+check('Her dersin konu etiketleri var', SUBJECTS.every((s) => Array.isArray(SUBJECT_TOPICS[s]) && SUBJECT_TOPICS[s].length > 0))
+check('3. sınıf dersleri', (() => {
+  const list = subjectsForGrade(3)
+  return list.includes('hayat-bilgisi') && list.includes('fen-bilimleri') && list.includes('yabanci-dil') && !list.includes('sosyal-bilgiler') && !list.includes('bilisim')
+})())
+check('5. sınıf dersleri', (() => {
+  const list = subjectsForGrade(5)
+  return list.includes('fen-bilimleri') && list.includes('sosyal-bilgiler') && list.includes('din-kulturu') && list.includes('bilisim') && !list.includes('hayat-bilgisi')
+})())
+check('1. sınıf dersleri', (() => {
+  const list = subjectsForGrade(1)
+  return list.includes('hayat-bilgisi') && !list.includes('fen-bilimleri') && !list.includes('yabanci-dil')
+})())
+check('Sınıf bilinmiyorsa tüm dersler', subjectsForGrade(0).length === SUBJECTS.length && subjectsForGrade('x').length === SUBJECTS.length)
+
+// --- 5. sınıf Türkçe müfredatı (konu takibi) ---
+const tr5 = CURRICULUM_TOPICS.turkce[5]
+check('5. sınıf Türkçe müfredatı tanımlı', Array.isArray(tr5) && tr5.length === 11)
+check('Her müfredat ünitesinin kimliği ve etiketi var', tr5.every((u) => u.id && u.label))
+check('Her müfredat ünitesinde alt konu var', tr5.every((u) => Array.isArray(u.subtopics) && u.subtopics.length > 0))
+check('Ünite kimlikleri benzersiz', new Set(tr5.map((u) => u.id)).size === tr5.length)
+check('curriculumTopics 5. sınıf için 11 konu döner', curriculumTopics('turkce', 5).length === 11)
+check('curriculumTopics tanımsız sınıf için boş döner', curriculumTopics('turkce', 4).length === 0 && curriculumTopics('matematik', 5).length === 0)
+check('curriculumSubtopics ünitenin alt konularını döner', (() => {
+  const sub = curriculumSubtopics('turkce', 5, 'söz sanatları')
+  return sub.length === 3 && sub.includes('Benzetme (Teşbih)')
+})())
+check('curriculumUnitLabel okunabilir ad döner', curriculumUnitLabel('turkce', 5, 'metin yapısı') === 'Metin Yapısı')
+check('5. sınıf Türkçe konu listesi müfredatı içerir', (() => {
+  const list = topicsForSubject('turkce', [], 5)
+  return (
+    list.includes('söz varlığı') &&
+    list.includes('görsel okuma ve grafik') &&
+    list.includes('okuma-anlama') &&
+    list.length === new Set(list).size
+  )
+})())
+check('Sınıf verilmezse müfredat konuları eklenmez', !topicsForSubject('turkce', [], 1).includes('söz varlığı'))
+check('Kullanıcı etiketleri sona eklenir', (() => {
+  const list = topicsForSubject('turkce', ['özel konu'], 5)
+  return list[list.length - 1] === 'özel konu'
+})())
+check(
+  'Yeni ders doğrulamadan geçiyor',
+  validateQuestion({
+    text: 'Su kaç derecede donar?',
+    options: ['0', '10', '50', '100'],
+    correctIndex: 0,
+    grade: 5,
+    subject: 'fen-bilimleri',
+    topic: 'madde ve doğası'
+  }).length === 0
+)
+check(
+  'Geçersiz ders doğrulamada reddediliyor',
+  validateQuestion({ text: 'Soru?', options: ['a', 'b'], correctIndex: 0, grade: 5, subject: 'cografya', topic: 'konu' }).length > 0
+)
+
 console.log('\n6) AI sağlayıcıları')
 const openRouter = PROVIDERS.find((provider) => provider.id === 'openrouter')
 check(
@@ -506,6 +577,109 @@ check(
   /^[\x00-\x7F]*$/.test(serverRequest?.options?.headers?.['X-OpenRouter-Title'] || '')
 )
 check('Vercel function yanıtı dönüyor', response.statusCode === 200 && serverResponse?.text === 'Backend test yanıtı')
+
+console.log('\n8) Öğrenci takibi (matris)')
+const trackStudents = [{ id: 's1', name: 'Ali' }, { id: 's2', name: 'Veli' }]
+const trackItems = [
+  { id: 'r1', title: 'Kırlangıç' },
+  { id: 'r2', title: 'Bahar', endsAt: '2020-01-01T00:00:00Z' },
+  { id: 'r3', title: 'Gelecek', startsAt: '2030-01-01T00:00:00Z' }
+]
+const trackAttempts = [
+  { studentId: 's1', itemId: 'r1', read: true, scorePercent: 90 },
+  { studentId: 's2', itemId: 'r1', read: false, scorePercent: 40 }
+]
+const trackNow = new Date('2026-10-01T00:00:00Z')
+const track = buildTrackingMatrix({ students: trackStudents, items: trackItems, attempts: trackAttempts, kind: 'reading', now: trackNow })
+check('Takip: okundu → done', track.rows[0].cells[0].status === 'done')
+check('Takip: denendi ama tamamlanmadı → incomplete', track.rows[1].cells[0].status === 'incomplete')
+check('Takip: süresi dolmuş → expired', track.rows[0].cells[1].status === 'expired' && track.rows[1].cells[1].status === 'expired')
+check('Takip: henüz başlamamış → upcoming', track.rows[0].cells[2].status === 'upcoming')
+check('Takip: satır toplamları ve yüzde', track.rows[0].done === 1 && track.rows[0].total === 3 && track.rows[0].percent === 33)
+check(
+  'Takip: sütun istatistikleri (kim yapmadı)',
+  track.itemStats[0].done === 1 &&
+    track.itemStats[0].missingStudents.length === 0 &&
+    track.itemStats[0].incompleteStudents.length === 1 &&
+    track.itemStats[0].incompleteStudents[0].name === 'Veli'
+)
+check('Takip: genel tamamlanma yüzdesi', track.totals.done === 1 && track.totals.cells === 6 && track.totals.percent === 17)
+const examTrack = buildTrackingMatrix({
+  students: trackStudents,
+  items: [{ id: 'a1', title: 'Test' }],
+  attempts: [{ studentId: 's1', itemId: 'a1', scorePercent: 80 }],
+  kind: 'exam'
+})
+check('Takip: test çözüldü/yapılmadı', examTrack.rows[0].cells[0].status === 'done' && examTrack.rows[1].cells[0].status === 'missed')
+check(
+  'Takip: en iyi deneme seçilir',
+  buildTrackingMatrix({
+    students: [{ id: 's1', name: 'Ali' }],
+    items: [{ id: 'a1', title: 'Test' }],
+    attempts: [
+      { studentId: 's1', itemId: 'a1', scorePercent: 40 },
+      { studentId: 's1', itemId: 'a1', scorePercent: 90 }
+    ],
+    kind: 'exam'
+  }).rows[0].cells[0].scorePercent === 90
+)
+check(
+  'Takip: boş girdi güvenli',
+  buildTrackingMatrix().totals.percent === 0 &&
+    buildTrackingMatrix({ students: [], items: [] }).rows.length === 0 &&
+    buildTrackingMatrix({ students: trackStudents, items: [] }).rows[0].percent === 0
+)
+
+const compareRows = summarizeStudents({
+  students: [
+    { id: 's1', name: 'Ali', classId: 'c3', schoolNumber: '101' },
+    { id: 's2', name: 'Veli', classId: 'c5', schoolNumber: '501' }
+  ],
+  classes: [
+    { id: 'c3', name: '3-A', grade: 3 },
+    { id: 'c5', name: '5-A', grade: 5 }
+  ],
+  readings: [
+    { id: 'r1', classId: 'c3', title: 'A' },
+    { id: 'r2', classId: 'c5', title: 'B' },
+    { id: 'r3', classId: 'c5', title: 'C' }
+  ],
+  exams: [
+    { id: 'e1', classId: 'c3', title: 'T3' },
+    { id: 'e2', classId: 'c5', title: 'T5' }
+  ],
+  readingAttempts: [{ studentId: 's1', itemId: 'r1', read: true, scorePercent: 80 }],
+  examAttempts: [{ studentId: 's2', itemId: 'e2', scorePercent: 60 }],
+  transactions: [
+    { studentId: 's1', amount: 15 },
+    { studentId: 's1', amount: -5 }
+  ]
+})
+check('Karşılaştırma: sınıf ve sınıf düzeyi', compareRows[0].grade === 3 && compareRows[0].className === '3-A' && compareRows[1].grade === 5)
+check(
+  'Karşılaştırma: her öğrenci kendi sınıfının atamalarıyla ölçülür',
+  compareRows[0].readingTotal === 1 && compareRows[1].readingTotal === 2 && compareRows[1].examTotal === 1
+)
+check(
+  'Karşılaştırma: tamamlama sayıları',
+  compareRows[0].readingDone === 1 && compareRows[0].examDone === 0 && compareRows[1].examDone === 1 && compareRows[1].readingDone === 0
+)
+check(
+  'Karşılaştırma: test ortalaması ve puan bakiyesi',
+  compareRows[1].avgExamScore === 60 && compareRows[0].balance === 10 && compareRows[1].balance === 0
+)
+check(
+  'Karşılaştırma: okunan kitap listesi (hangi kitaplar)',
+  compareRows[0].readTitles.length === 1 &&
+    compareRows[0].readTitles[0].title === 'A' &&
+    compareRows[0].readTitles[0].scorePercent === 80 &&
+    compareRows[1].readTitles.length === 0
+)
+check(
+  'Karşılaştırma: okunmayan kitap listesi',
+  compareRows[1].missingTitles.length === 2 && compareRows[0].missingTitles.length === 0
+)
+check('Karşılaştırma: boş girdi güvenli', summarizeStudents().length === 0 && summarizeStudents({ students: [] }).length === 0)
 
 console.log(failures === 0 ? '\nTÜM TESTLER GEÇTİ' : `\n${failures} TEST BAŞARISIZ`)
 process.exit(failures === 0 ? 0 : 1)

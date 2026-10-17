@@ -1,0 +1,98 @@
+{
+  "version": 1,
+  "kind": "reading-passage",
+  "exportedAt": "2026-10-17T18:20:00.000Z",
+  "passage": {
+    "title": "Kitaplar Bize Ne Söyler?",
+    "sourceLabel": "3. Sınıf Türkçe Ders Kitabı (MEB) — 4. Tema: Bilgi Hazinemiz",
+    "body": "Birlikte oynamayı, sohbet etmeyi ve vakit geçirmeyi çok sevdiğimiz arkadaşlarımız vardır. Okulda onlarla birlikte olsak da okul bitince vedalaşırız.\n\nPeki her zaman ulaşabileceğimiz mesafede, istediğimizde vakit geçirebileceğimiz, bizi eğlendiren, hayaller kurduran o arkadaşlarımız nerededir? İşte onlar her zaman yanı başımızda kalırlar. Hatta biz uyurken bile!\n\nOnlar kim mi? Tabii ki kitaplar! Peki bu kitapların arkadaşları var mı dersin? Var tabii, üstelik hepsinin bir arada çook kalabalık hâlde bulunduğu bir yer de var. Hiç kütüphaneye gittin mi? Üst üste bir sürü raf, üzerlerinde yan yana dizilmiş kitaplar vardır.\n\nHerkes sana kitap okumak çok önemli diyor, öyle değil mi? Peki kitaplar neden bu kadar önemli? Bize aslında ne söylerler? Ben sana tane tane anlatayım: Çünkü kitaplar sayesinde çok şaşırır ve çok eğlenirsin. Çünkü kitaplarda hep heyecanlı şeyler olur. Pek çok sözcük öğrenirsin. Böylece konuşurken durup düşünmezsin. Daha kolay anlarsın. Başkalarının sana anlattıklarını hemen anlarsın. Çünkü kitaplar seni daha dikkatli biri yapar. Daha iyi hayal kurabilirsin. Çünkü kitaplarda hep ilginç olaylar olur. Bilgileri aklında tutabilirsin. Çünkü kitaplar hafızanı geliştirir. Çok şey öğrenirsin. Çünkü bazı kitaplar bilgi doludur.\n\nVe son bir şey: Kitaplar bazen uykunu kaçırır. Bazen de uykunu getirir. İkisi de iyidir. Uyumadan önce dinlediğin ya da okuduğun kitaplar rüyana girebilir. Böylece kitabın kahramanı sen olursun. Hımm, şimdi aklıma bir soru geldi. Peki sen uyurken okuduğun kitaba ne olur? O ne yapar? Bence başında durup uyanmanı bekler. Çünkü sana anlatacağı yeni maceralar vardır.\n\nBilge Minik dergisi\n(Kısaltılmıştır.)",
+    "grade": 3,
+    "subject": "turkce",
+    "topic": "okuma-anlama",
+    "quizThreshold": 60,
+    "showPassageDuringQuiz": true,
+    "image": "",
+    "questions": [
+      {
+        "id": "q3_kitaplar_1",
+        "grade": 3,
+        "subject": "turkce",
+        "topic": "okuma-anlama",
+        "text": "Yazar, kitapları arkadaşlara benzetirken onların hangi üstünlüğünü öne çıkarıyor?",
+        "options": [
+          "Bizimle oyun oynamaları",
+          "Her zaman yanı başımızda olmaları ve bizi bırakmamaları",
+          "Okul bitince eve gitmeleri",
+          "Sadece kütüphanede bulunmaları"
+        ],
+        "correctIndex": 1,
+        "explanation": "Metin, arkadaşlardan ayrılındığını ama kitapların “her zaman yanı başımızda” kaldığını söyler.",
+        "image": ""
+      },
+      {
+        "id": "q3_kitaplar_2",
+        "grade": 3,
+        "subject": "turkce",
+        "topic": "okuma-anlama",
+        "text": "Metinde kütüphanenin anılmasının nedeni nedir?",
+        "options": [
+          "Kütüphanelerin çok sessiz olması",
+          "Kütüphanede oyun oynanması",
+          "Kitapların kalabalık hâlde bir arada bulunduğu yer olması",
+          "Kütüphanelerin okuldan uzak olması"
+        ],
+        "correctIndex": 2,
+        "explanation": "Yazar, kitapların “arkadaşları”ndan söz edip hepsinin bir arada bulunduğu yer olarak kütüphaneyi gösterir.",
+        "image": ""
+      },
+      {
+        "id": "q3_kitaplar_3",
+        "grade": 3,
+        "subject": "turkce",
+        "topic": "okuma-anlama",
+        "text": "“Çünkü kitaplar seni daha dikkatli biri yapar.” cümlesinden sonra gelen örnek hangisidir?",
+        "options": [
+          "Daha çok sözcük öğrenmen",
+          "Daha iyi hayal kurman",
+          "Bilgileri aklında tutman",
+          "Başkalarının anlattıklarını hemen anlaman"
+        ],
+        "correctIndex": 3,
+        "explanation": "Metin dikkatliliği, “Başkalarının sana anlattıklarını hemen anlarsın.” örneğiyle açıklar.",
+        "image": ""
+      },
+      {
+        "id": "q3_kitaplar_4",
+        "grade": 3,
+        "subject": "turkce",
+        "topic": "okuma-anlama",
+        "text": "“Kitaplar bazen uykunu kaçırır. Bazen de uykunu getirir. İkisi de iyidir.” sözünden ne çıkarılabilir?",
+        "options": [
+          "Kitapların farklı zamanlarda farklı yararlar sağladığı",
+          "Uyumadan önce kitap okunmaması gerektiği",
+          "Yalnızca uykulu zamanlarda okunması gerektiği",
+          "Kitapların uykuyu bozduğu"
+        ],
+        "correctIndex": 0,
+        "explanation": "Yazar her iki durumu da yararlı bulur; birinde heyecan, diğerinde huzur verir. İkisi de iyidir.",
+        "image": ""
+      },
+      {
+        "id": "q3_kitaplar_5",
+        "grade": 3,
+        "subject": "turkce",
+        "topic": "okuma-anlama",
+        "text": "Yazarın “Peki sen uyurken okuduğun kitaba ne olur? O ne yapar?” diye sorması, metne nasıl bir hava katmıştır?",
+        "options": [
+          "Bilimsel bir açıklama kattığı için",
+          "Hayal gücünü işe koşan şakacı bir anlatım kattığı için",
+          "Metni daha kısa yaptığı için",
+          "Konuyu değiştirdiği için"
+        ],
+        "correctIndex": 1,
+        "explanation": "Yazar kitabı canlı biri gibi konuşturur, “başında durup bekler” der; bu, oyunlu ve hayalci bir anlatımdır.",
+        "image": ""
+      }
+    ]
+  }
+}
