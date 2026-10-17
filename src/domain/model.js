@@ -4,12 +4,48 @@ export const GRADES = [1, 2, 3, 4, 5, 6]
 
 export const gradeLabel = (g) => (GRADES.includes(Number(g)) ? `${Number(g)}. Sınıf` : '—')
 
-export const SUBJECTS = ['matematik', 'geometri', 'turkce']
+export const SUBJECTS = [
+  'matematik',
+  'geometri',
+  'turkce',
+  'hayat-bilgisi',
+  'fen-bilimleri',
+  'sosyal-bilgiler',
+  'din-kulturu',
+  'yabanci-dil',
+  'bilisim'
+]
 
 export const SUBJECT_LABELS = {
   matematik: 'Matematik',
   geometri: 'Geometri',
-  turkce: 'Türkçe'
+  turkce: 'Türkçe',
+  'hayat-bilgisi': 'Hayat Bilgisi',
+  'fen-bilimleri': 'Fen Bilimleri',
+  'sosyal-bilgiler': 'Sosyal Bilgiler',
+  'din-kulturu': 'Din Kültürü ve Ahlak Bilgisi',
+  'yabanci-dil': 'Yabancı Dil',
+  bilisim: 'Bilişim Teknolojileri ve Yazılım'
+}
+
+// MEB haftalık ders çizelgesine göre dersin okutulduğu sınıflar.
+export const SUBJECT_GRADES = {
+  turkce: GRADES,
+  matematik: GRADES,
+  geometri: GRADES,
+  'hayat-bilgisi': [1, 2, 3],
+  'fen-bilimleri': [3, 4, 5, 6],
+  'sosyal-bilgiler': [4, 5, 6],
+  'din-kulturu': [4, 5, 6],
+  'yabanci-dil': [2, 3, 4, 5, 6],
+  bilisim: [5, 6]
+}
+
+// Seçilen sınıfta okutulan dersler (sınıf bilinmiyorsa tüm dersler).
+export const subjectsForGrade = (grade) => {
+  const g = Number(grade)
+  if (!GRADES.includes(g)) return SUBJECTS
+  return SUBJECTS.filter((subject) => (SUBJECT_GRADES[subject] || GRADES).includes(g))
 }
 
 export const subjectLabel = (s) => SUBJECT_LABELS[s] || s
@@ -18,7 +54,13 @@ export const subjectLabel = (s) => SUBJECT_LABELS[s] || s
 export const SUBJECT_TOPICS = {
   matematik: ['toplama', 'çıkarma', 'çarpma', 'bölme', 'problemler', 'sayılar'],
   geometri: ['şekiller', 'simetri', 'uzunluk', 'alan', 'açılar', 'hacim'],
-  turkce: ['okuma-anlama', 'dil bilgisi', 'yazım kuralları', 'eş ve zıt anlam', 'noktalama', 'hece bilgisi']
+  turkce: ['okuma-anlama', 'dil bilgisi', 'yazım kuralları', 'eş ve zıt anlam', 'noktalama', 'hece bilgisi'],
+  'hayat-bilgisi': ['okul ve çevrem', 'aile ve toplum', 'doğa ve çevre', 'sağlıklı yaşam', 'güvenlik', 'ülkemiz'],
+  'fen-bilimleri': ['canlılar', 'madde ve doğası', 'kuvvet ve hareket', 'ışık ve ses', 'dünya ve evren', 'elektrik'],
+  'sosyal-bilgiler': ['birey ve toplum', 'kültür ve miras', 'insan ve çevre', 'bilim ve teknoloji', 'üretim ve tüketim'],
+  'din-kulturu': ['din ve ahlak', 'ibadetler', 'peygamberler', 'kutsal kitaplar', 'ahlaki değerler'],
+  'yabanci-dil': ['kelime bilgisi', 'dil bilgisi', 'okuma', 'dinleme', 'konuşma'],
+  bilisim: ['bilgisayar sistemleri', 'algoritma', 'blok kodlama', 'internet güvenliği', 'dijital ürün']
 }
 
 export const TOPIC_LABELS = {

@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react'
 import { useAuth } from '../../auth/AuthProvider.jsx'
 import { useStore, go } from '../../state/store.jsx'
-import { GRADES, SUBJECTS, gradeLabel, subjectLabel, topicLabel, uid, topicsForSubject } from '../../domain/model.js'
+import { GRADES, SUBJECTS, subjectsForGrade, gradeLabel, subjectLabel, topicLabel, uid, topicsForSubject } from '../../domain/model.js'
 import { GradeBadge, SubjectBadge } from '../components/Badges.jsx'
 import QuestionForm from '../components/QuestionForm.jsx'
 import QuestionImage from '../components/QuestionImage.jsx'
@@ -186,7 +186,7 @@ export default function BankScreen() {
           <label>Ders</label>
           <select value={subject} onChange={(e) => setSubject(e.target.value)}>
             <option value="">Tüm Dersler</option>
-            {SUBJECTS.map((s) => (
+            {(grade ? subjectsForGrade(grade) : SUBJECTS).map((s) => (
               <option key={s} value={s}>
                 {subjectLabel(s)}
               </option>

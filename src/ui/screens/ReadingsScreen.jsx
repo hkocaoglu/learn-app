@@ -8,7 +8,7 @@ import {
   fetchTeacherReadings,
   updateReading
 } from '../../cloud/readings.js'
-import { GRADES, SUBJECTS, gradeLabel, subjectLabel, formatDate, formatSeconds, validateReading, exportPassage, fileToImageData, displayModeLabel, normalizeSecondsPerWord, RSVP_DEFAULT_SECONDS_PER_WORD, RSVP_MAX_SECONDS_PER_WORD, RSVP_MIN_SECONDS_PER_WORD, RSVP_QUESTION_COUNT } from '../../domain/model.js'
+import { GRADES, SUBJECTS, subjectsForGrade, gradeLabel, subjectLabel, formatDate, formatSeconds, validateReading, exportPassage, fileToImageData, displayModeLabel, normalizeSecondsPerWord, RSVP_DEFAULT_SECONDS_PER_WORD, RSVP_MAX_SECONDS_PER_WORD, RSVP_MIN_SECONDS_PER_WORD, RSVP_QUESTION_COUNT } from '../../domain/model.js'
 import { buildRsvpPlan, describeRsvpPlan, formatSecondsPerWord, formatWordSpeed } from '../../domain/rsvp.js'
 import { downloadJSON } from '../../db/storage.js'
 import { createPassage, deletePassage, fetchTeacherPassages } from '../../cloud/passages.js'
@@ -555,7 +555,7 @@ export default function ReadingsScreen() {
                 value={form.subject}
                 onChange={(event) => setForm((current) => ({ ...current, subject: event.target.value }))}
               >
-                {SUBJECTS.map((s) => (
+                {subjectsForGrade(form.grade).map((s) => (
                   <option key={s} value={s}>
                     {subjectLabel(s)}
                   </option>

@@ -3,7 +3,7 @@
 import { buildSeed, exportBackup, importBackup } from '../src/db/storage.js'
 import { scoreAttempt, aggregateStudentTopics, aggregateStudentAll, attemptDurationStats } from '../src/domain/scoring.js'
 import { computeDeficiencies, buildRuleReport } from '../src/domain/report.js'
-import { normalizeTest, validateTest, validateQuestion, normalizeReading, validateReading, requiredDwellSeconds, readingWordCount, exportPassage, importPassage, importPassages, GRADES, DISPLAY_MODES, RSVP_QUESTION_COUNT, RSVP_DEFAULT_SECONDS_PER_WORD, RSVP_MIN_SECONDS_PER_WORD, RSVP_MAX_SECONDS_PER_WORD, normalizeSecondsPerWord } from '../src/domain/model.js'
+import { normalizeTest, validateTest, validateQuestion, normalizeReading, validateReading, requiredDwellSeconds, readingWordCount, exportPassage, importPassage, importPassages, GRADES, SUBJECTS, SUBJECT_TOPICS, subjectLabel, subjectsForGrade, DISPLAY_MODES, RSVP_QUESTION_COUNT, RSVP_DEFAULT_SECONDS_PER_WORD, RSVP_MIN_SECONDS_PER_WORD, RSVP_MAX_SECONDS_PER_WORD, normalizeSecondsPerWord } from '../src/domain/model.js'
 import { evaluateReadingGates } from '../src/domain/readingGates.js'
 import { parsePassageSource, collectPassageSources, summarizePassages } from '../src/domain/passageImport.js'
 import { buildRsvpPlan, splitWords, wordsPerMinute, estimateRsvpSeconds, rsvpWordIndexAt, rsvpFinished, formatSecondsPerWord } from '../src/domain/rsvp.js'
@@ -337,6 +337,48 @@ check('Türkçe karakterler öğrenci kodunda normalize ediliyor', normalizeStud
 check('Öğrenci kodu okul no ve baş harflerden oluşuyor', studentCodeBase('12', 'Ayşe', 'Çelik') === '12ac')
 check('Kısa öğrenci kodu destekleniyor', studentCodeBase('1', 'A', 'B') === '1ab')
 check('Öğrenci Auth e-postası deterministik', studentAuthEmail('12ac') === '12ac@students.sinif-test.local')
+
+console.log('\n5c) Müfredat dersleri (MEB)')
+check(
+  'Yeni dersler listede',
+  ['hayat-bilgisi', 'fen-bilimleri', 'sosyal-bilgiler', 'din-kulturu', 'yabanci-dil', 'bilisim'].every((s) => SUBJECTS.includes(s))
+)
+check(
+  'Ders etiketleri Türkçe',
+  subjectLabel('hayat-bilgisi') === 'Hayat Bilgisi' &&
+    subjectLabel('fen-bilimleri') === 'Fen Bilimleri' &&
+    subjectLabel('sosyal-bilgiler') === 'Sosyal Bilgiler' &&
+    subjectLabel('bilisim') === 'Bilişim Teknolojileri ve Yazılım'
+)
+check('Her dersin konu etiketleri var', SUBJECTS.every((s) => Array.isArray(SUBJECT_TOPICS[s]) && SUBJECT_TOPICS[s].length > 0))
+check('3. sınıf dersleri', (() => {
+  const list = subjectsForGrade(3)
+  return list.includes('hayat-bilgisi') && list.includes('fen-bilimleri') && list.includes('yabanci-dil') && !list.includes('sosyal-bilgiler') && !list.includes('bilisim')
+})())
+check('5. sınıf dersleri', (() => {
+  const list = subjectsForGrade(5)
+  return list.includes('fen-bilimleri') && list.includes('sosyal-bilgiler') && list.includes('din-kulturu') && list.includes('bilisim') && !list.includes('hayat-bilgisi')
+})())
+check('1. sınıf dersleri', (() => {
+  const list = subjectsForGrade(1)
+  return list.includes('hayat-bilgisi') && !list.includes('fen-bilimleri') && !list.includes('yabanci-dil')
+})())
+check('Sınıf bilinmiyorsa tüm dersler', subjectsForGrade(0).length === SUBJECTS.length && subjectsForGrade('x').length === SUBJECTS.length)
+check(
+  'Yeni ders doğrulamadan geçiyor',
+  validateQuestion({
+    text: 'Su kaç derecede donar?',
+    options: ['0', '10', '50', '100'],
+    correctIndex: 0,
+    grade: 5,
+    subject: 'fen-bilimleri',
+    topic: 'madde ve doğası'
+  }).length === 0
+)
+check(
+  'Geçersiz ders doğrulamada reddediliyor',
+  validateQuestion({ text: 'Soru?', options: ['a', 'b'], correctIndex: 0, grade: 5, subject: 'cografya', topic: 'konu' }).length > 0
+)
 
 console.log('\n6) AI sağlayıcıları')
 const openRouter = PROVIDERS.find((provider) => provider.id === 'openrouter')
