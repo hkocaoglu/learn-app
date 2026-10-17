@@ -6,7 +6,7 @@ import { computeDeficiencies, buildRuleReport } from '../src/domain/report.js'
 import { normalizeTest, validateTest, validateQuestion, normalizeReading, validateReading, requiredDwellSeconds, readingWordCount, exportPassage, importPassage, importPassages, GRADES, SUBJECTS, SUBJECT_TOPICS, subjectLabel, subjectsForGrade, DISPLAY_MODES, RSVP_QUESTION_COUNT, RSVP_DEFAULT_SECONDS_PER_WORD, RSVP_MIN_SECONDS_PER_WORD, RSVP_MAX_SECONDS_PER_WORD, normalizeSecondsPerWord } from '../src/domain/model.js'
 import { evaluateReadingGates } from '../src/domain/readingGates.js'
 import { parsePassageSource, collectPassageSources, summarizePassages } from '../src/domain/passageImport.js'
-import { buildTrackingMatrix } from '../src/domain/tracking.js'
+import { buildTrackingMatrix, summarizeStudents } from '../src/domain/tracking.js'
 import { buildRsvpPlan, splitWords, wordsPerMinute, estimateRsvpSeconds, rsvpWordIndexAt, rsvpFinished, formatSecondsPerWord } from '../src/domain/rsvp.js'
 import { createAIClient, OPENROUTER_DEFAULTS, PROVIDERS } from '../src/ai/client.js'
 import { normalizeStudentPart, studentCodeBase, studentAuthEmail } from '../src/domain/studentAuth.js'
@@ -601,6 +601,46 @@ check(
     buildTrackingMatrix({ students: [], items: [] }).rows.length === 0 &&
     buildTrackingMatrix({ students: trackStudents, items: [] }).rows[0].percent === 0
 )
+
+const compareRows = summarizeStudents({
+  students: [
+    { id: 's1', name: 'Ali', classId: 'c3', schoolNumber: '101' },
+    { id: 's2', name: 'Veli', classId: 'c5', schoolNumber: '501' }
+  ],
+  classes: [
+    { id: 'c3', name: '3-A', grade: 3 },
+    { id: 'c5', name: '5-A', grade: 5 }
+  ],
+  readings: [
+    { id: 'r1', classId: 'c3', title: 'A' },
+    { id: 'r2', classId: 'c5', title: 'B' },
+    { id: 'r3', classId: 'c5', title: 'C' }
+  ],
+  exams: [
+    { id: 'e1', classId: 'c3', title: 'T3' },
+    { id: 'e2', classId: 'c5', title: 'T5' }
+  ],
+  readingAttempts: [{ studentId: 's1', itemId: 'r1', read: true, scorePercent: 80 }],
+  examAttempts: [{ studentId: 's2', itemId: 'e2', scorePercent: 60 }],
+  transactions: [
+    { studentId: 's1', amount: 15 },
+    { studentId: 's1', amount: -5 }
+  ]
+})
+check('Karşılaştırma: sınıf ve sınıf düzeyi', compareRows[0].grade === 3 && compareRows[0].className === '3-A' && compareRows[1].grade === 5)
+check(
+  'Karşılaştırma: her öğrenci kendi sınıfının atamalarıyla ölçülür',
+  compareRows[0].readingTotal === 1 && compareRows[1].readingTotal === 2 && compareRows[1].examTotal === 1
+)
+check(
+  'Karşılaştırma: tamamlama sayıları',
+  compareRows[0].readingDone === 1 && compareRows[0].examDone === 0 && compareRows[1].examDone === 1 && compareRows[1].readingDone === 0
+)
+check(
+  'Karşılaştırma: test ortalaması ve puan bakiyesi',
+  compareRows[1].avgExamScore === 60 && compareRows[0].balance === 10 && compareRows[1].balance === 0
+)
+check('Karşılaştırma: boş girdi güvenli', summarizeStudents().length === 0 && summarizeStudents({ students: [] }).length === 0)
 
 console.log(failures === 0 ? '\nTÜM TESTLER GEÇTİ' : `\n${failures} TEST BAŞARISIZ`)
 process.exit(failures === 0 ? 0 : 1)

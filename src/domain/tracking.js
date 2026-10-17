@@ -107,3 +107,54 @@ export const buildTrackingMatrix = ({ students = [], items = [], attempts = [], 
     }
   }
 }
+
+// Farklı sınıflardan öğrencileri aynı sayfada karşılaştırmak için özet.
+// Her öğrencinin kendi sınıfındaki atamalara göre tamamlanması hesaplanır.
+export const summarizeStudents = ({
+  students = [],
+  classes = [],
+  readings = [],
+  exams = [],
+  readingAttempts = [],
+  examAttempts = [],
+  transactions = []
+} = {}) => {
+  const classesById = new Map(classes.map((item) => [item.id, item]))
+  const groupByClass = (items) => {
+    const map = new Map()
+    for (const item of items) {
+      const list = map.get(item.classId) || []
+      list.push(item)
+      map.set(item.classId, list)
+    }
+    return map
+  }
+  const readingsByClass = groupByClass(readings)
+  const examsByClass = groupByClass(exams)
+  const balanceByStudent = new Map()
+  for (const tx of transactions) {
+    balanceByStudent.set(tx.studentId, (balanceByStudent.get(tx.studentId) || 0) + (Number(tx.amount) || 0))
+  }
+
+  return students.map((student) => {
+    const classInfo = classesById.get(student.classId)
+    const readingItems = readingsByClass.get(student.classId) || []
+    const examItems = examsByClass.get(student.classId) || []
+    const myReadingAttempts = readingAttempts.filter((attempt) => attempt.studentId === student.id)
+    const myExamAttempts = examAttempts.filter((attempt) => attempt.studentId === student.id)
+    const readingMatrix = buildTrackingMatrix({ students: [student], items: readingItems, attempts: myReadingAttempts, kind: 'reading' })
+    const examMatrix = buildTrackingMatrix({ students: [student], items: examItems, attempts: myExamAttempts, kind: 'exam' })
+    const scores = myExamAttempts.map((attempt) => Number(attempt.scorePercent) || 0)
+    return {
+      student,
+      className: classInfo?.name || '',
+      grade: classInfo?.grade ?? student.grade ?? null,
+      readingDone: readingMatrix.rows[0]?.done ?? 0,
+      readingTotal: readingItems.length,
+      examDone: examMatrix.rows[0]?.done ?? 0,
+      examTotal: examItems.length,
+      avgExamScore: scores.length ? Math.round(scores.reduce((sum, value) => sum + value, 0) / scores.length) : 0,
+      balance: balanceByStudent.get(student.id) || 0
+    }
+  })
+}

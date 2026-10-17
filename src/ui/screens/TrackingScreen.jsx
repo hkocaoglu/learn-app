@@ -1,13 +1,14 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { fetchClasses } from '../../cloud/classes.js'
-import { fetchClassTracking } from '../../cloud/tracking.js'
-import { buildTrackingMatrix } from '../../domain/tracking.js'
+import { fetchClassTracking, fetchTrackingOverview } from '../../cloud/tracking.js'
+import { buildTrackingMatrix, summarizeStudents } from '../../domain/tracking.js'
 import { subjectLabel, gradeLabel, formatDate } from '../../domain/model.js'
 
 // Öğrenci × okuma/test matrisi: kim neyi yaptı, kim neyi yapmadı.
 const TABS = [
   { id: 'reading', label: '📖 Okumalar', emptyHint: 'Bu sınıfa atanmış okuma yok. "Okuma Ata" ekranından ekleyebilirsiniz.' },
-  { id: 'exam', label: '📝 Testler', emptyHint: 'Bu sınıfa atanmış test yok. "Test Atama" ekranından ekleyebilirsiniz.' }
+  { id: 'exam', label: '📝 Testler', emptyHint: 'Bu sınıfa atanmış test yok. "Test Atama" ekranından ekleyebilirsiniz.' },
+  { id: 'students', label: '👥 Karşılaştır', emptyHint: '' }
 ]
 
 const STATUS_META = {
@@ -25,6 +26,35 @@ export default function TrackingScreen() {
   const [data, setData] = useState(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
+  // Karşılaştırma sekmesi: tüm sınıfların özeti (farklı sınıflardan öğrenci seçilebilsin).
+  const [overview, setOverview] = useState(null)
+  const [overviewLoading, setOverviewLoading] = useState(false)
+  const [classFilter, setClassFilter] = useState('')
+  const [selectedIds, setSelectedIds] = useState([])
+
+  useEffect(() => {
+    if (tab !== 'students' || overview) return undefined
+    let active = true
+    setOverviewLoading(true)
+    fetchTrackingOverview()
+      .then((result) => {
+        if (active) setOverview(result)
+      })
+      .catch((caughtError) => {
+        if (active) setError(caughtError.message)
+      })
+      .finally(() => {
+        if (active) setOverviewLoading(false)
+      })
+    return () => {
+      active = false
+    }
+  }, [tab, overview])
+
+  const toggleStudent = (id) =>
+    setSelectedIds((current) =>
+      current.includes(id) ? current.filter((value) => value !== id) : current.length >= 6 ? current : [...current, id]
+    )
 
   const load = useCallback(async (targetClassId) => {
     setLoading(true)
@@ -114,7 +144,7 @@ export default function TrackingScreen() {
           </div>
         </div>
 
-        {!loading && data && (
+        {tab !== 'students' && !loading && data && (
           <div className="row-actions mt-16" style={{ gap: 8, flexWrap: 'wrap' }}>
             <span className="badge badge-primary">
               Tamamlanma %{matrix.totals.percent} ({matrix.totals.done}/{matrix.totals.cells})
@@ -126,7 +156,17 @@ export default function TrackingScreen() {
         )}
       </div>
 
-      {loading ? (
+      {tab === 'students' ? (
+        <ComparisonPanel
+          overview={overview}
+          loading={overviewLoading}
+          error={error}
+          classFilter={classFilter}
+          onClassFilter={setClassFilter}
+          selectedIds={selectedIds}
+          onToggle={toggleStudent}
+        />
+      ) : loading ? (
         <div className="card empty">Takip verisi yükleniyor…</div>
       ) : !data || matrix.totals.students === 0 ? (
         <div className="card empty">Bu sınıfta aktif öğrenci yok.</div>
@@ -224,5 +264,106 @@ export default function TrackingScreen() {
         </>
       )}
     </div>
+  )
+}
+
+// Farklı sınıflardan öğrencileri yan yana karşılaştırma paneli.
+function ComparisonPanel({ overview, loading, error, classFilter, onClassFilter, selectedIds, onToggle }) {
+  const summaries = useMemo(() => (overview ? summarizeStudents(overview) : []), [overview])
+  if (loading) return <div className="card empty">Tüm sınıfların özeti yükleniyor…</div>
+  if (error) return <div className="alert alert-error">{error}</div>
+  if (!overview) return null
+
+  const classes = overview.classes || []
+  const visible = summaries.filter((item) => !classFilter || item.student.classId === classFilter)
+  const selected = selectedIds
+    .map((id) => summaries.find((item) => item.student.id === id))
+    .filter(Boolean)
+
+  const metrics = [
+    { label: 'Okuma tamamlama', value: (item) => `${item.readingDone}/${item.readingTotal}` },
+    { label: 'Test çözme', value: (item) => `${item.examDone}/${item.examTotal}` },
+    { label: 'Test ortalaması', value: (item) => (item.examTotal ? `%${item.avgExamScore}` : '—') },
+    { label: 'Puan bakiyesi', value: (item) => `⭐ ${item.balance}` },
+    { label: 'Okul no', value: (item) => item.student.schoolNumber || '—' }
+  ]
+
+  return (
+    <>
+      <div className="card">
+        <div className="inline-form">
+          <div>
+            <label htmlFor="compare-class">Sınıf</label>
+            <select id="compare-class" value={classFilter} onChange={(event) => onClassFilter(event.target.value)}>
+              <option value="">Tüm sınıflar</option>
+              {classes.map((item) => (
+                <option key={item.id} value={item.id}>
+                  {item.name} — {gradeLabel(item.grade)}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div className="small muted" style={{ alignSelf: 'end', paddingBottom: 8 }}>
+            En fazla 6 öğrenci seçebilirsin ({selectedIds.length}/6) — farklı sınıflar birlikte seçilebilir.
+          </div>
+        </div>
+        <div className="tracking-picker mt-16">
+          {visible.length === 0 ? (
+            <p className="small muted">Bu filtrede öğrenci yok.</p>
+          ) : (
+            visible.map((item) => {
+              const checked = selectedIds.includes(item.student.id)
+              return (
+                <label key={item.student.id} className={`tracking-pick ${checked ? 'is-selected' : ''}`}>
+                  <input type="checkbox" checked={checked} onChange={() => onToggle(item.student.id)} />
+                  <span className="tracking-pick-name">{item.student.name}</span>
+                  <span className="small muted">
+                    {gradeLabel(item.grade)} · {item.className}
+                  </span>
+                </label>
+              )
+            })
+          )}
+        </div>
+      </div>
+
+      {selected.length === 0 ? (
+        <div className="card empty">
+          Yukarıdan öğrenci seçin — örneğin bir 3. sınıf ve bir 5. sınıf öğrencisini birlikte seçip yan yana görebilirsiniz.
+        </div>
+      ) : (
+        <div className="tracking-wrap">
+          <table className="tracking-table">
+            <thead>
+              <tr>
+                <th className="tracking-sticky">Ölçüt</th>
+                {selected.map((item) => (
+                  <th key={item.student.id}>
+                    <span className="tracking-col-title">{item.student.name}</span>
+                    <span className="tracking-col-sub">
+                      {gradeLabel(item.grade)} · {item.className}
+                    </span>
+                  </th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {metrics.map((metric) => (
+                <tr key={metric.label}>
+                  <td className="tracking-sticky">
+                    <strong>{metric.label}</strong>
+                  </td>
+                  {selected.map((item) => (
+                    <td key={item.student.id} className="track-cell" style={{ fontSize: '0.9rem', fontWeight: 600 }}>
+                      {metric.value(item)}
+                    </td>
+                  ))}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
+    </>
   )
 }

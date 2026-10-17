@@ -105,3 +105,56 @@ export const fetchClassTracking = async (classId) => {
     }))
   }
 }
+
+// Tüm sınıfların özeti (öğrenci karşılaştırma ekranı): RLS öğretmenin kendi verisiyle sınırlar.
+export const fetchTrackingOverview = async () => {
+  const client = requireSupabase()
+  const [studentResult, classResult, readingResult, assignmentResult, readingAttemptResult, attemptResult, txResult] =
+    await Promise.all([
+      client.from('students').select('id, first_name, last_name, school_number, class_id, status').eq('status', 'active').order('school_number'),
+      client.from('classes').select('id, name, grade').order('grade'),
+      client.from('reading_assignments').select('id, class_id, title, published'),
+      client.from('assignments').select('id, class_id, test_id, published'),
+      client.from('reading_attempts').select('reading_assignment_id, student_id, read, score_percent'),
+      client.from('attempts').select('assignment_id, student_id, score_percent'),
+      client.from('point_transactions').select('student_id, amount').limit(5000)
+    ])
+
+  for (const [label, result] of [
+    ['Öğrenciler', studentResult],
+    ['Sınıflar', classResult],
+    ['Okumalar', readingResult],
+    ['Test atamaları', assignmentResult],
+    ['Okuma sonuçları', readingAttemptResult],
+    ['Test sonuçları', attemptResult],
+    ['Puan hareketleri', txResult]
+  ]) {
+    if (result.error) throw new Error(`${label} yüklenemedi: ${result.error.message}`)
+  }
+
+  const students = (studentResult.data || []).map((row) => ({
+    id: row.id,
+    name: `${row.first_name} ${row.last_name}`.trim(),
+    schoolNumber: row.school_number,
+    classId: row.class_id
+  }))
+
+  return {
+    students,
+    classes: (classResult.data || []).map((row) => ({ id: row.id, name: row.name, grade: Number(row.grade) })),
+    readings: (readingResult.data || []).map((row) => ({ id: row.id, classId: row.class_id, title: row.title, published: Boolean(row.published) })),
+    exams: (assignmentResult.data || []).map((row) => ({ id: row.id, classId: row.class_id, title: 'Test', published: Boolean(row.published) })),
+    readingAttempts: (readingAttemptResult.data || []).map((row) => ({
+      itemId: row.reading_assignment_id,
+      studentId: row.student_id,
+      read: Boolean(row.read),
+      scorePercent: Number(row.score_percent ?? 0)
+    })),
+    examAttempts: (attemptResult.data || []).map((row) => ({
+      itemId: row.assignment_id,
+      studentId: row.student_id,
+      scorePercent: Number(row.score_percent ?? 0)
+    })),
+    transactions: (txResult.data || []).map((row) => ({ studentId: row.student_id, amount: Number(row.amount ?? 0) }))
+  }
+}
