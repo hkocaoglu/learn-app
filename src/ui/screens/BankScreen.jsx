@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react'
 import { useAuth } from '../../auth/AuthProvider.jsx'
 import { useStore, go } from '../../state/store.jsx'
-import { GRADES, SUBJECTS, subjectsForGrade, gradeLabel, subjectLabel, topicLabel, uid, topicsForSubject } from '../../domain/model.js'
+import { GRADES, SUBJECTS, subjectsForGrade, gradeLabel, subjectLabel, topicLabel, uid, topicsForSubject, isValidSubject } from '../../domain/model.js'
 import { GradeBadge, SubjectBadge } from '../components/Badges.jsx'
 import QuestionForm from '../components/QuestionForm.jsx'
 import QuestionImage from '../components/QuestionImage.jsx'
@@ -112,7 +112,7 @@ export default function BankScreen() {
       arr.forEach((q, i) => {
         if (!q || !q.text || !Array.isArray(q.options) || q.options.length < 2) return
         const gi = GRADES.includes(Number(q.grade)) ? Number(q.grade) : fixedGrade
-        const si = ['matematik', 'geometri', 'turkce'].includes(q.subject) ? q.subject : fixedSubject
+        const si = isValidSubject(q.subject) ? q.subject : fixedSubject
         questions.push({
           id: uid('q'),
           grade: gi,

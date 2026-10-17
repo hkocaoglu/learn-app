@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react'
 import { useStore, go } from '../../state/store.jsx'
-import { subjectLabel, formatDate, gradeLabel, formatSeconds } from '../../domain/model.js'
+import { SUBJECTS, subjectLabel, formatDate, gradeLabel, formatSeconds } from '../../domain/model.js'
 import { ScoreBar } from '../components/ScoreBar.jsx'
 import ReviewQuestion from '../components/ReviewQuestion.jsx'
 import ReviewSummary from '../components/ReviewSummary.jsx'
@@ -67,7 +67,7 @@ export default function ResultsScreen({ attemptId: routeAttemptId }) {
           <label>Ders Filtresi</label>
           <select value={subjectFilter} onChange={(e) => setSubjectFilter(e.target.value)}>
             <option value="">Tüm Dersler</option>
-            {['matematik', 'geometri', 'turkce'].map((s) => (
+            {SUBJECTS.map((s) => (
               <option key={s} value={s}>
                 {subjectLabel(s)}
               </option>
